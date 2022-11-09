@@ -1,4 +1,4 @@
-package com.main007.ygy.station;
+package codestates.main007.station;
 
 import org.springframework.stereotype.Controller;
 

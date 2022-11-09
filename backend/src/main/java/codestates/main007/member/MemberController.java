@@ -1,4 +1,4 @@
-package com.main007.ygy.member;
+package codestates.main007.member;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
