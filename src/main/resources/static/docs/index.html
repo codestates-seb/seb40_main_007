@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<title>역이요</title>
+<title>🚂역이요</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,29 +438,53 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>역이요</h1>
+<h1>🚂역이요</h1>
 <div class="details">
 <span id="revnumber">version 0.0.1-SNAPSHOT</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_membercontroller">1. MemberController</a>
+<li><a href="#_maincontroller">1. MainController</a>
 <ul class="sectlevel2">
-<li><a href="#_마이_페이지_게시글">1.1. 마이 페이지 (게시글)</a></li>
-<li><a href="#_마이_페이지_게시글_기차역_별로_정렬">1.2. 마이 페이지 (게시글 - 기차역 별로 정렬)</a></li>
-<li><a href="#_마이_페이지_댓글">1.3. 마이 페이지 (댓글)</a></li>
-<li><a href="#_마이_페이지_지도">1.4. 마이 페이지 (지도)</a></li>
-<li><a href="#_내_정보_조회">1.5. 내 정보 조회</a></li>
-<li><a href="#_내_정보_수정">1.6. 내 정보 수정</a></li>
+<li><a href="#_전체_게시글_조회">1.1. 전체 게시글 조회</a></li>
+<li><a href="#_전체_게시글_조회_추천순">1.2. 전체 게시글 조회 (추천순)</a></li>
+<li><a href="#_전체_게시글_조회_최신순">1.3. 전체 게시글 조회 (최신순)</a></li>
+<li><a href="#_전체_게시글_조회_거리순">1.4. 전체 게시글 조회 (거리순)</a></li>
+<li><a href="#_전체_게시글_조회_태그_검색">1.5. 전체 게시글 조회 (태그 검색)</a></li>
 </ul>
 </li>
-<li><a href="#_logincontroller">2. LoginController</a>
+<li><a href="#_boardcontroller">2. BoardController</a>
 <ul class="sectlevel2">
-<li><a href="#_로그인">2.1. 로그인</a></li>
-<li><a href="#_회원가입">2.2. 회원가입</a></li>
-<li><a href="#_비밀번호_확인">2.3. 비밀번호 확인</a></li>
-<li><a href="#_비밀번호_찾기">2.4. 비밀번호 찾기</a></li>
+<li><a href="#_게시물_생성">2.1. 게시물 생성</a></li>
+<li><a href="#_게시물_조회">2.2. 게시물 조회</a></li>
+<li><a href="#_게시물_목록_조회">2.3. 게시물 목록 조회</a></li>
+<li><a href="#_게시물_삭제">2.4. 게시물 삭제</a></li>
+</ul>
+</li>
+<li><a href="#_commentcontroller">3. CommentController</a>
+<ul class="sectlevel2">
+<li><a href="#_댓글_등록">3.1. 댓글 등록</a></li>
+<li><a href="#_댓글_수정">3.2. 댓글 수정</a></li>
+<li><a href="#_댓글_삭제">3.3. 댓글 삭제</a></li>
+</ul>
+</li>
+<li><a href="#_membercontroller">4. MemberController</a>
+<ul class="sectlevel2">
+<li><a href="#_마이_페이지_게시글">4.1. 마이 페이지 (게시글)</a></li>
+<li><a href="#_마이_페이지_기차역_정렬">4.2. 마이 페이지 (기차역 정렬)</a></li>
+<li><a href="#_마이_페이지_댓글">4.3. 마이 페이지 (댓글)</a></li>
+<li><a href="#_마이_페이지_지도">4.4. 마이 페이지 (지도)</a></li>
+<li><a href="#_내_정보_조회">4.5. 내 정보 조회</a></li>
+<li><a href="#_내_정보_수정">4.6. 내 정보 수정</a></li>
+</ul>
+</li>
+<li><a href="#_logincontroller">5. LoginController</a>
+<ul class="sectlevel2">
+<li><a href="#_로그인">5.1. 로그인</a></li>
+<li><a href="#_회원가입">5.2. 회원가입</a></li>
+<li><a href="#_비밀번호_확인">5.3. 비밀번호 확인</a></li>
+<li><a href="#_비밀번호_찾기">5.4. 비밀번호 찾기</a></li>
 </ul>
 </li>
 </ul>
@@ -473,20 +497,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>codestates_seb40_main007</p>
 </div>
 <div class="paragraph">
+<p>강병재, 안유진, 이제훈, 정희찬, 정회승, 조성웅</p>
+</div>
+<div class="paragraph">
 <p>v1.0.0, 2022.11.10</p>
 </div>
 <hr>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_membercontroller">1. MemberController</h2>
+<h2 id="_maincontroller">1. MainController</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_마이_페이지_게시글">1.1. 마이 페이지 (게시글)</h3>
+<h3 id="_전체_게시글_조회">1.1. 전체 게시글 조회</h3>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1/myPages' -i -X GET \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/1/1' -i -X GET \
     -H 'Authorization: accessToken' \
     -H 'Accept: application/json'</code></pre>
 </div>
@@ -494,45 +521,87 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /members/1/myPages HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /1/1 HTTP/1.1
 Authorization: accessToken
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">http-response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 371
+
+{
+  "items" : [ {
+    "boardId" : 1,
+    "title" : "title",
+    "review" : "review",
+    "star" : 4.5,
+    "thumbNail" : "s3.thumbnail.com",
+    "timeFromStation" : 5,
+    "dibs" : true,
+    "tags" : [ {
+      "tag" : {
+        "id" : 1,
+        "tagString" : "한식"
+      }
+    } ],
+    "latitude" : 100.1010101,
+    "longitude" : 100.1010101
+  } ]
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">httpie-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ http GET 'http://localhost:8080/1/1' \
+    'Authorization:accessToken' \
+    'Accept:application/json'</code></pre>
+</div>
+</div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. /members/{memberId}/myPages</caption>
+<caption class="title">Table 1. request-headers</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Name</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>memberId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">멤버 식별자 ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사용자 인증 정보</p></td>
 </tr>
 </tbody>
 </table>
 <div class="listingblock">
-<div class="title">http-response</div>
+<div class="title">response-body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json
-Content-Length: 146
-
-{
+<pre class="prettyprint highlight nowrap"><code>{
   "items" : [ {
     "boardId" : 1,
     "title" : "title",
-    "content" : "content",
-    "star" : 1.0,
-    "timeFromStation" : 5
+    "review" : "review",
+    "star" : 4.5,
+    "thumbNail" : "s3.thumbnail.com",
+    "timeFromStation" : 5,
+    "dibs" : true,
+    "tags" : [ {
+      "tag" : {
+        "id" : 1,
+        "tagString" : "한식"
+      }
+    } ],
+    "latitude" : 100.1010101,
+    "longitude" : 100.1010101
   } ]
 }</code></pre>
 </div>
@@ -565,12 +634,12 @@ Content-Length: 146
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].title</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 내용</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 제목</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].review</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 내용</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 리뷰 내용</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].star</code></p></td>
@@ -578,19 +647,54 @@ Content-Length: 146
 <td class="tableblock halign-left valign-top"><p class="tableblock">게시글 별점 정보</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].dibs</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 찜 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].tags</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">태그 리스트</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].tags[].tag.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 태그 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].tags[].tag.tagString</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 태그이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].thumbNail</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">thumbnail 이미지 Url</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].timeFromStation</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">역에서 부터 거리(분)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].latitude</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">위도</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].longitude</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">경도</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_마이_페이지_게시글_기차역_별로_정렬">1.2. 마이 페이지 (게시글 - 기차역 별로 정렬)</h3>
+<h3 id="_전체_게시글_조회_추천순">1.2. 전체 게시글 조회 (추천순)</h3>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1/myPage?stationId=1' -i -X GET \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/1/1/score' -i -X GET \
     -H 'Authorization: accessToken' \
     -H 'Accept: application/json'</code></pre>
 </div>
@@ -598,45 +702,87 @@ Content-Length: 146
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /members/1/myPage?stationId=1 HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /1/1/score HTTP/1.1
 Authorization: accessToken
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">http-response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 371
+
+{
+  "items" : [ {
+    "boardId" : 1,
+    "title" : "title",
+    "review" : "review",
+    "star" : 4.5,
+    "thumbNail" : "s3.thumbnail.com",
+    "timeFromStation" : 5,
+    "dibs" : true,
+    "tags" : [ {
+      "tag" : {
+        "id" : 1,
+        "tagString" : "한식"
+      }
+    } ],
+    "latitude" : 100.1010101,
+    "longitude" : 100.1010101
+  } ]
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">httpie-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ http GET 'http://localhost:8080/1/1/score' \
+    'Authorization:accessToken' \
+    'Accept:application/json'</code></pre>
+</div>
+</div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. /members/{memberId}/myPage</caption>
+<caption class="title">Table 3. request-headers</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Name</th>
 <th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>memberId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">멤버 식별자 ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사용자 인증 정보</p></td>
 </tr>
 </tbody>
 </table>
 <div class="listingblock">
-<div class="title">http-response</div>
+<div class="title">response-body</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json
-Content-Length: 146
-
-{
+<pre class="prettyprint highlight nowrap"><code>{
   "items" : [ {
     "boardId" : 1,
     "title" : "title",
-    "content" : "content",
-    "star" : 1.0,
-    "timeFromStation" : 5
+    "review" : "review",
+    "star" : 4.5,
+    "thumbNail" : "s3.thumbnail.com",
+    "timeFromStation" : 5,
+    "dibs" : true,
+    "tags" : [ {
+      "tag" : {
+        "id" : 1,
+        "tagString" : "한식"
+      }
+    } ],
+    "latitude" : 100.1010101,
+    "longitude" : 100.1010101
   } ]
 }</code></pre>
 </div>
@@ -669,12 +815,1577 @@ Content-Length: 146
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].title</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].review</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 리뷰 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].star</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 별점 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].dibs</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 찜 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].tags</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">태그 리스트</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].tags[].tag.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 태그 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].tags[].tag.tagString</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 태그이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].thumbNail</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">thumbnail 이미지 Url</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].timeFromStation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">역에서 부터 거리(분)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].latitude</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">위도</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].longitude</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">경도</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_전체_게시글_조회_최신순">1.3. 전체 게시글 조회 (최신순)</h3>
+<div class="listingblock">
+<div class="title">curl-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/1/1/date' -i -X GET \
+    -H 'Authorization: accessToken' \
+    -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /1/1/date HTTP/1.1
+Authorization: accessToken
+Accept: application/json
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 371
+
+{
+  "items" : [ {
+    "boardId" : 1,
+    "title" : "title",
+    "review" : "review",
+    "star" : 4.5,
+    "thumbNail" : "s3.thumbnail.com",
+    "timeFromStation" : 5,
+    "dibs" : true,
+    "tags" : [ {
+      "tag" : {
+        "id" : 1,
+        "tagString" : "한식"
+      }
+    } ],
+    "latitude" : 100.1010101,
+    "longitude" : 100.1010101
+  } ]
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">httpie-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ http GET 'http://localhost:8080/1/1/date' \
+    'Authorization:accessToken' \
+    'Accept:application/json'</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. request-headers</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사용자 인증 정보</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">response-body</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code>{
+  "items" : [ {
+    "boardId" : 1,
+    "title" : "title",
+    "review" : "review",
+    "star" : 4.5,
+    "thumbNail" : "s3.thumbnail.com",
+    "timeFromStation" : 5,
+    "dibs" : true,
+    "tags" : [ {
+      "tag" : {
+        "id" : 1,
+        "tagString" : "한식"
+      }
+    } ],
+    "latitude" : 100.1010101,
+    "longitude" : 100.1010101
+  } ]
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 6. response-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 리스트</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].boardId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 식별자 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].review</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 리뷰 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].star</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 별점 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].dibs</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 찜 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].tags</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">태그 리스트</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].tags[].tag.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 태그 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].tags[].tag.tagString</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 태그이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].thumbNail</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">thumbnail 이미지 Url</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].timeFromStation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">역에서 부터 거리(분)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].latitude</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">위도</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].longitude</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">경도</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_전체_게시글_조회_거리순">1.4. 전체 게시글 조회 (거리순)</h3>
+<div class="listingblock">
+<div class="title">curl-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/1/1/distance' -i -X GET \
+    -H 'Authorization: accessToken' \
+    -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /1/1/distance HTTP/1.1
+Authorization: accessToken
+Accept: application/json
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 371
+
+{
+  "items" : [ {
+    "boardId" : 1,
+    "title" : "title",
+    "review" : "review",
+    "star" : 4.5,
+    "thumbNail" : "s3.thumbnail.com",
+    "timeFromStation" : 5,
+    "dibs" : true,
+    "tags" : [ {
+      "tag" : {
+        "id" : 1,
+        "tagString" : "한식"
+      }
+    } ],
+    "latitude" : 100.1010101,
+    "longitude" : 100.1010101
+  } ]
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">httpie-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ http GET 'http://localhost:8080/1/1/distance' \
+    'Authorization:accessToken' \
+    'Accept:application/json'</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 7. request-headers</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사용자 인증 정보</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">response-body</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code>{
+  "items" : [ {
+    "boardId" : 1,
+    "title" : "title",
+    "review" : "review",
+    "star" : 4.5,
+    "thumbNail" : "s3.thumbnail.com",
+    "timeFromStation" : 5,
+    "dibs" : true,
+    "tags" : [ {
+      "tag" : {
+        "id" : 1,
+        "tagString" : "한식"
+      }
+    } ],
+    "latitude" : 100.1010101,
+    "longitude" : 100.1010101
+  } ]
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 8. response-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 리스트</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].boardId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 식별자 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].review</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 리뷰 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].star</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 별점 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].dibs</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 찜 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].tags</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">태그 리스트</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].tags[].tag.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 태그 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].tags[].tag.tagString</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 태그이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].thumbNail</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">thumbnail 이미지 Url</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].timeFromStation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">역에서 부터 거리(분)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].latitude</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">위도</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].longitude</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">경도</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_전체_게시글_조회_태그_검색">1.5. 전체 게시글 조회 (태그 검색)</h3>
+<div class="listingblock">
+<div class="title">curl-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/1/1/search?tag=1&amp;tag=2&amp;tag=3' -i -X GET \
+    -H 'Authorization: accessToken' \
+    -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /1/1/search?tag=1&amp;tag=2&amp;tag=3 HTTP/1.1
+Authorization: accessToken
+Accept: application/json
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 558
+
+{
+  "items" : [ {
+    "boardId" : 1,
+    "title" : "title",
+    "review" : "review",
+    "star" : 4.5,
+    "thumbNail" : "s3.thumbnail.com",
+    "timeFromStation" : 5,
+    "dibs" : true,
+    "tags" : [ {
+      "tag" : {
+        "id" : 1,
+        "tagString" : "한식"
+      }
+    }, {
+      "tag" : {
+        "id" : 2,
+        "tagString" : "맛집"
+      }
+    }, {
+      "tag" : {
+        "id" : 3,
+        "tagString" : "아늑한 분위기"
+      }
+    } ],
+    "latitude" : 100.1010101,
+    "longitude" : 100.1010101
+  } ]
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">httpie-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ http GET 'http://localhost:8080/1/1/search?tag=1&amp;tag=2&amp;tag=3' \
+    'Authorization:accessToken' \
+    'Accept:application/json'</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 9. request-headers</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사용자 인증 정보</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">response-body</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code>{
+  "items" : [ {
+    "boardId" : 1,
+    "title" : "title",
+    "review" : "review",
+    "star" : 4.5,
+    "thumbNail" : "s3.thumbnail.com",
+    "timeFromStation" : 5,
+    "dibs" : true,
+    "tags" : [ {
+      "tag" : {
+        "id" : 1,
+        "tagString" : "한식"
+      }
+    }, {
+      "tag" : {
+        "id" : 2,
+        "tagString" : "맛집"
+      }
+    }, {
+      "tag" : {
+        "id" : 3,
+        "tagString" : "아늑한 분위기"
+      }
+    } ],
+    "latitude" : 100.1010101,
+    "longitude" : 100.1010101
+  } ]
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 10. response-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 리스트</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].boardId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 식별자 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].review</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 리뷰 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].star</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 별점 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].dibs</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 찜 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].tags</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">태그 리스트</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].tags[].tag.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 태그 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].tags[].tag.tagString</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 태그이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].thumbNail</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">thumbnail 이미지 Url</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].timeFromStation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">역에서 부터 거리(분)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].latitude</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">위도</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].longitude</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">경도</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_boardcontroller">2. BoardController</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_게시물_생성">2.1. 게시물 생성</h3>
+<div class="listingblock">
+<div class="title">curl-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/boards' -i -X POST \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Authorization: token' \
+    -H 'Accept: application/json' \
+    -d '{
+  "title" : "title",
+  "review" : "review",
+  "star" : 5.0,
+  "thumbNail" : "썸네일",
+  "latitude" : 1231.12312,
+  "longitude" : 1231.1521,
+  "station" : "서울역",
+  "category" : "맛집",
+  "tags" : [ {
+    "tag" : {
+      "id" : 1,
+      "tagString" : "한식"
+    }
+  } ],
+  "address" : "서울로 152"
+}'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">POST /boards HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: token
+Accept: application/json
+Content-Length: 331
+Host: localhost:8080
+
+{
+  "title" : "title",
+  "review" : "review",
+  "star" : 5.0,
+  "thumbNail" : "썸네일",
+  "latitude" : 1231.12312,
+  "longitude" : 1231.1521,
+  "station" : "서울역",
+  "category" : "맛집",
+  "tags" : [ {
+    "tag" : {
+      "id" : 1,
+      "tagString" : "한식"
+    }
+  } ],
+  "address" : "서울로 152"
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
+Content-Type: application/json
+Content-Length: 220
+
+{
+  "boardId" : 1,
+  "title" : "title",
+  "review" : "review",
+  "star" : 5.0,
+  "thumbNail" : "썸네일",
+  "timeFromStation" : "역 5분 거리",
+  "dibs" : true,
+  "createdAt" : "2022-11-11T01:40:42.48036"
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">httpie-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ echo '{
+  "title" : "title",
+  "review" : "review",
+  "star" : 5.0,
+  "thumbNail" : "썸네일",
+  "latitude" : 1231.12312,
+  "longitude" : 1231.1521,
+  "station" : "서울역",
+  "category" : "맛집",
+  "tags" : [ {
+    "tag" : {
+      "id" : 1,
+      "tagString" : "한식"
+    }
+  } ],
+  "address" : "서울로 152"
+}' | http POST 'http://localhost:8080/boards' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Authorization:token' \
+    'Accept:application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">request-body</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code>{
+  "title" : "title",
+  "review" : "review",
+  "star" : 5.0,
+  "thumbNail" : "썸네일",
+  "latitude" : 1231.12312,
+  "longitude" : 1231.1521,
+  "station" : "서울역",
+  "category" : "맛집",
+  "tags" : [ {
+    "tag" : {
+      "id" : 1,
+      "tagString" : "한식"
+    }
+  } ],
+  "address" : "서울로 152"
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 11. request-headers</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사용자 인증 정보</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">response-body</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code>{
+  "boardId" : 1,
+  "title" : "title",
+  "review" : "review",
+  "star" : 5.0,
+  "thumbNail" : "썸네일",
+  "timeFromStation" : "역 5분 거리",
+  "dibs" : true,
+  "createdAt" : "2022-11-11T01:40:42.48036"
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 12. response-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>boardId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 식별자 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 내용</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>review</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>star</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 별점 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>thumbNail</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 썸네일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>timeFromStation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">역에서 부터 거리(분)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dibs</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 찜 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>createdAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 생성 시간</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_게시물_조회">2.2. 게시물 조회</h3>
+<div class="listingblock">
+<div class="title">curl-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/boards/1?stationId=1' -i -X GET \
+    -H 'Authorization: accessToken' \
+    -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /boards/1?stationId=1 HTTP/1.1
+Authorization: accessToken
+Accept: application/json
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 498
+
+{
+  "boardId" : 0,
+  "title" : "title",
+  "review" : "review",
+  "star" : 5.0,
+  "thumbNail" : "썸네일",
+  "station" : "서울역",
+  "category" : "맛집",
+  "tags" : [ {
+    "tag" : {
+      "id" : 1,
+      "tagString" : "한식"
+    }
+  }, {
+    "tag" : {
+      "id" : 2,
+      "tagString" : "따뜻한 분위기"
+    }
+  } ],
+  "address" : "서울역길 152",
+  "timeFromStation" : "5분정도걸리나",
+  "dibs" : true,
+  "createdAt" : "2022-11-11T01:40:42.3173572"
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">httpie-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ http GET 'http://localhost:8080/boards/1?stationId=1' \
+    'Authorization:accessToken' \
+    'Accept:application/json'</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 13. /boards/{board-Id}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>board-Id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">멤버 식별자 ID</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 14. request-headers</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사용자 인증 정보</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">response-body</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code>{
+  "boardId" : 0,
+  "title" : "title",
+  "review" : "review",
+  "star" : 5.0,
+  "thumbNail" : "썸네일",
+  "station" : "서울역",
+  "category" : "맛집",
+  "tags" : [ {
+    "tag" : {
+      "id" : 1,
+      "tagString" : "한식"
+    }
+  }, {
+    "tag" : {
+      "id" : 2,
+      "tagString" : "따뜻한 분위기"
+    }
+  } ],
+  "address" : "서울역길 152",
+  "timeFromStation" : "5분정도걸리나",
+  "dibs" : true,
+  "createdAt" : "2022-11-11T01:40:42.3173572"
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 15. response-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>review</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>star</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 별점 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>thumbNail</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 썸네일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>station</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">근처 기차역</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>category</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 카테고리</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tags</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 태그들</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tags[].tag.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 태그 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tags[].tag.tagString</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 태그이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>address</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">도로명주소</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>timeFromStation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">역에서 부터 거리(분)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dibs</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 찜 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>createdAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 생성시간</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_게시물_목록_조회">2.3. 게시물 목록 조회</h3>
+<div class="listingblock">
+<div class="title">curl-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/boards' -i -X GET \
+    -H 'Authorization: accessToken' \
+    -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /boards HTTP/1.1
+Authorization: accessToken
+Accept: application/json
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 506
+
+{
+  "data" : [ {
+    "boardId" : 1,
+    "title" : "title",
+    "review" : "review",
+    "star" : 5.0,
+    "thumbNail" : "썸네일",
+    "timeFromStation" : "역 5분 거리",
+    "dibs" : true,
+    "createdAt" : "2022-11-11T01:40:42.4353587"
+  }, {
+    "boardId" : 2,
+    "title" : "title2",
+    "review" : "review2",
+    "star" : 5.0,
+    "thumbNail" : "썸네일2",
+    "timeFromStation" : "역 6분 거리",
+    "dibs" : true,
+    "createdAt" : "2022-11-11T01:40:42.4353587"
+  } ]
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 16. request-headers</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사용자 인증 정보</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">response-body</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code>{
+  "data" : [ {
+    "boardId" : 1,
+    "title" : "title",
+    "review" : "review",
+    "star" : 5.0,
+    "thumbNail" : "썸네일",
+    "timeFromStation" : "역 5분 거리",
+    "dibs" : true,
+    "createdAt" : "2022-11-11T01:40:42.4353587"
+  }, {
+    "boardId" : 2,
+    "title" : "title2",
+    "review" : "review2",
+    "star" : 5.0,
+    "thumbNail" : "썸네일2",
+    "timeFromStation" : "역 6분 거리",
+    "dibs" : true,
+    "createdAt" : "2022-11-11T01:40:42.4353587"
+  } ]
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 17. response-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 목록</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].review</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].star</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 별점 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].thumbNail</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 썸네일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].timeFromStation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">역에서 부터 거리(분)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].dibs</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 찜 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].createdAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 생성시간</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_게시물_삭제">2.4. 게시물 삭제</h3>
+<div class="listingblock">
+<div class="title">curl-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/boards/1?stationId=1' -i -X DELETE \
+    -H 'Authorization: accessToken' \
+    -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">DELETE /boards/1?stationId=1 HTTP/1.1
+Authorization: accessToken
+Accept: application/json
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 204 No Content</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">httpie-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ http DELETE 'http://localhost:8080/boards/1?stationId=1' \
+    'Authorization:accessToken' \
+    'Accept:application/json'</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 18. /boards/{board-Id}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>board-Id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">멤버 식별자 ID</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 19. request-headers</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사용자 인증 정보</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_commentcontroller">3. CommentController</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_댓글_등록">3.1. 댓글 등록</h3>
+<div class="listingblock">
+<div class="title">curl-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/boards/1/comments' -i -X POST \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Authorization: accessToken' \
+    -H 'Accept: application/json' \
+    -d '{
+  "content" : "댓글 내용"
+}'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">POST /boards/1/comments HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: accessToken
+Accept: application/json
+Content-Length: 35
+Host: localhost:8080
+
+{
+  "content" : "댓글 내용"
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 20. request-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수정된 댓글 내용</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 21. /boards/{boardId}/comments</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>boardId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 식별자 ID</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">http-response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_댓글_수정">3.2. 댓글 수정</h3>
+<div class="listingblock">
+<div class="title">curl-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/comments/1' -i -X PATCH \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Authorization: accessToken' \
+    -H 'Accept: application/json' \
+    -d '{
+  "content" : "댓글 변경 내용"
+}'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /comments/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: accessToken
+Accept: application/json
+Content-Length: 42
+Host: localhost:8080
+
+{
+  "content" : "댓글 변경 내용"
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 22. request-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수정된 댓글 내용</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 23. /comments/{commentId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>commentId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글 식별자 ID</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">http-response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_댓글_삭제">3.3. 댓글 삭제</h3>
+<div class="listingblock">
+<div class="title">curl-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/comments/1' -i -X DELETE \
+    -H 'Authorization: accessToken' \
+    -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">DELETE /comments/1 HTTP/1.1
+Authorization: accessToken
+Accept: application/json
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 24. /comments/{commentId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>commentId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글 식별자 ID</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">http-response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_membercontroller">4. MemberController</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_마이_페이지_게시글">4.1. 마이 페이지 (게시글)</h3>
+<div class="listingblock">
+<div class="title">curl-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1/myPages' -i -X GET \
+    -H 'Authorization: accessToken' \
+    -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /members/1/myPages HTTP/1.1
+Authorization: accessToken
+Accept: application/json
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 25. /members/{memberId}/myPages</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>memberId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">멤버 식별자 ID</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">http-response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 144
+
+{
+  "items" : [ {
+    "boardId" : 1,
+    "title" : "title",
+    "review" : "review",
+    "star" : 1.0,
+    "timeFromStation" : 5
+  } ]
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 26. response-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 리스트</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].boardId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 식별자 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].review</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 리뷰 내용</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].star</code></p></td>
@@ -690,7 +2401,111 @@ Content-Length: 146
 </table>
 </div>
 <div class="sect2">
-<h3 id="_마이_페이지_댓글">1.3. 마이 페이지 (댓글)</h3>
+<h3 id="_마이_페이지_기차역_정렬">4.2. 마이 페이지 (기차역 정렬)</h3>
+<div class="listingblock">
+<div class="title">curl-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1/myPage?stationId=1' -i -X GET \
+    -H 'Authorization: accessToken' \
+    -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /members/1/myPage?stationId=1 HTTP/1.1
+Authorization: accessToken
+Accept: application/json
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 27. /members/{memberId}/myPage</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>memberId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">멤버 식별자 ID</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">http-response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 144
+
+{
+  "items" : [ {
+    "boardId" : 1,
+    "title" : "title",
+    "review" : "review",
+    "star" : 1.0,
+    "timeFromStation" : 5
+  } ]
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 28. response-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 리스트</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].boardId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 식별자 ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].review</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 리뷰 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].star</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 별점 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].timeFromStation</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">역에서 부터 거리(분)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_마이_페이지_댓글">4.3. 마이 페이지 (댓글)</h3>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -709,7 +2524,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. /members/{memberId}/myPage/comments</caption>
+<caption class="title">Table 29. /members/{memberId}/myPage/comments</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -746,7 +2561,7 @@ Content-Length: 159
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. response-fields</caption>
+<caption class="title">Table 30. response-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -778,7 +2593,7 @@ Content-Length: 159
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].title</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 내용</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">게시글 본문 제목</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>items[].comment</code></p></td>
@@ -794,7 +2609,7 @@ Content-Length: 159
 </table>
 </div>
 <div class="sect2">
-<h3 id="_마이_페이지_지도">1.4. 마이 페이지 (지도)</h3>
+<h3 id="_마이_페이지_지도">4.4. 마이 페이지 (지도)</h3>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -813,7 +2628,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. /members/{memberId}/myPage/map</caption>
+<caption class="title">Table 31. /members/{memberId}/myPage/map</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -849,7 +2664,7 @@ Content-Length: 144
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. response-fields</caption>
+<caption class="title">Table 32. response-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -892,7 +2707,7 @@ Content-Length: 144
 </table>
 </div>
 <div class="sect2">
-<h3 id="_내_정보_조회">1.5. 내 정보 조회</h3>
+<h3 id="_내_정보_조회">4.5. 내 정보 조회</h3>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -911,7 +2726,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. /members/{memberId}/info</caption>
+<caption class="title">Table 33. /members/{memberId}/info</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -944,7 +2759,7 @@ Content-Length: 63
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. response-fields</caption>
+<caption class="title">Table 34. response-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -977,7 +2792,7 @@ Content-Length: 63
 </table>
 </div>
 <div class="sect2">
-<h3 id="_내_정보_수정">1.6. 내 정보 수정</h3>
+<h3 id="_내_정보_수정">4.6. 내 정보 수정</h3>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -1010,7 +2825,7 @@ Host: localhost:8080
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 11. request-fields</caption>
+<caption class="title">Table 35. request-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1042,7 +2857,7 @@ Host: localhost:8080
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 12. /members/{member_id}</caption>
+<caption class="title">Table 36. /members/{member_id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1070,10 +2885,10 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect1">
-<h2 id="_logincontroller">2. LoginController</h2>
+<h2 id="_logincontroller">5. LoginController</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_로그인">2.1. 로그인</h3>
+<h3 id="_로그인">5.1. 로그인</h3>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -1102,7 +2917,7 @@ Host: localhost:8080
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 13. request-fields</caption>
+<caption class="title">Table 37. request-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1144,7 +2959,7 @@ Content-Length: 79
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 14. response-fields</caption>
+<caption class="title">Table 38. response-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1177,7 +2992,7 @@ Content-Length: 79
 </table>
 </div>
 <div class="sect2">
-<h3 id="_회원가입">2.2. 회원가입</h3>
+<h3 id="_회원가입">5.2. 회원가입</h3>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -1206,7 +3021,7 @@ Host: localhost:8080
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 15. request-fields</caption>
+<caption class="title">Table 39. request-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1240,7 +3055,7 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect2">
-<h3 id="_비밀번호_확인">2.3. 비밀번호 확인</h3>
+<h3 id="_비밀번호_확인">5.3. 비밀번호 확인</h3>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -1261,7 +3076,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 16. request-headers</caption>
+<caption class="title">Table 40. request-headers</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1291,7 +3106,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_비밀번호_찾기">2.4. 비밀번호 찾기</h3>
+<h3 id="_비밀번호_찾기">5.4. 비밀번호 찾기</h3>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -1318,7 +3133,7 @@ Host: localhost:8080
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 17. request-fields</caption>
+<caption class="title">Table 41. request-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1352,7 +3167,7 @@ Host: localhost:8080
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-11-10 11:56:55 +0900
+Last updated 2022-11-11 01:40:37 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
