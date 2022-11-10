@@ -22,7 +22,6 @@ public class BoardController {
                 .thumbNail(boardPostDto.getThumbNail())
                 .timeFromStation("역 5분 거리")
                 .dibs(true)
-                .timeFromStation("5분걸림요")
                 .createdAt(LocalDateTime.now())
                 .boardId(1)
                 .build();
