@@ -53,6 +53,7 @@ public class BoardController {
     @ResponseStatus(HttpStatus.OK)
     public BoardMockUpDto.MultiResponseDto<BoardMockUpDto.Response> getBoards() {
         BoardMockUpDto.Response boardResponseDto1 = BoardMockUpDto.Response.builder()
+                . boardId(1)
                 .title("title")
                 .review("review")
                 .star(5.0f)
@@ -62,6 +63,7 @@ public class BoardController {
                 .createdAt(LocalDateTime.now())
                 .build();
         BoardMockUpDto.Response boardResponseDto2 = BoardMockUpDto.Response.builder()
+                .boardId(2)
                 .title("title2")
                 .review("review2")
                 .star(5.0f)
