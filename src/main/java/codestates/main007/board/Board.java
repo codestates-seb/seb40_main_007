@@ -19,7 +19,7 @@ public class Board {
     private long id;
     private String title;
     private String review;
-    private float star;
+    private double star;
     private String thumbNail;
     private double latitude;
     private double longitude;
