@@ -7,8 +7,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static org.springframework.security.config.Customizer.withDefaults;
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -22,9 +25,8 @@ public class SecurityConfig {
                 .and()
                 // 현재 : csrf 공격에 대한 설정 비활성화
                 .csrf().disable()
-                // cors를 허용하는 기본 설정으로 적용
-                .cors(withDefaults())
-                // 우리 학습과정에선 배우지 않은 내용 : 그냥 disable 하자
+                .cors()
+                .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http
@@ -54,5 +56,20 @@ public class SecurityConfig {
         ;
 
         return http.build();
+    }
+
+    //
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        // 모든 출처에 대해 스크립트기반의 HTTP 통신을 허용
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        // 파라미터로 지정한 HTTP Method에 대한 HTTP 통신을 허용
+        configuration.setAllowedMethods(Arrays.asList("*"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        // 패턴에 해당하는 URL에 해당 CORS 정책을 적용한다.
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
