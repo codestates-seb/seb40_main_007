@@ -9,7 +9,6 @@ codestates_seb40_main007
 
 v1.0.0, 2022.11.10
 
-// (4)
 ***
 == MemberController
 === 마이 페이지 (게시글)

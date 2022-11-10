@@ -146,7 +146,8 @@ public class MemberControllerTest {
                                         fieldWithPath("items[].commentId").type(JsonFieldType.NUMBER).description("댓글 식별자 ID"),
                                         fieldWithPath("items[].boardId").type(JsonFieldType.NUMBER).description("해당 댓글이 쓰여진 게시글 ID"),
                                         fieldWithPath("items[].title").type(JsonFieldType.STRING).description("게시글 본문 내용"),
-                                        fieldWithPath("items[].comment").type(JsonFieldType.STRING).description("게시글 본문 내용")
+                                        fieldWithPath("items[].comment").type(JsonFieldType.STRING).description("게시글 본문 내용"),
+                                        fieldWithPath("items[].thumbnailUrl").type(JsonFieldType.STRING).description("썸네일 이미지 주소")
                                 )
                         )
                 ));

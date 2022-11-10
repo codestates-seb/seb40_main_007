@@ -49,6 +49,7 @@ public class MemberController {
         comment.setCommentId(1);
         comment.setTitle("title");
         comment.setComment("comment");
+        comment.setThumbnailUrl("thumbnailUrl");
         comment.setBoardId(1);
 
         MockUpAnswerDto.comments response = new MockUpAnswerDto.comments();

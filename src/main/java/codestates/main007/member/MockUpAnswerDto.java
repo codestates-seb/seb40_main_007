@@ -17,6 +17,7 @@ public class MockUpAnswerDto {
         private long boardId;
         private String title;
         private String comment;
+        private String thumbnailUrl;
     }
 
     @Getter
