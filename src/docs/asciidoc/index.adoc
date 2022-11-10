@@ -106,3 +106,29 @@ include::{snippets}/patch-info/path-parameters.adoc[]
 
 .http-response
 include::{snippets}/patch-info/http-response.adoc[]
+
+== BoardController
+=== 게시물 생성
+.curl-request
+include::{snippets}/post-board/curl-request.adoc[]
+
+.http-request
+include::{snippets}/post-board/http-request.adoc[]
+
+.http-response
+include::{snippets}/post-board/http-response.adoc[]
+
+.httpie-request
+include::{snippets}/post-board/httpie-request.adoc[]
+
+.request-body
+include::{snippets}/post-board/request-body.adoc[]
+
+.request-headers
+include::{snippets}/post-board/request-headers.adoc[]
+
+.response-body
+include::{snippets}/post-board/response-body.adoc[]
+
+.response-fields
+include::{snippets}/post-board/response-fields.adoc[]
