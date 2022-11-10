@@ -1,4 +1,4 @@
-package codestates.main007.security.jwt;
+package codestates.main007.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -30,6 +30,7 @@ public class JwtTokenizer {
     @Value("${jwt.refresh-token-expiration-minutes}")
     private int refreshTokenExpirationMinutes;
 
+    // 암호화 메서드
     public String encodeBase64SecretKey(String secretKey){
         return Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));
     }
@@ -68,6 +69,7 @@ public class JwtTokenizer {
         return key;
     }
 
+    // 토큰 검증
     public void verifySignature(String jws, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
