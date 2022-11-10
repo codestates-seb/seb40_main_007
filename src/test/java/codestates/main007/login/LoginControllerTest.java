@@ -1,6 +1,5 @@
 package codestates.main007.login;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,14 +29,13 @@ public class LoginControllerTest {
 
     @Autowired
     private Gson gson;
-    private ObjectMapper objectMapper;
 
     @Test
     @DisplayName("비밀번호 체크 테스트")
     void checkPasswordTest() throws Exception {
         ResultActions actions =
                 mockMvc.perform(
-                        RestDocumentationRequestBuilders.get("/checkPassword")
+                        RestDocumentationRequestBuilders.get("/check-password")
                                 .header("Authorization", "accessToken")
                                 .header("password", "originPassword")
                                 .accept(APPLICATION_JSON)
@@ -132,7 +130,7 @@ public class LoginControllerTest {
 
         ResultActions actions =
                 mockMvc.perform(
-                        RestDocumentationRequestBuilders.post("/findPassword")
+                        RestDocumentationRequestBuilders.post("/find-password")
                                 .content(content)
                                 .contentType(APPLICATION_JSON)
                                 .accept(APPLICATION_JSON)

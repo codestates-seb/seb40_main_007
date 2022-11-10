@@ -1,6 +1,5 @@
 package codestates.main007.member;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -66,9 +65,6 @@ public class MemberControllerTest {
                                         fieldWithPath("items[].review").type(JsonFieldType.STRING).description("게시글 본문 리뷰 내용"),
                                         fieldWithPath("items[].star").type(JsonFieldType.NUMBER).description("게시글 별점 정보"),
                                         fieldWithPath("items[].timeFromStation").type(JsonFieldType.NUMBER).description("역에서 부터 거리(분)")
-//                                        fieldWithPath("totalBoard").type(JsonFieldType.NUMBER).description("총 게시글 수"),
-//                                        fieldWithPath("totalComment").type(JsonFieldType.NUMBER).description("총 댓글 수"),
-//                                        fieldWithPath("score").type(JsonFieldType.NUMBER).description("총 추천 수")
                                 )
                         )
                 ));
