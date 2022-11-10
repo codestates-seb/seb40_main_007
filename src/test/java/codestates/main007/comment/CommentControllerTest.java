@@ -44,7 +44,7 @@ public class CommentControllerTest {
 
         ResultActions actions =
                 mockMvc.perform(
-                        RestDocumentationRequestBuilders.post("/boards/{boardId}/comments", id)
+                        RestDocumentationRequestBuilders.post("/boards/{board-id}/comments", id)
                                 .header("Authorization", "accessToken")
                                 .content(content)
                                 .contentType(APPLICATION_JSON)
@@ -57,7 +57,7 @@ public class CommentControllerTest {
                         "post-comment",
                         preprocessRequest(prettyPrint()),
                         pathParameters(
-                                parameterWithName("boardId").description("게시글 식별자 ID")
+                                parameterWithName("board-id").description("게시글 식별자 ID")
                         ),
                         requestFields(
                                 fieldWithPath("content").type(JsonFieldType.STRING).description("수정된 댓글 내용")
@@ -78,7 +78,7 @@ public class CommentControllerTest {
 
         ResultActions actions =
                 mockMvc.perform(
-                        RestDocumentationRequestBuilders.patch("/comments/{commentId}", id)
+                        RestDocumentationRequestBuilders.patch("/comments/{comment-id}", id)
                                 .header("Authorization", "accessToken")
                                 .content(content)
                                 .contentType(APPLICATION_JSON)
@@ -91,7 +91,7 @@ public class CommentControllerTest {
                         "patch-comment",
                         preprocessRequest(prettyPrint()),
                         pathParameters(
-                                parameterWithName("commentId").description("댓글 식별자 ID")
+                                parameterWithName("comment-id").description("댓글 식별자 ID")
                         ),
                         requestFields(
                                 fieldWithPath("content").type(JsonFieldType.STRING).description("수정된 댓글 내용")
@@ -109,7 +109,7 @@ public class CommentControllerTest {
 
         ResultActions actions =
                 mockMvc.perform(
-                        RestDocumentationRequestBuilders.delete("/comments/{commentId}", id)
+                        RestDocumentationRequestBuilders.delete("/comments/{comment-id}", id)
                                 .header("Authorization", "accessToken")
                                 .accept(APPLICATION_JSON)
                 );
@@ -120,7 +120,7 @@ public class CommentControllerTest {
                         "delete-comment",
                         preprocessRequest(prettyPrint()),
                         pathParameters(
-                                parameterWithName("commentId").description("댓글 식별자 ID")
+                                parameterWithName("comment-id").description("댓글 식별자 ID")
                         ),
                         requestHeaders(
                                 headerWithName("Authorization").description("사용자 인증 정보")

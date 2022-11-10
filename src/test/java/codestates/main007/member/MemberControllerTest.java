@@ -42,7 +42,7 @@ public class MemberControllerTest {
 
         ResultActions actions =
                 mockMvc.perform(
-                        RestDocumentationRequestBuilders.get("/members/{memberId}/myPages", id)
+                        RestDocumentationRequestBuilders.get("/members/{member-id}/myPages", id)
                                 .header("Authorization", "accessToken")
                                 .accept(APPLICATION_JSON)
                 );
@@ -54,7 +54,7 @@ public class MemberControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
-                                parameterWithName("memberId").description("멤버 식별자 ID")
+                                parameterWithName("member-id").description("멤버 식별자 ID")
                         ),
                         requestHeaders(
                                 headerWithName("Authorization").description("사용자 인증 정보")
@@ -82,7 +82,7 @@ public class MemberControllerTest {
 
         ResultActions actions =
                 mockMvc.perform(
-                        RestDocumentationRequestBuilders.get("/members/{memberId}/myPage", id)
+                        RestDocumentationRequestBuilders.get("/members/{member-id}/myPage", id)
                                 .param("stationId", String.valueOf(1))
                                 .header("Authorization", "accessToken")
                                 .accept(APPLICATION_JSON)
@@ -95,7 +95,7 @@ public class MemberControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
-                                parameterWithName("memberId").description("멤버 식별자 ID")
+                                parameterWithName("member-id").description("멤버 식별자 ID")
                         ),
                         requestHeaders(
                                 headerWithName("Authorization").description("사용자 인증 정보")
@@ -123,7 +123,7 @@ public class MemberControllerTest {
 
         ResultActions actions =
                 mockMvc.perform(
-                        RestDocumentationRequestBuilders.get("/members/{memberId}/myPage/comments", id)
+                        RestDocumentationRequestBuilders.get("/members/{member-id}/myPage/comments", id)
                                 .header("Authorization", "accessToken")
                                 .accept(APPLICATION_JSON)
                 );
@@ -135,7 +135,7 @@ public class MemberControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
-                                parameterWithName("memberId").description("멤버 식별자 ID")
+                                parameterWithName("member-id").description("멤버 식별자 ID")
                         ),
                         requestHeaders(
                                 headerWithName("Authorization").description("사용자 인증 정보")
@@ -160,7 +160,7 @@ public class MemberControllerTest {
 
         ResultActions actions =
                 mockMvc.perform(
-                        RestDocumentationRequestBuilders.get("/members/{memberId}/myPage/map", id)
+                        RestDocumentationRequestBuilders.get("/members/{member-id}/myPage/map", id)
                                 .header("Authorization", "accessToken")
                                 .accept(APPLICATION_JSON)
                 );
@@ -172,7 +172,7 @@ public class MemberControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
-                                parameterWithName("memberId").description("멤버 식별자 ID")
+                                parameterWithName("member-id").description("멤버 식별자 ID")
                         ),
                         requestHeaders(
                                 headerWithName("Authorization").description("사용자 인증 정보")
@@ -196,7 +196,7 @@ public class MemberControllerTest {
 
         ResultActions actions =
                 mockMvc.perform(
-                        RestDocumentationRequestBuilders.get("/members/{memberId}/info", id)
+                        RestDocumentationRequestBuilders.get("/members/{member-id}/info", id)
                                 .header("Authorization", "accessToken")
                                 .accept(APPLICATION_JSON)
                 );
@@ -208,7 +208,7 @@ public class MemberControllerTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(
-                                parameterWithName("memberId").description("멤버 식별자 ID")
+                                parameterWithName("member-id").description("멤버 식별자 ID")
                         ),
                         requestHeaders(
                                 headerWithName("Authorization").description("사용자 인증 정보")
@@ -235,7 +235,7 @@ public class MemberControllerTest {
 
         ResultActions actions =
                 mockMvc.perform(
-                        RestDocumentationRequestBuilders.patch("/members/{member_id}", id)
+                        RestDocumentationRequestBuilders.patch("/members/{member-id}", id)
                                 .header("Authorization", "accessToken")
                                 .content(content)
                                 .contentType(APPLICATION_JSON)
@@ -248,7 +248,7 @@ public class MemberControllerTest {
                         "patch-info",
                         preprocessRequest(prettyPrint()),
                         pathParameters(
-                                parameterWithName("member_id").description("멤버 식별자 ID")
+                                parameterWithName("member-id").description("멤버 식별자 ID")
                         ),
                         requestFields(
                                 fieldWithPath("name").type(JsonFieldType.STRING).description("새 이름"),

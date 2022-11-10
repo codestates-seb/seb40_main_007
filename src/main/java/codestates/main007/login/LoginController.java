@@ -24,7 +24,7 @@ public class LoginController {
         LoginMockUpDto.response response = new LoginMockUpDto.response();
         response.setName("김코딩");
         response.setMemberId(1);
-        response.setAvatar("s3.avatart.com");
+        response.setAvatar("s3.avatar.com");
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "accessToken");
