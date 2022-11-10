@@ -126,4 +126,40 @@ public class BoardControllerRestDocsTest {
                         )
                 ));
     }
+    @Test
+    @DisplayName("boards 조회 테스트")
+    public void getBoardsTest() throws Exception {
+        ResultActions actions =
+                mockMvc.perform(
+                        RestDocumentationRequestBuilders.get("/boards")
+                                .header("Authorization", "accessToken")
+                                .accept(APPLICATION_JSON)
+                );
+        actions
+                .andExpect(status().isOk())
+                .andDo(document(
+                        "get-board",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestHeaders(
+                                headerWithName("Authorization").description("사용자 인증 정보")
+                        ),
+                        responseFields(
+                                List.of(
+                                        fieldWithPath("data").type(JsonFieldType.ARRAY).description("게시글 목록"),
+                                        fieldWithPath("data[].boardId").type(JsonFieldType.NUMBER).description("게시글 식별자 ID").ignored(),
+//                                        fieldWithPath("data[].author").type(JsonFieldType.ARRAY).description("게시글 본문 내용"),
+//                                        fieldWithPath("data[].author[].memberId").type(JsonFieldType.NUMBER).description("작성자 ID"),
+//                                        fieldWithPath("data[].author[].~~~").type(JsonFieldType.ARRAY).description("게시글 본문 내용"),
+                                        fieldWithPath("data[].title").type(JsonFieldType.STRING).description("게시글 본문 내용"),
+                                        fieldWithPath("data[].review").type(JsonFieldType.STRING).description("게시글 본문 내용"),
+                                        fieldWithPath("data[].star").type(JsonFieldType.NUMBER).description("게시글 별점 정보"),
+                                        fieldWithPath("data[].thumbNail").type(JsonFieldType.STRING).description("게시글 썸네일"),
+                                        fieldWithPath("data[].timeFromStation").type(JsonFieldType.STRING).description("역에서 부터 거리(분)"),
+                                        fieldWithPath("data[].dibs").type(JsonFieldType.BOOLEAN).description("게시글 찜 여부"),
+                                        fieldWithPath("data[].createdAt").type(JsonFieldType.STRING).description("게시글 생성시간")
+                                )
+                        )
+                ));
+    }
 }
