@@ -45,16 +45,18 @@ public class BoardMockUpDto {
     @AllArgsConstructor
     @Builder
     public static class DetailResponse{
+        private long boardId;
         private String title;
         private String review;
-        private float star;
+        private double star;
         private String thumbNail;
-        private double latitude;
-        private double longitude;
         private String station;
         private String category;
         private List<TagDto.Response> tags;
         private String address;
+        private String timeFromStation;
+        private boolean dibs;
+        private LocalDateTime createdAt;
     }
 
     @Getter
