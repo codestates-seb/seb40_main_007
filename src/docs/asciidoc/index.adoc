@@ -106,3 +106,116 @@ include::{snippets}/patch-info/path-parameters.adoc[]
 
 .http-response
 include::{snippets}/patch-info/http-response.adoc[]
+
+== LoginController
+=== 로그인
+
+.curl-request
+include::{snippets}/login/curl-request.adoc[]
+
+.http-request
+include::{snippets}/login/http-request.adoc[]
+
+.request-fields
+include::{snippets}/login/request-fields.adoc[]
+
+.http-response
+include::{snippets}/login/http-response.adoc[]
+
+.response-fields
+include::{snippets}/login/response-fields.adoc[]
+
+=== 회원가입
+
+.curl-request
+include::{snippets}/signup/curl-request.adoc[]
+
+.http-request
+include::{snippets}/signup/http-request.adoc[]
+
+.request-fields
+include::{snippets}/signup/request-fields.adoc[]
+
+.http-response
+include::{snippets}/signup/http-response.adoc[]
+
+=== 비밀번호 확인
+
+.curl-request
+include::{snippets}/check-password/curl-request.adoc[]
+
+.http-request
+include::{snippets}/check-password/http-request.adoc[]
+
+.request-headers
+include::{snippets}/check-password/request-headers.adoc[]
+
+.http-response
+include::{snippets}/check-password/http-response.adoc[]
+
+=== 비밀번호 찾기
+
+.curl-request
+include::{snippets}/find-password/curl-request.adoc[]
+
+.http-request
+include::{snippets}/find-password/http-request.adoc[]
+
+.request-fields
+include::{snippets}/find-password/request-fields.adoc[]
+
+.http-response
+include::{snippets}/find-password/http-response.adoc[]
+
+
+== CommentController
+=== 댓글 등록
+
+.curl-request
+include::{snippets}/post-comment/curl-request.adoc[]
+
+.http-request
+include::{snippets}/post-comment/http-request.adoc[]
+
+.request-fields
+include::{snippets}/post-comment/request-fields.adoc[]
+
+.path-parameters
+include::{snippets}/post-comment/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/post-comment/http-response.adoc[]
+
+=== 댓글 수정
+
+.curl-request
+include::{snippets}/patch-comment/curl-request.adoc[]
+
+.http-request
+include::{snippets}/patch-comment/http-request.adoc[]
+
+.request-fields
+include::{snippets}/patch-comment/request-fields.adoc[]
+
+.path-parameters
+include::{snippets}/patch-comment/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/patch-comment/http-response.adoc[]
+
+
+=== 댓글 삭제
+
+.curl-request
+include::{snippets}/delete-comment/curl-request.adoc[]
+
+.http-request
+include::{snippets}/delete-comment/http-request.adoc[]
+
+.path-parameters
+include::{snippets}/delete-comment/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/delete-comment/http-response.adoc[]
+
+
