@@ -132,3 +132,31 @@ include::{snippets}/post-board/response-body.adoc[]
 
 .response-fields
 include::{snippets}/post-board/response-fields.adoc[]
+
+=== 게시물 조회
+.curl-request
+include::{snippets}/get-board/curl-request.adoc[]
+
+.http-request
+include::{snippets}/get-board/http-request.adoc[]
+
+.http-response
+include::{snippets}/get-board/http-response.adoc[]
+
+.httpie-request
+include::{snippets}/get-board/httpie-request.adoc[]
+
+.path-parameters
+include::{snippets}/get-board/path-parameters.adoc[]
+
+.request-body
+include::{snippets}/get-board/request-body.adoc[]
+
+.request-headers
+include::{snippets}/get-board/request-headers.adoc[]
+
+.response-body
+include::{snippets}/get-board/response-body.adoc[]
+
+.response-fields
+include::{snippets}/get-board/response-fields.adoc[]
