@@ -14,7 +14,7 @@ public class MemberController {
                                     @RequestHeader String authorization) {
         MockUpDto.myPageResponse myPage = new MockUpDto.myPageResponse();
         myPage.setStar(1);
-        myPage.setContent("content");
+        myPage.setReview("review");
         myPage.setTitle("title");
         myPage.setBoardId(1);
         myPage.setTimeFromStation(5);
@@ -32,7 +32,7 @@ public class MemberController {
 
         MockUpDto.myPageResponse myPage = new MockUpDto.myPageResponse();
         myPage.setStar(1);
-        myPage.setContent("content");
+        myPage.setReview("review");
         myPage.setTitle("title");
         myPage.setBoardId(1);
         myPage.setTimeFromStation(5);

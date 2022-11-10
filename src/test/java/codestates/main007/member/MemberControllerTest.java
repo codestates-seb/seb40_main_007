@@ -63,8 +63,8 @@ public class MemberControllerTest {
                                 Arrays.asList(
                                         fieldWithPath("items").type(JsonFieldType.ARRAY).description("게시글 리스트"),
                                         fieldWithPath("items[].boardId").type(JsonFieldType.NUMBER).description("게시글 식별자 ID"),
-                                        fieldWithPath("items[].title").type(JsonFieldType.STRING).description("게시글 본문 내용"),
-                                        fieldWithPath("items[].content").type(JsonFieldType.STRING).description("게시글 본문 내용"),
+                                        fieldWithPath("items[].title").type(JsonFieldType.STRING).description("게시글 본문 제목"),
+                                        fieldWithPath("items[].review").type(JsonFieldType.STRING).description("게시글 본문 리뷰 내용"),
                                         fieldWithPath("items[].star").type(JsonFieldType.NUMBER).description("게시글 별점 정보"),
                                         fieldWithPath("items[].timeFromStation").type(JsonFieldType.NUMBER).description("역에서 부터 거리(분)")
 //                                        fieldWithPath("totalBoard").type(JsonFieldType.NUMBER).description("총 게시글 수"),
@@ -107,8 +107,8 @@ public class MemberControllerTest {
                                 Arrays.asList(
                                         fieldWithPath("items").type(JsonFieldType.ARRAY).description("게시글 리스트"),
                                         fieldWithPath("items[].boardId").type(JsonFieldType.NUMBER).description("게시글 식별자 ID"),
-                                        fieldWithPath("items[].title").type(JsonFieldType.STRING).description("게시글 본문 내용"),
-                                        fieldWithPath("items[].content").type(JsonFieldType.STRING).description("게시글 본문 내용"),
+                                        fieldWithPath("items[].title").type(JsonFieldType.STRING).description("게시글 본문 제목"),
+                                        fieldWithPath("items[].review").type(JsonFieldType.STRING).description("게시글 본문 리뷰 내용"),
                                         fieldWithPath("items[].star").type(JsonFieldType.NUMBER).description("게시글 별점 정보"),
                                         fieldWithPath("items[].timeFromStation").type(JsonFieldType.NUMBER).description("역에서 부터 거리(분)")
                                 )
@@ -145,7 +145,7 @@ public class MemberControllerTest {
                                         fieldWithPath("items").type(JsonFieldType.ARRAY).description("게시글 리스트"),
                                         fieldWithPath("items[].commentId").type(JsonFieldType.NUMBER).description("댓글 식별자 ID"),
                                         fieldWithPath("items[].boardId").type(JsonFieldType.NUMBER).description("해당 댓글이 쓰여진 게시글 ID"),
-                                        fieldWithPath("items[].title").type(JsonFieldType.STRING).description("게시글 본문 내용"),
+                                        fieldWithPath("items[].title").type(JsonFieldType.STRING).description("게시글 본문 제목"),
                                         fieldWithPath("items[].comment").type(JsonFieldType.STRING).description("게시글 본문 내용"),
                                         fieldWithPath("items[].thumbnailUrl").type(JsonFieldType.STRING).description("썸네일 이미지 주소")
                                 )

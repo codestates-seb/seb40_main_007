@@ -27,7 +27,7 @@ public class MockUpDto {
     public static class myPageResponse {
         private long boardId;
         private String title;
-        private String content;
+        private String review;
         private double star;
         private int timeFromStation;
     }
