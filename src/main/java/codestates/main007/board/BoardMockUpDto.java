@@ -46,6 +46,7 @@ public class BoardMockUpDto {
     @Builder
     public static class DetailResponse{
         private long boardId;
+        //작성자 정보가 필요함
         private String title;
         private String review;
         private double star;
