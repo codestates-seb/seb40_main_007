@@ -41,7 +41,7 @@ public class BoardControllerRestDocsTest {
         BoardMockUpDto.Post post = BoardMockUpDto.Post.builder()
                 .address("서울로 152")
                 .star(5.0d)
-                .tags(List.of(new TagDto.Response(new Tag(1,"한식"))))
+                .tags(List.of(new TagDto.Response(new Tag(1, "한식"))))
                 .title("title")
                 .latitude(1231.12312d)
                 .longitude(1231.1521d)
@@ -83,6 +83,7 @@ public class BoardControllerRestDocsTest {
                         )
                 ));
     }
+
     @Test
     @DisplayName("board 조회 테스트")
     public void getBoardTest() throws Exception {
@@ -126,6 +127,7 @@ public class BoardControllerRestDocsTest {
                         )
                 ));
     }
+
     @Test
     @DisplayName("boards 조회 테스트")
     public void getBoardsTest() throws Exception {
@@ -138,7 +140,7 @@ public class BoardControllerRestDocsTest {
         actions
                 .andExpect(status().isOk())
                 .andDo(document(
-                        "get-board",
+                        "get-boards",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestHeaders(
@@ -161,5 +163,31 @@ public class BoardControllerRestDocsTest {
                                 )
                         )
                 ));
+    }
+
+    @Test
+    @DisplayName("board 삭제 테스트")
+    public void deleteBoardTest() throws Exception {
+        long id = 1;
+        ResultActions actions =
+                mockMvc.perform(
+                        RestDocumentationRequestBuilders.delete("/boards/{board-Id}", id)
+                                .param("stationId", String.valueOf(1))
+                                .header("Authorization", "accessToken")
+                                .accept(APPLICATION_JSON)
+                );
+        actions
+                .andExpect(status().isNoContent())
+                .andDo(document(
+                                "delete-board",
+                                preprocessRequest(prettyPrint()),
+                                pathParameters(
+                                        parameterWithName("board-Id").description("멤버 식별자 ID")
+                                ),
+                                requestHeaders(
+                                        headerWithName("Authorization").description("사용자 인증 정보")
+                                )
+                        )
+                );
     }
 }
