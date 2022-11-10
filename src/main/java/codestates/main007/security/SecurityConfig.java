@@ -36,8 +36,8 @@ public class SecurityConfig {
                 .and()
                 .httpBasic().disable()
                 .exceptionHandling()
-//                .authenticationEntryPoint(new UserAuthenticationEntryPoint())
-//                .accessDeniedHandler(new UserAccessDeniedHandler())
+                // 인증이 안됐을 때
+//                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
                 .and()
                 // 필터 적용
 //                .apply(new CustomFilterConfigure())
