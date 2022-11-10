@@ -50,7 +50,7 @@ public class JwtTokenizer {
                 .signWith(key)
                 .compact();
     }
-
+    // 리프레시 토큰 생성 메서드
     public String generateRefreshToken(String subject, Date expiration, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
@@ -62,6 +62,7 @@ public class JwtTokenizer {
                 .compact();
     }
 
+    // 복호화 메서드
     private Key getKeyFromBase64EncodedKey(String base64EncodedSecretKey) {
         byte[] keyBytes = Decoders.BASE64.decode(base64EncodedSecretKey);
         Key key = Keys.hmacShaKeyFor(keyBytes);
@@ -88,6 +89,7 @@ public class JwtTokenizer {
         return expiration;
     }
 
+    // 토큰을 검증하고 claims를 뽑아올 때
     public Jws<Claims> getClaims(String jws, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
