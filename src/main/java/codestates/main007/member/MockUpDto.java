@@ -71,5 +71,4 @@ public class MockUpDto {
         private String avatar;
         private String password;
     }
-
 }
