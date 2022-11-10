@@ -9,7 +9,7 @@ import java.util.List;
 
 @Controller
 public class MemberController {
-    @GetMapping("/members/{member-id}/myPages")
+    @GetMapping("/members/{member-id}/my-pages")
     public ResponseEntity getMyPage(@PathVariable("member-id") long memberId,
                                     @RequestHeader String authorization) {
         MockUpDto.myPageResponse myPage = new MockUpDto.myPageResponse();
@@ -25,7 +25,7 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/members/{member-id}/myPage")
+    @GetMapping("/members/{member-id}/my-page")
     public ResponseEntity getMyPageByStation(@PathVariable("member-id") long memberId,
                                              @RequestParam String stationId,
                                              @RequestHeader String authorization) {
@@ -42,7 +42,7 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/members/{member-id}/myPage/comments")
+    @GetMapping("/members/{member-id}/my-page/comments")
     public ResponseEntity getMyComments(@PathVariable("member-id") long memberId,
                                         @RequestHeader String authorization) {
         MockUpAnswerDto.comment comment = new MockUpAnswerDto.comment();
@@ -58,7 +58,7 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/members/{member-id}/myPage/map")
+    @GetMapping("/members/{member-id}/my-page/map")
     public ResponseEntity getMyMap(@PathVariable("member-id") long memberId,
                                    @RequestHeader String authorization) {
         MockUpDto.boardToMap boardToMap = new MockUpDto.boardToMap();

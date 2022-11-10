@@ -33,7 +33,6 @@ public class MemberControllerTest {
 
     @Autowired
     private Gson gson;
-    private ObjectMapper objectMapper;
 
     @Test
     @DisplayName("마이페이지-게시글 테스트")
@@ -42,7 +41,7 @@ public class MemberControllerTest {
 
         ResultActions actions =
                 mockMvc.perform(
-                        RestDocumentationRequestBuilders.get("/members/{member-id}/myPages", id)
+                        RestDocumentationRequestBuilders.get("/members/{member-id}/my-pages", id)
                                 .header("Authorization", "accessToken")
                                 .accept(APPLICATION_JSON)
                 );
@@ -82,7 +81,7 @@ public class MemberControllerTest {
 
         ResultActions actions =
                 mockMvc.perform(
-                        RestDocumentationRequestBuilders.get("/members/{member-id}/myPage", id)
+                        RestDocumentationRequestBuilders.get("/members/{member-id}/my-page", id)
                                 .param("stationId", String.valueOf(1))
                                 .header("Authorization", "accessToken")
                                 .accept(APPLICATION_JSON)
@@ -123,7 +122,7 @@ public class MemberControllerTest {
 
         ResultActions actions =
                 mockMvc.perform(
-                        RestDocumentationRequestBuilders.get("/members/{member-id}/myPage/comments", id)
+                        RestDocumentationRequestBuilders.get("/members/{member-id}/my-page/comments", id)
                                 .header("Authorization", "accessToken")
                                 .accept(APPLICATION_JSON)
                 );
@@ -160,7 +159,7 @@ public class MemberControllerTest {
 
         ResultActions actions =
                 mockMvc.perform(
-                        RestDocumentationRequestBuilders.get("/members/{member-id}/myPage/map", id)
+                        RestDocumentationRequestBuilders.get("/members/{member-id}/my-page/map", id)
                                 .header("Authorization", "accessToken")
                                 .accept(APPLICATION_JSON)
                 );
