@@ -1,9 +1,9 @@
-import Header from "./Header";
+import Star from "./Star";
 
 const Sample = () => {
   return (
     <>
-      <Header></Header>
+      <Star></Star>
     </>
   );
 };
