@@ -36,14 +36,15 @@ public class BoardController {
         BoardMockUpDto.DetailResponse boardDetailResponseDto = BoardMockUpDto.DetailResponse.builder()
                 .title("title")
                 .review("review")
-                .star(5.0f)
+                .star(5.0d)
                 .thumbNail("썸네일")
-                .latitude(123.12314d)
-                .longitude(123.12123d)
                 .station("서울역")
                 .category("맛집")
                 .tags(List.of(new TagDto.Response(new Tag(1,"한식")),new TagDto.Response(new Tag(2,"따뜻한 분위기"))))
                 .address("서울역길 152")
+                .timeFromStation("5분정도걸리나")
+                .dibs(true)
+                .createdAt(LocalDateTime.now())
                 .build();
         return boardDetailResponseDto;
     }
