@@ -22,7 +22,7 @@ public class CommentService {
                 .orElseThrow(() -> new NullPointerException("해당 댓글이 존재하지 않습니다."));
     }
 
-    public void delete(long commentId){
+    public void delete(long commentId) {
         this.commentRepository.deleteById(commentId);
     }
 }

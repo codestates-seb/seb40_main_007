@@ -10,7 +10,7 @@ public class CommentDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Input{
+    public static class Input {
         private String comment;
     }
 }
