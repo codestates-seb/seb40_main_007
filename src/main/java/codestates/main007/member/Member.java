@@ -1,11 +1,14 @@
 package codestates.main007.member;
 
+import codestates.main007.board.Board;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Builder
@@ -29,7 +32,10 @@ public class Member {
     @Column
     private String avatar;
 
-    // todo:보드, 댓글 연관관계 추가
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    private List<Board> boards = new ArrayList<>();
+
+    // todo: 댓글 연관관계 추가
 
     public void patchMember(String name, String avatar, String password) {
         if (name != null) {

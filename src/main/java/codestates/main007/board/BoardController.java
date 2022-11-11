@@ -1,5 +1,7 @@
 package codestates.main007.board;
 
+import codestates.main007.member.Member;
+import codestates.main007.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -9,12 +11,19 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
+    private final MemberService memberService;
     private final BoardMapper boardMapper;
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void postBoard(@RequestHeader(name = "Authorization")String accessToken,
                           @RequestBody BoardDto.Input postDto){
-        Board board = this.boardMapper.boardDtoToBoard(postDto);
+        // 토큰설정 완료되면 이거 사용
+        //Member member = memberService.findByAccessToken(accessToken);
+
+        // 그전까지 이거 사용
+        Member member = memberService.find(1);
+
+        Board board = this.boardMapper.boardDtoToBoard(postDto, member);
         this.boardService.save(board);
     }
 

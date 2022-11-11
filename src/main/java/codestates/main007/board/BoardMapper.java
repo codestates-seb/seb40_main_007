@@ -1,12 +1,13 @@
 package codestates.main007.board;
 
+import codestates.main007.member.Member;
 import org.mapstruct.Mapper;
 
 import java.time.LocalDateTime;
 
 @Mapper(componentModel = "spring")
 public interface BoardMapper {
-    default public Board boardDtoToBoard(BoardDto.Input boardDto){
+    default public Board boardDtoToBoard(BoardDto.Input boardDto, Member member){
         Board board = Board.builder()
                 .title(boardDto.getTitle())
                 .review(boardDto.getReview())
@@ -23,6 +24,7 @@ public interface BoardMapper {
                 .score(0)
                 .viewCount(0)
                 .address(boardDto.getAddress())
+                .writer(member)
                 // 시간 계산 로직
 //                .timeFromStation()
                 //todo: tag 추가 필요
