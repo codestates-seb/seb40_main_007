@@ -9,8 +9,8 @@ import java.util.List;
 
 @Controller
 public class MemberController {
-    @GetMapping("/members/{memberId}/myPages")
-    public ResponseEntity getMyPage(@PathVariable long memberId,
+    @GetMapping("/members/{member-id}/my-pages")
+    public ResponseEntity getMyPage(@PathVariable("member-id") long memberId,
                                     @RequestHeader String authorization) {
         MockUpDto.myPageResponse myPage = new MockUpDto.myPageResponse();
         myPage.setStar(1);
@@ -25,8 +25,8 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/members/{memberId}/myPage")
-    public ResponseEntity getMyPageByStation(@PathVariable long memberId,
+    @GetMapping("/members/{member-id}/my-page")
+    public ResponseEntity getMyPageByStation(@PathVariable("member-id") long memberId,
                                              @RequestParam String stationId,
                                              @RequestHeader String authorization) {
 
@@ -42,8 +42,8 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/members/{memberId}/myPage/comments")
-    public ResponseEntity getMyComments(@PathVariable long memberId,
+    @GetMapping("/members/{member-id}/my-page/comments")
+    public ResponseEntity getMyComments(@PathVariable("member-id") long memberId,
                                         @RequestHeader String authorization) {
         MockUpAnswerDto.comment comment = new MockUpAnswerDto.comment();
         comment.setCommentId(1);
@@ -58,8 +58,8 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/members/{member_id}/myPage/map")
-    public ResponseEntity getMyMap(@PathVariable long member_id,
+    @GetMapping("/members/{member-id}/my-page/map")
+    public ResponseEntity getMyMap(@PathVariable("member-id") long memberId,
                                    @RequestHeader String authorization) {
         MockUpDto.boardToMap boardToMap = new MockUpDto.boardToMap();
         boardToMap.setBoardId(1);
@@ -70,8 +70,8 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/members/{member_id}/info")
-    public ResponseEntity getMyInfo(@PathVariable long member_id,
+    @GetMapping("/members/{member-id}/info")
+    public ResponseEntity getMyInfo(@PathVariable("member-id") long memberId,
                                     @RequestHeader String authorization) {
         MockUpDto.info response = new MockUpDto.info();
         response.setScore(1);
@@ -80,8 +80,8 @@ public class MemberController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PatchMapping("/members/{member_id}")
-    public ResponseEntity patchMemberInfo(@PathVariable long member_id,
+    @PatchMapping("/members/{member-id}")
+    public ResponseEntity patchMemberInfo(@PathVariable("member-id") long memberId,
                                           @RequestHeader String authorization,
                                           @RequestBody MockUpDto.updateDto updateDto) {
 

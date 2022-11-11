@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 
 @Controller
 public class LoginController {
-    @GetMapping("/checkPassword")
+    @GetMapping("/check-password")
     public ResponseEntity checkPassword(@RequestHeader String authorization,
                                     @RequestHeader String password) {
 
@@ -24,7 +24,7 @@ public class LoginController {
         LoginMockUpDto.response response = new LoginMockUpDto.response();
         response.setName("김코딩");
         response.setMemberId(1);
-        response.setAvatar("s3.avatart.com");
+        response.setAvatar("s3.avatar.com");
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "accessToken");
@@ -38,7 +38,7 @@ public class LoginController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/findPassword")
+    @PostMapping("/find-password")
     public ResponseEntity findPassword(@RequestBody LoginMockUpDto.email emailDto){
 
         return new ResponseEntity<>(HttpStatus.OK);

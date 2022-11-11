@@ -7,22 +7,22 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class CommentController {
-    @PostMapping("/boards/{boardId}/comments")
-    public ResponseEntity postComment(@PathVariable long boardId,
+    @PostMapping("/boards/{board-id}/comments")
+    public ResponseEntity postComment(@PathVariable("board-id") long boardId,
                                     @RequestBody CommentMockUpDto.input post) {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("/comments/{commentId}")
-    public ResponseEntity patchComment(@PathVariable long commentId,
+    @PatchMapping("/comments/{comment-id}")
+    public ResponseEntity patchComment(@PathVariable("comment-id") long commentId,
                                     @RequestBody CommentMockUpDto.input patch) {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/comments/{commentId}")
-    public ResponseEntity deleteComment(@PathVariable long commentId) {
+    @DeleteMapping("/comments/{comment-id}")
+    public ResponseEntity deleteComment(@PathVariable("comment-id") long commentId) {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
