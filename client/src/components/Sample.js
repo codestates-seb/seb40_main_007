@@ -1,10 +1,9 @@
-import TrainStationModal from "./TrainStationModal";
-import AlertModal from "./AlertModal";
+import InfoWindow from "./InfoWindow";
+
 const Sample = () => {
   return (
     <>
-      <TrainStationModal />
-      <AlertModal />
+      <InfoWindow></InfoWindow>
     </>
   );
 };
