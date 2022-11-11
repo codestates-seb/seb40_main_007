@@ -5,8 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
@@ -15,7 +14,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 public class Comment {
-    @Column
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long commentId;
 
     @Column
