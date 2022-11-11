@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @Builder
@@ -21,9 +22,11 @@ public class Member {
     private String name;
 
     @Column
+    @NotBlank
     private String email;
 
     @Column
+    @NotBlank
     private String password;
 
     @Column
