@@ -1,9 +1,9 @@
-import PostList from "./PostList";
+import Header from "./Header";
 
 const Sample = () => {
   return (
     <>
-      <PostList></PostList>
+      <Header></Header>
     </>
   );
 };
