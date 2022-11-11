@@ -1,9 +1,9 @@
-import InfoWindow from "./InfoWindow";
+import PostList from "./PostList";
 
 const Sample = () => {
   return (
     <>
-      <InfoWindow></InfoWindow>
+      <PostList></PostList>
     </>
   );
 };
