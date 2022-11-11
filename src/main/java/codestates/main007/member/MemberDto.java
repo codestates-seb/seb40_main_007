@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 public class MemberDto {
     @Getter
     @Builder
@@ -18,6 +21,17 @@ public class MemberDto {
         private int timeForStation;
     }
 
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Post{
+        @NotBlank
+        @Email
+        private String email;
+        @NotBlank
+        private String password;
+    }
     @Getter
     @Builder
     @NoArgsConstructor
