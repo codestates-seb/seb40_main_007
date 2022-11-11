@@ -1,9 +1,9 @@
-import Header from "./Header";
+import PostList from "./MainPage/Posts/PostList";
 
 const Sample = () => {
   return (
     <>
-      <Header></Header>
+      <PostList></PostList>
     </>
   );
 };
