@@ -1,66 +1,64 @@
-const RelatedTab = ({ related, setRelated }) => {
+import { useRecoilState, useRecoilValue } from "recoil";
+import { mainCategoryState, mainRelatedState } from "../../atoms/filter";
+
+const RelatedTab = () => {
+  const [related, setRelated] = useRecoilState(mainRelatedState);
+  const category = useRecoilValue(mainCategoryState);
+  const restarant = ["한식", "중식", "양식", "일식", "술집"];
+  const sight = ["자연", "문화", "유적", "공연", "놀거리"];
+  const stay = ["호텔", "모텔", "게하", "펜션", "캠핑"];
+
+  console.log(category, related);
+
   return (
     <div className="flex flex-row justify-center space-x-2 mt-5">
-      <button
-        className={
-          related === "ALL"
-            ? "w-16 border-2 border-[rgb(83,199,240)] bg-[rgb(83,199,240)] rounded-2xl text-white"
-            : "w-16 border-2 border-[rgb(83,199,240)] rounded-2xl text-[rgb(83,199,240)]"
-        }
-        onClick={() => {
-          setRelated("ALL");
-        }}
-      >
-        ALL
-      </button>
-      <button
-        className={
-          related === "한식"
-            ? "w-16 border-2 border-[rgb(83,199,240)] bg-[rgb(83,199,240)] rounded-2xl text-white"
-            : "w-16 border-2 border-[rgb(83,199,240)] rounded-2xl text-[rgb(83,199,240)]"
-        }
-        onClick={() => {
-          setRelated("한식");
-        }}
-      >
-        한식
-      </button>
-      <button
-        className={
-          related === "중식"
-            ? "w-16 border-2 border-[rgb(83,199,240)] bg-[rgb(83,199,240)] rounded-2xl text-white"
-            : "w-16 border-2 border-[rgb(83,199,240)] rounded-2xl text-[rgb(83,199,240)]"
-        }
-        onClick={() => {
-          setRelated("중식");
-        }}
-      >
-        중식
-      </button>
-      <button
-        className={
-          related === "양식"
-            ? "w-16 border-2 border-[rgb(83,199,240)] bg-[rgb(83,199,240)] rounded-2xl text-white"
-            : "w-16 border-2 border-[rgb(83,199,240)] rounded-2xl text-[rgb(83,199,240)]"
-        }
-        onClick={() => {
-          setRelated("양식");
-        }}
-      >
-        양식
-      </button>
-      <button
-        className={
-          related === "일식"
-            ? "w-16 border-2 border-[rgb(83,199,240)] bg-[rgb(83,199,240)] rounded-2xl text-white"
-            : "w-16 border-2 border-[rgb(83,199,240)] rounded-2xl text-[rgb(83,199,240)]"
-        }
-        onClick={() => {
-          setRelated("일식");
-        }}
-      >
-        일식
-      </button>
+      {category === "식당"
+        ? restarant.map((el) => (
+            <button
+              key={el}
+              className={
+                related === el
+                  ? "text-sm w-16 border-2 border-[rgb(83,199,240)] bg-[rgb(83,199,240)] rounded-2xl text-white"
+                  : "text-sm w-16 border-2 border-[rgb(83,199,240)] rounded-2xl text-[rgb(83,199,240)]"
+              }
+              onClick={() => {
+                setRelated(el);
+              }}
+            >
+              {el}
+            </button>
+          ))
+        : category === "볼거리"
+        ? sight.map((el) => (
+            <button
+              key={el}
+              className={
+                related === el
+                  ? "text-sm w-16 border-2 border-[rgb(83,199,240)] bg-[rgb(83,199,240)] rounded-2xl text-white"
+                  : "text-sm w-16 border-2 border-[rgb(83,199,240)] rounded-2xl text-[rgb(83,199,240)]"
+              }
+              onClick={() => {
+                setRelated(el);
+              }}
+            >
+              {el}
+            </button>
+          ))
+        : stay.map((el) => (
+            <button
+              key={el}
+              className={
+                related === el
+                  ? "text-sm w-16 border-2 border-[rgb(83,199,240)] bg-[rgb(83,199,240)] rounded-2xl text-white"
+                  : "text-sm w-16 border-2 border-[rgb(83,199,240)] rounded-2xl text-[rgb(83,199,240)]"
+              }
+              onClick={() => {
+                setRelated(el);
+              }}
+            >
+              {el}
+            </button>
+          ))}
     </div>
   );
 };
