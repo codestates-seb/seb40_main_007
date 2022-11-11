@@ -38,7 +38,7 @@ function PostList() {
   ];
   return (
     <div>
-      <div className="mx-auto max-w-xl px-2 max-h-[450px] overflow-y-scroll">
+      <div className="mx-auto max-w-xl px-2 max-h-[450px] overflow-y-scroll mt-10">
         <div className="mt-2 grid grid-cols-3 gap-y-4 gap-x-2">
           {posts.map((post) => (
             <Post key={post.id} />
