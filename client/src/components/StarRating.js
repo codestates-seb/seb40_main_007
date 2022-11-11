@@ -21,8 +21,8 @@ const StarRating = () => {
               <span
                 className={
                   clicked === num
-                    ? `mt-5 border-2 border-[rgb(83,199,240)] rounded-xl p-1 absolute visible text-[rgb(83,199,240)]`
-                    : `absolute invisible`
+                    ? "mt-5 border-2 border-[rgb(83,199,240)] rounded-xl p-1 absolute visible text-[rgb(83,199,240)]"
+                    : "absolute invisible"
                 }
                 key={num}
               >

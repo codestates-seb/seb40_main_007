@@ -1,9 +1,9 @@
-import Star from "./Star";
+import StarScore from "./StarScore";
 
 const Sample = () => {
   return (
     <>
-      <Star></Star>
+      <StarScore></StarScore>
     </>
   );
 };
