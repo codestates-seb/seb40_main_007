@@ -22,11 +22,9 @@ public class Member {
     private String name;
 
     @Column
-    @NotBlank
     private String email;
 
     @Column
-    @NotBlank
     private String password;
 
     @Column
