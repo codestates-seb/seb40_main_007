@@ -1,13 +1,13 @@
-import { IoIosCloseCircleOutline } from "react-icons/io";
-
 const InfoWindow = () => {
   return (
-    <div className="w-24 h-24 border-2 border-black rounded-lg p-0.5">
+    <div className="w-32 w-34 rounded-lg p-0.5 bg-black text-white">
       <img src="/images/food.png" alt="사진" />
-      <IoIosCloseCircleOutline className="absolute top-0.5 right-0.5" />
-      <span className="text-xs">타이틀</span>
+      <p className="text-sm ">타이틀</p>
+      <span className="text-xs border-2 border-white rounded-lg p-0.5">
+        한식
+      </span>
       {/* {tags.map((tag, idx) => {
-        return <span key={idx}>tag</span>;
+        return <span className="text-xs border-2 border-white rounded-lg p-0.5" key={idx}>{tag}</span>;
       })} */}
     </div>
   );

@@ -1,9 +1,9 @@
-import StarScore from "./StarScore";
+import InfoWindow from "./InfoWindow";
 
 const Sample = () => {
   return (
     <>
-      <StarScore></StarScore>
+      <InfoWindow></InfoWindow>
     </>
   );
 };
