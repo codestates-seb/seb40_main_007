@@ -1,13 +1,17 @@
 package codestates.main007.board;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 public class BoardDto {
     @Getter
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Input{
         private String title;
         private String review;

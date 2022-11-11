@@ -26,8 +26,7 @@ public class BoardController {
 //                          @RequestBody BoardDto.Post postDto){
     public void patchBoard(@PathVariable("board-id") long boardId ,
                            @RequestBody BoardDto.Input patchDto){
-        Board board = this.boardMapper.boardDtoToBoard(patchDto);
-        this.boardService.update(boardId, board);
+        this.boardService.update(boardId, patchDto);
     }
 
     @DeleteMapping("/{board-id}")
