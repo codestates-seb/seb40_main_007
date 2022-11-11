@@ -15,17 +15,17 @@ public class BoardService {
         this.boardRepository.save(board);
     }
 
-    public void update(long boardId, Board board) {
+    public void update(long boardId, BoardDto.Input patch) {
         Board updatedBoard = find(boardId);
 
-        updatedBoard.patchBoard(board.getTitle(),
-                board.getReview(),
-                board.getStar(),
-                board.getLatitude(),
-                board.getLongitude(),
-                board.getStationId(),
-                board.getCategoryId(),
-                board.getAddress());
+        updatedBoard.patchBoard(patch.getTitle(),
+                patch.getReview(),
+                patch.getStar(),
+                patch.getLatitude(),
+                patch.getLongitude(),
+                patch.getStationId(),
+                patch.getCategoryId(),
+                patch.getAddress());
 
         this.boardRepository.save(updatedBoard);
     }
