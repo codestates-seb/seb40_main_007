@@ -10,8 +10,8 @@ function Post() {
       </div>
       <div>
         <h3 className="text-sm font-bold">제목</h3>
-        <p className="text-xs text-gray-700">5분 거리</p>
-        <p className="mt-1 text-xs text-gray-500">한줄 설명</p>
+        <p className="text-xs text-gray-500">5분 거리</p>
+        <p className="text-xs text-gray-700">한줄 설명</p>
       </div>
     </div>
   );

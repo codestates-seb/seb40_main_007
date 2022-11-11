@@ -1,9 +1,9 @@
-import PostList from "./MainPage/Posts/PostList";
+import CategoryTabs from "./MainPage/CategoryTab";
 
 const Sample = () => {
   return (
     <>
-      <PostList></PostList>
+      <CategoryTabs></CategoryTabs>
     </>
   );
 };
