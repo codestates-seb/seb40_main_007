@@ -1,13 +1,17 @@
 package codestates.main007.board;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Board {
     @Id
