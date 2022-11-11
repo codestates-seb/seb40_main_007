@@ -21,19 +21,19 @@ function PostList() {
       id: 6,
     },
     {
-      id: 4,
+      id: 7,
     },
     {
-      id: 5,
+      id: 8,
     },
     {
-      id: 6,
+      id: 9,
     },
     {
-      id: 5,
+      id: 10,
     },
     {
-      id: 6,
+      id: 11,
     },
   ];
   return (

@@ -1,11 +1,17 @@
-import { useState } from "react";
-
-const CategoryTabs = () => {
-  const [category, setCategory] = useState(null);
-
+const CategoryTabs = ({ category, setCategory }) => {
   return (
     <>
-      <div className="flex flex-row m-2">
+      <div className="flex flex-row m-2 justify-center">
+        <button
+          onClick={() => setCategory("ALL")}
+          className={
+            category === "ALL"
+              ? "w-20 border-b-2 text-center border-b-[rgb(83,199,240)] text-[rgb(83,199,240)]"
+              : "w-20 text-center text-gray-500"
+          }
+        >
+          ALL
+        </button>
         <button
           onClick={() => setCategory("식당")}
           className={
