@@ -17,4 +17,14 @@ public class MemberDto {
         private double star;
         private int timeForStation;
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Patch{
+        private String name;
+        private String avatar;
+        private String password;
+    }
 }

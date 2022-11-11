@@ -31,4 +31,15 @@ public class Member {
 
     // todo:보드, 댓글 연관관계 추가
 
+    public void patchMember(String name, String avatar, String password) {
+        if (name != null) {
+            this.name = name;
+        }
+        if (avatar != null) {
+            this.avatar = avatar;
+        }
+        if (password != null) {
+            this.password = password;
+        }
+    }
 }
