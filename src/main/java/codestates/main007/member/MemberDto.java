@@ -36,6 +36,7 @@ public class MemberDto {
         private String avatar;
         private String password;
     }
+
     @Getter
     @Builder
     @NoArgsConstructor

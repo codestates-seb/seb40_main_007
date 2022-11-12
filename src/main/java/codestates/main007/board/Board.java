@@ -79,7 +79,7 @@ public class Board {
     // todo: 연관관계 -  태그
 
     // 게시글 작성 시 작성자 추가를 위한 메서드
-    public void setWriter(Member member){
+    public void setWriter(Member member) {
         this.writer = member;
     }
 

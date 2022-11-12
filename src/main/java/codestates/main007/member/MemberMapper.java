@@ -20,9 +20,9 @@ public interface MemberMapper {
         return member;
     }
 
-    default List<MemberDto.MyPage> boardsToMyPages(List<Board> boards){
+    default List<MemberDto.MyPage> boardsToMyPages(List<Board> boards) {
         List<MemberDto.MyPage> myPages = new ArrayList<>();
-        for (Board board : boards){
+        for (Board board : boards) {
             MemberDto.MyPage myPage = MemberDto.MyPage.builder()
                     .boardId(board.getBoardId())
                     .star(board.getStar())

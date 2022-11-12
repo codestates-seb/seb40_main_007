@@ -29,7 +29,7 @@ public class MemberController {
     @ResponseStatus(HttpStatus.OK)
     public void checkPassword(@RequestHeader(name = "Authorization") String accessToken,
                               @RequestHeader(name = "Password") String password) {
-        memberService.verifyPassword(accessToken,password);
+        memberService.verifyPassword(accessToken, password);
     }
 
     @PostMapping("/find-password")
