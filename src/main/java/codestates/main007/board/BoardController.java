@@ -39,7 +39,7 @@ public class BoardController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBoard(@RequestHeader(name = "Authorization")String accessToken,
             @PathVariable("board-id") long boardId){
-        boardService.delete(boardId);
+        boardService.delete(accessToken, boardId);
     }
 
     @GetMapping("/{board-id}")
@@ -48,7 +48,8 @@ public class BoardController {
             @PathVariable("board-id") long boardId){
         Board board = boardService.find(boardId);
 
-        BoardDto.DetailResponse detailResponse = boardMapper.boardToDetailResponseDto(board);
+        boolean isDibs = boardService.findIsDibs(accessToken, boardId);
+        BoardDto.DetailResponse detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs);
 
         return detailResponse;
     }

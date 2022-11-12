@@ -30,12 +30,19 @@ public class BoardService {
         boardRepository.save(updatedBoard);
     }
 
-    public void delete(long boardId) {
+    public void delete(String accessToken, long boardId) {
         boardRepository.deleteById(boardId);
     }
 
     public Board find(long boardId) {
         return boardRepository.findById(boardId)
                 .orElseThrow(() -> new NullPointerException("해당 게시글이 존재하지 않습니다."));
+    }
+
+    public boolean findIsDibs(String accessToken, long boardId) {
+        //todo: 액세스토큰으로 찾은 유저가 해당 글을 찜했는지 여부 확인하여 리턴
+
+        // 임시 리턴값
+        return true;
     }
 }
