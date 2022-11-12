@@ -1,8 +1,8 @@
-import React from "react";
+import { useState } from "react";
 import { IoMdPin } from "react-icons/io";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 export default function TrainStationModal() {
-  const [showModal, setShowModal] = React.useState(false);
+  const [showModal, setShowModal] = useState(false);
   return (
     <>
       <button

@@ -1,9 +1,9 @@
-import InfoWindow from "./InfoWindow";
+import InfoWindow from "./Heart";
 
 const Sample = () => {
   return (
     <>
-      <InfoWindow></InfoWindow>
+      <InfoWindow />
     </>
   );
 };
