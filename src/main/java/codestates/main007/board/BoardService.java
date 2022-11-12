@@ -50,7 +50,7 @@ public class BoardService {
     }
 
     public boolean findIsDibs(Member member, long boardId) {
-        //todo: 액세스토큰으로 찾은 유저가 해당 글을 찜했는지 여부 확인하여 리턴
+        //todo: 이 멤버가 해당 글을 찜했는지 여부 확인하여 리턴
 
         // 임시 리턴값
         return true;
