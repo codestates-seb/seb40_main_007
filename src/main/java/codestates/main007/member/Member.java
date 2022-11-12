@@ -32,8 +32,8 @@ public class Member {
     @Column
     private String avatar;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
-    private List<Board> boards = new ArrayList<>();
+    @OneToMany(mappedBy = "writer", cascade = CascadeType.REMOVE)
+    private final List<Board> boards = new ArrayList<>();
 
     // todo: 댓글 연관관계 추가
 

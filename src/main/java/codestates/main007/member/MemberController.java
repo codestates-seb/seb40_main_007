@@ -15,11 +15,20 @@ public class MemberController {
 
     private final MemberMapper memberMapper;
 
+    @PostMapping("/signup")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void postMember(@RequestBody MemberDto.Signup signupDto){
+        Member member = memberMapper.signupDtoToMember(signupDto);
+
+        memberService.save(member);
+    }
+
     @GetMapping("/{member-id}/my-page")
     @ResponseStatus(HttpStatus.OK)
     public void getMyPage(@RequestHeader(name = "Authorization") String accessToken,
                           @PathVariable("member-id") long memberId) {
         // todo: 병합 후 보드 서비스에서 가져오기
+
         System.out.println("mypage");
     }
 

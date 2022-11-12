@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class MemberService {
     private final MemberRepository memberRepository;
 
+    public void save(Member member) {
+        this.memberRepository.save(member);
+    }
+
     public void update(long memberId, MemberDto.Patch patchDto) {
         Member member = find(memberId);
         member.patchMember(patchDto.getName(), patchDto.getAvatar(), patchDto.getPassword());
