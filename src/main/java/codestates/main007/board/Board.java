@@ -1,5 +1,8 @@
 package codestates.main007.board;
 
+import codestates.main007.comments.Comment;
+import codestates.main007.member.Member;
+import codestates.main007.member.MemberDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,6 +10,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Builder
@@ -64,7 +69,19 @@ public class Board {
     @Column
     private int timeFromStation;
 
-    // todo: 연관관계 - 멤버 , 댓글 , 태그
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member writer;
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+    private final List<Comment> comments = new ArrayList<>();
+
+    // todo: 연관관계 -  태그
+
+    // 게시글 작성 시 작성자 추가를 위한 메서드
+    public void setWriter(Member member) {
+        this.writer = member;
+    }
 
     // 게시글 업데이트를 위한 메서드
     public void patchBoard(String title, String review, Double star, Double latitude,

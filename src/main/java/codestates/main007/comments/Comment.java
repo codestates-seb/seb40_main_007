@@ -1,5 +1,7 @@
 package codestates.main007.comments;
 
+import codestates.main007.board.Board;
+import codestates.main007.member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,11 +29,22 @@ public class Comment {
     @Column
     private LocalDateTime modifiedAt;
 
-    //todo: 멤버와 보드 연관관계 설정
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member writer;
+
+    @ManyToOne
+    @JoinColumn(name = "board_id")
+    private Board board;
 
     public void patchComment(String comment) {
         if (comment != null) {
             this.comment = comment;
         }
+    }
+
+    public void setWriterAndBoard(Member writer, Board board) {
+        this.writer = writer;
+        this.board = board;
     }
 }
