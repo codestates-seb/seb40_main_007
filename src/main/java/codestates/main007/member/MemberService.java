@@ -1,5 +1,6 @@
 package codestates.main007.member;
 
+import codestates.main007.board.Board;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;

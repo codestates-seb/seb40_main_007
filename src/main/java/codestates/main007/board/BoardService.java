@@ -18,9 +18,9 @@ public class BoardService {
 
     public void update(Member member, long boardId, BoardDto.Input patch) {
         Board updatedBoard = find(boardId);
-
-        if (member.getMemberId()!=updatedBoard.getWriter().getMemberId()){
-            //todo: 에러 발생 로직
+        Member writer = updatedBoard.getWriter();
+        if (member != writer) {
+            //todo: 에러 발생 로직 작성자가 아닙니다
         }
 
         updatedBoard.patchBoard(patch.getTitle(),
@@ -35,7 +35,12 @@ public class BoardService {
         boardRepository.save(updatedBoard);
     }
 
-    public void delete(String accessToken, long boardId) {
+    public void delete(Member member, long boardId) {
+        Member writer = find(boardId).getWriter();
+        if (member != writer) {
+            //todo: 에러 발생 로직 작성자가 아닙니다
+        }
+
         boardRepository.deleteById(boardId);
     }
 
@@ -44,10 +49,29 @@ public class BoardService {
                 .orElseThrow(() -> new NullPointerException("해당 게시글이 존재하지 않습니다."));
     }
 
-    public boolean findIsDibs(String accessToken, long boardId) {
+    public boolean findIsDibs(Member member, long boardId) {
         //todo: 액세스토큰으로 찾은 유저가 해당 글을 찜했는지 여부 확인하여 리턴
 
         // 임시 리턴값
         return true;
+    }
+
+    public boolean dibs(Member member, long boardId){
+        //todo: 찜 기능 추가
+
+        // 임시 리턴값
+        return true;
+    }
+
+    public void upVote(Member member,long boardId){
+        Board board = find(boardId);
+
+        //todo : 추천 기능 추가
+    }
+
+    public void downVote(Member member,long boardId){
+        Board board = find(boardId);
+
+        //todo : 비추천 기능 추가
     }
 }

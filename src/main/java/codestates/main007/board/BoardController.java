@@ -13,10 +13,11 @@ public class BoardController {
     private final BoardService boardService;
     private final MemberService memberService;
     private final BoardMapper boardMapper;
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void postBoard(@RequestHeader(name = "Authorization")String accessToken,
-                          @RequestBody BoardDto.Input postDto){
+    public void postBoard(@RequestHeader(name = "Authorization") String accessToken,
+                          @RequestBody BoardDto.Input postDto) {
         Member member = memberService.findByAccessToken(accessToken);
 
         Board board = boardMapper.boardDtoToBoard(postDto, member);
@@ -25,9 +26,9 @@ public class BoardController {
 
     @PatchMapping("/{board-id}")
     @ResponseStatus(HttpStatus.OK)
-    public void patchBoard(@RequestHeader(name = "Authorization")String accessToken,
-                          @PathVariable("board-id") long boardId ,
-                          @RequestBody BoardDto.Input patchDto){
+    public void patchBoard(@RequestHeader(name = "Authorization") String accessToken,
+                           @PathVariable("board-id") long boardId,
+                           @RequestBody BoardDto.Input patchDto) {
         Member member = memberService.findByAccessToken(accessToken);
 
         boardService.update(member, boardId, patchDto);
@@ -35,18 +36,22 @@ public class BoardController {
 
     @DeleteMapping("/{board-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBoard(@RequestHeader(name = "Authorization")String accessToken,
-            @PathVariable("board-id") long boardId){
-        boardService.delete(accessToken, boardId);
+    public void deleteBoard(@RequestHeader(name = "Authorization") String accessToken,
+                            @PathVariable("board-id") long boardId) {
+        Member member = memberService.findByAccessToken(accessToken);
+
+        boardService.delete(member, boardId);
     }
 
     @GetMapping("/{board-id}")
     @ResponseStatus(HttpStatus.OK)
-        public BoardDto.DetailResponse getBoard(@RequestHeader(name = "Authorization")String accessToken,
-            @PathVariable("board-id") long boardId){
+    public BoardDto.DetailResponse getBoard(@RequestHeader(name = "Authorization") String accessToken,
+                                            @PathVariable("board-id") long boardId) {
         Board board = boardService.find(boardId);
 
-        boolean isDibs = boardService.findIsDibs(accessToken, boardId);
+        Member member = memberService.findByAccessToken(accessToken);
+
+        boolean isDibs = boardService.findIsDibs(member, boardId);
         BoardDto.DetailResponse detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs);
 
         return detailResponse;
@@ -54,23 +59,30 @@ public class BoardController {
 
     @PostMapping("{board-id}/up-vote")
     @ResponseStatus(HttpStatus.OK)
-    public void upVote(@RequestHeader(name = "Authorization")String accessToken,
-                       @PathVariable("board-id") long boardId){
-        // todo: 추천 기능
+    public void upVote(@RequestHeader(name = "Authorization") String accessToken,
+                       @PathVariable("board-id") long boardId) {
+        Member member = memberService.findByAccessToken(accessToken);
+
+        boardService.upVote(member, boardId);
     }
 
     @PostMapping("{board-id}/down-vote")
     @ResponseStatus(HttpStatus.OK)
-    public void downVote(@RequestHeader(name = "Authorization")String accessToken,
-                       @PathVariable("board-id") long boardId){
-        // todo : 비추천 기능
+    public void downVote(@RequestHeader(name = "Authorization") String accessToken,
+                         @PathVariable("board-id") long boardId) {
+
+        Member member = memberService.findByAccessToken(accessToken);
+
+        boardService.downVote(member, boardId);
     }
 
     @PostMapping("{board-id}/dibs")
     @ResponseStatus(HttpStatus.OK)
-    public BoardDto.Dibs dibs(@RequestHeader(name = "Authorization")String accessToken,
-                         @PathVariable("board-id") long boardId){
-        boolean isDibs = boardService.findIsDibs(accessToken, boardId);
+    public BoardDto.Dibs dibs(@RequestHeader(name = "Authorization") String accessToken,
+                              @PathVariable("board-id") long boardId) {
+        Member member = memberService.findByAccessToken(accessToken);
+
+        boolean isDibs = boardService.dibs(member, boardId);
         return boardMapper.isDibsToDibsDto(isDibs);
     }
 }
