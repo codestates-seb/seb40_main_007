@@ -4,6 +4,7 @@ import { mainCategoryState, mainRelatedState } from "../../atoms/filter";
 const RelatedTab = () => {
   const [related, setRelated] = useRecoilState(mainRelatedState);
   const category = useRecoilValue(mainCategoryState);
+
   const restarant = ["한식", "중식", "양식", "일식", "술집"];
   const sight = ["자연", "문화", "유적", "공연", "놀거리"];
   const stay = ["호텔", "모텔", "게하", "펜션", "캠핑"];
