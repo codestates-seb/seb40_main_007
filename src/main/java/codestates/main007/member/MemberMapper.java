@@ -1,6 +1,7 @@
 package codestates.main007.member;
 
 import codestates.main007.board.Board;
+import codestates.main007.comments.Comment;
 import org.mapstruct.Mapper;
 
 import java.util.ArrayList;
@@ -35,5 +36,21 @@ public interface MemberMapper {
         }
 
         return myPages;
+    }
+
+    default List<MemberDto.MyComment> commentsToMyComments(List<Comment> comments) {
+        List<MemberDto.MyComment> myComments = new ArrayList<>();
+        for (Comment comment : comments) {
+            MemberDto.MyComment myComment = MemberDto.MyComment.builder()
+                    .commentId(comment.getCommentId())
+                    .boardId(comment.getBoard().getBoardId())
+                    .title(comment.getBoard().getTitle())
+                    .comment(comment.getComment())
+                    .thumbnail(comment.getBoard().getThumbnail())
+                    .build();
+            myComments.add(myComment);
+        }
+
+        return myComments;
     }
 }

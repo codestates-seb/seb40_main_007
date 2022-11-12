@@ -31,6 +31,18 @@ public class MemberDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
+    public static class MyComment {
+        private long commentId;
+        private long boardId;
+        private String title;
+        private String comment;
+        private String thumbnail;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Patch {
         private String name;
         private String avatar;

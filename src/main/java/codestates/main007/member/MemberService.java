@@ -2,6 +2,8 @@ package codestates.main007.member;
 
 import codestates.main007.board.Board;
 import codestates.main007.board.BoardRepository;
+import codestates.main007.comments.Comment;
+import codestates.main007.comments.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +16,14 @@ public class MemberService {
 
     private final BoardRepository boardRepository;
 
+    private final CommentRepository commentRepository;
+
     public void save(Member member) {
         memberRepository.save(member);
     }
 
-    public void update(long memberId, MemberDto.Patch patchDto) {
-        Member member = find(memberId);
+    public void update(String accessToken, MemberDto.Patch patchDto) {
+        Member member = findByAccessToken(accessToken);
         member.patchMember(patchDto.getName(), patchDto.getAvatar(), patchDto.getPassword());
         memberRepository.save(member);
     }
@@ -54,5 +58,11 @@ public class MemberService {
         Member member = findByAccessToken(accessToken);
 
         return boardRepository.findByWriterAndStationId(member,stationId);
+    }
+
+    public List<Comment> findMyComments(String accessToken){
+        Member member = findByAccessToken(accessToken);
+
+        return commentRepository.findByWriter(member);
     }
 }
