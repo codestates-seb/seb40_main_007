@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findByWriter(Member member);
+
+    List<Board> findByWriterAndStationId(Member member, long StationId);
 }

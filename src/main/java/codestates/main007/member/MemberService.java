@@ -2,10 +2,8 @@ package codestates.main007.member;
 
 import codestates.main007.board.Board;
 import codestates.main007.board.BoardRepository;
-import codestates.main007.board.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -50,5 +48,11 @@ public class MemberService {
         Member member = findByAccessToken(accessToken);
 
         return boardRepository.findByWriter(member);
+    }
+
+    public List<Board> findMyPageByStation(String accessToken, long stationId){
+        Member member = findByAccessToken(accessToken);
+
+        return boardRepository.findByWriterAndStationId(member,stationId);
     }
 }

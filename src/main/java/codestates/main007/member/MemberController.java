@@ -49,11 +49,13 @@ public class MemberController {
 
     @GetMapping("/{member-id}/my-page/{station-id}")
     @ResponseStatus(HttpStatus.OK)
-    public void getMyPageByStation(@RequestHeader(name = "Authorization") String accessToken,
+    public MultiResponseDto getMyPageByStation(@RequestHeader(name = "Authorization") String accessToken,
                                    @PathVariable("station-id") long stationId,
                                    @PathVariable("member-id") long memberId) {
-        // todo: 병합 후 보드 서비스에서 가져오기
-        System.out.println(stationId);
+        List<Board> boards = memberService.findMyPageByStation(accessToken, stationId);
+        List<MemberDto.MyPage> myPages = memberMapper.boardsToMyPages(boards);
+
+        return new MultiResponseDto(myPages);
     }
 
     @GetMapping("/{member-id}/my-page/comments")
