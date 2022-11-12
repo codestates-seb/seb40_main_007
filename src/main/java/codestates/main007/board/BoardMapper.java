@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Mapper(componentModel = "spring")
 public interface BoardMapper {
-    default Board boardDtoToBoard(BoardDto.Input boardDto, Member member){
+    default Board boardDtoToBoard(BoardDto.Input boardDto){
         Board board = Board.builder()
                 .title(boardDto.getTitle())
                 .review(boardDto.getReview())
@@ -24,7 +24,6 @@ public interface BoardMapper {
                 .score(0)
                 .viewCount(0)
                 .address(boardDto.getAddress())
-                .writer(member)
                 // 시간 계산 로직
 //                .timeFromStation()
                 //todo: tag 추가 필요

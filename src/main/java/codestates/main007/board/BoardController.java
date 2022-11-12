@@ -11,17 +11,15 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
-    private final MemberService memberService;
     private final BoardMapper boardMapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void postBoard(@RequestHeader(name = "Authorization") String accessToken,
                           @RequestBody BoardDto.Input postDto) {
-        Member member = memberService.findByAccessToken(accessToken);
 
-        Board board = boardMapper.boardDtoToBoard(postDto, member);
-        boardService.save(board);
+        Board board = boardMapper.boardDtoToBoard(postDto);
+        boardService.save(accessToken, board);
     }
 
     @PatchMapping("/{board-id}")
@@ -29,18 +27,16 @@ public class BoardController {
     public void patchBoard(@RequestHeader(name = "Authorization") String accessToken,
                            @PathVariable("board-id") long boardId,
                            @RequestBody BoardDto.Input patchDto) {
-        Member member = memberService.findByAccessToken(accessToken);
 
-        boardService.update(member, boardId, patchDto);
+        boardService.update(accessToken, boardId, patchDto);
     }
 
     @DeleteMapping("/{board-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBoard(@RequestHeader(name = "Authorization") String accessToken,
                             @PathVariable("board-id") long boardId) {
-        Member member = memberService.findByAccessToken(accessToken);
 
-        boardService.delete(member, boardId);
+        boardService.delete(accessToken, boardId);
     }
 
     @GetMapping("/{board-id}")
@@ -49,9 +45,7 @@ public class BoardController {
                                             @PathVariable("board-id") long boardId) {
         Board board = boardService.find(boardId);
 
-        Member member = memberService.findByAccessToken(accessToken);
-
-        boolean isDibs = boardService.findIsDibs(member, boardId);
+        boolean isDibs = boardService.findIsDibs(accessToken, boardId);
         BoardDto.DetailResponse detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs);
 
         return detailResponse;
@@ -61,9 +55,8 @@ public class BoardController {
     @ResponseStatus(HttpStatus.OK)
     public void upVote(@RequestHeader(name = "Authorization") String accessToken,
                        @PathVariable("board-id") long boardId) {
-        Member member = memberService.findByAccessToken(accessToken);
 
-        boardService.upVote(member, boardId);
+        boardService.upVote(accessToken, boardId);
     }
 
     @PostMapping("{board-id}/down-vote")
@@ -71,18 +64,15 @@ public class BoardController {
     public void downVote(@RequestHeader(name = "Authorization") String accessToken,
                          @PathVariable("board-id") long boardId) {
 
-        Member member = memberService.findByAccessToken(accessToken);
-
-        boardService.downVote(member, boardId);
+        boardService.downVote(accessToken, boardId);
     }
 
     @PostMapping("{board-id}/dibs")
     @ResponseStatus(HttpStatus.OK)
     public BoardDto.Dibs dibs(@RequestHeader(name = "Authorization") String accessToken,
                               @PathVariable("board-id") long boardId) {
-        Member member = memberService.findByAccessToken(accessToken);
 
-        boolean isDibs = boardService.dibs(member, boardId);
+        boolean isDibs = boardService.dibs(accessToken, boardId);
         return boardMapper.isDibsToDibsDto(isDibs);
     }
 }

@@ -14,10 +14,6 @@ import org.springframework.web.bind.annotation.*;
 public class CommentController {
     private final CommentService commentService;
 
-    private final MemberService memberService;
-
-    private final BoardService boardService;
-
     private final CommentMapper commentMapper;
 
     @PostMapping("/boards/{board-id}/comments")
@@ -25,13 +21,9 @@ public class CommentController {
     public void postComment(@RequestHeader(name = "Authorization") String accessToken,
                             @PathVariable("board-id") long boardId,
                             @RequestBody CommentDto.Input postDto) {
-        // todo: 멤버, 보드와 연관관계 설정
-        Member member = memberService.findByAccessToken(accessToken);
-        Board board = boardService.find(boardId);
+        Comment comment = commentMapper.commentDtoToComment(postDto);
 
-        Comment comment = commentMapper.commentDtoToComment(member, board, postDto);
-
-        commentService.save(comment);
+        commentService.save(accessToken, boardId, comment);
     }
 
     @PatchMapping("/comments/{comment-id}")
@@ -39,18 +31,16 @@ public class CommentController {
     public void patchComment(@RequestHeader(name = "Authorization") String accessToken,
                              @PathVariable("comment-id") long commentId,
                              @RequestBody CommentDto.Input patchDto) {
-        Member member = memberService.findByAccessToken(accessToken);
 
-        commentService.update(member, patchDto, commentId);
+        commentService.update(accessToken, patchDto, commentId);
     }
 
     @DeleteMapping("/comments/{comment-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteComment(@RequestHeader(name = "Authorization") String accessToken,
                               @PathVariable("comment-id") long commentId) {
-        Member member = memberService.findByAccessToken(accessToken);
 
-        commentService.delete(member, commentId);
+        commentService.delete(accessToken, commentId);
     }
 
 }

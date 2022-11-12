@@ -8,10 +8,8 @@ import java.time.LocalDateTime;
 
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
-    default Comment commentDtoToComment(Member member, Board board, CommentDto.Input commentDto) {
+    default Comment commentDtoToComment(CommentDto.Input commentDto) {
         Comment comment = Comment.builder()
-                .writer(member)
-                .board(board)
                 .comment(commentDto.getComment())
                 .createdAt(LocalDateTime.now())
                 .modifiedAt(LocalDateTime.now())

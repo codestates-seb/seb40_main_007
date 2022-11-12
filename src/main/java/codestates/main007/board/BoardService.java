@@ -1,23 +1,28 @@
 package codestates.main007.board;
 
 import codestates.main007.member.Member;
+import codestates.main007.member.MemberService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
 
-    public BoardService(BoardRepository boardRepository) {
-        this.boardRepository = boardRepository;
-    }
+    private final MemberService memberService;
 
-    public void save(Board board) {
+    public void save(String accessToken, Board board) {
+        Member writer = memberService.findByAccessToken(accessToken);
+        board.setWriter(writer);
 
         boardRepository.save(board);
     }
 
-    public void update(Member member, long boardId, BoardDto.Input patch) {
+    public void update(String accessToken, long boardId, BoardDto.Input patch) {
         Board updatedBoard = find(boardId);
+        Member member = memberService.findByAccessToken(accessToken);
+
         Member writer = updatedBoard.getWriter();
         if (member != writer) {
             //todo: 에러 발생 로직 작성자가 아닙니다
@@ -35,8 +40,10 @@ public class BoardService {
         boardRepository.save(updatedBoard);
     }
 
-    public void delete(Member member, long boardId) {
+    public void delete(String accessToken, long boardId) {
         Member writer = find(boardId).getWriter();
+        Member member = memberService.findByAccessToken(accessToken);
+
         if (member != writer) {
             //todo: 에러 발생 로직 작성자가 아닙니다
         }
@@ -49,29 +56,31 @@ public class BoardService {
                 .orElseThrow(() -> new NullPointerException("해당 게시글이 존재하지 않습니다."));
     }
 
-    public boolean findIsDibs(Member member, long boardId) {
+    public boolean findIsDibs(String accessToken, long boardId) {
+        Member member = memberService.findByAccessToken(accessToken);
         //todo: 이 멤버가 해당 글을 찜했는지 여부 확인하여 리턴
 
         // 임시 리턴값
         return true;
     }
 
-    public boolean dibs(Member member, long boardId){
+    public boolean dibs(String accessToken, long boardId) {
+        Member member = memberService.findByAccessToken(accessToken);
         //todo: 찜 기능 추가
 
         // 임시 리턴값
         return true;
     }
 
-    public void upVote(Member member,long boardId){
+    public void upVote(String accessToken, long boardId) {
         Board board = find(boardId);
-
+        Member member = memberService.findByAccessToken(accessToken);
         //todo : 추천 기능 추가
     }
 
-    public void downVote(Member member,long boardId){
+    public void downVote(String accessToken, long boardId) {
         Board board = find(boardId);
-
+        Member member = memberService.findByAccessToken(accessToken);
         //todo : 비추천 기능 추가
     }
 }

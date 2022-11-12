@@ -78,6 +78,11 @@ public class Board {
 
     // todo: 연관관계 -  태그
 
+    // 게시글 작성 시 작성자 추가를 위한 메서드
+    public void setWriter(Member member){
+        this.writer = member;
+    }
+
     // 게시글 업데이트를 위한 메서드
     public void patchBoard(String title, String review, Double star, Double latitude,
                            Double longitude, Long stationId, Long categoryId, String address) {
