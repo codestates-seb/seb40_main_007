@@ -28,7 +28,7 @@ public class MemberService {
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
 
-    public Member saveMember(Member member){
+    public Member save(Member member){
         verifyExistEmail(member.getEmail());
         String encryptedPassword = passwordEncoder.encode(member.getPassword());
         List<String> roles = authorityUtils.createRoles(member.getEmail());
