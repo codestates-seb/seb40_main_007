@@ -1,4 +1,4 @@
-package codestates.main007.auth.filter;
+package codestates.main007.auth.handler;
 
 import codestates.main007.auth.util.ErrorResponder;
 import lombok.extern.slf4j.Slf4j;
