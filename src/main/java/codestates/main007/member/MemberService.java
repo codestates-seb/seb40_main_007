@@ -57,6 +57,7 @@ public class MemberService {
         Optional<Member> member = memberRepository.findByEmail(email);
         if(member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+    }
 
     public Member findByAccessToken(String accessToken) {
         //todo: 액세스 토큰을 이용하여 멤버 찾는 로직
