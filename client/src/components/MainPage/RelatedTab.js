@@ -9,8 +9,6 @@ const RelatedTab = () => {
   const sight = ["자연", "문화", "유적", "공연", "놀거리"];
   const stay = ["호텔", "모텔", "게하", "펜션", "캠핑"];
 
-  console.log(category, related);
-
   return (
     <div className="flex flex-row justify-center space-x-2 mt-5">
       {category === "식당"
