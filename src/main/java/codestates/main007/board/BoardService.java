@@ -1,5 +1,6 @@
 package codestates.main007.board;
 
+import codestates.main007.member.Member;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,8 +16,12 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    public void update(long boardId, BoardDto.Input patch) {
+    public void update(Member member, long boardId, BoardDto.Input patch) {
         Board updatedBoard = find(boardId);
+
+        if (member.getMemberId()!=updatedBoard.getWriter().getMemberId()){
+            //todo: 에러 발생 로직
+        }
 
         updatedBoard.patchBoard(patch.getTitle(),
                 patch.getReview(),

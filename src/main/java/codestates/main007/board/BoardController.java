@@ -17,11 +17,7 @@ public class BoardController {
     @ResponseStatus(HttpStatus.CREATED)
     public void postBoard(@RequestHeader(name = "Authorization")String accessToken,
                           @RequestBody BoardDto.Input postDto){
-        // 토큰설정 완료되면 이거 사용
-        //Member member = memberService.findByAccessToken(accessToken);
-
-        // 그전까지 이거 사용
-        Member member = memberService.find(1);
+        Member member = memberService.findByAccessToken(accessToken);
 
         Board board = boardMapper.boardDtoToBoard(postDto, member);
         boardService.save(board);
@@ -32,7 +28,9 @@ public class BoardController {
     public void patchBoard(@RequestHeader(name = "Authorization")String accessToken,
                           @PathVariable("board-id") long boardId ,
                           @RequestBody BoardDto.Input patchDto){
-        boardService.update(boardId, patchDto);
+        Member member = memberService.findByAccessToken(accessToken);
+
+        boardService.update(member, boardId, patchDto);
     }
 
     @DeleteMapping("/{board-id}")
@@ -70,8 +68,9 @@ public class BoardController {
 
     @PostMapping("{board-id}/dibs")
     @ResponseStatus(HttpStatus.OK)
-    public void dibs(@RequestHeader(name = "Authorization")String accessToken,
+    public BoardDto.Dibs dibs(@RequestHeader(name = "Authorization")String accessToken,
                          @PathVariable("board-id") long boardId){
-        //todo: 접속한 유저가 해당 게시글의 찜 눌렀는지 여부 반환
+        boolean isDibs = boardService.findIsDibs(accessToken, boardId);
+        return boardMapper.isDibsToDibsDto(isDibs);
     }
 }

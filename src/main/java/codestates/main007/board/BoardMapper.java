@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Mapper(componentModel = "spring")
 public interface BoardMapper {
-    default public Board boardDtoToBoard(BoardDto.Input boardDto, Member member){
+    default Board boardDtoToBoard(BoardDto.Input boardDto, Member member){
         Board board = Board.builder()
                 .title(boardDto.getTitle())
                 .review(boardDto.getReview())
@@ -32,7 +32,7 @@ public interface BoardMapper {
         return board;
     }
 
-    default public BoardDto.DetailResponse boardToDetailResponseDto(Board board,boolean isDibs){
+    default BoardDto.DetailResponse boardToDetailResponseDto(Board board,boolean isDibs){
         BoardDto.DetailResponse detailResponse =
                 BoardDto.DetailResponse.builder()
                         .boardId(board.getBoardId())
@@ -49,5 +49,9 @@ public interface BoardMapper {
                         .createdAt(board.getCreatedAt())
                         .build();
         return detailResponse;
+    }
+
+    default BoardDto.Dibs isDibsToDibsDto(boolean isDibs){
+        return BoardDto.Dibs.builder().dibs(isDibs).build();
     }
 }
