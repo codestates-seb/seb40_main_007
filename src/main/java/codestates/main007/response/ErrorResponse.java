@@ -1,5 +1,6 @@
 package codestates.main007.response;
 
+import codestates.main007.exception.ExceptionCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -18,8 +19,23 @@ public class ErrorResponse { //v1
     private final List<FieldError> fieldErrors;
     private final List<ConstraintViolationError> violationErrors;
 
+    public static ErrorResponse of(BindingResult bindingResult) {
+        return new ErrorResponse(400, null, FieldError.of(bindingResult), null);
+    }
+
+    public static ErrorResponse of(Set<ConstraintViolation<?>> violations) {
+        return new ErrorResponse(400, null, null, ConstraintViolationError.of(violations));
+    }
+
+    public static ErrorResponse of(ExceptionCode exceptionCode) {
+        return new ErrorResponse(exceptionCode.getStatus(), exceptionCode.getMessage(), null, null);
+    }
     public static ErrorResponse of(HttpStatus httpStatus) {
         return new ErrorResponse(httpStatus.value(), httpStatus.getReasonPhrase(), null, null);
+    }
+
+    public static ErrorResponse of(HttpStatus httpStatus, String message) {
+        return new ErrorResponse(httpStatus.value(), message, null, null);
     }
 
     @Getter
