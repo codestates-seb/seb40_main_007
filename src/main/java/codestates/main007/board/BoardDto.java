@@ -12,7 +12,7 @@ public class BoardDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Input{
+    public static class Input {
         private String title;
         private String review;
         private Double star;
@@ -26,7 +26,7 @@ public class BoardDto {
 
     @Getter
     @Builder
-    public static class DetailResponse{
+    public static class DetailResponse {
         private long boardId;
         private String title;
         private String review;
@@ -43,7 +43,7 @@ public class BoardDto {
 
     @Getter
     @Builder
-    public static class Dibs{
+    public static class Dibs {
         private boolean dibs;
     }
 }
