@@ -23,4 +23,12 @@ public class MemberService {
         return this.memberRepository.findById(memberId)
                 .orElseThrow(() -> new NullPointerException("해당 멤버가 존재하지 않습니다."));
     }
+
+    public void verifyPassword(String accessToken,String password){
+        // todo: 패스워드 검증 로직 작성
+    }
+
+    public void  sendPassword(String email){
+        //todo: 이메일로 패스워드 보내주는 로직 작성
+    }
 }

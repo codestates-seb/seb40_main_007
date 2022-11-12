@@ -36,4 +36,11 @@ public class MemberDto {
         private String avatar;
         private String password;
     }
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Email {
+        private String email;
+    }
 }

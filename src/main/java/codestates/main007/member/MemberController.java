@@ -17,10 +17,24 @@ public class MemberController {
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
-    public void postMember(@RequestBody MemberDto.Signup signupDto){
+    public void postMember(@RequestBody MemberDto.Signup signupDto) {
         Member member = memberMapper.signupDtoToMember(signupDto);
 
         memberService.save(member);
+    }
+
+    @PostMapping("/verification")
+    @ResponseStatus(HttpStatus.OK)
+    public void checkPassword(@RequestHeader(name = "Authorization") String accessToken,
+                              @RequestHeader(name = "Password") String password) {
+        memberService.verifyPassword(accessToken,password);
+        // todo : 패스워드 검증 로직 (틀릴 경우 에러)
+    }
+
+    @PostMapping("/find-password")
+    @ResponseStatus(HttpStatus.OK)
+    public void findPassword(@RequestBody MemberDto.Email email) {
+        memberService.sendPassword(email.getEmail());
     }
 
     @GetMapping("/{member-id}/my-page")
@@ -44,21 +58,21 @@ public class MemberController {
     @GetMapping("/{member-id}/my-page/comments")
     @ResponseStatus(HttpStatus.OK)
     public void getMyComments(@RequestHeader(name = "Authorization") String accessToken,
-                                   @PathVariable("member-id") long memberId) {
+                              @PathVariable("member-id") long memberId) {
         // todo: 병합 후 보드 서비스에서 가져오기
     }
 
     @GetMapping("/{member-id}/my-page/map")
     @ResponseStatus(HttpStatus.OK)
     public void getMyMap(@RequestHeader(name = "Authorization") String accessToken,
-                              @PathVariable("member-id") long memberId) {
+                         @PathVariable("member-id") long memberId) {
         // todo: 병합 후 보드 서비스에서 가져오기
     }
 
     @GetMapping("/{member-id}/info")
     @ResponseStatus(HttpStatus.OK)
     public void getMyInfo(@RequestHeader(name = "Authorization") String accessToken,
-                              @PathVariable("member-id") long memberId) {
+                          @PathVariable("member-id") long memberId) {
         // todo: 병합 후 보드 서비스에서 가져오기
     }
 
@@ -66,7 +80,7 @@ public class MemberController {
     @ResponseStatus(HttpStatus.OK)
     public void patchMyInfo(@RequestHeader(name = "Authorization") String accessToken,
                             @PathVariable("member-id") long memberId,
-                            @RequestBody MemberDto.Patch patchDto){
+                            @RequestBody MemberDto.Patch patchDto) {
         this.memberService.update(memberId, patchDto);
     }
 
