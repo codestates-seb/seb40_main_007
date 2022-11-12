@@ -1,12 +1,13 @@
 package codestates.main007.board;
 
+import codestates.main007.member.Member;
 import org.mapstruct.Mapper;
 
 import java.time.LocalDateTime;
 
 @Mapper(componentModel = "spring")
 public interface BoardMapper {
-    default public Board boardDtoToBoard(BoardDto.Input boardDto){
+    default Board boardDtoToBoard(BoardDto.Input boardDto) {
         Board board = Board.builder()
                 .title(boardDto.getTitle())
                 .review(boardDto.getReview())
@@ -30,7 +31,7 @@ public interface BoardMapper {
         return board;
     }
 
-    default public BoardDto.DetailResponse boardToDetailResponseDto(Board board){
+    default BoardDto.DetailResponse boardToDetailResponseDto(Board board, boolean isDibs) {
         BoardDto.DetailResponse detailResponse =
                 BoardDto.DetailResponse.builder()
                         .boardId(board.getBoardId())
@@ -43,9 +44,13 @@ public interface BoardMapper {
                         .address(board.getAddress())
                         .timeFromStation(board.getTimeFromStation())
                         // todo: 찜 연관관계 설정후 추가, 작성자, 이미지
-                        //.dibs()
+                        .dibs(isDibs)
                         .createdAt(board.getCreatedAt())
                         .build();
         return detailResponse;
+    }
+
+    default BoardDto.Dibs isDibsToDibsDto(boolean isDibs) {
+        return BoardDto.Dibs.builder().dibs(isDibs).build();
     }
 }
