@@ -17,9 +17,9 @@ public class CommentController {
                             @PathVariable("board-id") long boardID,
                             @RequestBody CommentDto.Input postDto) {
         // todo: 멤버, 보드와 연관관계 설정
-        Comment comment = this.commentMapper.commentDtoToComment(postDto);
+        Comment comment = commentMapper.commentDtoToComment(postDto);
 
-        this.commentService.save(comment);
+        commentService.save(comment);
     }
 
     @PatchMapping("/comments/{comment-id}")
@@ -27,7 +27,7 @@ public class CommentController {
     public void patchComment(@RequestHeader(name = "Authorization") String accessToken,
                              @PathVariable("comment-id") long commentId,
                              @RequestBody CommentDto.Input patchDto) {
-        this.commentService.update(patchDto, commentId);
+        commentService.update(patchDto, commentId);
     }
 
     @DeleteMapping("/comments/{comment-id}")
@@ -35,7 +35,7 @@ public class CommentController {
     public void deleteComment(@RequestHeader(name = "Authorization") String accessToken,
                               @PathVariable("comment-id") long commentId
     ) {
-        this.commentService.delete(commentId);
+        commentService.delete(commentId);
     }
 
 }

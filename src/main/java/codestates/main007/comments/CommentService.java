@@ -9,21 +9,22 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     public void save(Comment comment) {
-        this.commentRepository.save(comment);
+        commentRepository.save(comment);
     }
 
     public void update(CommentDto.Input patchDto, long commentId) {
         Comment comment = find(commentId);
         comment.patchComment(patchDto.getComment());
+        commentRepository.save(comment);
     }
 
     public Comment find(long commentId) {
-        return this.commentRepository.findById(commentId)
+        return commentRepository.findById(commentId)
                 .orElseThrow(() -> new NullPointerException("해당 댓글이 존재하지 않습니다."));
     }
 
     public void delete(long commentId) {
-        this.commentRepository.deleteById(commentId);
+        commentRepository.deleteById(commentId);
     }
 }
 

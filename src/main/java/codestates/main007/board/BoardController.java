@@ -23,8 +23,8 @@ public class BoardController {
         // 그전까지 이거 사용
         Member member = memberService.find(1);
 
-        Board board = this.boardMapper.boardDtoToBoard(postDto, member);
-        this.boardService.save(board);
+        Board board = boardMapper.boardDtoToBoard(postDto, member);
+        boardService.save(board);
     }
 
     @PatchMapping("/{board-id}")
@@ -32,23 +32,23 @@ public class BoardController {
     public void patchBoard(@RequestHeader(name = "Authorization")String accessToken,
                           @PathVariable("board-id") long boardId ,
                           @RequestBody BoardDto.Input patchDto){
-        this.boardService.update(boardId, patchDto);
+        boardService.update(boardId, patchDto);
     }
 
     @DeleteMapping("/{board-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBoard(@RequestHeader(name = "Authorization")String accessToken,
             @PathVariable("board-id") long boardId){
-        this.boardService.delete(boardId);
+        boardService.delete(boardId);
     }
 
     @GetMapping("/{board-id}")
     @ResponseStatus(HttpStatus.OK)
         public BoardDto.DetailResponse getBoard(@RequestHeader(name = "Authorization")String accessToken,
             @PathVariable("board-id") long boardId){
-        Board board = this.boardService.find(boardId);
+        Board board = boardService.find(boardId);
 
-        BoardDto.DetailResponse detailResponse = this.boardMapper.boardToDetailResponseDto(board);
+        BoardDto.DetailResponse detailResponse = boardMapper.boardToDetailResponseDto(board);
 
         return detailResponse;
     }

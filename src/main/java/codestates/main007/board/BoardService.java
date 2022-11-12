@@ -12,7 +12,7 @@ public class BoardService {
 
     public void save(Board board) {
 
-        this.boardRepository.save(board);
+        boardRepository.save(board);
     }
 
     public void update(long boardId, BoardDto.Input patch) {
@@ -27,15 +27,15 @@ public class BoardService {
                 patch.getCategoryId(),
                 patch.getAddress());
 
-        this.boardRepository.save(updatedBoard);
+        boardRepository.save(updatedBoard);
     }
 
     public void delete(long boardId) {
-        this.boardRepository.deleteById(boardId);
+        boardRepository.deleteById(boardId);
     }
 
     public Board find(long boardId) {
-        return this.boardRepository.findById(boardId)
+        return boardRepository.findById(boardId)
                 .orElseThrow(() -> new NullPointerException("해당 게시글이 존재하지 않습니다."));
     }
 }

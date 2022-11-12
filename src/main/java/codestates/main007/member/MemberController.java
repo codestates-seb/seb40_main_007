@@ -23,7 +23,7 @@ public class MemberController {
         memberService.save(member);
     }
 
-    @PostMapping("/verification")
+    @GetMapping("/verification")
     @ResponseStatus(HttpStatus.OK)
     public void checkPassword(@RequestHeader(name = "Authorization") String accessToken,
                               @RequestHeader(name = "Password") String password) {
@@ -81,7 +81,7 @@ public class MemberController {
     public void patchMyInfo(@RequestHeader(name = "Authorization") String accessToken,
                             @PathVariable("member-id") long memberId,
                             @RequestBody MemberDto.Patch patchDto) {
-        this.memberService.update(memberId, patchDto);
+        memberService.update(memberId, patchDto);
     }
 
 }
