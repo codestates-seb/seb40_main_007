@@ -26,7 +26,7 @@ public class CommentController {
                             @PathVariable("board-id") long boardId,
                             @RequestBody CommentDto.Input postDto) {
         // todo: 멤버, 보드와 연관관계 설정
-        Member member =memberService.findByAccessToken(accessToken);
+        Member member = memberService.findByAccessToken(accessToken);
         Board board = boardService.find(boardId);
 
         Comment comment = commentMapper.commentDtoToComment(member, board, postDto);
@@ -39,15 +39,18 @@ public class CommentController {
     public void patchComment(@RequestHeader(name = "Authorization") String accessToken,
                              @PathVariable("comment-id") long commentId,
                              @RequestBody CommentDto.Input patchDto) {
-        commentService.update(patchDto, commentId);
+        Member member = memberService.findByAccessToken(accessToken);
+
+        commentService.update(member, patchDto, commentId);
     }
 
     @DeleteMapping("/comments/{comment-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteComment(@RequestHeader(name = "Authorization") String accessToken,
-                              @PathVariable("comment-id") long commentId
-    ) {
-        commentService.delete(commentId);
+                              @PathVariable("comment-id") long commentId) {
+        Member member = memberService.findByAccessToken(accessToken);
+
+        commentService.delete(member, commentId);
     }
 
 }
