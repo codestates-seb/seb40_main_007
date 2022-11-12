@@ -1,0 +1,42 @@
+package codestates.main007.auth.util;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Component
+public class CustomAuthorityUtils {
+//    @Value("${mail.address.admin}")
+//    private String adminMailAddress;
+
+    private final List<GrantedAuthority> ADMIN_ROLES = AuthorityUtils.createAuthorityList("ROLE_ADMIN", "ROLE_MEMBER");
+    private final List<GrantedAuthority> MEMBER_ROLES = AuthorityUtils.createAuthorityList("ROLE_MEMBER");
+    private final List<String> ADMIN_ROLES_STRING = List.of("ADMIN", "MEMBER");
+    private final List<String> MEMBER_ROLES_STRING = List.of("MEMBER");
+
+    public List<GrantedAuthority> createAuthorities(String email) {
+//        if (email.equals(adminMailAddress)) {
+//            return ADMIN_ROLES;
+//        }
+        return MEMBER_ROLES;
+    }
+
+    public List<GrantedAuthority> createAuthorities(List<String> roles) {
+        List<GrantedAuthority> authorities = roles.stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                .collect(Collectors.toList());
+        return authorities;
+    }
+
+    // DB 저장 용
+    public List<String> createRoles(String email) {
+//        if (email.equals(adminMailAddress)) {
+//            return ADMIN_ROLES_STRING;
+//        }
+        return MEMBER_ROLES_STRING;
+    }
+}

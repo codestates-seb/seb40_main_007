@@ -1,5 +1,9 @@
 package codestates.main007.member;
 
+
+import codestates.main007.auth.util.CustomAuthorityUtils;
+import codestates.main007.exception.BusinessLogicException;
+import codestates.main007.exception.ExceptionCode;
 import codestates.main007.board.Board;
 import codestates.main007.board.BoardRepository;
 import codestates.main007.comments.Comment;
@@ -7,22 +11,34 @@ import codestates.main007.comments.CommentRepository;
 import codestates.main007.member.query.MemberScore;
 import codestates.main007.member.query.MemberStation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import javax.transaction.Transactional;
+import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
-
+    private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
     private final BoardRepository boardRepository;
-
     private final CommentRepository commentRepository;
 
-    public void save(Member member) {
-        memberRepository.save(member);
+    public Member saveMember(Member member){
+        verifyExistEmail(member.getEmail());
+        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        List<String> roles = authorityUtils.createRoles(member.getEmail());
+
+        Member createdMember = Member.builder()
+                .password(encryptedPassword)
+                .roles(roles)
+                .build();
+
+        return memberRepository.save(createdMember);
     }
 
     public void update(String accessToken, MemberDto.Patch patchDto) {
@@ -35,6 +51,12 @@ public class MemberService {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new NullPointerException("해당 멤버가 존재하지 않습니다."));
     }
+
+
+    private void verifyExistEmail(String email){
+        Optional<Member> member = memberRepository.findByEmail(email);
+        if(member.isPresent())
+            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
 
     public Member findByAccessToken(String accessToken) {
         //todo: 액세스 토큰을 이용하여 멤버 찾는 로직

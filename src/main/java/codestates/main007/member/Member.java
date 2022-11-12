@@ -33,6 +33,9 @@ public class Member {
     @Column
     private String avatar;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
     @OneToMany(mappedBy = "writer", cascade = CascadeType.REMOVE)
     private final List<Board> boards = new ArrayList<>();
 
