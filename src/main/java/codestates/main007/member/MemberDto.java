@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 public class MemberDto {
     @Getter
     @Builder
@@ -43,6 +45,17 @@ public class MemberDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
+    public static class MyMap {
+        private long boardId;
+        private String thumbnail;
+        private double latitude;
+        private double longitude;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Patch {
         private String name;
         private String avatar;
@@ -55,5 +68,16 @@ public class MemberDto {
     @AllArgsConstructor
     public static class Email {
         private String email;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Info {
+        private int totalBoard;
+        private int totalComment;
+        private int score;
+        private List<Long> visitedStations;
     }
 }

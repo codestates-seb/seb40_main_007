@@ -4,9 +4,12 @@ import codestates.main007.board.Board;
 import codestates.main007.board.BoardRepository;
 import codestates.main007.comments.Comment;
 import codestates.main007.comments.CommentRepository;
+import codestates.main007.member.query.MemberScore;
+import codestates.main007.member.query.MemberStation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -54,15 +57,37 @@ public class MemberService {
         return boardRepository.findByWriter(member);
     }
 
-    public List<Board> findMyPageByStation(String accessToken, long stationId){
+    public List<Board> findMyPageByStation(String accessToken, long stationId) {
         Member member = findByAccessToken(accessToken);
 
-        return boardRepository.findByWriterAndStationId(member,stationId);
+        return boardRepository.findByWriterAndStationId(member, stationId);
     }
 
-    public List<Comment> findMyComments(String accessToken){
+    public List<Comment> findMyComments(String accessToken) {
         Member member = findByAccessToken(accessToken);
 
         return commentRepository.findByWriter(member);
+    }
+
+    public int findMyScore(Member member) {
+        int totalScore = 0;
+
+        List<MemberScore> scores = boardRepository.findScoreByWriter(member);
+        for (MemberScore s : scores) {
+            totalScore += s.getScore();
+        }
+        return totalScore;
+    }
+
+    public List<Long> findMyStations(Member member) {
+        List<Long> myStations = new ArrayList<>();
+
+        List<MemberStation> stations = boardRepository.findStationIdByWriter(member);
+        for (MemberStation ms : stations) {
+            if (!myStations.contains(ms.getStationId())) {
+                myStations.add(ms.getStationId());
+            }
+        }
+        return myStations;
     }
 }

@@ -53,4 +53,20 @@ public interface MemberMapper {
 
         return myComments;
     }
+
+    default List<MemberDto.MyMap> boardsToMyMaps(List<Board> boards) {
+        List<MemberDto.MyMap> myMaps = new ArrayList<>();
+        for (Board board : boards) {
+            MemberDto.MyMap myMap = MemberDto.MyMap.builder()
+                    .boardId(board.getBoardId())
+                    .thumbnail(board.getThumbnail())
+                    .latitude(board.getLatitude())
+                    .longitude(board.getLongitude())
+                    .build();
+
+            myMaps.add(myMap);
+        }
+
+        return myMaps;
+    }
 }
