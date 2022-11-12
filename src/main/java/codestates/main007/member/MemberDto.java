@@ -24,7 +24,7 @@ public class MemberDto {
         private String title;
         private String review;
         private double star;
-        private int timeForStation;
+        private int timeFromStation;
     }
 
     @Getter

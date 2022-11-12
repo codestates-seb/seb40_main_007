@@ -1,14 +1,20 @@
 package codestates.main007.member;
 
 import codestates.main007.board.Board;
+import codestates.main007.board.BoardRepository;
+import codestates.main007.board.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+
+    private final BoardRepository boardRepository;
 
     public void save(Member member) {
         memberRepository.save(member);
@@ -33,10 +39,16 @@ public class MemberService {
     }
 
     public void verifyPassword(String accessToken,String password){
-        // todo: 패스워드 검증 로직 작성
+        // todo: 패스워드 검증 로직 작성 (틀릴 경우 에러)
     }
 
     public void  sendPassword(String email){
         //todo: 이메일로 패스워드 보내주는 로직 작성
+    }
+
+    public List<Board> findMyPage(String accessToken){
+        Member member = findByAccessToken(accessToken);
+
+        return boardRepository.findByWriter(member);
     }
 }

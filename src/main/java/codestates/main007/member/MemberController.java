@@ -1,5 +1,7 @@
 package codestates.main007.member;
 
+import codestates.main007.board.Board;
+import codestates.main007.dto.MultiResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +30,6 @@ public class MemberController {
     public void checkPassword(@RequestHeader(name = "Authorization") String accessToken,
                               @RequestHeader(name = "Password") String password) {
         memberService.verifyPassword(accessToken,password);
-        // todo : 패스워드 검증 로직 (틀릴 경우 에러)
     }
 
     @PostMapping("/find-password")
@@ -39,11 +40,11 @@ public class MemberController {
 
     @GetMapping("/{member-id}/my-page")
     @ResponseStatus(HttpStatus.OK)
-    public void getMyPage(@RequestHeader(name = "Authorization") String accessToken,
-                          @PathVariable("member-id") long memberId) {
-        // todo: 병합 후 보드 서비스에서 가져오기
+    public MultiResponseDto getMyPage(@RequestHeader(name = "Authorization") String accessToken) {
+        List<Board> boards = memberService.findMyPage(accessToken);
+        List<MemberDto.MyPage> myPages = memberMapper.boardsToMyPages(boards);
 
-        System.out.println("mypage");
+        return new MultiResponseDto(myPages);
     }
 
     @GetMapping("/{member-id}/my-page/{station-id}")

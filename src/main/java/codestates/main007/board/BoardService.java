@@ -5,6 +5,8 @@ import codestates.main007.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BoardService {
@@ -54,6 +56,10 @@ public class BoardService {
     public Board find(long boardId) {
         return boardRepository.findById(boardId)
                 .orElseThrow(() -> new NullPointerException("해당 게시글이 존재하지 않습니다."));
+    }
+
+    public List<Board> findByMember(Member member){
+        return boardRepository.findByWriter(member);
     }
 
     public boolean findIsDibs(String accessToken, long boardId) {
