@@ -38,12 +38,11 @@ public class MemberService {
     private final RandomPasswordService randomPasswordService;
     private final JwtTokenizer jwtTokenizer;
 
-
     public Member save(MemberDto.Signup signupDto){
         verifyExistEmail(signupDto.getEmail());
         String encryptedPassword = passwordEncoder.encode(signupDto.getPassword());
         List<String> roles = authorityUtils.createRoles(signupDto.getEmail());
-
+  
         Member createdMember = Member.builder()
                 .email(signupDto.getEmail())
                 .name(namingService.genName())
