@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
-import LoginPage from "./Routes/signUpPage";
+import LoginPage from "./Routes/initialPage";
 import Loading from "./components/Loading";
 
 const queryClient = new QueryClient({

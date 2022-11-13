@@ -5,7 +5,7 @@ export default function SignUpPage() {
     <>
       <Header />
       <div className="lg:w-full w-full h-screen align-baseline flex justify-center items-center">
-        <div className="max-w-md p-2 px-10 m-auto border border-[rgb(83,199,240)] rounded-xl text-[rgb(83,199,240)]">
+        <div className="max-w-md p-2 px-10 m-auto border border-[rgba(83,198,240,0.4)] rounded-xl text-[rgb(83,199,240)]">
           <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2">
             SignUp
           </div>
