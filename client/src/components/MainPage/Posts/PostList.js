@@ -40,8 +40,8 @@ function PostList() {
     },
   ];
   return (
-    <div className="mx-auto overflow-y-scroll mt-10 h-[530px]">
-      <div className="mt-2 grid grid-cols-3 gap-y-4 gap-x-2">
+    <div className="mx-auto overflow-y-scroll mt-5 h-[600px]">
+      <div className="grid grid-cols-3 gap-y-4 gap-x-2">
         {posts.map((post) => (
           <Post key={post.id} />
         ))}

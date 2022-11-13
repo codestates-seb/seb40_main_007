@@ -12,6 +12,7 @@ const CommentList = () => {
         <Comment />
         <Comment />
         <Comment />
+        <Comment />
       </div>
     </>
   );

@@ -20,10 +20,10 @@ const MainPage = () => {
             <CategoryTabs />
             <RelatedTab />
             <PostList />
-            <WriteModal />
           </div>
         </div>
       </div>
+      <WriteModal />
     </>
   );
 };

@@ -1,11 +1,5 @@
-import CategoryTabs from "./MainPage/CategoryTab";
-
 const Sample = () => {
-  return (
-    <>
-      <CategoryTabs></CategoryTabs>
-    </>
-  );
+  return <></>;
 };
 
 export default Sample;

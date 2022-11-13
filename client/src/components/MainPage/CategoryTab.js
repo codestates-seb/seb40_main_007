@@ -6,7 +6,7 @@ const CategoryTabs = () => {
 
   return (
     <>
-      <div className="flex flex-row m-2 justify-center lg:mt-20">
+      <div className="flex flex-row justify-center mt-5 lg:mt-20">
         <button
           onClick={() => setCategory("식당")}
           className={

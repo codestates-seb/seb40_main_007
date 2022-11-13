@@ -4,7 +4,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 
 const DetailHeader = () => {
   return (
-    <div className="flex flex-col my-20">
+    <div className="flex flex-col mt-5 lg:mt-20">
       <div className="mb-5 flex flex-row justify-between">
         <span className="text-lg text-[rgb(83,199,240)] border-b-2 border-b-[rgb(83,199,240)] px-3 py-1">
           부산역
@@ -18,12 +18,14 @@ const DetailHeader = () => {
           </button>
         </div>
       </div>
-      <div className="flex space-x-2">
-        <span className="text-2xl font-bold">돼지 국밥</span>
-        <DetailStarScore />
-        <span className="flex justify-center items-end text-xs text-gray-500">
-          2 시간 전
-        </span>
+      <div className="flex flex-row">
+        <div className="flex space-x-2">
+          <span className="text-2xl font-bold">돼지 국밥</span>
+          <DetailStarScore />
+          <span className="flex justify-center items-end text-xs text-gray-500">
+            2 시간 전
+          </span>
+        </div>
       </div>
       <div className="flex space-x-2 mt-2">
         <span className="text-xs text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)] rounded-xl py-0.5 px-2">
@@ -48,6 +50,12 @@ const DetailHeader = () => {
             </span>
           );
         })} */}
+      </div>
+      <div className="flex flex-row items-center space-x-2">
+        <div className="w-6 h-6 my-2">
+          <img src="/images/profile.png" alt="사진" />
+        </div>
+        <span className="text-sm">게시글 작성자</span>
       </div>
     </div>
   );
