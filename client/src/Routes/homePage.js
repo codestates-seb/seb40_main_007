@@ -17,7 +17,6 @@ export default function homePage() {
             소개글 우리 앱의 모바일 버전 이미지를 넣을 예정
           </div>
         </div>
-
         <div className="w-full h-[750px] bg-gradient-to-tl from-white to-[rgb(83,199,240)] flex justify-center items-center">
           <div className="text-2xl text-white">
             소개글 우리 앱의 모바일 버전 이미지를 넣을 예정
