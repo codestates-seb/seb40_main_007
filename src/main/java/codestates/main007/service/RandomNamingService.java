@@ -1,7 +1,10 @@
 package codestates.main007.service;
 
+import org.springframework.stereotype.Service;
+
 import java.util.*;
 
+@Service
 public class RandomNamingService {
     private String firstName;
     private String lastName;

@@ -10,6 +10,8 @@ import codestates.main007.comments.Comment;
 import codestates.main007.comments.CommentRepository;
 import codestates.main007.member.query.MemberScore;
 import codestates.main007.member.query.MemberStation;
+import codestates.main007.service.RandomAvatarService;
+import codestates.main007.service.RandomNamingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,16 +19,20 @@ import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final CustomAuthorityUtils authorityUtils;
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
+    private final RandomNamingService namingService;
+    private final RandomAvatarService avatarService;
+
 
     public Member save(MemberDto.Signup signupDto){
         verifyExistEmail(signupDto.getEmail());
@@ -35,10 +41,8 @@ public class MemberService {
 
         Member createdMember = Member.builder()
                 .email(signupDto.getEmail())
-                // 랜덤네이밍 서비스
-//                .name()
-                // 아바타 생성 서비스
-//                .avatar()
+                .name(namingService.genName())
+                .avatar(avatarService.genAvatar())
                 .password(encryptedPassword)
                 .roles(roles)
                 .build();
