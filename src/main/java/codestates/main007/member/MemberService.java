@@ -61,6 +61,11 @@ public class MemberService {
                 .orElseThrow(() -> new NullPointerException("해당 멤버가 존재하지 않습니다."));
     }
 
+    public Member findByEmail(String email){
+        return memberRepository.findByEmail(email)
+                .orElseThrow(() -> new NullPointerException("해당 멤버가 존재하지 않습니다."));
+    }
+
 
     private void verifyExistEmail(String email){
         Optional<Member> member = memberRepository.findByEmail(email);
@@ -73,6 +78,26 @@ public class MemberService {
 
         //임시 리턴값
         return find(1);
+    }
+
+    public String findPassword(String email){
+        Member member = findByEmail(email);
+
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
+
+        String password = random.ints(leftLimit,rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+
+        member.resetPassword(passwordEncoder.encode(password));
+        memberRepository.save(member);
+
+        return password;
     }
 
     public void verifyPassword(String accessToken, String password) {
