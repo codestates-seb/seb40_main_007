@@ -70,7 +70,7 @@ public class MemberDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Email {
-        private String email;
+        private String address;
     }
 
     @Getter

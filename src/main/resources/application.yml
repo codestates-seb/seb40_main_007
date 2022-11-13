@@ -11,17 +11,17 @@ spring:
     properties:
       hibernate:
         format_sql: true;
-mail:
-  host: smtp.gmail.com
-  port: 587
-  username: <내 구글 계정>
-  password: <내 구글 계정 앱키>
-  properties:
-    mail:
-      smtp:
-        auth: true
-        starttls:
-          enable: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: yeogiyo007@gmail.com
+    password: pibrnoalgjanhzwo # 환경변수로 변경 필요
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 jwt:
   key:

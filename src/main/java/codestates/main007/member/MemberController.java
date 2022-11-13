@@ -5,6 +5,7 @@ import codestates.main007.board.BoardRepository;
 import codestates.main007.comments.Comment;
 import codestates.main007.comments.CommentRepository;
 import codestates.main007.dto.MultiResponseDto;
+import codestates.main007.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,18 +18,16 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
-
     private final BoardRepository boardRepository;
-
     private final CommentRepository commentRepository;
     private final MemberMapper memberMapper;
+    private final EmailService emailService;
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     public void postMember(@RequestBody MemberDto.Signup signupDto) {
-        Member member = memberMapper.signupDtoToMember(signupDto);
 
-        memberService.save(member);
+        memberService.save(signupDto);
     }
 
     @GetMapping("/verification")
@@ -41,7 +40,10 @@ public class MemberController {
     @PostMapping("/find-password")
     @ResponseStatus(HttpStatus.OK)
     public void findPassword(@RequestBody MemberDto.Email email) {
-        memberService.sendPassword(email.getEmail());
+        String password = memberService.findPassword(email.getAddress());
+
+        emailService.findPassword(email.getAddress(), password);
+        System.out.println("이메일 전송이 완료되었습니다.");
     }
 
     @GetMapping("/my-page")

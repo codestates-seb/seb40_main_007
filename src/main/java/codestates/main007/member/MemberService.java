@@ -1,6 +1,7 @@
 package codestates.main007.member;
 
 
+import codestates.main007.auth.jwt.JwtTokenizer;
 import codestates.main007.auth.util.CustomAuthorityUtils;
 import codestates.main007.exception.BusinessLogicException;
 import codestates.main007.exception.ExceptionCode;
@@ -10,30 +11,42 @@ import codestates.main007.comments.Comment;
 import codestates.main007.comments.CommentRepository;
 import codestates.main007.member.query.MemberScore;
 import codestates.main007.member.query.MemberStation;
+import codestates.main007.service.RandomAvatarService;
+import codestates.main007.service.RandomNamingService;
+import codestates.main007.service.RandomPasswordService;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final CustomAuthorityUtils authorityUtils;
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
+    private final RandomNamingService namingService;
+    private final RandomAvatarService avatarService;
+    private final RandomPasswordService randomPasswordService;
+    private final JwtTokenizer jwtTokenizer;
 
-    public Member save(Member member){
-        verifyExistEmail(member.getEmail());
-        String encryptedPassword = passwordEncoder.encode(member.getPassword());
-        List<String> roles = authorityUtils.createRoles(member.getEmail());
-
+    public Member save(MemberDto.Signup signupDto){
+        verifyExistEmail(signupDto.getEmail());
+        String encryptedPassword = passwordEncoder.encode(signupDto.getPassword());
+        List<String> roles = authorityUtils.createRoles(signupDto.getEmail());
+  
         Member createdMember = Member.builder()
+                .email(signupDto.getEmail())
+                .name(namingService.genName())
+                .avatar(avatarService.genAvatar())
                 .password(encryptedPassword)
                 .roles(roles)
                 .build();
@@ -52,6 +65,11 @@ public class MemberService {
                 .orElseThrow(() -> new NullPointerException("해당 멤버가 존재하지 않습니다."));
     }
 
+    public Member findByEmail(String email){
+        return memberRepository.findByEmail(email)
+                .orElseThrow(() -> new NullPointerException("해당 멤버가 존재하지 않습니다."));
+    }
+
 
     private void verifyExistEmail(String email){
         Optional<Member> member = memberRepository.findByEmail(email);
@@ -60,18 +78,32 @@ public class MemberService {
     }
 
     public Member findByAccessToken(String accessToken) {
-        //todo: 액세스 토큰을 이용하여 멤버 찾는 로직
+        // todo: 정식 리턴 값
+//        long userId = jwtTokenizer.getUserId(accessToken);
+        //return find(userId);
 
-        //임시 리턴값
-        return find(1);
+        // 임시 리턴값
+        return find(4);
     }
 
+    public String findPassword(String email){
+        Member member = findByEmail(email);
+
+        String password = randomPasswordService.genPassword();
+
+        member.resetPassword(passwordEncoder.encode(password));
+        memberRepository.save(member);
+
+        return password;
+    }
+
+    @SneakyThrows
     public void verifyPassword(String accessToken, String password) {
-        // todo: 패스워드 검증 로직 작성 (틀릴 경우 에러)
-    }
+        Member member = findByAccessToken(accessToken);
 
-    public void sendPassword(String email) {
-        //todo: 이메일로 패스워드 보내주는 로직 작성
+        if (!passwordEncoder.matches(password, member.getPassword())) {
+            throw new Exception("비밀번호가 다릅니다.");
+        }
     }
 
     public List<Board> findMyPage(String accessToken) {

@@ -1,9 +1,12 @@
 package codestates.main007.service;
 
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Service
 public class RandomAvatarService {
     public String genAvatar() {
         List<String> images = new ArrayList<>();
