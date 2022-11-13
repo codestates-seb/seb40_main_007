@@ -24,8 +24,6 @@ public interface BoardMapper {
                 .score(0)
                 .viewCount(0)
                 .address(boardDto.getAddress())
-                // 시간 계산 로직
-//                .timeFromStation()
                 //todo: tag 추가 필요
                 .build();
         return board;

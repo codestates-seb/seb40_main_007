@@ -83,6 +83,10 @@ public class Board {
         this.writer = member;
     }
 
+    public void setTimeFromStation(int time){
+        this.timeFromStation = time;
+    }
+
     // 게시글 업데이트를 위한 메서드
     public void patchBoard(String title, String review, Double star, Double latitude,
                            Double longitude, Long stationId, Long categoryId, String address) {
