@@ -13,6 +13,7 @@ import codestates.main007.member.query.MemberScore;
 import codestates.main007.member.query.MemberStation;
 import codestates.main007.service.RandomAvatarService;
 import codestates.main007.service.RandomNamingService;
+import codestates.main007.service.RandomPasswordService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,6 +35,7 @@ public class MemberService {
     private final CustomAuthorityUtils authorityUtils;
     private final RandomNamingService namingService;
     private final RandomAvatarService avatarService;
+    private final RandomPasswordService randomPasswordService;
     private final JwtTokenizer jwtTokenizer;
 
 
@@ -88,16 +90,7 @@ public class MemberService {
     public String findPassword(String email){
         Member member = findByEmail(email);
 
-        int leftLimit = 48; // numeral '0'
-        int rightLimit = 122; // letter 'z'
-        int targetStringLength = 10;
-        Random random = new Random();
-
-        String password = random.ints(leftLimit,rightLimit + 1)
-                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-                .limit(targetStringLength)
-                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                .toString();
+        String password = randomPasswordService.genPassword();
 
         member.resetPassword(passwordEncoder.encode(password));
         memberRepository.save(member);
