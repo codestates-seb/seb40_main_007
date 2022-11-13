@@ -15,7 +15,7 @@ public class DistanceMeasuringService {
     @Value("${TMAP_APPKEY}")
     private String apiKey; //티맵 API 앱키 설정
 
-    public void getTime(double startLat, double startLong, double endLat, double endLong){
+    public int getTime(double startLat, double startLong, double endLat, double endLong){
         URI uri = UriComponentsBuilder
                 .fromUriString("https://apis.openapi.sk.com/")
                 .path("tmap/routes/pedestrian")
@@ -49,6 +49,6 @@ public class DistanceMeasuringService {
         subStr = subStr.replace(",","").replace(" ","");
         int time = Integer.parseInt(subStr);
 
-        System.out.println(time/60 + "분 후에 도착입니다.");
+        return time;
     }
 }

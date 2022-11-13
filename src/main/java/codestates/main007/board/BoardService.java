@@ -2,6 +2,8 @@ package codestates.main007.board;
 
 import codestates.main007.member.Member;
 import codestates.main007.member.MemberService;
+import codestates.main007.service.DistanceMeasuringService;
+import codestates.main007.station.Station;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +15,19 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     private final MemberService memberService;
+    private final DistanceMeasuringService distanceService;
 
     public void save(String accessToken, Board board) {
         Member writer = memberService.findByAccessToken(accessToken);
         board.setWriter(writer);
+
+        Station station = new Station((int) board.getStationId());
+        double startLat = station.getLatitude();
+        double startLong = station.getLongitude();
+        double endLat = board.getLatitude();
+        double endLong = board.getLongitude();
+
+        board.setTimeFromStation(distanceService.getTime(startLat, startLong, endLat, endLong));
 
         boardRepository.save(board);
     }
@@ -38,6 +49,16 @@ public class BoardService {
                 patch.getStationId(),
                 patch.getCategoryId(),
                 patch.getAddress());
+
+        if (patch.getLatitude()!=null || patch.getLongitude()!=null){
+            Station station = new Station((int) updatedBoard.getStationId());
+            double startLat = station.getLatitude();
+            double startLong = station.getLongitude();
+            double endLat = updatedBoard.getLatitude();
+            double endLong = updatedBoard.getLongitude();
+
+            updatedBoard.setTimeFromStation(distanceService.getTime(startLat, startLong, endLat, endLong));
+        }
 
         boardRepository.save(updatedBoard);
     }

@@ -7,6 +7,7 @@ import codestates.main007.comments.CommentRepository;
 import codestates.main007.dto.MultiResponseDto;
 import codestates.main007.service.EmailService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/members")
 @RequiredArgsConstructor
+@Slf4j
 public class MemberController {
 
     private final MemberService memberService;
@@ -43,7 +45,8 @@ public class MemberController {
         String password = memberService.findPassword(email.getAddress());
 
         emailService.findPassword(email.getAddress(), password);
-        System.out.println("이메일 전송이 완료되었습니다.");
+
+        log.info("이메일 전송이 완료되었습니다.");
     }
 
     @GetMapping("/my-page")
