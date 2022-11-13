@@ -23,16 +23,16 @@ export default function LoginPage() {
           </div>
           <input
             type="email"
-            className="border border-[rgb(83,199,240)] rounded-md  bg-transparent; focus:outline focus:outline-blue-500 w-80 p-2 m-2 mb-4"
+            className="border border-[rgb(83,199,240)] rounded-md  bg-transparent; focus:outline focus:outline-blue-500 w-80 p-2 m-1 mb-4"
           />
           <div className="font-semibold text-[rgb(83,199,240)] ml-2">
             password
           </div>
           <input
             type="password"
-            className="border border-[rgb(83,199,240)] rounded-md  bg-transparent; focus:outline focus:outline-blue-500 w-80 p-2 m-2 mb-4"
+            className="border border-[rgb(83,199,240)] rounded-md  bg-transparent; focus:outline focus:outline-blue-500 w-80 p-2 m-1 mb-4"
           />
-          <div className="text-white font-semibold m-auto w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 px-4 rounded-md">
+          <div className="text-white font-semibold m-auto w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-2 px-6 rounded-md">
             Login
           </div>
         </div>

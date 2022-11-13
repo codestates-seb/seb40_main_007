@@ -1,6 +1,6 @@
 import Header from "../components/Header";
 import TrainStationCard from "../components/TrainStationCard";
-export default function homePage() {
+export default function HomePage() {
   return (
     <>
       <Header />
