@@ -1,6 +1,7 @@
 package codestates.main007.member;
 
 
+import codestates.main007.auth.jwt.JwtTokenizer;
 import codestates.main007.auth.util.CustomAuthorityUtils;
 import codestates.main007.exception.BusinessLogicException;
 import codestates.main007.exception.ExceptionCode;
@@ -13,6 +14,7 @@ import codestates.main007.member.query.MemberStation;
 import codestates.main007.service.RandomAvatarService;
 import codestates.main007.service.RandomNamingService;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
@@ -32,6 +34,7 @@ public class MemberService {
     private final CustomAuthorityUtils authorityUtils;
     private final RandomNamingService namingService;
     private final RandomAvatarService avatarService;
+    private final JwtTokenizer jwtTokenizer;
 
 
     public Member save(MemberDto.Signup signupDto){
@@ -74,10 +77,12 @@ public class MemberService {
     }
 
     public Member findByAccessToken(String accessToken) {
-        //todo: 액세스 토큰을 이용하여 멤버 찾는 로직
+        // todo: 정식 리턴 값
+//        long userId = jwtTokenizer.getUserId(accessToken);
+        //return find(userId);
 
-        //임시 리턴값
-        return find(1);
+        // 임시 리턴값
+        return find(4);
     }
 
     public String findPassword(String email){
@@ -100,8 +105,13 @@ public class MemberService {
         return password;
     }
 
+    @SneakyThrows
     public void verifyPassword(String accessToken, String password) {
-        // todo: 패스워드 검증 로직 작성 (틀릴 경우 에러)
+        Member member = findByAccessToken(accessToken);
+
+        if (!passwordEncoder.matches(password, member.getPassword())) {
+            throw new Exception("비밀번호가 다릅니다.");
+        }
     }
 
     public List<Board> findMyPage(String accessToken) {
