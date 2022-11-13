@@ -53,4 +53,8 @@ public class Member {
             this.password = password;
         }
     }
+
+    public void resetPassword(String password){
+        this.password = password;
+    }
 }
