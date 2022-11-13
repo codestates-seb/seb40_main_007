@@ -4,8 +4,8 @@ function Post() {
   const score = 3;
   return (
     <div className="group">
-      <div className="rounded-md group-hover:opacity-60 transition-opacity">
-        <img src="/images/oyster.png" alt="alt" />
+      <div className="rounded-md group-hover:opacity-60">
+        <img src="/images/oyster.png" alt="alt" className="object-fit" />
         <PostStarScore score={score} />
       </div>
       <div>

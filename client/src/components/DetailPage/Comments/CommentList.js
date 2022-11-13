@@ -3,12 +3,16 @@ import Comment from "./Comment";
 const CommentList = () => {
   return (
     <>
-      <div className="border-b-2 border-b-[rgb(83,199,240)] max-w-xs mb-5">
-        <h4 className="text-lg text-[rgb(83,199,240)]">댓글</h4>
+      <div className="mb-5">
+        <span className="text-lg text-[rgb(83,199,240)] border-b-2 border-b-[rgb(83,199,240)] px-3 py-1">
+          댓글
+        </span>
       </div>
-      <Comment />
-      <Comment />
-      <Comment />
+      <div className="grid grid-cols-2">
+        <Comment />
+        <Comment />
+        <Comment />
+      </div>
     </>
   );
 };

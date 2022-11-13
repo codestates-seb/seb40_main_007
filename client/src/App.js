@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
 import Loading from "./components/Loading";
 import DetailPage from "./Routes/DetailPage";
+import MainPage from "./Routes/MainPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,7 +21,8 @@ function App() {
       <BrowserRouter>
         <Suspense fallback={<Loading />}>
           <Routes>
-            <Route path="/" element={<DetailPage />} />
+            <Route path="/" element={<MainPage />} />
+            <Route path="/detail" element={<DetailPage />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

@@ -2,7 +2,7 @@ import TrainStationModal from "../TrainStationModal";
 
 const MainHeader = () => {
   return (
-    <div className="flex flex-col items-center mt-10">
+    <div className="flex flex-col items-center mt-10 lg:mt-20">
       <TrainStationModal />
       <h1 className="text-xl m-2 p-2">부산역</h1>
       <p className="text-sm text-gray-500">

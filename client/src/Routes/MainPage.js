@@ -10,12 +10,20 @@ const MainPage = () => {
   return (
     <>
       <Header />
-      <MainHeader />
-      <MainMap />
-      <CategoryTabs />
-      <RelatedTab />
-      <PostList />
-      <WriteModal />
+      <div className="flex flex-col items-center">
+        <div className="max-w-5xl grid grid-cols-1 lg:grid-cols-2">
+          <div>
+            <MainHeader />
+            <MainMap />
+          </div>
+          <div>
+            <CategoryTabs />
+            <RelatedTab />
+            <PostList />
+            <WriteModal />
+          </div>
+        </div>
+      </div>
     </>
   );
 };
