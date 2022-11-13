@@ -1,4 +1,4 @@
-import Item from "./Item";
+import Item from "./MyCommentItem";
 
 const MyCommentList = () => {
   const obj = {
