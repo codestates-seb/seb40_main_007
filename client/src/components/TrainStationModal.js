@@ -29,92 +29,98 @@ export default function TrainStationModal() {
                 </div>
                 <div className="px-3 pb-3 relative grid grid-cols-4 gap-4">
                   <div>
-                    <img src="images/행신역.png" alt="행신역" />
+                    <img src="images/기차역도장/행신역.png" alt="행신역" />
                     <div className="text-xs text-center pt-1 font-semibold">
                       행신역
                     </div>
                   </div>
                   <div>
-                    <img src="images/서울역.png" alt="서울역" />
+                    <img src="images/기차역도장/서울역.png" alt="서울역" />
                     <div className="text-xs text-center pt-1 font-semibold">
                       서울역
                     </div>
                   </div>
                   <div>
-                    <img src="images/영등포역.png" alt="영등포역" />
+                    <img src="images/기차역도장/영등포역.png" alt="영등포역" />
                     <div className="text-xs text-center pt-1 font-semibold">
                       영등포역
                     </div>
                   </div>
                   <div>
-                    <img src="images/광명역.png" alt="광명역" />
+                    <img src="images/기차역도장/광명역.png" alt="광명역" />
                     <div className="text-xs text-center pt-1 font-semibold">
                       광명역
                     </div>
                   </div>
                   <div>
-                    <img src="images/수원역.png" alt="영등포역" />
+                    <img src="images/기차역도장/수원역.png" alt="영등포역" />
                     <div className="text-xs text-center pt-1 font-semibold">
                       수원역
                     </div>
                   </div>
                   <div>
-                    <img src="images/천안아산역.png" alt="천안아산역" />
+                    <img
+                      src="images/기차역도장/천안아산역.png"
+                      alt="천안아산역"
+                    />
                     <div className="text-xs text-center pt-1 font-semibold">
                       천안아산역
                     </div>
                   </div>
                   <div>
-                    <img src="images/오송역.png" alt="오송역" />
+                    <img src="images/기차역도장/오송역.png" alt="오송역" />
                     <div className="text-xs text-center pt-1 font-semibold">
                       오송역
                     </div>
                   </div>
                   <div>
-                    <img src="images/대전역.png" alt="대전역" />
+                    <img src="images/기차역도장/대전역.png" alt="대전역" />
                     <div className="text-xs text-center pt-1 font-semibold">
                       대전역
                     </div>
                   </div>
                   <div>
-                    <img src="images/김천구미역.png" alt="김천구미역" />
+                    <img
+                      src="images/기차역도장/김천구미역.png"
+                      alt="김천구미역"
+                    />
                     <div className="text-xs text-center pt-1 font-semibold">
                       김천구미역
                     </div>
                   </div>
                   <div>
-                    <img src="images/동대구역.png" alt="동대구역" />
+                    <img src="images/기차역도장/동대구역.png" alt="동대구역" />
                     <div className="text-xs text-center pt-1 font-semibold">
                       동대구역
                     </div>
                   </div>
                   <div>
-                    <img src="images/신경주역.png" alt="신경주역" />
+                    <img src="images/기차역도장/신경주역.png" alt="신경주역" />
                     <div className="text-xs text-center pt-1 font-semibold">
                       신경주역
                     </div>
                   </div>
                   <div>
-                    <img src="images/울산역.png" alt="울산역" />
+                    <img src="images/기차역도장/울산역.png" alt="울산역" />
                     <div className="text-xs text-center pt-1 font-semibold">
                       울산역
                     </div>
                   </div>
 
                   <div>
-                    <img src="images/밀양역.png" alt="밀양역" />
+                    <img src="images/기차역도장/밀양역.png" alt="밀양역" />
                     <div className="text-xs text-center pt-1 font-semibold">
                       밀양역
                     </div>
                   </div>
                   <div>
-                    <img src="images/구포역.png" alt="구포역" />
+                    <img src="images/기차역도장/구포역.png" alt="구포역" />
                     <div className="text-xs text-center pt-1 font-semibold">
                       구포역
                     </div>
                   </div>
                   <div>
-                    <img src="images/부산역.png" alt="영등포역" />
+                    <img src="images/기차역도장/부산역.png" alt="영등포역" />
                     <div className="text-xs text-center pt-1 font-semibold">
                       부산역
                     </div>

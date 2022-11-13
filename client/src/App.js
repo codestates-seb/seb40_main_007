@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
-import Sample from "./components/Sample";
+import Home from "./Routes/homePage";
 import Loading from "./components/Loading";
 
 const queryClient = new QueryClient({
@@ -20,7 +20,7 @@ function App() {
       <BrowserRouter>
         <Suspense fallback={<Loading />}>
           <Routes>
-            <Route path="/" element={<Sample />} />
+            <Route path="/" element={<Home />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

@@ -1,4 +1,4 @@
-import InfoWindow from "./Heart";
+import InfoWindow from "./InfoWindow";
 
 const Sample = () => {
   return (
