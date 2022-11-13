@@ -28,12 +28,17 @@ public class MemberService {
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
 
-    public Member saveMember(Member member){
-        verifyExistEmail(member.getEmail());
-        String encryptedPassword = passwordEncoder.encode(member.getPassword());
-        List<String> roles = authorityUtils.createRoles(member.getEmail());
+    public Member save(MemberDto.Signup signupDto){
+        verifyExistEmail(signupDto.getEmail());
+        String encryptedPassword = passwordEncoder.encode(signupDto.getPassword());
+        List<String> roles = authorityUtils.createRoles(signupDto.getEmail());
 
         Member createdMember = Member.builder()
+                .email(signupDto.getEmail())
+                // 랜덤네이밍 서비스
+//                .name()
+                // 아바타 생성 서비스
+//                .avatar()
                 .password(encryptedPassword)
                 .roles(roles)
                 .build();
@@ -68,10 +73,6 @@ public class MemberService {
 
     public void verifyPassword(String accessToken, String password) {
         // todo: 패스워드 검증 로직 작성 (틀릴 경우 에러)
-    }
-
-    public void sendPassword(String email) {
-        //todo: 이메일로 패스워드 보내주는 로직 작성
     }
 
     public List<Board> findMyPage(String accessToken) {
