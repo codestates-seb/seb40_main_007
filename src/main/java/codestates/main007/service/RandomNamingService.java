@@ -26,7 +26,6 @@ public class RandomNamingService {
         this.number = 1;
 
         String newName = firstName + " " + lastName + " " + number;
-        // todo: 레퍼지토리에 해당 네임이 있으면
         while (memberRepository.countByName(newName) != 0) {
             newName = countUp();
         }
