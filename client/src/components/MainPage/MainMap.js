@@ -18,6 +18,14 @@ const MainMap = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (window.innerWidth > 1024) {
+      setStyle({ width: "100%", height: "600px" });
+    } else {
+      setStyle({ width: "100%", height: "300px" });
+    }
+  });
+
   return (
     <div className="flex justify-center p-2 mt-10">
       <Map
