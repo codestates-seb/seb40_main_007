@@ -12,7 +12,6 @@ const EditPassword = () => {
       </div>
       <div className="w-2/5 flex flex-col items-center">
         <EditPasswordInput />
-
         <div className="pt-20 gap-2 flex flex-col items-center">
           <button className="btn" onClick={() => setShowModal(!showModal)}>
             수정완료

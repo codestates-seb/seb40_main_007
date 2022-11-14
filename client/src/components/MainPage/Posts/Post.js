@@ -1,11 +1,15 @@
 import PostStarScore from "./PostStarScore";
+import Heart from "../../Heart";
 
 function Post() {
   const score = 3;
   return (
     <div className="group">
-      <div className="rounded-md group-hover:opacity-60">
-        <img src="/images/oyster.png" alt="alt" className="object-fit" />
+      <div className="rounded-md group-hover:opacity-60 relative">
+        <div className="absolute right-0">
+          <Heart />
+        </div>
+        <img src="/images/oyster.png" alt="alt" className="object-fit static" />
         <PostStarScore score={score} />
       </div>
       <div>
