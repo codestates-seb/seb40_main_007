@@ -55,7 +55,11 @@ public class BoardDto {
         private String address;
         private double latitude;
         private double longitude;
-        // todo: tag 추가필요, 작성자 추가 필요, 이미지 추가필요
+        // todo: tag 추가필요, 이미지 추가필요
+
+        public void setDibs(boolean newDibs){
+            this.dibs = newDibs;
+        }
     }
 
     @Getter

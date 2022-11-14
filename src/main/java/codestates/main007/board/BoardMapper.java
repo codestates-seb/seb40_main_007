@@ -1,5 +1,6 @@
 package codestates.main007.board;
 
+import codestates.main007.member.Member;
 import org.mapstruct.Mapper;
 
 import java.time.LocalDateTime;
