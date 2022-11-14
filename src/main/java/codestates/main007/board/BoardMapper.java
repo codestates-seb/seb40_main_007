@@ -33,6 +33,7 @@ public interface BoardMapper {
 
     default BoardDto.DetailResponse boardToDetailResponseDto(Board board, boolean isDibs, Member member) {
         BoardDto.Writer writer = BoardDto.Writer.builder()
+                .memberId(member.getMemberId())
                 .name(member.getName())
                 .avatar(member.getAvatar())
                 .build();

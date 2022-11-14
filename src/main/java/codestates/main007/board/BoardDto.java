@@ -71,6 +71,7 @@ public class BoardDto {
     @Getter
     @Builder
     public static class Writer {
+        private long memberId;
         private String name;
         private String avatar;
     }
