@@ -1,5 +1,6 @@
 import Header from "../components/Header";
 import TrainStationCard from "../components/TrainStationCard";
+import Footer from "../components/Footer";
 
 export default function homePage() {
   return (
@@ -46,9 +47,10 @@ export default function homePage() {
           </div>
         </div>
 
-        <div className="lg:w-full w-full h-screen flex justify-center">
+        <div className="lg:w-full w-full flex justify-center mb-20">
           <TrainStationCard />
         </div>
+        <Footer />
       </div>
     </>
   );
