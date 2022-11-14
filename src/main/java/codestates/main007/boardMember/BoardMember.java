@@ -33,7 +33,7 @@ public class BoardMember {
     @Column
     private boolean scoreStatus;
 
-    public void changDibs() {
+    public void changeDibs() {
         if (this.dibs == true) {
             this.dibs = false;
         } else {

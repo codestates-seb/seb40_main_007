@@ -34,7 +34,7 @@ public class BoardMemberService {
 
     public boolean changeDibs(Member member, Board board) {
         BoardMember boardMember = getBoardMember(member, board);
-        boardMember.changDibs();
+        boardMember.changeDibs();
 
         boardMemberRepository.save(boardMember);
 
