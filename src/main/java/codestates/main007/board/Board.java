@@ -1,5 +1,6 @@
 package codestates.main007.board;
 
+import codestates.main007.boardMember.BoardMember;
 import codestates.main007.comments.Comment;
 import codestates.main007.member.Member;
 import codestates.main007.member.MemberDto;
@@ -76,6 +77,8 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private final List<Comment> comments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+    private final List<BoardMember> boardMembers = new ArrayList<>();
     // todo: 연관관계 -  태그
 
     // 게시글 작성 시 작성자 추가를 위한 메서드

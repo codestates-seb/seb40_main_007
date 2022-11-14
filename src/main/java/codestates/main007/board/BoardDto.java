@@ -38,7 +38,8 @@ public class BoardDto {
         private int timeFromStation;
         private boolean dibs;
         private LocalDateTime createdAt;
-        // todo: tag 추가필요, 작성자 추가 필요, 이미지 추가필요
+        private BoardDto.Writer writer;
+        // todo: tag 추가필요, 이미지 추가필요
     }
 
     @Getter
@@ -54,12 +55,24 @@ public class BoardDto {
         private String address;
         private double latitude;
         private double longitude;
-        // todo: tag 추가필요, 작성자 추가 필요, 이미지 추가필요
+        // todo: tag 추가필요, 이미지 추가필요
+
+        public void setDibs(boolean newDibs){
+            this.dibs = newDibs;
+        }
     }
 
     @Getter
     @Builder
     public static class Dibs {
         private boolean dibs;
+    }
+
+    @Getter
+    @Builder
+    public static class Writer {
+        private long memberId;
+        private String name;
+        private String avatar;
     }
 }

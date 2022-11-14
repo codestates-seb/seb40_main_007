@@ -1,5 +1,6 @@
 package codestates.main007.board;
 
+import codestates.main007.boardMember.BoardMemberService;
 import codestates.main007.member.Member;
 import codestates.main007.member.MemberService;
 import codestates.main007.service.DistanceMeasuringService;
@@ -10,12 +11,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberService memberService;
     private final DistanceMeasuringService distanceService;
+
+    private final BoardMemberService boardMemberService;
 
     public void save(String accessToken, Board board) {
         Member writer = memberService.findByAccessToken(accessToken);
@@ -74,20 +80,30 @@ public class BoardService {
                 PageRequest.of(page, size, sort));
     }
 
-    public boolean findIsDibs(String accessToken, long boardId) {
+    public boolean checkDibs(String accessToken, long boardId) {
         Member member = memberService.findByAccessToken(accessToken);
-        //todo: 이 멤버가 해당 글을 찜했는지 여부 확인하여 리턴
 
-        // 임시 리턴값
-        return true;
+        return boardMemberService.checkDibs(member, find(boardId));
+    }
+
+    public List<BoardDto.boardsResponse> listCheckDibs(String accessToken, List<BoardDto.boardsResponse> responses) {
+        Member member = memberService.findByAccessToken(accessToken);
+
+        List<BoardDto.boardsResponse> result = new ArrayList<>();
+        for (BoardDto.boardsResponse dto : responses){
+            Board board = find(dto.getBoardId());
+            dto.setDibs(boardMemberService.checkDibs(member, board));
+            result.add(dto);
+        }
+
+        return result;
     }
 
     public boolean dibs(String accessToken, long boardId) {
         Member member = memberService.findByAccessToken(accessToken);
-        //todo: 찜 기능 추가
+        Board board = find(boardId);
 
-        // 임시 리턴값
-        return true;
+        return boardMemberService.changeDibs(member, board);
     }
 
     public void upVote(String accessToken, long boardId) {

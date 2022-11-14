@@ -32,8 +32,11 @@ public class MainController {
         }
         Page<Board> boardPage = boardService.findBoardPage(stationId, categoryId, page - 1, size, Sort.by(sort).descending());
         List<Board> boards = boardPage.getContent();
+        List<BoardDto.boardsResponse> responses = boardMapper.boardsToBoardsResponse(boards);
 
-        return new PageDto(boardMapper.boardsToBoardsResponse(boards), boardPage);
+        responses = boardService.listCheckDibs(accessToken, responses);
+
+        return new PageDto(responses, boardPage);
     }
     //todo: 태그기능 추가 후 작성
 //    @GetMapping("/{station-id}/{category-id}/{sort}/search")
