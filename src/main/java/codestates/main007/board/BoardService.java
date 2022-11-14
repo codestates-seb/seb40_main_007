@@ -5,6 +5,9 @@ import codestates.main007.member.MemberService;
 import codestates.main007.service.DistanceMeasuringService;
 import codestates.main007.station.Station;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
-
     private final MemberService memberService;
     private final DistanceMeasuringService distanceService;
 
@@ -67,6 +69,17 @@ public class BoardService {
     public Board find(long boardId) {
         return boardRepository.findById(boardId)
                 .orElseThrow(() -> new NullPointerException("해당 게시글이 존재하지 않습니다."));
+    }
+
+    public List<Board> findBoards(long stationId, long categoryId) {
+        return boardRepository.findByStationIdAndCategoryId(stationId, categoryId,
+                Sort.by("boardId").descending());
+    }
+
+    public Page<Board> findBoardPage(long stationId, long categoryId, int page, int size) {
+        return boardRepository.findByStationIdAndCategoryId(stationId, categoryId,
+                PageRequest.of(page, size,
+                Sort.by("boardId").descending()));
     }
 
     public List<Board> findByMember(Member member) {

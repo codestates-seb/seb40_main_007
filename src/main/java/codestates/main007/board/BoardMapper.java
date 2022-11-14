@@ -1,9 +1,10 @@
 package codestates.main007.board;
 
-import codestates.main007.member.Member;
 import org.mapstruct.Mapper;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface BoardMapper {
@@ -50,5 +51,27 @@ public interface BoardMapper {
 
     default BoardDto.Dibs isDibsToDibsDto(boolean isDibs) {
         return BoardDto.Dibs.builder().dibs(isDibs).build();
+    }
+
+    default List<BoardDto.boardsResponse> boardsToBoardsResponse(List<Board> boards) {
+        List<BoardDto.boardsResponse> boardsResponses = new ArrayList<>();
+        for (Board board : boards) {
+            BoardDto.boardsResponse response = BoardDto.boardsResponse.builder()
+                    .boardId(board.getBoardId())
+                    .title(board.getTitle())
+                    .review(board.getReview())
+                    .star(board.getStar())
+                    .thumbnail(board.getThumbnail())
+                    .timeFromStation(board.getTimeFromStation())
+                    //todo : 찜여부 추가
+//                .dibs(board.)
+                    .address(board.getAddress())
+                    .latitude(board.getLatitude())
+                    .longitude(board.getLongitude())
+                    .build();
+
+            boardsResponses.add(response);
+        }
+        return boardsResponses;
     }
 }

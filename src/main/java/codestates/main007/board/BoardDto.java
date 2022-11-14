@@ -43,6 +43,22 @@ public class BoardDto {
 
     @Getter
     @Builder
+    public static class boardsResponse {
+        private long boardId;
+        private String title;
+        private String review;
+        private double star;
+        private String thumbnail;
+        private int timeFromStation;
+        private boolean dibs;
+        private String address;
+        private double latitude;
+        private double longitude;
+        // todo: tag 추가필요, 작성자 추가 필요, 이미지 추가필요
+    }
+
+    @Getter
+    @Builder
     public static class Dibs {
         private boolean dibs;
     }
