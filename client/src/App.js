@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
 import LoginPage from "./Routes/loginPage";
+import LogoutPage from "./Routes/logoutPage";
 import InitialPage from "./Routes/initialPage";
 import SignupPage from "./Routes/signUpPage";
 import HomePage from "./Routes/homePage";
@@ -30,6 +31,7 @@ function App() {
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/logout" element={<LogoutPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/initial" element={<InitialPage />} />
