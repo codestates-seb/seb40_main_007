@@ -1,9 +1,9 @@
 const MyInfo = ({ nickName }) => {
   return (
-    <div className="p-2 mb-4 w-4/5 flex flex-row items-center justify-evenly">
+    <div className="w-full p-2 mb-4 flex flex-row items-center justify-evenly">
       {/* nickName */}
-      <div className="w-auto flex flex-col align-middle ">
-        <p className="text-sm">반가워요 !</p>
+      <div className="w-2/6 pl-8 flex flex-col align-middle ">
+        <p className="text-sm text-gray-400">반가워요 !</p>
         <p className="-mt-1 text-lg text-[rgb(83,199,240)]">{nickName}</p>
       </div>
 
@@ -11,11 +11,11 @@ const MyInfo = ({ nickName }) => {
       <img
         className="w-28 h-28 rounded-full p-0 m-0 static"
         alt="ProfileImg"
-        src="images/profile.png"
+        src="../images/profile.png"
       />
 
       {/* 게시글,댓글,추천 */}
-      <div className="w-auto gap-5 flex justify-between text-xs text-[rgb(83,199,240)]">
+      <div className="w-2/6 flex justify-between text-xs text-[rgb(83,199,240)]">
         <div className="flex flex-col items-center">
           <p>2</p>
           <p>게시글</p>

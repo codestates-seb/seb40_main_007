@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 export default function MyPageTab() {
   const [index, setIndex] = useState(0);
   const unactiveStyle =
@@ -11,12 +12,14 @@ export default function MyPageTab() {
     <nav className="w-fit border-b-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] text-lg text-center">
       <ul className="flex">
         <li>
-          <button
-            onClick={() => setIndex(0)}
-            className={index === 0 ? unactiveStyle : activeStyle}
-          >
-            내 역이요
-          </button>
+          <Link to="/mypage">
+            <button
+              onClick={() => setIndex(0)}
+              className={index === 0 ? unactiveStyle : activeStyle}
+            >
+              내 역이요
+            </button>
+          </Link>
         </li>
         <li>
           <button
