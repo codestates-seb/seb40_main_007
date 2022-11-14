@@ -1,10 +1,17 @@
+import Dislike from "./Dislike";
+import Like from "./Like";
+
 const Review = () => {
   return (
     <>
-      <div className="flex flex-row mt-10">
+      <div className="flex flex-row mt-10 justify-between">
         <span className="text-lg text-[rgb(83,199,240)] border-b-2 border-b-[rgb(83,199,240)] px-3 py-1">
           한줄 평
         </span>
+        <div className="flex flex-row space-x-2">
+          <Like />
+          <Dislike />
+        </div>
       </div>
       <div className="flex justify-center items-center h-[150px]">
         <span className="w-6 h-6 relative right-10 bottom-10">
