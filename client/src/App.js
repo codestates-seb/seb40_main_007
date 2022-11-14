@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
-import LoginPage from "./components/MyPageTab";
+import LoginPage from "./components/ImageUpload";
 import Loading from "./components/Loading";
 
 const queryClient = new QueryClient({
