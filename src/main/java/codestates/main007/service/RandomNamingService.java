@@ -17,7 +17,7 @@ public class RandomNamingService {
 
     public String genName() {
         List<String> first = Arrays.asList("민트", "아보카도", "통후추", "간장", "레몬");
-        List<String> last = Arrays.asList("볶음밥", "김치찜", "비빔면", "감자칩", "초콜릿");
+        List<String> last = Arrays.asList("볶음밥", "김치찜", "비빔면", "감자칩", "초콜릿", "아메리카노");
         Collections.shuffle(first);
         Collections.shuffle(last);
 
