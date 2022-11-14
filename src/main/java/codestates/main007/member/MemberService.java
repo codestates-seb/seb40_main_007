@@ -56,6 +56,15 @@ public class MemberService {
         return memberRepository.save(createdMember);
     }
 
+    public void saveOAuthMember(String email){
+        Member oAuthMember = Member.builder()
+                .email(email)
+                .name(namingService.genName())
+                .avatar(avatarService.genAvatar())
+                .build();
+        memberRepository.save(oAuthMember);
+    }
+
     public void update(String accessToken, MemberDto.Patch patchDto) {
         Member member = findByAccessToken(accessToken);
         member.patchMember(patchDto.getName(), patchDto.getAvatar(), patchDto.getPassword());
