@@ -1,4 +1,5 @@
 import Post from "./Post";
+import SortDropdown from "./SortDropdown";
 
 function PostList() {
   const posts = [
@@ -40,13 +41,18 @@ function PostList() {
     },
   ];
   return (
-    <div className="mx-auto overflow-y-scroll mt-5 h-[600px]">
-      <div className="grid grid-cols-3 gap-y-4 gap-x-2">
-        {posts.map((post) => (
-          <Post key={post.id} />
-        ))}
+    <>
+      <div>
+        <SortDropdown />
       </div>
-    </div>
+      <div className="mx-auto overflow-y-scroll h-[600px]">
+        <div className="grid grid-cols-3 gap-y-4 gap-x-2">
+          {posts.map((post) => (
+            <Post key={post.id} />
+          ))}
+        </div>
+      </div>
+    </>
   );
 }
 

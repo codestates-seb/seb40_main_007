@@ -6,11 +6,11 @@ const RelatedTab = () => {
   const category = useRecoilValue(mainCategoryState);
 
   const restarant = ["전체", "한식", "중식", "양식", "일식", "술집"];
-  const sight = ["자연", "문화", "유적", "공연", "놀거리"];
-  const stay = ["호텔", "모텔", "게하", "펜션", "캠핑"];
+  const sight = ["전체", "자연", "문화", "유적", "공연", "놀거리"];
+  const stay = ["전체", "호텔", "모텔", "게하", "펜션", "캠핑"];
 
   return (
-    <div className="flex flex-row justify-center space-x-2 mt-4 mb-8">
+    <div className="flex flex-row justify-center space-x-2 mt-4 mb-5">
       {category === "식당"
         ? restarant.map((el) => (
             <button

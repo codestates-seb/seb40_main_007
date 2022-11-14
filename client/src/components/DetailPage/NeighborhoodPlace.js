@@ -53,7 +53,6 @@ const NeighborhoodPlace = () => {
             주변정보
           </span>
         </div>
-
         <Swiper
           modules={[Pagination]}
           slidesPerView={5}
