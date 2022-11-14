@@ -16,13 +16,16 @@ import codestates.main007.service.RandomNamingService;
 import codestates.main007.service.RandomPasswordService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Service
 @Transactional
@@ -38,11 +41,11 @@ public class MemberService {
     private final RandomPasswordService randomPasswordService;
     private final JwtTokenizer jwtTokenizer;
 
-    public Member save(MemberDto.Signup signupDto){
+    public Member save(MemberDto.Signup signupDto) {
         verifyExistEmail(signupDto.getEmail());
         String encryptedPassword = passwordEncoder.encode(signupDto.getPassword());
         List<String> roles = authorityUtils.createRoles(signupDto.getEmail());
-  
+
         Member createdMember = Member.builder()
                 .email(signupDto.getEmail())
                 .name(namingService.genName())
@@ -65,15 +68,15 @@ public class MemberService {
                 .orElseThrow(() -> new NullPointerException("해당 멤버가 존재하지 않습니다."));
     }
 
-    public Member findByEmail(String email){
+    public Member findByEmail(String email) {
         return memberRepository.findByEmail(email)
                 .orElseThrow(() -> new NullPointerException("해당 멤버가 존재하지 않습니다."));
     }
 
 
-    private void verifyExistEmail(String email){
+    private void verifyExistEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
-        if(member.isPresent())
+        if (member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
 
@@ -86,7 +89,7 @@ public class MemberService {
         return find(4);
     }
 
-    public String findPassword(String email){
+    public String findPassword(String email) {
         Member member = findByEmail(email);
 
         String password = randomPasswordService.genPassword();
@@ -106,22 +109,30 @@ public class MemberService {
         }
     }
 
-    public List<Board> findMyPage(String accessToken) {
+    public List<Board> findMyMap(String accessToken) {
         Member member = findByAccessToken(accessToken);
 
         return boardRepository.findByWriter(member);
     }
 
-    public List<Board> findMyPageByStation(String accessToken, long stationId) {
+    public Page<Board> findMyPage(String accessToken, int page, int size, Sort sort) {
         Member member = findByAccessToken(accessToken);
 
-        return boardRepository.findByWriterAndStationId(member, stationId);
+        return boardRepository.findByWriter(member,
+                PageRequest.of(page, size, sort));
     }
 
-    public List<Comment> findMyComments(String accessToken) {
+    public Page<Board> findMyPageByStation(String accessToken, long stationId, int page, int size, Sort sort) {
         Member member = findByAccessToken(accessToken);
 
-        return commentRepository.findByWriter(member);
+        return boardRepository.findByStationIdAndWriter(stationId, member,
+                PageRequest.of(page, size, sort));
+    }
+
+    public Page<Comment> findMyComments(String accessToken, int page, int size, Sort sort) {
+        Member member = findByAccessToken(accessToken);
+
+        return commentRepository.findByWriter(member, PageRequest.of(page, size, sort));
     }
 
     public int findMyScore(Member member) {

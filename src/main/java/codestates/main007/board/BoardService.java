@@ -5,15 +5,15 @@ import codestates.main007.member.MemberService;
 import codestates.main007.service.DistanceMeasuringService;
 import codestates.main007.station.Station;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
-
     private final MemberService memberService;
     private final DistanceMeasuringService distanceService;
 
@@ -34,12 +34,6 @@ public class BoardService {
 
     public void update(String accessToken, long boardId, BoardDto.Input patch) {
         Board updatedBoard = find(boardId);
-        Member member = memberService.findByAccessToken(accessToken);
-
-        Member writer = updatedBoard.getWriter();
-        if (member != writer) {
-            //todo: 에러 발생 로직 작성자가 아닙니다
-        }
 
         updatedBoard.patchBoard(patch.getTitle(),
                 patch.getReview(),
@@ -50,7 +44,7 @@ public class BoardService {
                 patch.getCategoryId(),
                 patch.getAddress());
 
-        if (patch.getLatitude()!=null || patch.getLongitude()!=null){
+        if (patch.getLatitude() != null || patch.getLongitude() != null) {
             Station station = new Station((int) updatedBoard.getStationId());
             double startLat = station.getLatitude();
             double startLong = station.getLongitude();
@@ -67,10 +61,6 @@ public class BoardService {
         Member writer = find(boardId).getWriter();
         Member member = memberService.findByAccessToken(accessToken);
 
-        if (member != writer) {
-            //todo: 에러 발생 로직 작성자가 아닙니다
-        }
-
         boardRepository.deleteById(boardId);
     }
 
@@ -79,8 +69,9 @@ public class BoardService {
                 .orElseThrow(() -> new NullPointerException("해당 게시글이 존재하지 않습니다."));
     }
 
-    public List<Board> findByMember(Member member) {
-        return boardRepository.findByWriter(member);
+    public Page<Board> findBoardPage(long stationId, long categoryId, int page, int size, Sort sort) {
+        return boardRepository.findByStationIdAndCategoryId(stationId, categoryId,
+                PageRequest.of(page, size, sort));
     }
 
     public boolean findIsDibs(String accessToken, long boardId) {
