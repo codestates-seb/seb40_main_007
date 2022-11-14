@@ -71,15 +71,13 @@ public class BoardService {
                 .orElseThrow(() -> new NullPointerException("해당 게시글이 존재하지 않습니다."));
     }
 
-    public List<Board> findBoards(long stationId, long categoryId) {
-        return boardRepository.findByStationIdAndCategoryId(stationId, categoryId,
-                Sort.by("boardId").descending());
+    public List<Board> findBoards(long stationId, long categoryId,Sort sort) {
+        return boardRepository.findByStationIdAndCategoryId(stationId, categoryId, sort);
     }
 
-    public Page<Board> findBoardPage(long stationId, long categoryId, int page, int size) {
+    public Page<Board> findBoardPage(long stationId, long categoryId, int page, int size, Sort sort) {
         return boardRepository.findByStationIdAndCategoryId(stationId, categoryId,
-                PageRequest.of(page, size,
-                Sort.by("boardId").descending()));
+                PageRequest.of(page, size, sort));
     }
 
     public List<Board> findByMember(Member member) {
