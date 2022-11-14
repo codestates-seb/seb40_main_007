@@ -70,8 +70,6 @@ public interface BoardMapper {
                     .star(board.getStar())
                     .thumbnail(board.getThumbnail())
                     .timeFromStation(board.getTimeFromStation())
-                    //todo : 찜여부 추가
-//                .dibs(board.)
                     .address(board.getAddress())
                     .latitude(board.getLatitude())
                     .longitude(board.getLongitude())

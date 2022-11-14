@@ -11,6 +11,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BoardService {
@@ -81,6 +84,19 @@ public class BoardService {
         Member member = memberService.findByAccessToken(accessToken);
 
         return boardMemberService.checkDibs(member, find(boardId));
+    }
+
+    public List<BoardDto.boardsResponse> listCheckDibs(String accessToken, List<BoardDto.boardsResponse> responses) {
+        Member member = memberService.findByAccessToken(accessToken);
+
+        List<BoardDto.boardsResponse> result = new ArrayList<>();
+        for (BoardDto.boardsResponse dto : responses){
+            Board board = find(dto.getBoardId());
+            dto.setDibs(boardMemberService.checkDibs(member, board));
+            result.add(dto);
+        }
+
+        return result;
     }
 
     public boolean dibs(String accessToken, long boardId) {
