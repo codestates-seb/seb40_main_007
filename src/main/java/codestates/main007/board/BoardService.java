@@ -1,21 +1,27 @@
 package codestates.main007.board;
 
+import codestates.main007.boardMember.BoardMemberService;
 import codestates.main007.member.Member;
 import codestates.main007.member.MemberService;
 import codestates.main007.service.DistanceMeasuringService;
 import codestates.main007.station.Station;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
-
     private final MemberService memberService;
     private final DistanceMeasuringService distanceService;
+
+    private final BoardMemberService boardMemberService;
 
     public void save(String accessToken, Board board) {
         Member writer = memberService.findByAccessToken(accessToken);
@@ -34,12 +40,6 @@ public class BoardService {
 
     public void update(String accessToken, long boardId, BoardDto.Input patch) {
         Board updatedBoard = find(boardId);
-        Member member = memberService.findByAccessToken(accessToken);
-
-        Member writer = updatedBoard.getWriter();
-        if (member != writer) {
-            //todo: 에러 발생 로직 작성자가 아닙니다
-        }
 
         updatedBoard.patchBoard(patch.getTitle(),
                 patch.getReview(),
@@ -50,7 +50,7 @@ public class BoardService {
                 patch.getCategoryId(),
                 patch.getAddress());
 
-        if (patch.getLatitude()!=null || patch.getLongitude()!=null){
+        if (patch.getLatitude() != null || patch.getLongitude() != null) {
             Station station = new Station((int) updatedBoard.getStationId());
             double startLat = station.getLatitude();
             double startLong = station.getLongitude();
@@ -67,10 +67,6 @@ public class BoardService {
         Member writer = find(boardId).getWriter();
         Member member = memberService.findByAccessToken(accessToken);
 
-        if (member != writer) {
-            //todo: 에러 발생 로직 작성자가 아닙니다
-        }
-
         boardRepository.deleteById(boardId);
     }
 
@@ -79,24 +75,35 @@ public class BoardService {
                 .orElseThrow(() -> new NullPointerException("해당 게시글이 존재하지 않습니다."));
     }
 
-    public List<Board> findByMember(Member member) {
-        return boardRepository.findByWriter(member);
+    public Page<Board> findBoardPage(long stationId, long categoryId, int page, int size, Sort sort) {
+        return boardRepository.findByStationIdAndCategoryId(stationId, categoryId,
+                PageRequest.of(page, size, sort));
     }
 
-    public boolean findIsDibs(String accessToken, long boardId) {
+    public boolean checkDibs(String accessToken, long boardId) {
         Member member = memberService.findByAccessToken(accessToken);
-        //todo: 이 멤버가 해당 글을 찜했는지 여부 확인하여 리턴
 
-        // 임시 리턴값
-        return true;
+        return boardMemberService.checkDibs(member, find(boardId));
+    }
+
+    public List<BoardDto.boardsResponse> listCheckDibs(String accessToken, List<BoardDto.boardsResponse> responses) {
+        Member member = memberService.findByAccessToken(accessToken);
+
+        List<BoardDto.boardsResponse> result = new ArrayList<>();
+        for (BoardDto.boardsResponse dto : responses){
+            Board board = find(dto.getBoardId());
+            dto.setDibs(boardMemberService.checkDibs(member, board));
+            result.add(dto);
+        }
+
+        return result;
     }
 
     public boolean dibs(String accessToken, long boardId) {
         Member member = memberService.findByAccessToken(accessToken);
-        //todo: 찜 기능 추가
+        Board board = find(boardId);
 
-        // 임시 리턴값
-        return true;
+        return boardMemberService.changeDibs(member, board);
     }
 
     public void upVote(String accessToken, long boardId) {
