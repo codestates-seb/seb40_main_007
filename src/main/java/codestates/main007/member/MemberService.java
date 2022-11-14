@@ -16,13 +16,15 @@ import codestates.main007.service.RandomNamingService;
 import codestates.main007.service.RandomPasswordService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Service
 @Transactional
@@ -106,16 +108,23 @@ public class MemberService {
         }
     }
 
-    public List<Board> findMyPage(String accessToken) {
+    public List<Board> findMyMap(String accessToken) {
         Member member = findByAccessToken(accessToken);
 
         return boardRepository.findByWriter(member);
     }
 
-    public List<Board> findMyPageByStation(String accessToken, long stationId) {
+    public Page<Board> findMyPage(String accessToken, int page, int size, Sort sort) {
         Member member = findByAccessToken(accessToken);
 
-        return boardRepository.findByWriterAndStationId(member, stationId);
+        return boardRepository.findByWriter(member,
+                PageRequest.of(page, size, sort));
+    }
+    public Page<Board> findMyPageByStation(String accessToken, long stationId, int page, int size, Sort sort) {
+        Member member = findByAccessToken(accessToken);
+
+        return boardRepository.findByStationIdAndWriter(stationId, member,
+                PageRequest.of(page, size, sort));
     }
 
     public List<Comment> findMyComments(String accessToken) {

@@ -5,9 +5,12 @@ import codestates.main007.board.BoardRepository;
 import codestates.main007.comments.Comment;
 import codestates.main007.comments.CommentRepository;
 import codestates.main007.dto.MultiResponseDto;
+import codestates.main007.dto.PageDto;
 import codestates.main007.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,23 +52,19 @@ public class MemberController {
         log.info("이메일 전송이 완료되었습니다.");
     }
 
-    @GetMapping("/my-page")
-    @ResponseStatus(HttpStatus.OK)
-    public MultiResponseDto getMyPage(@RequestHeader(name = "Authorization") String accessToken) {
-        List<Board> boards = memberService.findMyPage(accessToken);
-        List<MemberDto.MyPage> myPages = memberMapper.boardsToMyPages(boards);
-
-        return new MultiResponseDto<>(myPages);
-    }
-
     @GetMapping("/my-page/{station-id}")
     @ResponseStatus(HttpStatus.OK)
-    public MultiResponseDto getMyPageByStation(@RequestHeader(name = "Authorization") String accessToken,
-                                               @PathVariable("station-id") long stationId) {
-        List<Board> boards = memberService.findMyPageByStation(accessToken, stationId);
-        List<MemberDto.MyPage> myPages = memberMapper.boardsToMyPages(boards);
+    public PageDto getMyPage(@RequestHeader(name = "Authorization") String accessToken,
+                             @PathVariable("station-id") long stationId,
+                             @RequestParam int page,
+                             @RequestParam int size) {
+        Page<Board> boardPage = memberService.findMyPageByStation(accessToken, stationId, page - 1, size, Sort.by("boardId").descending());
+        if (stationId == 0) {
+            boardPage = memberService.findMyPage(accessToken, page - 1, size, Sort.by("boardId").descending());
+        }
+        List<Board> boards = boardPage.getContent();
 
-        return new MultiResponseDto<>(myPages);
+        return new PageDto(memberMapper.boardsToMyPages(boards), boardPage);
     }
 
     @GetMapping("/my-page/comments")
@@ -80,7 +79,7 @@ public class MemberController {
     @GetMapping("/my-page/map")
     @ResponseStatus(HttpStatus.OK)
     public MultiResponseDto getMyMap(@RequestHeader(name = "Authorization") String accessToken) {
-        List<Board> boards = memberService.findMyPage(accessToken);
+        List<Board> boards = memberService.findMyMap(accessToken);
         List<MemberDto.MyMap> myMaps = memberMapper.boardsToMyMaps(boards);
 
         return new MultiResponseDto<>(myMaps);
