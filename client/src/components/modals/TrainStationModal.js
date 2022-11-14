@@ -120,9 +120,15 @@ export default function TrainStationModal() {
                     </div>
                   </div>
                   <div>
-                    <img src="images/기차역도장/부산역.png" alt="영등포역" />
+                    <img src="images/기차역도장/부산역.png" alt="부산역" />
                     <div className="text-xs text-center pt-1 font-semibold">
                       부산역
+                    </div>
+                  </div>
+                  <div>
+                    <img src="images/기차역도장/포항역.png" alt="포항역" />
+                    <div className="text-xs text-center pt-1 font-semibold">
+                      포항역
                     </div>
                   </div>
                 </div>

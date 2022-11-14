@@ -1,4 +1,4 @@
-import TrainStationModal from "../TrainStationModal";
+import TrainStationModal from "../modals/TrainStationModal";
 
 const MainHeader = () => {
   return (

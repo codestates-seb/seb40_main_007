@@ -24,6 +24,7 @@ export default function ImageUpload() {
           </label>
           <input
             type="file"
+            accept="image/*"
             id="file"
             className="hidden"
             onChange={(e) => onImageChange(e)}
