@@ -11,7 +11,7 @@ export default function OneLineComment() {
             type="text"
             placeholder="당신의 한줄평을 입력해주세요"
             maxLength="40"
-            className="text-center font-semibold text-black placeholder-black text-lg rounded-md  bg-transparent focus:outline-none w-10/12 p-2 m-1 my-4"
+            className="text-center font-semibold text-black  text-lg rounded-md  bg-transparent focus:outline-none w-10/12 p-2 m-1 my-4"
             //placeholder 색상 그냥 그레이가 나을지도..?
           />
         </div>

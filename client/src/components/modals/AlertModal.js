@@ -2,7 +2,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useState } from "react";
 
 export default function AlertModal(props) {
-  props = "사진을 등록해주세요!";
+  props = "욕설은 안돼요 !!";
   const [showModal, setShowModal] = useState(true);
 
   return (
