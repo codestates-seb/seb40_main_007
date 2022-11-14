@@ -6,6 +6,7 @@ import Loading from "./components/Loading";
 import MyProfilePage from "./Routes/myPages/myProfilePage";
 import EditMyInfoPage from "./Routes/myPages/editMyInfoPage";
 import EditPasswordPage from "./Routes/myPages/editPasswordPage";
+import MyCommentPage from "./Routes/myCommentPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,6 +28,7 @@ function App() {
             <Route path="/mypage" element={<MyProfilePage />} />
             <Route path="/mypage/editmyinfo" element={<EditMyInfoPage />} />
             <Route path="/mypage/editpassword" element={<EditPasswordPage />} />
+            <Route path="/mypage/mycomment" element={<MyCommentPage />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

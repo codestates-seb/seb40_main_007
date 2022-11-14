@@ -1,7 +1,8 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { Link } from "react-router-dom";
-export default function MyPageTab() {
-  const [index, setIndex] = useState(0);
+
+export default function MyPageTab({ index }) {
+  // const [index, setIndex] = useState(0);
   const unactiveStyle =
     "rounded-t-lg px-10 py-2 text-white bg-[rgb(83,199,240)]";
   const activeStyle =
@@ -14,7 +15,7 @@ export default function MyPageTab() {
         <li>
           <Link to="/mypage">
             <button
-              onClick={() => setIndex(0)}
+              // onClick={() => setIndex(0)}
               className={index === 0 ? unactiveStyle : activeStyle}
             >
               내 역이요
@@ -23,7 +24,7 @@ export default function MyPageTab() {
         </li>
         <li>
           <button
-            onClick={() => setIndex(1)}
+            // onClick={() => setIndex(1)}
             className={index === 1 ? unactiveStyle : activeStyle}
           >
             내 게시글
@@ -31,19 +32,21 @@ export default function MyPageTab() {
         </li>
         <li>
           <button
-            onClick={() => setIndex(2)}
+            // onClick={() => setIndex(2)}
             className={index === 2 ? unactiveStyle : activeStyle}
           >
             내 찜 목록
           </button>
         </li>
         <li>
-          <button
-            onClick={() => setIndex(3)}
-            className={index === 3 ? unactiveStyle : activeStyle}
-          >
-            내 댓글
-          </button>
+          <Link to="/mypage/mycomment">
+            <button
+              // onClick={() => setIndex(3)}
+              className={index === 3 ? unactiveStyle : activeStyle}
+            >
+              내 댓글
+            </button>
+          </Link>
         </li>
       </ul>
       {/* <Routes>
