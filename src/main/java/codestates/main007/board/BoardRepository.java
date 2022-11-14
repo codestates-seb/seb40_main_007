@@ -15,8 +15,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     List<Board> findByWriterAndStationId(Member member, long stationId);
 
-    List<Board> findByStationIdAndCategoryId(long stationId, long categoryId, Sort sort);
-
     Integer countByWriter(Member member);
 
     List<MemberScore> findScoreByWriter(Member member);

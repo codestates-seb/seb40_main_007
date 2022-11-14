@@ -10,8 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class BoardService {
@@ -71,17 +69,9 @@ public class BoardService {
                 .orElseThrow(() -> new NullPointerException("해당 게시글이 존재하지 않습니다."));
     }
 
-    public List<Board> findBoards(long stationId, long categoryId,Sort sort) {
-        return boardRepository.findByStationIdAndCategoryId(stationId, categoryId, sort);
-    }
-
     public Page<Board> findBoardPage(long stationId, long categoryId, int page, int size, Sort sort) {
         return boardRepository.findByStationIdAndCategoryId(stationId, categoryId,
                 PageRequest.of(page, size, sort));
-    }
-
-    public List<Board> findByMember(Member member) {
-        return boardRepository.findByWriter(member);
     }
 
     public boolean findIsDibs(String accessToken, long boardId) {
