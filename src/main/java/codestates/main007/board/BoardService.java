@@ -1,5 +1,6 @@
 package codestates.main007.board;
 
+import codestates.main007.boardMember.BoardMemberService;
 import codestates.main007.member.Member;
 import codestates.main007.member.MemberService;
 import codestates.main007.service.DistanceMeasuringService;
@@ -16,6 +17,8 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberService memberService;
     private final DistanceMeasuringService distanceService;
+
+    private final BoardMemberService boardMemberService;
 
     public void save(String accessToken, Board board) {
         Member writer = memberService.findByAccessToken(accessToken);
@@ -74,12 +77,10 @@ public class BoardService {
                 PageRequest.of(page, size, sort));
     }
 
-    public boolean findIsDibs(String accessToken, long boardId) {
+    public boolean checkDibs(String accessToken, long boardId) {
         Member member = memberService.findByAccessToken(accessToken);
-        //todo: 이 멤버가 해당 글을 찜했는지 여부 확인하여 리턴
 
-        // 임시 리턴값
-        return true;
+        return boardMemberService.checkDibs(member, find(boardId));
     }
 
     public boolean dibs(String accessToken, long boardId) {

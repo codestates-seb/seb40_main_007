@@ -45,7 +45,7 @@ public class BoardController {
                                             @PathVariable("board-id") long boardId) {
         Board board = boardService.find(boardId);
 
-        boolean isDibs = boardService.findIsDibs(accessToken, boardId);
+        boolean isDibs = boardService.checkDibs(accessToken, boardId);
         BoardDto.DetailResponse detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs);
 
         return detailResponse;
