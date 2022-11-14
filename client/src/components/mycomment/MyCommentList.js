@@ -11,8 +11,8 @@ const MyCommentList = () => {
   const test = Array(20).fill(obj);
 
   return (
-    <div className="pt-7 flex justify-center">
-      <div className="grid grid-cols-2 gap-5 max-w-max ">
+    <div className="pt-5 flex justify-center">
+      <div className="grid grid-cols-1 max-w-max gap-2 sm:grid-cols-2 sm:gap-5">
         {test.map((el, idx) => (
           <div key={idx}>
             <Item imgUrl={el.imgUrl} title={el.title} content={el.content} />
