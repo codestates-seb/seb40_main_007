@@ -7,8 +7,8 @@ const MyProfilePage = () => {
   return (
     <>
       <Header />
-      <div className="pt-24 flex flex-col items-center justify-center gap-7">
-        <MyPageTab />
+      <div className="mypage-header-tab">
+        <MyPageTab index={0} />
         <div className="w-full max-w-xl flex justify-center items-center flex-col">
           <div id="my__EditBtn" className="w-full flex justify-end">
             <InfoEditBtn />

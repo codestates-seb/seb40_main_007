@@ -23,8 +23,8 @@ const EditPasswordPage = () => {
   return (
     <>
       <Header />
-      <div className="pt-24 flex flex-col items-center justify-center gap-7">
-        <MyPageTab />
+      <div className="mypage-header-tab">
+        <MyPageTab index={0} />
         <div className="w-full max-w-xl">
           <div className="mb-3 flex justify-start">
             <p className="ml-2 pr-7 border-b-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)]">
@@ -44,7 +44,7 @@ const EditPasswordPage = () => {
               </div>
             </div>
             <div className="pt-20 gap-2 flex flex-col items-center">
-              <button className="btn" onClick={checkPaswword}>
+              <button className="btn btn-hover" onClick={checkPaswword}>
                 수정완료
               </button>
             </div>

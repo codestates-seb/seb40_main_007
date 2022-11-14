@@ -53,7 +53,7 @@ const ConfirmPasword = ({ setShowModal }) => {
                 {isOk ? "* 비밀 번호가 틀렸습니다 !" : null}
               </p>
               <div className="py-5">
-                <button className="btn" onClick={() => setIsOk(true)}>
+                <button className="btn btn-hover" onClick={() => setIsOk(true)}>
                   확인
                 </button>
               </div>
