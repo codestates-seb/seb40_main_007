@@ -1,11 +1,5 @@
-import InfoWindow from "./InfoWindow";
-
 const Sample = () => {
-  return (
-    <>
-      <InfoWindow />
-    </>
-  );
+  return <></>;
 };
 
 export default Sample;
