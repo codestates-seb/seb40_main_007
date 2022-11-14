@@ -3,12 +3,12 @@ package codestates.main007.member;
 
 import codestates.main007.auth.jwt.JwtTokenizer;
 import codestates.main007.auth.util.CustomAuthorityUtils;
-import codestates.main007.exception.BusinessLogicException;
-import codestates.main007.exception.ExceptionCode;
 import codestates.main007.board.Board;
 import codestates.main007.board.BoardRepository;
 import codestates.main007.comments.Comment;
 import codestates.main007.comments.CommentRepository;
+import codestates.main007.exception.BusinessLogicException;
+import codestates.main007.exception.ExceptionCode;
 import codestates.main007.member.query.MemberScore;
 import codestates.main007.member.query.MemberStation;
 import codestates.main007.service.RandomAvatarService;
@@ -18,11 +18,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import javax.transaction.Transactional;
-import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -73,7 +73,7 @@ public class MemberService {
 
     private void verifyExistEmail(String email){
         Optional<Member> member = memberRepository.findByEmail(email);
-        if(member.isPresent())
+        if (member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
 
