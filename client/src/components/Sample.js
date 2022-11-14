@@ -3,7 +3,7 @@ import InfoWindow from "./InfoWindow";
 const Sample = () => {
   return (
     <>
-      <InfoWindow></InfoWindow>
+      <InfoWindow />
     </>
   );
 };
