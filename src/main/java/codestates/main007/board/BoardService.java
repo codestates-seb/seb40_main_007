@@ -34,12 +34,6 @@ public class BoardService {
 
     public void update(String accessToken, long boardId, BoardDto.Input patch) {
         Board updatedBoard = find(boardId);
-        Member member = memberService.findByAccessToken(accessToken);
-
-        Member writer = updatedBoard.getWriter();
-        if (member != writer) {
-            //todo: 에러 발생 로직 작성자가 아닙니다
-        }
 
         updatedBoard.patchBoard(patch.getTitle(),
                 patch.getReview(),
@@ -50,7 +44,7 @@ public class BoardService {
                 patch.getCategoryId(),
                 patch.getAddress());
 
-        if (patch.getLatitude()!=null || patch.getLongitude()!=null){
+        if (patch.getLatitude() != null || patch.getLongitude() != null) {
             Station station = new Station((int) updatedBoard.getStationId());
             double startLat = station.getLatitude();
             double startLong = station.getLongitude();
@@ -66,10 +60,6 @@ public class BoardService {
     public void delete(String accessToken, long boardId) {
         Member writer = find(boardId).getWriter();
         Member member = memberService.findByAccessToken(accessToken);
-
-        if (member != writer) {
-            //todo: 에러 발생 로직 작성자가 아닙니다
-        }
 
         boardRepository.deleteById(boardId);
     }
