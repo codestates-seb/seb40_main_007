@@ -14,7 +14,6 @@ const EditMyInfo = () => {
         <EditNickname />
         <div className="pt-20 gap-2 flex flex-col items-center">
           <button className="btn">수정완료</button>
-          <button className="btn bg-gray-400">수정취소</button>
         </div>
       </div>
     </div>

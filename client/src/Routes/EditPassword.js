@@ -17,7 +17,6 @@ const EditPassword = () => {
           <button className="btn" onClick={() => setShowModal(!showModal)}>
             수정완료
           </button>
-          <button className="btn bg-gray-400">수정취소</button>
         </div>
         {showModal ? <ConfirmPasword setShowModal={setShowModal} /> : null}
       </div>
