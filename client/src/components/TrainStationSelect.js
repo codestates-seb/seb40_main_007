@@ -30,7 +30,7 @@ export default function TrainStationSelect(props) {
                     <AiOutlineCloseCircle size={18} />
                   </button>
                 </div>
-                <div className="px-3 pb-3 relative grid grid-cols-4 gap-4">
+                <div className="px-3 pb-3 relative grid grid-cols-5 gap-4">
                   <div>
                     <img src="images/기차역도장/행신역.png" alt="행신역" />
                     <div className="text-xs text-center pt-1 font-semibold">
@@ -95,6 +95,12 @@ export default function TrainStationSelect(props) {
                     <img src="images/기차역도장/동대구역.png" alt="동대구역" />
                     <div className="text-xs text-center pt-1 font-semibold">
                       동대구역
+                    </div>
+                  </div>
+                  <div>
+                    <img src="images/기차역도장/서대구역.png" alt="서대구역" />
+                    <div className="text-xs text-center pt-1 font-semibold">
+                      서대구역
                     </div>
                   </div>
                   <div>
