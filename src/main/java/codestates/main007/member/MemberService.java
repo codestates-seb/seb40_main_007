@@ -21,6 +21,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.ArrayList;
@@ -40,11 +41,11 @@ public class MemberService {
     private final RandomPasswordService randomPasswordService;
     private final JwtTokenizer jwtTokenizer;
 
-    public Member save(MemberDto.Signup signupDto){
+    public Member save(MemberDto.Signup signupDto) {
         verifyExistEmail(signupDto.getEmail());
         String encryptedPassword = passwordEncoder.encode(signupDto.getPassword());
         List<String> roles = authorityUtils.createRoles(signupDto.getEmail());
-  
+
         Member createdMember = Member.builder()
                 .email(signupDto.getEmail())
                 .name(namingService.genName())
@@ -67,15 +68,15 @@ public class MemberService {
                 .orElseThrow(() -> new NullPointerException("해당 멤버가 존재하지 않습니다."));
     }
 
-    public Member findByEmail(String email){
+    public Member findByEmail(String email) {
         return memberRepository.findByEmail(email)
                 .orElseThrow(() -> new NullPointerException("해당 멤버가 존재하지 않습니다."));
     }
 
 
-    private void verifyExistEmail(String email){
+    private void verifyExistEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
-        if(member.isPresent())
+        if (member.isPresent())
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
     }
 
@@ -88,7 +89,7 @@ public class MemberService {
         return find(4);
     }
 
-    public String findPassword(String email){
+    public String findPassword(String email) {
         Member member = findByEmail(email);
 
         String password = randomPasswordService.genPassword();
@@ -120,6 +121,7 @@ public class MemberService {
         return boardRepository.findByWriter(member,
                 PageRequest.of(page, size, sort));
     }
+
     public Page<Board> findMyPageByStation(String accessToken, long stationId, int page, int size, Sort sort) {
         Member member = findByAccessToken(accessToken);
 
@@ -127,10 +129,10 @@ public class MemberService {
                 PageRequest.of(page, size, sort));
     }
 
-    public List<Comment> findMyComments(String accessToken) {
+    public Page<Comment> findMyComments(String accessToken, int page, int size, Sort sort) {
         Member member = findByAccessToken(accessToken);
 
-        return commentRepository.findByWriter(member);
+        return commentRepository.findByWriter(member, PageRequest.of(page, size, sort));
     }
 
     public int findMyScore(Member member) {

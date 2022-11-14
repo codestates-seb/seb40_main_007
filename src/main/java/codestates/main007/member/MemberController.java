@@ -69,11 +69,13 @@ public class MemberController {
 
     @GetMapping("/my-page/comments")
     @ResponseStatus(HttpStatus.OK)
-    public MultiResponseDto getMyComments(@RequestHeader(name = "Authorization") String accessToken) {
-        List<Comment> comments = memberService.findMyComments(accessToken);
-        List<MemberDto.MyComment> myComments = memberMapper.commentsToMyComments(comments);
+    public PageDto getMyComments(@RequestHeader(name = "Authorization") String accessToken,
+                                          @RequestParam int page,
+                                          @RequestParam int size) {
+        Page<Comment> commentPage = memberService.findMyComments(accessToken, page-1, size, Sort.by("commentId").descending());
+        List<Comment> comments = commentPage.getContent();
 
-        return new MultiResponseDto<>(myComments);
+        return new PageDto(memberMapper.commentsToMyComments(comments),commentPage);
     }
 
     @GetMapping("/my-page/map")
