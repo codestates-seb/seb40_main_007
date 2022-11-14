@@ -24,7 +24,7 @@ const MainMap = () => {
     } else {
       setStyle({ width: "100%", height: "300px" });
     }
-  });
+  }, []);
 
   return (
     <div className="flex justify-center p-2 mt-10">

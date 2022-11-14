@@ -55,7 +55,7 @@ const DetailHeader = () => {
         <div className="w-6 h-6 my-2">
           <img src="/images/profile.png" alt="사진" />
         </div>
-        <span className="text-sm">게시글 작성자</span>
+        <span className="text-xs">게시글 작성자</span>
       </div>
     </div>
   );
