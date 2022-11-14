@@ -1,6 +1,7 @@
 package codestates.main007.member;
 
 import codestates.main007.board.Board;
+import codestates.main007.boardMember.BoardMember;
 import codestates.main007.comments.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,6 +42,9 @@ public class Member {
 
     @OneToMany(mappedBy = "writer", cascade = CascadeType.REMOVE)
     private final List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    private final List<BoardMember> boardMembers = new ArrayList<>();
 
     public void patchMember(String name, String avatar, String password) {
         if (name != null) {
