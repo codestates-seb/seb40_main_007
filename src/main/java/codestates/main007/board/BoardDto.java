@@ -38,7 +38,8 @@ public class BoardDto {
         private int timeFromStation;
         private boolean dibs;
         private LocalDateTime createdAt;
-        // todo: tag 추가필요, 작성자 추가 필요, 이미지 추가필요
+        private BoardDto.Writer writer;
+        // todo: tag 추가필요, 이미지 추가필요
     }
 
     @Getter
@@ -61,5 +62,12 @@ public class BoardDto {
     @Builder
     public static class Dibs {
         private boolean dibs;
+    }
+
+    @Getter
+    @Builder
+    public static class Writer {
+        private String name;
+        private String avatar;
     }
 }

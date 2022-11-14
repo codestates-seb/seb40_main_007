@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class BoardController {
     private final BoardService boardService;
     private final BoardMapper boardMapper;
+    private final MemberService memberService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -44,9 +45,10 @@ public class BoardController {
     public BoardDto.DetailResponse getBoard(@RequestHeader(name = "Authorization") String accessToken,
                                             @PathVariable("board-id") long boardId) {
         Board board = boardService.find(boardId);
+        Member member = memberService.findByAccessToken(accessToken);
 
         boolean isDibs = boardService.checkDibs(accessToken, boardId);
-        BoardDto.DetailResponse detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs);
+        BoardDto.DetailResponse detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs, member);
 
         return detailResponse;
     }

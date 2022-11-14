@@ -14,11 +14,38 @@ import java.util.Optional;
 public class BoardMemberService {
     private final BoardMemberRepository boardMemberRepository;
 
-    public boolean checkDibs(Member member, Board board){
+    public BoardMember getBoardMember(Member member, Board board) {
         Optional<BoardMember> boardMember = boardMemberRepository.findByMemberAndBoard(member, board);
-        if (boardMember.isPresent()){
+        if (boardMember.isPresent()) {
+            return boardMember.get();
+        } else {
+            BoardMember boardMember2 = BoardMember.builder()
+                    .board(board)
+                    .member(member)
+                    .dibs(false)
+                    .scrap(false)
+                    .scoreStatus(false)
+                    .build();
+            this.boardMemberRepository.save(boardMember2);
+
+            return boardMember2;
+        }
+    }
+
+    public boolean changeDibs(Member member, Board board) {
+        BoardMember boardMember = getBoardMember(member, board);
+        boardMember.changDibs();
+
+        boardMemberRepository.save(boardMember);
+
+        return boardMember.isDibs();
+    }
+
+    public boolean checkDibs(Member member, Board board) {
+        Optional<BoardMember> boardMember = boardMemberRepository.findByMemberAndBoard(member, board);
+        if (boardMember.isPresent()) {
             return boardMember.get().isDibs();
-        }else {
+        } else {
             return false;
         }
     }

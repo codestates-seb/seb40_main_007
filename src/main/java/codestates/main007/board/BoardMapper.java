@@ -30,7 +30,12 @@ public interface BoardMapper {
         return board;
     }
 
-    default BoardDto.DetailResponse boardToDetailResponseDto(Board board, boolean isDibs) {
+    default BoardDto.DetailResponse boardToDetailResponseDto(Board board, boolean isDibs, Member member) {
+        BoardDto.Writer writer = BoardDto.Writer.builder()
+                .name(member.getName())
+                .avatar(member.getAvatar())
+                .build();
+
         BoardDto.DetailResponse detailResponse =
                 BoardDto.DetailResponse.builder()
                         .boardId(board.getBoardId())
@@ -42,9 +47,10 @@ public interface BoardMapper {
                         .categoryId(board.getCategoryId())
                         .address(board.getAddress())
                         .timeFromStation(board.getTimeFromStation())
-                        // todo: 찜 연관관계 설정후 추가, 작성자, 이미지
+                        // todo: 이미지
                         .dibs(isDibs)
                         .createdAt(board.getCreatedAt())
+                        .writer(writer)
                         .build();
         return detailResponse;
     }

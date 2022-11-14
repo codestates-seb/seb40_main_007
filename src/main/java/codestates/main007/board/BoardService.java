@@ -85,10 +85,9 @@ public class BoardService {
 
     public boolean dibs(String accessToken, long boardId) {
         Member member = memberService.findByAccessToken(accessToken);
-        //todo: 찜 기능 추가
+        Board board = find(boardId);
 
-        // 임시 리턴값
-        return true;
+        return boardMemberService.changeDibs(member, board);
     }
 
     public void upVote(String accessToken, long boardId) {

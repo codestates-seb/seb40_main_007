@@ -33,5 +33,12 @@ public class BoardMember {
     @Column
     private boolean scoreStatus;
 
+    public void changDibs() {
+        if (this.dibs == true) {
+            this.dibs = false;
+        } else {
+            this.dibs = true;
+        }
+    }
 
 }
