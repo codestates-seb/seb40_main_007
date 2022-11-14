@@ -10,7 +10,7 @@ const RelatedTab = () => {
   const stay = ["전체", "호텔", "모텔", "게하", "펜션", "캠핑"];
 
   return (
-    <div className="flex flex-row justify-center space-x-2 mt-4 mb-5">
+    <div className="flex flex-row justify-center space-x-2 mt-4 mb-1">
       {category === "식당"
         ? restarant.map((el) => (
             <button

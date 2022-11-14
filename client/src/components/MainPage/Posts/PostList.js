@@ -42,7 +42,7 @@ function PostList() {
   ];
   return (
     <>
-      <div>
+      <div className="flex justify-end mt-3">
         <SortDropdown />
       </div>
       <div className="mx-auto overflow-y-scroll h-[600px]">

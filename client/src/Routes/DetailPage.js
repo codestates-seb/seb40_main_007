@@ -12,7 +12,7 @@ const DetailPage = () => {
   return (
     <>
       <Header />
-      <div className="flex flex-col items-center ">
+      <div className="flex flex-col items-center">
         <div className="lg:w-[1024px]">
           <DetailHeader />
           <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -22,9 +22,9 @@ const DetailPage = () => {
           <Review />
           <CommentList />
           <CommentEditor />
-          <NeighborhoodPlace />
         </div>
       </div>
+      <NeighborhoodPlace />
       <WriteModal />
     </>
   );
