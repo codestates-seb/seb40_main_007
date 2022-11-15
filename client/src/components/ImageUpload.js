@@ -1,6 +1,8 @@
 /*eslint-disable*/
 import { useState } from "react";
 import { BsPlusLg } from "react-icons/bs";
+import OneLineComment from "./OneLineComment";
+import MyPageTab from "./MyPageTab";
 
 export default function ImageUpload() {
   const [index, setIndex] = useState("");
@@ -84,6 +86,8 @@ export default function ImageUpload() {
           </div>
         </li>
       </ul>
+      <OneLineComment />
+      <MyPageTab />
     </>
   );
 }
