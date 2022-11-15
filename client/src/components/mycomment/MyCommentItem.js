@@ -2,8 +2,8 @@ import { MdOutlineSubdirectoryArrowRight } from "react-icons/md";
 
 const Item = ({ imgUrl, title, content }) => {
   return (
-    <div className="w-full flex flex-row m-3 ">
-      <img className="w-28 h-28 rounded-md" alt="post img" src={imgUrl} />
+    <div className="w-full flex flex-row  ">
+      <img className="w-24 h-24 rounded-md" alt="post img" src={imgUrl} />
       <div className="w-4/6 pl-3 flex flex-col justify-center">
         <div className="">{title}</div>
         <div className="flex flex-row text-xs">
