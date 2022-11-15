@@ -6,7 +6,7 @@ const MyLikePostPage = () => {
     <>
       <Header />
       <div className="mypage-header-tab">
-        <MyPageTab index={2} />
+        <MyPageTab index={"내찜목록"} />
         <div>
           <PostList />
         </div>

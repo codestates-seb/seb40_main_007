@@ -6,21 +6,21 @@ import { useState } from "react";
 import MainMap from "../components/MainPage/MainMap";
 
 const MyPostPage = () => {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState("게시글");
   return (
     <>
       <Header />
       <div className="mypage-header-tab">
-        <MyPageTab index={1} />
+        <MyPageTab index={"내게시글"} />
         <div className="w-full max-w-2xl flex justify-center">
           <MyPostTab setIndex={setIndex} index={index} />
         </div>
-        {index === 0 ? (
+        {index === "게시글" ? (
           <div>
             <PostList />
           </div>
         ) : (
-          <div className="w-2/6 h-full">
+          <div className="w-2/6 h-full border-2">
             <MainMap />
           </div>
         )}
