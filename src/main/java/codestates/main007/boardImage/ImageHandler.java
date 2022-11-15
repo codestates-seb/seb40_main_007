@@ -27,7 +27,7 @@ public class ImageHandler {
         String currentDate = simpleDateFormat.format(new Date());
 
         // 절대 경로 설정
-        // todo: s3로 변경
+        // todo: 나중에 s3로 변경
         String absolutePath = new File("").getAbsolutePath() + "\\";
         // 저장 경로 설정
         String path = "images/" + currentDate;
@@ -81,7 +81,7 @@ public class ImageHandler {
                 if (i == 0) {
                     //썸네일 생성 메서드
                     File thumbnail = new File(absolutePath + path + "/" + "thumbnail_of_" + board.getBoardId());
-                    Thumbnails.of(file).size(100, 100).outputFormat("png").toFile(thumbnail);
+                    Thumbnails.of(file).size(300, 300).outputFormat("png").toFile(thumbnail);
                 }
             }
         }
