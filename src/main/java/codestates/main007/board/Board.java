@@ -103,6 +103,7 @@ public class Board {
     }
 
     public void setThumbnail(){
+        // todo: 나중에 변경
         this.thumbnail = "https://s3주소/images/thumbnail_of_"+ boardId;
     }
 
