@@ -1,7 +1,6 @@
 /*eslint-disable*/
 import { useState } from "react";
 import { BsPlusLg } from "react-icons/bs";
-import LoginHeader from "../components/LoginHeader";
 
 export default function ImageUpload() {
   const [index, setIndex] = useState("");
@@ -15,7 +14,6 @@ export default function ImageUpload() {
 
   return (
     <>
-      <LoginHeader />
       <ul className="w-fit flex m-3 text-[rgb(83,199,240)]">
         <li
           className={index === 0 ? selectStyle : "m-1"}
