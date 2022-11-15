@@ -34,6 +34,7 @@ public class BoardMemberService {
         }
     }
 
+    // 찜상태를 변경
     public boolean changeDibs(Member member, Board board) {
         BoardMember boardMember = getBoardMember(member, board);
         boardMember.changeDibs();
@@ -43,6 +44,7 @@ public class BoardMemberService {
         return boardMember.isDibs();
     }
 
+    // 찜 여부 확인
     public boolean checkDibs(Member member, Board board) {
         Optional<BoardMember> boardMember = boardMemberRepository.findByMemberAndBoard(member, board);
         if (boardMember.isPresent()) {
@@ -52,6 +54,7 @@ public class BoardMemberService {
         }
     }
 
+    // 추천 기능
     public int upVote(Member member, Board board) {
         BoardMember boardMember = getBoardMember(member, board);
         if (boardMember.getScoreStatus() == 1) {
@@ -71,6 +74,7 @@ public class BoardMemberService {
         return boardMember.getScoreStatus();
     }
 
+    // 비추천 기능
     public int downVote(Member member, Board board) {
         BoardMember boardMember = getBoardMember(member, board);
         if (boardMember.getScoreStatus() == -1) {

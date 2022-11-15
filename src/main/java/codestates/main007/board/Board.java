@@ -57,12 +57,15 @@ public class Board {
     @Column
     private double star;
 
+    // 총 추천 합
     @Column
     private int score;
 
+    // 추천 수
     @Column
     private int upScore;
 
+    // 비추천 수
     @Column
     private int downScore;
 
@@ -124,6 +127,7 @@ public class Board {
         }
     }
 
+    // 해당 게시글의 추천 수 변경 메서드 (총 추천합, 추천 수, 비추천 수 )
     public void changeScore(int fromStatus, int status) {
         if (fromStatus == -1 & status == 1) {
             this.downScore--;
