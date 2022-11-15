@@ -1,15 +1,15 @@
 import MyStationItem from "./MyStationItem";
 
 const dummy = [
-  "/images/서울역.png",
-  "/images/서울역.png",
-  "/images/서울역.png",
-  "/images/서울역.png",
-  "/images/서울역.png",
-  "/images/서울역.png",
-  "/images/서울역.png",
-  "/images/서울역.png",
-  "/images/서울역.png",
+  "/images/기차역도장/서울역.png",
+  "/images/기차역도장/서울역.png",
+  "/images/기차역도장/서울역.png",
+  "/images/기차역도장/서울역.png",
+  "/images/기차역도장/서울역.png",
+  "/images/기차역도장/서울역.png",
+  "/images/기차역도장/서울역.png",
+  "/images/기차역도장/서울역.png",
+  "/images/기차역도장/서울역.png",
 ];
 
 const MyStation = () => {

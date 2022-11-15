@@ -104,6 +104,16 @@ export default function TrainStationCard() {
         </div>
         <div className="relative flex justify-center items-center">
           <img
+            src="images/기차역사진/서대구역사진.png"
+            alt="서대구역"
+            className="w-full h-full rounded-xl hover:ring hover:ring-[rgb(83,199,240)]"
+          />
+          <div className="text-3xl text-white pt-1 font-semibold absolute">
+            서대구역
+          </div>
+        </div>
+        <div className="relative flex justify-center items-center">
+          <img
             src="images/기차역사진/신경주역사진.png"
             alt="신경주역"
             className="w-full h-full rounded-xl hover:ring hover:ring-[rgb(83,199,240)]"
@@ -155,10 +165,13 @@ export default function TrainStationCard() {
         </div>
         <div className="relative flex justify-center items-center">
           <img
-            src="images/기차역사진/기차역없음사진.png"
-            alt="기차역없음사진"
-            className="w-full h-full rounded-xl"
+            src="images/기차역사진/포항역사진.png"
+            alt="포항역"
+            className="w-full h-full rounded-xl hover:ring hover:ring-[rgb(83,199,240)] "
           />
+          <div className="text-3xl text-white pt-1 font-semibold absolute ">
+            포항역
+          </div>
         </div>
       </div>
     </div>
