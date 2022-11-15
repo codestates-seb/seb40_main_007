@@ -28,9 +28,6 @@ public class BoardMember {
     private boolean dibs;
 
     @Column
-    private boolean scrap;
-
-    @Column
     private int scoreStatus;
 
     public void changeDibs() {
@@ -43,13 +40,5 @@ public class BoardMember {
 
     public void changeScoreStatus(int status) {
         this.scoreStatus = status;
-    }
-
-    public void changeScrap() {
-        if (this.scrap == true) {
-            this.scrap = false;
-        } else {
-            this.scrap = true;
-        }
     }
 }

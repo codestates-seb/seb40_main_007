@@ -26,7 +26,6 @@ public class BoardMemberService {
                     .board(board)
                     .member(member)
                     .dibs(false)
-                    .scrap(false)
                     .scoreStatus(0)
                     .build();
             this.boardMemberRepository.save(boardMember2);
