@@ -28,13 +28,13 @@ spring:
         registration:
           google:
             clientId: 271700253602-jg4ss6e6mpid627craeadftt8cjgeqa7.apps.googleusercontent.com
-            clientSecret: //비공개
+            clientSecret: ${CLIENT_SECRET_GOOGLE}
             scope:
               - email
               - profile
           naver:
             clientId: vslwDatKfTzz0X56xJYI
-            clientSecret: //비공개
+            clientSecret: ${CLIENT_SECRET_NAVER}
             scope:
               - email
               - profile
