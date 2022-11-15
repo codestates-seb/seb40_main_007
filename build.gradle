@@ -43,5 +43,10 @@ dependencies {
 
 	// gson
 	implementation 'com.google.code.gson:gson'
+
+	//메일 전송 관련
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+	//썸네일 관련
+	implementation 'net.coobird:thumbnailator:0.4.18'
 }
