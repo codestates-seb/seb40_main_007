@@ -8,7 +8,7 @@ import SignupPage from "./Routes/signUpPage";
 import HomePage from "./Routes/homePage";
 import Loading from "./components/Loading";
 import ImageUpload from "./components/ImageUpload";
-import MainPage from "./Routes/MainPage";
+import MainPage from "./Routes/mainPage";
 import MyProfilePage from "./Routes/myPages/myProfilePage";
 import EditMyInfoPage from "./Routes/myPages/editMyInfoPage";
 import EditPasswordPage from "./Routes/myPages/editPasswordPage";
@@ -35,9 +35,7 @@ function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/initial" element={<InitialPage />} />
             <Route path="/main" element={<MainPage />} />
-
             <Route path="/image" element={<ImageUpload />} />
-
             <Route path="/mypage" element={<MyProfilePage />} />
             <Route path="/mypage/editmyinfo" element={<EditMyInfoPage />} />
             <Route path="/mypage/editpassword" element={<EditPasswordPage />} />
