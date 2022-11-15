@@ -55,18 +55,18 @@ public class BoardController {
 
     @PostMapping("{board-id}/up-vote")
     @ResponseStatus(HttpStatus.OK)
-    public void upVote(@RequestHeader(name = "Authorization") String accessToken,
+    public BoardDto.ScoreStatus upVote(@RequestHeader(name = "Authorization") String accessToken,
                        @PathVariable("board-id") long boardId) {
 
-        boardService.upVote(accessToken, boardId);
+        return BoardDto.ScoreStatus.builder().scoreStatus(boardService.upVote(accessToken, boardId)).build();
     }
 
     @PostMapping("{board-id}/down-vote")
     @ResponseStatus(HttpStatus.OK)
-    public void downVote(@RequestHeader(name = "Authorization") String accessToken,
+    public BoardDto.ScoreStatus downVote(@RequestHeader(name = "Authorization") String accessToken,
                          @PathVariable("board-id") long boardId) {
 
-        boardService.downVote(accessToken, boardId);
+        return BoardDto.ScoreStatus.builder().scoreStatus(boardService.downVote(accessToken, boardId)).build();
     }
 
     @PostMapping("{board-id}/dibs")

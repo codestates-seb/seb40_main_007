@@ -3,7 +3,6 @@ package codestates.main007.board;
 import codestates.main007.boardMember.BoardMember;
 import codestates.main007.comments.Comment;
 import codestates.main007.member.Member;
-import codestates.main007.member.MemberDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -117,5 +116,9 @@ public class Board {
         if (address != null) {
             this.address = address;
         }
+    }
+
+    public void changeScore(int score){
+        this.score += score;
     }
 }

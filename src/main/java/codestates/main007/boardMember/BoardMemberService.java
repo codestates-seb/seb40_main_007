@@ -1,6 +1,7 @@
 package codestates.main007.boardMember;
 
 import codestates.main007.board.Board;
+import codestates.main007.board.BoardRepository;
 import codestates.main007.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,8 @@ import java.util.Optional;
 public class BoardMemberService {
     private final BoardMemberRepository boardMemberRepository;
 
+    private final BoardRepository boardRepository;
+
     public BoardMember getBoardMember(Member member, Board board) {
         Optional<BoardMember> boardMember = boardMemberRepository.findByMemberAndBoard(member, board);
         if (boardMember.isPresent()) {
@@ -24,7 +27,7 @@ public class BoardMemberService {
                     .member(member)
                     .dibs(false)
                     .scrap(false)
-                    .scoreStatus(false)
+                    .scoreStatus(0)
                     .build();
             this.boardMemberRepository.save(boardMember2);
 
@@ -48,5 +51,39 @@ public class BoardMemberService {
         } else {
             return false;
         }
+    }
+
+    public int upVote(Member member, Board board) {
+        BoardMember boardMember = getBoardMember(member, board);
+        if (boardMember.getScoreStatus() == 1) {
+            return 1;
+        }
+        if (boardMember.getScoreStatus() == 0) {
+            boardMember.changeScoreStatus(1);
+        } else {
+            boardMember.changeScoreStatus(0);
+        }
+        board.changeScore(1);
+        boardRepository.save(board);
+        boardMemberRepository.save(boardMember);
+
+        return boardMember.getScoreStatus();
+    }
+
+    public int downVote(Member member, Board board) {
+        BoardMember boardMember = getBoardMember(member, board);
+        if (boardMember.getScoreStatus() == -1) {
+            return -1;
+        }
+        if (boardMember.getScoreStatus() == 0) {
+            boardMember.changeScoreStatus(-1);
+        } else {
+            boardMember.changeScoreStatus(0);
+        }
+        board.changeScore(-1);
+        boardRepository.save(board);
+        boardMemberRepository.save(boardMember);
+
+        return boardMember.getScoreStatus();
     }
 }

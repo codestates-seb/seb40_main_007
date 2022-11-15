@@ -70,6 +70,12 @@ public class BoardDto {
 
     @Getter
     @Builder
+    public static class ScoreStatus {
+        private int scoreStatus;
+    }
+
+    @Getter
+    @Builder
     public static class Writer {
         private long memberId;
         private String name;

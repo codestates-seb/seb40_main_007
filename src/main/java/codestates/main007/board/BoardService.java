@@ -90,7 +90,7 @@ public class BoardService {
         Member member = memberService.findByAccessToken(accessToken);
 
         List<BoardDto.boardsResponse> result = new ArrayList<>();
-        for (BoardDto.boardsResponse dto : responses){
+        for (BoardDto.boardsResponse dto : responses) {
             Board board = find(dto.getBoardId());
             dto.setDibs(boardMemberService.checkDibs(member, board));
             result.add(dto);
@@ -106,15 +106,17 @@ public class BoardService {
         return boardMemberService.changeDibs(member, board);
     }
 
-    public void upVote(String accessToken, long boardId) {
+    public Integer upVote(String accessToken, long boardId) {
         Board board = find(boardId);
         Member member = memberService.findByAccessToken(accessToken);
-        //todo : 추천 기능 추가
+
+        return boardMemberService.upVote(member, board);
     }
 
-    public void downVote(String accessToken, long boardId) {
+    public Integer downVote(String accessToken, long boardId) {
         Board board = find(boardId);
         Member member = memberService.findByAccessToken(accessToken);
-        //todo : 비추천 기능 추가
+
+        return boardMemberService.downVote(member, board);
     }
 }
