@@ -1,5 +1,6 @@
 package codestates.main007.board;
 
+import codestates.main007.boardImage.BoardImage;
 import codestates.main007.boardMember.BoardMember;
 import codestates.main007.comments.Comment;
 import codestates.main007.member.Member;
@@ -47,9 +48,8 @@ public class Board {
     @Column
     private double longitude;
 
-    //todo: 이미지
-//    @Column
-//    private List<String> images;
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+    private List<BoardImage> images = new ArrayList<>();
 
     @Column
     private String thumbnail;
@@ -96,6 +96,10 @@ public class Board {
 
     public void setTimeFromStation(int time) {
         this.timeFromStation = time;
+    }
+
+    public void setImages(List<BoardImage> images){
+        this.images = images;
     }
 
     // 게시글 업데이트를 위한 메서드

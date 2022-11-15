@@ -5,6 +5,10 @@ import codestates.main007.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/boards")
@@ -17,10 +21,11 @@ public class BoardController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void postBoard(@RequestHeader(name = "Authorization") String accessToken,
-                          @RequestBody BoardDto.Input postDto) {
+                          @RequestBody BoardDto.Input postDto,
+                          @RequestParam("files") List<MultipartFile> images) throws IOException {
 
         Board board = boardMapper.boardDtoToBoard(postDto);
-        boardService.save(accessToken, board);
+        boardService.save(accessToken, board, images);
     }
 
     @PatchMapping("/{board-id}")
