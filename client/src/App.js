@@ -22,7 +22,7 @@ function App() {
       <BrowserRouter>
         <Suspense fallback={<Loading />}>
           <Routes>
-            <Route path="/" element={<MainPage />} />
+            <Route path="/main" element={<MainPage />} />
             <Route path="/detail" element={<DetailPage />} />
           </Routes>
         </Suspense>

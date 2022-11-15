@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { TiPencil } from "react-icons/ti";
-import { AiOutlineCloseCircle } from "react-icons/ai";
+// import { AiOutlineCloseCircle } from "react-icons/ai";
 
 const WriteModal = () => {
   const [showModal, setShowModal] = useState(false);
@@ -15,27 +15,42 @@ const WriteModal = () => {
       </button>
       {showModal ? (
         <>
-          <div className="fixed bottom-20 right-5 z-50">
+          <div className="fixed bottom-20 right-5 z-40">
             <div className="flex flex-col justify-center items-center w-[150px] bg-white rounded-lg">
-              <button className="text-sm text-[rgb(83,199,240)] py-3 ">
+              <button
+                className="text-sm text-[rgb(83,199,240)] py-3"
+                onClick={() => {
+                  console.log("식당");
+                  setShowModal(false);
+                }}
+              >
                 식당 후기 작성
               </button>
-              <button className="text-sm text-[rgb(83,199,240)] py-3">
+              <button
+                className="text-sm text-[rgb(83,199,240)] py-3"
+                onClick={() => {
+                  console.log("볼거리");
+                  setShowModal(false);
+                }}
+              >
                 볼거리 후기 작성
               </button>
-              <button className="text-sm text-[rgb(83,199,240)] py-3">
-                숙소 후기 작성
-              </button>
               <button
-                className="text-gray-400 absolute top-1 right-1"
-                type="button"
-                onClick={() => setShowModal(false)}
+                className="text-sm text-[rgb(83,199,240)] py-3"
+                onClick={() => {
+                  console.log("숙소");
+                  setShowModal(false);
+                }}
               >
-                <AiOutlineCloseCircle size={18} />
+                숙소 후기 작성
               </button>
             </div>
           </div>
-          <div className="bg-black fixed opacity-25 z-40 inset-0"></div>
+          <button
+            className="fixed inset-0"
+            type="button"
+            onClick={() => setShowModal(false)}
+          ></button>
         </>
       ) : null}
     </>
