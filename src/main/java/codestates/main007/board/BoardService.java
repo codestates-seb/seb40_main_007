@@ -45,6 +45,11 @@ public class BoardService {
         boardRepository.save(board);
 
         List<BoardImage> list = imageHandler.parseImageInfo(board, images);
+        if (!list.isEmpty()){
+            board.setThumbnail();
+        }
+
+        boardRepository.save(board);
 
         List<BoardImage> boardImages = new ArrayList<>();
         for (BoardImage tempImage : list){

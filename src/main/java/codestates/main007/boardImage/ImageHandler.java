@@ -1,6 +1,7 @@
 package codestates.main007.boardImage;
 
 import codestates.main007.board.Board;
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +27,7 @@ public class ImageHandler {
         String currentDate = simpleDateFormat.format(new Date());
 
         // 절대 경로 설정
+        // todo: s3로 변경
         String absolutePath = new File("").getAbsolutePath() + "\\";
         // 저장 경로 설정
         String path = "images/" + currentDate;
@@ -35,8 +37,9 @@ public class ImageHandler {
         if (!file.exists()) {
             file.mkdirs();
         }
+        for (int i = 0; i < multipartFiles.size(); i++) {
+            MultipartFile multipartFile = multipartFiles.get(i);
 
-        for (MultipartFile multipartFile : multipartFiles) {
             if (!multipartFile.isEmpty()) {
                 // 확장자 명 검증 절차
                 String contentType = multipartFile.getContentType();
@@ -59,7 +62,7 @@ public class ImageHandler {
                         break;
                     }
                     // 현재 시간 + 확장자
-                    String newFileName = Long.toString(System.nanoTime()) + originalFileExtension;
+                    String newFileName = System.nanoTime() + originalFileExtension;
 
                     // 보드-이미지 생성
                     BoardImage boardImage = BoardImage.builder()
@@ -74,6 +77,11 @@ public class ImageHandler {
                     // 저장된 파일로 변경하여 이를 보여주기
                     file = new File(absolutePath + path + "/" + newFileName);
                     multipartFile.transferTo(file);
+                }
+                if (i == 0) {
+                    //썸네일 생성 메서드
+                    File thumbnail = new File(absolutePath + path + "/" + "thumbnail_of_" + board.getBoardId());
+                    Thumbnails.of(file).size(100, 100).outputFormat("png").toFile(thumbnail);
                 }
             }
         }
