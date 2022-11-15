@@ -13,6 +13,7 @@ import MyProfilePage from "./Routes/myPages/myProfilePage";
 import EditMyInfoPage from "./Routes/myPages/editMyInfoPage";
 import EditPasswordPage from "./Routes/myPages/editPasswordPage";
 import MyCommentPage from "./Routes/myCommentPage";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
