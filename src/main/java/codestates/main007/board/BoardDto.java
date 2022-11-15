@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class BoardDto {
     @Getter
@@ -42,10 +43,14 @@ public class BoardDto {
         private int scoreStatus;
         private LocalDateTime createdAt;
         private BoardDto.Writer writer;
+        private List<String> imageUrls;
         // todo: tag 추가필요, 이미지 추가필요
 
         public void setScoreStatus(int status){
             this.scoreStatus = status;
+        }
+        public void setImagesUrls(List <String> urls){
+            this.imageUrls = urls;
         }
     }
 

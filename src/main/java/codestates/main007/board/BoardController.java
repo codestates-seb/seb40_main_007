@@ -56,6 +56,7 @@ public class BoardController {
         BoardDto.DetailResponse detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs, member);
         int status = boardService.checkScoreStatus(member, board);
 
+        detailResponse.setImagesUrls(boardService.findImageUrls(board));
         detailResponse.setScoreStatus(status);
 
         return detailResponse;

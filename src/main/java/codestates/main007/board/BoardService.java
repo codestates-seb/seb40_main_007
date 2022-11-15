@@ -145,4 +145,15 @@ public class BoardService {
 
         return boardMemberService.downVote(member, board);
     }
+
+    public List<String> findImageUrls(Board board){
+        List<String> imageUrls = new ArrayList<>();
+        List<BoardImage> boardImages = boardImageRepository.findAllByBoard(board);
+        for (BoardImage boardImage : boardImages){
+            // todo: 나중에 s3로 바꾸기
+            imageUrls.add(boardImage.getStored_file_path());
+        }
+
+        return imageUrls;
+    }
 }
