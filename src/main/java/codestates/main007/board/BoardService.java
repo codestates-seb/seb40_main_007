@@ -1,5 +1,6 @@
 package codestates.main007.board;
 
+import codestates.main007.boardMember.BoardMember;
 import codestates.main007.boardMember.BoardMemberService;
 import codestates.main007.member.Member;
 import codestates.main007.member.MemberService;
@@ -90,13 +91,18 @@ public class BoardService {
         Member member = memberService.findByAccessToken(accessToken);
 
         List<BoardDto.boardsResponse> result = new ArrayList<>();
-        for (BoardDto.boardsResponse dto : responses){
+        for (BoardDto.boardsResponse dto : responses) {
             Board board = find(dto.getBoardId());
             dto.setDibs(boardMemberService.checkDibs(member, board));
             result.add(dto);
         }
 
         return result;
+    }
+
+    public Integer checkScoreStatus(Member member, Board board) {
+        BoardMember boardMember = boardMemberService.getBoardMember(member, board);
+        return boardMember.getScoreStatus();
     }
 
     public boolean dibs(String accessToken, long boardId) {
@@ -106,15 +112,17 @@ public class BoardService {
         return boardMemberService.changeDibs(member, board);
     }
 
-    public void upVote(String accessToken, long boardId) {
+    public Integer upVote(String accessToken, long boardId) {
         Board board = find(boardId);
         Member member = memberService.findByAccessToken(accessToken);
-        //todo : 추천 기능 추가
+
+        return boardMemberService.upVote(member, board);
     }
 
-    public void downVote(String accessToken, long boardId) {
+    public Integer downVote(String accessToken, long boardId) {
         Board board = find(boardId);
         Member member = memberService.findByAccessToken(accessToken);
-        //todo : 비추천 기능 추가
+
+        return boardMemberService.downVote(member, board);
     }
 }

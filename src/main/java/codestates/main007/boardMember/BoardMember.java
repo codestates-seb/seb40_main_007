@@ -27,11 +27,9 @@ public class BoardMember {
     @Column
     private boolean dibs;
 
+    // 추천 상태 (-1:비추천 0:클릭안함 1:추천)
     @Column
-    private boolean scrap;
-
-    @Column
-    private boolean scoreStatus;
+    private int scoreStatus;
 
     public void changeDibs() {
         if (this.dibs == true) {
@@ -41,4 +39,8 @@ public class BoardMember {
         }
     }
 
+    // 추천상태 변경을 위한 메서드
+    public void changeScoreStatus(int status) {
+        this.scoreStatus = status;
+    }
 }
