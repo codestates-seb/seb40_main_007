@@ -173,21 +173,6 @@ export default function TrainStationCard() {
             포항역
           </div>
         </div>
-        <img
-          src="images/기차역사진/기차역없음사진.png"
-          alt="기차역없음사진"
-          className="w-full h-full rounded-xl opacity-50"
-        />
-        <img
-          src="images/기차역사진/기차역없음사진.png"
-          alt="기차역없음사진"
-          className="w-full h-full rounded-xl opacity-50"
-        />
-        <img
-          src="images/기차역사진/기차역없음사진.png"
-          alt="기차역없음사진"
-          className="w-full h-full rounded-xl opacity-50"
-        />
       </div>
     </div>
   );
