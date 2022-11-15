@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { TiPencil } from "react-icons/ti";
-// import { AiOutlineCloseCircle } from "react-icons/ai";
 
 const WriteModal = () => {
   const [showModal, setShowModal] = useState(false);
