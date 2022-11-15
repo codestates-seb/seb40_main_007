@@ -1,11 +1,14 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
+import Heart from "../../components/Heart";
+import PostStarScore from "../MainPage/Posts/PostStarScore";
 
 /* eslint-disable */
 import "swiper/css";
 import "swiper/css/pagination";
 
 const NeighborhoodPlace = () => {
+  const score = 4;
   const places = [
     {
       id: 1,
@@ -59,13 +62,17 @@ const NeighborhoodPlace = () => {
             {places.map((place) => {
               return (
                 <SwiperSlide key={place.id}>
-                  <div className="group pb-10">
-                    <div className="rounded-md group-hover:opacity-60">
+                  <div className="group">
+                    <div className="rounded-md group-hover:opacity-60 relative pb-10">
+                      <div className="absolute right-2">
+                        <Heart />
+                      </div>
                       <img
                         src="/images/oyster.png"
                         alt="alt"
-                        className="object-cover"
+                        className="object-fit static"
                       />
+                      <PostStarScore score={score} />
                     </div>
                   </div>
                 </SwiperSlide>
