@@ -61,6 +61,12 @@ public class Board {
     private int score;
 
     @Column
+    private int upScore;
+
+    @Column
+    private int downScore;
+
+    @Column
     private int viewCount;
 
     @Column
@@ -85,7 +91,7 @@ public class Board {
         this.writer = member;
     }
 
-    public void setTimeFromStation(int time){
+    public void setTimeFromStation(int time) {
         this.timeFromStation = time;
     }
 
@@ -118,7 +124,20 @@ public class Board {
         }
     }
 
-    public void changeScore(int score){
-        this.score += score;
+    public void changeScore(int fromStatus, int status) {
+        if (fromStatus == -1 & status == 1) {
+            this.downScore--;
+            this.score++;
+        }else if (fromStatus == 0 & status == 1){
+            this.upScore++;
+            this.score++;
+        }else if (fromStatus == 1 & status == -1){
+            this.upScore--;
+            this.score--;
+        }else if (fromStatus == 0 & status == -1){
+            this.downScore++;
+            this.score--;
+        }
     }
+
 }

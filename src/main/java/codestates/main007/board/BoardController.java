@@ -49,6 +49,9 @@ public class BoardController {
 
         boolean isDibs = boardService.checkDibs(accessToken, boardId);
         BoardDto.DetailResponse detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs, member);
+        int status = boardService.checkScoreStatus(member, board);
+
+        detailResponse.setScoreStatus(status);
 
         return detailResponse;
     }
@@ -56,7 +59,7 @@ public class BoardController {
     @PostMapping("{board-id}/up-vote")
     @ResponseStatus(HttpStatus.OK)
     public BoardDto.ScoreStatus upVote(@RequestHeader(name = "Authorization") String accessToken,
-                       @PathVariable("board-id") long boardId) {
+                                       @PathVariable("board-id") long boardId) {
 
         return BoardDto.ScoreStatus.builder().scoreStatus(boardService.upVote(accessToken, boardId)).build();
     }
@@ -64,7 +67,7 @@ public class BoardController {
     @PostMapping("{board-id}/down-vote")
     @ResponseStatus(HttpStatus.OK)
     public BoardDto.ScoreStatus downVote(@RequestHeader(name = "Authorization") String accessToken,
-                         @PathVariable("board-id") long boardId) {
+                                         @PathVariable("board-id") long boardId) {
 
         return BoardDto.ScoreStatus.builder().scoreStatus(boardService.downVote(accessToken, boardId)).build();
     }

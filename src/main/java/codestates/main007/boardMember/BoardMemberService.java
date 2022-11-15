@@ -60,10 +60,12 @@ public class BoardMemberService {
         }
         if (boardMember.getScoreStatus() == 0) {
             boardMember.changeScoreStatus(1);
-        } else {
+            board.changeScore(0, 1);
+        } else if (boardMember.getScoreStatus() == -1) {
             boardMember.changeScoreStatus(0);
+            board.changeScore(-1, 1);
         }
-        board.changeScore(1);
+
         boardRepository.save(board);
         boardMemberRepository.save(boardMember);
 
@@ -77,10 +79,12 @@ public class BoardMemberService {
         }
         if (boardMember.getScoreStatus() == 0) {
             boardMember.changeScoreStatus(-1);
-        } else {
+            board.changeScore(0, -1);
+        } else if (boardMember.getScoreStatus() == 1) {
             boardMember.changeScoreStatus(0);
+            board.changeScore(1, -1);
         }
-        board.changeScore(-1);
+
         boardRepository.save(board);
         boardMemberRepository.save(boardMember);
 

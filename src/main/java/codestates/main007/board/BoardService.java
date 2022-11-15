@@ -1,5 +1,6 @@
 package codestates.main007.board;
 
+import codestates.main007.boardMember.BoardMember;
 import codestates.main007.boardMember.BoardMemberService;
 import codestates.main007.member.Member;
 import codestates.main007.member.MemberService;
@@ -97,6 +98,11 @@ public class BoardService {
         }
 
         return result;
+    }
+
+    public Integer checkScoreStatus(Member member, Board board) {
+        BoardMember boardMember = boardMemberService.getBoardMember(member, board);
+        return boardMember.getScoreStatus();
     }
 
     public boolean dibs(String accessToken, long boardId) {

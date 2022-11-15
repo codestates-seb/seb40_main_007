@@ -23,7 +23,8 @@ public interface BoardMapper {
 //                .images()
 //                .thumbnail()
                 .star(boardDto.getStar())
-                .score(0)
+                .upScore(0)
+                .downScore(0)
                 .viewCount(0)
                 .address(boardDto.getAddress())
                 //todo: tag 추가 필요
@@ -51,6 +52,8 @@ public interface BoardMapper {
                         .timeFromStation(board.getTimeFromStation())
                         // todo: 이미지
                         .dibs(isDibs)
+                        .upScore(board.getUpScore())
+                        .downScore(board.getDownScore())
                         .createdAt(board.getCreatedAt())
                         .writer(writer)
                         .build();

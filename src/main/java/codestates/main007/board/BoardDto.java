@@ -37,9 +37,16 @@ public class BoardDto {
         private String address;
         private int timeFromStation;
         private boolean dibs;
+        private int upScore;
+        private int downScore;
+        private int scoreStatus;
         private LocalDateTime createdAt;
         private BoardDto.Writer writer;
         // todo: tag 추가필요, 이미지 추가필요
+
+        public void setScoreStatus(int status){
+            this.scoreStatus = status;
+        }
     }
 
     @Getter
