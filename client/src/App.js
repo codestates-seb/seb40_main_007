@@ -8,12 +8,11 @@ import SignupPage from "./Routes/signUpPage";
 import HomePage from "./Routes/homePage";
 import Loading from "./components/Loading";
 import ImageUpload from "./components/ImageUpload";
-import DetailPage from "./Routes/DetailPage";
-import EditMyInfoPage from "./Routes/EditMyInfoPage";
-import EditPassword from "./Routes/EditPasswordPage";
-import MainPage from "./Routes/MainPage";
-import Myprofile from "./Routes/MyProfilePage";
-
+import MainPage from "./Routes/mainPage";
+import MyProfilePage from "./Routes/myPages/myProfilePage";
+import EditMyInfoPage from "./Routes/myPages/editMyInfoPage";
+import EditPasswordPage from "./Routes/myPages/editPasswordPage";
+import MyCommentPage from "./Routes/myCommentPage";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -36,13 +35,11 @@ function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/initial" element={<InitialPage />} />
             <Route path="/main" element={<MainPage />} />
-
             <Route path="/image" element={<ImageUpload />} />
-
-            <Route path="/detail" element={<DetailPage />} />
-            <Route path="/editPassword" element={<EditPassword />} />
-            <Route path="/editMyInfo" element={<EditMyInfoPage />} />
-            <Route path="/Myprofile" element={<Myprofile />} />
+            <Route path="/mypage" element={<MyProfilePage />} />
+            <Route path="/mypage/editmyinfo" element={<EditMyInfoPage />} />
+            <Route path="/mypage/editpassword" element={<EditPasswordPage />} />
+            <Route path="/mypage/mycomment" element={<MyCommentPage />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

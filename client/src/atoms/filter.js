@@ -7,5 +7,5 @@ export const mainCategoryState = atom({
 
 export const mainRelatedState = atom({
   key: "mainRelated",
-  default: "",
+  default: "전체",
 });

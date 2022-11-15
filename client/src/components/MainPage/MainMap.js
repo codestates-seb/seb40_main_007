@@ -27,7 +27,7 @@ const MainMap = () => {
   }, []);
 
   return (
-    <div className="flex justify-center p-2 mt-10">
+    <div className="flex justify-center p-2 mt-14">
       <Map
         center={{ lat: 37.558090961074825, lng: 126.99847210567884 }}
         style={style}

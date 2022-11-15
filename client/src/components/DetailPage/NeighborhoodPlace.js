@@ -1,11 +1,14 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
+import Heart from "../../components/Heart";
+import PostStarScore from "../MainPage/Posts/PostStarScore";
 
 /* eslint-disable */
 import "swiper/css";
 import "swiper/css/pagination";
 
 const NeighborhoodPlace = () => {
+  const score = 4;
   const places = [
     {
       id: 1,
@@ -47,37 +50,36 @@ const NeighborhoodPlace = () => {
 
   return (
     <>
-      <div className="xs:w-[480px] sm:w-[640px] md:w-[768px] lg:w-[1024px]">
-        <div className="mb-5 py-5">
-          <span className="text-lg text-[rgb(83,199,240)] border-b-2 border-b-[rgb(83,199,240)] px-3 py-1">
-            주변정보
-          </span>
-        </div>
-
-        <Swiper
-          modules={[Pagination]}
-          slidesPerView={5}
-          spaceBetween={8}
-          pagination={{ clickable: true }}
-          // onSlideChange={() => console.log("slide change")}
-          // onSwiper={(swiper) => console.log(swiper)}
-        >
-          {places.map((place) => {
-            return (
-              <SwiperSlide key={place.id}>
-                <div className="group pb-10">
-                  <div className="rounded-md group-hover:opacity-60">
-                    <img
-                      src="/images/oyster.png"
-                      alt="alt"
-                      className="object-fit"
-                    />
+      <div className="flex justify-center py-10">
+        <div className="max-w-5xl">
+          <Swiper
+            modules={[Pagination]}
+            spaceBetween={10}
+            slidesPerView={5}
+            scrollbar={{ draggable: true }}
+            pagination={{ clickable: true }}
+          >
+            {places.map((place) => {
+              return (
+                <SwiperSlide key={place.id}>
+                  <div className="group">
+                    <div className="rounded-md group-hover:opacity-60 relative pb-10">
+                      <div className="absolute right-2">
+                        <Heart />
+                      </div>
+                      <img
+                        src="/images/oyster.png"
+                        alt="alt"
+                        className="object-fit static"
+                      />
+                      <PostStarScore score={score} />
+                    </div>
                   </div>
-                </div>
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </div>
       </div>
     </>
   );

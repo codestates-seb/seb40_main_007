@@ -12,4 +12,12 @@
   .btn-hover {
     @apply hover:bg-[#8A8A8A];
   }
+
+  /* mypage */
+  .mypage-header-tab {
+    @apply pt-24 flex flex-col items-center justify-center gap-7;
+  }
+  .hover-img {
+    @apply hover:absolute hover:duration-300 hover:scale-150;
+  }
 }

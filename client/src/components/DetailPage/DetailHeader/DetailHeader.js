@@ -4,7 +4,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 
 const DetailHeader = () => {
   return (
-    <div className="flex flex-col mt-5 lg:mt-20">
+    <div className="flex flex-col mt-20">
       <div className="mb-5 flex flex-row justify-between">
         <span className="text-lg text-[rgb(83,199,240)] border-b-2 border-b-[rgb(83,199,240)] px-3 py-1">
           부산역
