@@ -21,8 +21,8 @@ public class BoardController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void postBoard(@RequestHeader(name = "Authorization") String accessToken,
-                          @RequestBody BoardDto.Input postDto,
-                          @RequestParam("files") List<MultipartFile> images) throws IOException {
+                          @RequestPart("data") BoardDto.Input postDto,
+                          @RequestPart("files") List<MultipartFile> images) throws IOException {
 
         Board board = boardMapper.boardDtoToBoard(postDto);
         boardService.save(accessToken, board, images);

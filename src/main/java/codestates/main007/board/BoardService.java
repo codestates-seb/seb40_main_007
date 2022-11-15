@@ -34,14 +34,6 @@ public class BoardService {
         Member writer = memberService.findByAccessToken(accessToken);
         board.setWriter(writer);
 
-        List<BoardImage> list = imageHandler.parseImageInfo(board, images);
-
-        List<BoardImage> boardImages = new ArrayList<>();
-        for (BoardImage tempImage : list){
-            boardImages.add(boardImageRepository.save(tempImage));
-        }
-        board.setImages(boardImages);
-
         Station station = new Station((int) board.getStationId());
         double startLat = station.getLatitude();
         double startLong = station.getLongitude();
@@ -51,6 +43,15 @@ public class BoardService {
         board.setTimeFromStation(distanceService.getTime(startLat, startLong, endLat, endLong));
 
         boardRepository.save(board);
+
+        List<BoardImage> list = imageHandler.parseImageInfo(board, images);
+
+        List<BoardImage> boardImages = new ArrayList<>();
+        for (BoardImage tempImage : list){
+            boardImages.add(boardImageRepository.save(tempImage));
+        }
+        board.setImages(boardImages);
+
     }
 
     public void update(String accessToken, long boardId, BoardDto.Input patch) {
