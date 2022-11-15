@@ -2,15 +2,11 @@ import { MdOutlineSubdirectoryArrowRight } from "react-icons/md";
 
 const Item = ({ imgUrl, title, content }) => {
   return (
-    <div className=" flex flex-row ">
-      <img
-        className="w-[75px] h-[60px] rounded-md"
-        alt="post img"
-        src={imgUrl}
-      />
-      <div className="pl-3 flex flex-col justify-center">
-        <div className="text-base">{title}</div>
-        <div className="flex flex-row w-64 text-xs">
+    <div className="w-full flex flex-row m-3 ">
+      <img className="w-28 h-28 rounded-md" alt="post img" src={imgUrl} />
+      <div className="w-4/6 pl-3 flex flex-col justify-center">
+        <div className="">{title}</div>
+        <div className="flex flex-row text-xs">
           <div className="h-auto">
             <MdOutlineSubdirectoryArrowRight color="rgb(83,199,240)" />
           </div>

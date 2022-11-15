@@ -1,8 +1,8 @@
 import EditBtn from "./EditBtn";
 const EditProfileImg = () => {
   return (
-    <div className="w-2/5 mt-20">
-      <div>
+    <div className="w-[260px] mt-20">
+      <div className="">
         <p className="text-[rgb(83,199,240)]">프로필 이미지</p>
       </div>
       <div className="flex justify-center">
@@ -11,7 +11,7 @@ const EditProfileImg = () => {
           <img
             className="rounded-full p-0 m-0 static"
             alt="ProfileImg"
-            src="images/profile.png"
+            src="../images/profile.png"
           />
         </div>
       </div>

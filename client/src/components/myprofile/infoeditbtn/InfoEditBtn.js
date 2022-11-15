@@ -8,7 +8,7 @@ const InfoEditBtn = () => {
   };
   return (
     <>
-      <button onClick={handleOnModal} className="btn text-xs">
+      <button onClick={handleOnModal} className="btn btn-hover text-xs mr-2">
         정보 수정
       </button>
       {onModal ? <InfoEditMenu offModal={handleOnModal} /> : null}

@@ -9,8 +9,10 @@ const EditNickname = () => {
   };
 
   return (
-    <div className="w-2/5 mt-9">
-      <div className="text-[rgb(83,199,240)]">닉네임</div>
+    <div className="max-w-md mt-9">
+      <div className="text-[rgb(83,199,240)]">
+        <p>닉네임</p>
+      </div>
       <input
         className="mt-1 p-1 w-full rounded-lg border-2 border-[rgb(83,199,240)]"
         placeholder="Euginius1st"
