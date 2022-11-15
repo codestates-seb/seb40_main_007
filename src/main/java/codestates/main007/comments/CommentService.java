@@ -26,11 +26,6 @@ public class CommentService {
     }
 
     public void update(String accessToken, CommentDto.Input patchDto, long commentId) {
-        Member member = memberService.findByAccessToken(accessToken);
-        Member writer = find(commentId).getWriter();
-        if (member != writer) {
-            //todo: 에러 발생 로직 작성자가 아닙니다
-        }
 
         Comment comment = find(commentId);
         comment.patchComment(patchDto.getComment());
@@ -43,11 +38,6 @@ public class CommentService {
     }
 
     public void delete(String accessToken, long commentId) {
-        Member member = memberService.findByAccessToken(accessToken);
-        Member writer = find(commentId).getWriter();
-        if (member != writer) {
-            //todo: 에러 발생 로직 작성자가 아닙니다
-        }
 
         commentRepository.deleteById(commentId);
     }
