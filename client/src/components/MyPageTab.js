@@ -31,12 +31,14 @@ export default function MyPageTab({ index }) {
           </button>
         </li>
         <li>
-          <button
-            // onClick={() => setIndex(2)}
-            className={index === 2 ? unactiveStyle : activeStyle}
-          >
-            내 찜 목록
-          </button>
+          <Link to="/mypage/likepost">
+            <button
+              // onClick={() => setIndex(2)}
+              className={index === 2 ? unactiveStyle : activeStyle}
+            >
+              내 찜 목록
+            </button>
+          </Link>
         </li>
         <li>
           <Link to="/mypage/mycomment">
