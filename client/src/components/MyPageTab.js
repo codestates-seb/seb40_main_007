@@ -23,12 +23,14 @@ export default function MyPageTab({ index }) {
           </Link>
         </li>
         <li>
-          <button
-            // onClick={() => setIndex(1)}
-            className={index === 1 ? unactiveStyle : activeStyle}
-          >
-            내 게시글
-          </button>
+          <Link to="/mypage/mypost">
+            <button
+              // onClick={() => setIndex(1)}
+              className={index === 1 ? unactiveStyle : activeStyle}
+            >
+              내 게시글
+            </button>
+          </Link>
         </li>
         <li>
           <Link to="/mypage/likepost">
