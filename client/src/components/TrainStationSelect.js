@@ -7,7 +7,7 @@ export default function TrainStationSelect(props) {
   return (
     <>
       <button
-        className=" text-sm text-[rgb(83,199,240)] hover:shadow-lg outline-none ease-linear transition-all duration-150"
+        className="text-sm text-[rgb(83,199,240)] hover:shadow-lg outline-none ease-linear transition-all duration-150"
         type="button"
         onClick={() => setShowModal(true)}
       >

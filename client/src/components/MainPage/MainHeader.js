@@ -1,10 +1,13 @@
+<<<<<<< HEAD
+import TrainStationSelect from "../TrainStationSelect";
+=======
 import TrainStationModal from "../modals/TrainStationModal";
+>>>>>>> dfd10bd4e2c7bba30a0a1e56d5f703901cc9fa7e
 
 const MainHeader = () => {
   return (
-    <div className="flex flex-row items-center mt-5 lg:mt-20">
-      <h1 className="text-xl px-2">부산역</h1>
-      <TrainStationModal />
+    <div className="flex flex-row items-center mt-20">
+      <TrainStationSelect />
     </div>
   );
 };
