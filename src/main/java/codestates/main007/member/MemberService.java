@@ -57,11 +57,11 @@ public class MemberService {
         return memberRepository.save(createdMember);
     }
 
-    public void saveOAuthMember(String email){
+    public void saveOAuthMember(String name, String email, String avatar){
         Member oAuthMember = Member.builder()
+                .name(name)
                 .email(email)
-                .name(namingService.genName())
-                .avatar(avatarService.genAvatar())
+                .avatar(avatar)
                 .build();
         memberRepository.save(oAuthMember);
     }

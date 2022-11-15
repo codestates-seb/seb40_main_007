@@ -37,15 +37,17 @@ public class OAuthMemberAuthenticationSuccessHandler extends SimpleUrlAuthentica
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException {
         var oAuth2User = (OAuth2User)authentication.getPrincipal();
+        String name = String.valueOf(oAuth2User.getAttributes().get("name"));
         String email = String.valueOf(oAuth2User.getAttributes().get("email"));
+        String avatar = String.valueOf(oAuth2User.getAttributes().get("picture"));
         List<String> authorities = authorityUtils.createRoles(email);
-        saveMember(email);
+        saveMember(name, email, avatar);
         redirect(request, response, email, authorities);
         log.info("# Authenticated successfully!");
     }
 
-    private void saveMember(String email) {
-        memberService.saveOAuthMember(email);
+    private void saveMember(String name,String email, String avatar) {
+        memberService.saveOAuthMember(name, email, avatar);
     }
 
     private void redirect(HttpServletRequest request, HttpServletResponse response, String username, List<String> authorities) throws IOException {
