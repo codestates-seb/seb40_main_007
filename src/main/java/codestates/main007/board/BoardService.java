@@ -66,7 +66,7 @@ public class BoardService {
         boardRepository.save(board);
 
         List<BoardImage> list = imageHandler.parseImageInfo(board, images);
-        if (!list.isEmpty()){
+        if (!list.isEmpty()) {
             board.setThumbnail();
         }
 
@@ -74,7 +74,7 @@ public class BoardService {
         boardRepository.save(board);
 
         List<BoardImage> boardImages = new ArrayList<>();
-        for (BoardImage tempImage : list){
+        for (BoardImage tempImage : list) {
             boardImages.add(boardImageRepository.save(tempImage));
         }
         board.setImages(boardImages);
@@ -91,15 +91,15 @@ public class BoardService {
             double endLat = updatedBoard.getLatitude();
             double endLong = updatedBoard.getLongitude();
 
-        updatedBoard.patchBoard(patch.getTitle(),
-                patch.getReview(),
-                patch.getStar(),
-                patch.getLatitude(),
-                patch.getLongitude(),
-                patch.getStationId(),
-                patch.getCategoryId(),
-                patch.getAddress(),
-                distanceService.getTime(startLat, startLong, endLat, endLong))
+            updatedBoard.patchBoard(patch.getTitle(),
+                    patch.getReview(),
+                    patch.getStar(),
+                    patch.getLatitude(),
+                    patch.getLongitude(),
+                    patch.getStationId(),
+                    patch.getCategoryId(),
+                    patch.getAddress(),
+                    distanceService.getTime(startLat, startLong, endLat, endLong))
             ;
         }
 
@@ -120,6 +120,11 @@ public class BoardService {
 
     public Page<Board> findBoardPage(long stationId, long categoryId, int page, int size, Sort sort) {
         return boardRepository.findByStationIdAndCategoryId(stationId, categoryId,
+                PageRequest.of(page, size, sort));
+    }
+
+    public Page<Board> findBoardPageByTag(long stationId, long categoryId, int page, int size, Sort sort, long tagId) {
+        return boardRepository.findByStationIdAndCategoryIdAndTags(stationId, categoryId, tagService.find(tagId),
                 PageRequest.of(page, size, sort));
     }
 
@@ -168,10 +173,10 @@ public class BoardService {
         return boardMemberService.downVote(member, board);
     }
 
-    public List<String> findImageUrls(Board board){
+    public List<String> findImageUrls(Board board) {
         List<String> imageUrls = new ArrayList<>();
         List<BoardImage> boardImages = boardImageRepository.findAllByBoard(board);
-        for (BoardImage boardImage : boardImages){
+        for (BoardImage boardImage : boardImages) {
             // todo: 나중에 s3로 바꾸기
             imageUrls.add(boardImage.getStored_file_path());
         }
