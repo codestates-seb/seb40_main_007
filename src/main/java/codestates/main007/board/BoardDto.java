@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class BoardDto {
     @Getter
@@ -21,7 +22,7 @@ public class BoardDto {
         private Long stationId;
         private Long categoryId;
         private String address;
-        // todo: tag 추가필요, 이미지 추가 필요
+        // todo: tag 추가필요
     }
 
     @Getter
@@ -42,10 +43,14 @@ public class BoardDto {
         private int scoreStatus;
         private LocalDateTime createdAt;
         private BoardDto.Writer writer;
-        // todo: tag 추가필요, 이미지 추가필요
+        private List<String> imageUrls;
+        // todo: tag 추가필요
 
         public void setScoreStatus(int status){
             this.scoreStatus = status;
+        }
+        public void setImagesUrls(List <String> urls){
+            this.imageUrls = urls;
         }
     }
 
@@ -62,7 +67,7 @@ public class BoardDto {
         private String address;
         private double latitude;
         private double longitude;
-        // todo: tag 추가필요, 이미지 추가필요
+        // todo: tag 추가필요
 
         public void setDibs(boolean newDibs){
             this.dibs = newDibs;

@@ -1,5 +1,8 @@
 package codestates.main007.board;
 
+import codestates.main007.boardImage.BoardImage;
+import codestates.main007.boardImage.BoardImageRepository;
+import codestates.main007.boardImage.ImageHandler;
 import codestates.main007.boardMember.BoardMember;
 import codestates.main007.boardMember.BoardMemberService;
 import codestates.main007.member.Member;
@@ -11,7 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +24,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
+    private final BoardImageRepository boardImageRepository;
     private final MemberService memberService;
     private final DistanceMeasuringService distanceService;
-
     private final BoardMemberService boardMemberService;
+    private final ImageHandler imageHandler;
 
-    public void save(String accessToken, Board board) {
+    public void save(String accessToken, Board board, List<MultipartFile> images) throws IOException {
         Member writer = memberService.findByAccessToken(accessToken);
         board.setWriter(writer);
 
@@ -37,6 +43,20 @@ public class BoardService {
         board.setTimeFromStation(distanceService.getTime(startLat, startLong, endLat, endLong));
 
         boardRepository.save(board);
+
+        List<BoardImage> list = imageHandler.parseImageInfo(board, images);
+        if (!list.isEmpty()){
+            board.setThumbnail();
+        }
+
+        boardRepository.save(board);
+
+        List<BoardImage> boardImages = new ArrayList<>();
+        for (BoardImage tempImage : list){
+            boardImages.add(boardImageRepository.save(tempImage));
+        }
+        board.setImages(boardImages);
+
     }
 
     public void update(String accessToken, long boardId, BoardDto.Input patch) {
@@ -124,5 +144,16 @@ public class BoardService {
         Member member = memberService.findByAccessToken(accessToken);
 
         return boardMemberService.downVote(member, board);
+    }
+
+    public List<String> findImageUrls(Board board){
+        List<String> imageUrls = new ArrayList<>();
+        List<BoardImage> boardImages = boardImageRepository.findAllByBoard(board);
+        for (BoardImage boardImage : boardImages){
+            // todo: 나중에 s3로 바꾸기
+            imageUrls.add(boardImage.getStored_file_path());
+        }
+
+        return imageUrls;
     }
 }
