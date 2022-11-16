@@ -9,7 +9,7 @@ const EditMyInfoPage = () => {
     <>
       <Header />
       <div className="mypage-header-tab">
-        <MyPageTab index={0} />
+        <MyPageTab index={"내역이요"} />
         <div className="w-full max-w-xl">
           <div className="mb-3 flex justify-start ">
             <p className="ml-2 pr-7 border-b-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)]">
