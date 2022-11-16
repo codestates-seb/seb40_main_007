@@ -5,7 +5,7 @@ export default function OneLineInput() {
         한줄평
       </div>
       <div className="max-w-4xl m-auto mt-10">
-        <img src="images/open_quote.png" alt="openQuote" />
+        <img src="/images/open_quote.png" alt="openQuote" />
         <div className="flex justify-center">
           <input
             type="text"
@@ -15,7 +15,7 @@ export default function OneLineInput() {
           />
         </div>
         <div className="flex justify-end">
-          <img src="images/close_quote.png" alt="closeQuote" />
+          <img src="/images/close_quote.png" alt="closeQuote" />
         </div>
       </div>
     </div>

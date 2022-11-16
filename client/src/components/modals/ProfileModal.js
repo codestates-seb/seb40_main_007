@@ -1,5 +1,6 @@
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function ProfileModal() {
   const [showModal, setShowModal] = useState(false);
@@ -27,12 +28,16 @@ export default function ProfileModal() {
               </button>
             </div>
             <div className="mx-10 mb-3">
-              <div className="my-3 text-base text-[rgb(83,199,240)] text-center">
-                마이페이지
-              </div>
-              <div className="mt-5 mb-3 text-base text-[rgb(83,199,240)] text-center">
-                로그아웃
-              </div>
+              <Link to="/mypage">
+                <div className="mb-1 text-base text-[rgb(83,199,240)] text-center">
+                  마이페이지
+                </div>
+              </Link>
+              <Link to="/logout">
+                <div className="mt-5 mb-3 text-base text-[rgb(83,199,240)] text-center">
+                  로그아웃
+                </div>
+              </Link>
             </div>
           </div>
         </div>
