@@ -11,9 +11,9 @@ export default function LoginPage() {
             Login
           </div>
           <div className="relative flex justify-center items-center">
-            <img src="images/gradation.png" alt="gradation" className="w-60" />
+            <img src="/images/gradation.png" alt="gradation" className="w-60" />
             <img
-              src="images/notfound_icon_w.png"
+              src="/images/notfound_icon_w.png"
               alt="train"
               className="absolute w-16"
             />
