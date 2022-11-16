@@ -45,7 +45,7 @@ function PostList() {
       <div className="flex justify-end mt-3">
         <SortDropdown />
       </div>
-      <div className="mx-auto overflow-y-scroll h-[600px]">
+      <div className="mx-auto overflow-y-scroll h-[600px] scrollbar-hide">
         <div className="grid grid-cols-3 gap-y-4 gap-x-2">
           {posts.map((post) => (
             <Post key={post.id} />

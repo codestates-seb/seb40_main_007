@@ -3,6 +3,8 @@ module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
     extend: {
+      // 명령어: animate-waving
+      // 기능: 흔들리는 움직임
       keyframes: {
         wave: {
           "0%": { transform: "rotate(0.0deg)" },
@@ -20,5 +22,9 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // 명령어: scrollbar-hide
+    // 기능 : 스크롤 바 숨김
+    require("tailwind-scrollbar-hide"),
+  ],
 };
