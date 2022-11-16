@@ -8,7 +8,7 @@ export default function ProfileModal() {
   return (
     <div className="relative">
       <button className="flex items-center" onClick={() => setShowModal(true)}>
-        <img src="images/profile.png" alt="profile" className="w-8 h-8" />
+        <img src="/images/profile.png" alt="profile" className="w-8 h-8" />
         <span className="text-xl text-[rgb(83,199,240)] ml-2 hidden sm:block">
           닉네임
         </span>
