@@ -9,7 +9,7 @@ export default function PostCategoryTabs() {
       <div className="flex flex-row justify-center items-center">
         <button
           onClick={() => setCategory("식당")}
-          className={`px-3 py-[0.1rem] ml-2 my-2 text-xs text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)] rounded-full
+          className={`w-16 border-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] rounded-full m-1
           ${
             category === "식당" ? "bg-[rgb(83,199,240)] text-white" : "bg-white"
           }`}
@@ -18,7 +18,7 @@ export default function PostCategoryTabs() {
         </button>
         <button
           onClick={() => setCategory("볼거리")}
-          className={`px-3 py-[0.1rem] ml-2 my-2 text-xs text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)] rounded-full
+          className={`w-16 border-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] rounded-full m-1
           ${
             category === "볼거리"
               ? "bg-[rgb(83,199,240)] text-white"
@@ -29,7 +29,7 @@ export default function PostCategoryTabs() {
         </button>
         <button
           onClick={() => setCategory("숙소")}
-          className={`px-3 py-[0.1rem] ml-2 my-2 text-xs text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)] rounded-full
+          className={`w-16 border-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] rounded-full m-1
           ${
             category === "숙소" ? "bg-[rgb(83,199,240)] text-white" : "bg-white"
           }`}
