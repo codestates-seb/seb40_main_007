@@ -1,11 +1,10 @@
 function Loading() {
   return (
-    <div>
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"
-        alt="loading"
-      />
-    </div>
+    <>
+      <div className="w-20 h-20  rounded-full border-2 flex justify-center align-middle">
+        <img className="animate-moving" src="/images/train.png" alt="loading" />
+      </div>
+    </>
   );
 }
 
