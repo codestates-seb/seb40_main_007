@@ -35,7 +35,7 @@ public class Main007Application implements CommandLineRunner {
 				new Tag("가족체험")
 		);
 		for (Tag tag : tags){
-			if (tagRepository.findByTagString(tag.getTagString()).isEmpty()){
+			if (tagRepository.findByTagName(tag.getTagName()).isEmpty()){
 				tagRepository.save(tag);
 			}
 		}

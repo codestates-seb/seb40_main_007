@@ -21,12 +21,16 @@ public class Tag {
     private long tagId;
 
     @Column
-    private String tagString;
+    private String tagName;
 
     @ManyToMany(mappedBy = "tags")
     private List<Board> boards = new ArrayList<>();
 
-    public Tag(String tagString) {
-        this.tagString = tagString;
+    public Tag(String tagName) {
+        this.tagName = tagName;
+    }
+
+    public void updateBoards(Board board){
+        this.boards.add(board);
     }
 }
