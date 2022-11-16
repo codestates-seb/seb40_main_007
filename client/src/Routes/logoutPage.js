@@ -1,6 +1,13 @@
 import LoginHeader from "../components/LoginHeader";
 
+// 로그인 테스트용입니다.
+import { useRecoilState } from "recoil";
+import { loginOk } from "../atoms/loginTest";
+import { Link } from "react-router-dom";
+
 export default function LogoutPage() {
+  const [, setLogin] = useRecoilState(loginOk);
+
   return (
     <>
       <LoginHeader />
@@ -25,9 +32,19 @@ export default function LogoutPage() {
           <div className="font-semibold text-[rgb(83,199,240)] text-center my-10 ">
             로그아웃 하시겠습니까?
           </div>
-          <div className="text-white font-semibold m-auto w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-4 px-6 rounded-md">
+          {/* <div className="text-white font-semibold m-auto w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-4 px-6 rounded-md">
             Logout
-          </div>
+          </div> */}
+
+          {/* 로그인 테스트용입니다. */}
+          <Link to="/">
+            <button
+              className="text-white font-semibold m-auto w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-4 px-6 rounded-md"
+              onClick={() => setLogin(false)}
+            >
+              Logout
+            </button>
+          </Link>
         </div>
       </div>
     </>
