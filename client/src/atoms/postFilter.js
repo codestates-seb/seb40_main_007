@@ -11,11 +11,11 @@ export const postRelatedState = atom({
 });
 
 export const postRelatedAtmasState = atom({
-  key: "postRelated",
+  key: "postAtomos",
   default: "",
 });
 
 export const postRelatedPriceState = atom({
-  key: "postRelated",
+  key: "postPrice",
   default: "",
 });

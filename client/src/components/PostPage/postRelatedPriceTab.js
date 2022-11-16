@@ -1,8 +1,8 @@
 import { useRecoilState } from "recoil";
-import { postRelatedAtmasState } from "../../atoms/postFilter";
+import { postRelatedPriceState } from "../../atoms/postFilter";
 
 const PostRelatedPriceTab = () => {
-  const [related, setRelated] = useRecoilState(postRelatedAtmasState);
+  const [related, setRelated] = useRecoilState(postRelatedPriceState);
 
   const atmos = ["만원대", "이만원대", "삼만원대", "사만원대", "그 이상"];
 
@@ -11,11 +11,10 @@ const PostRelatedPriceTab = () => {
       {atmos.map((el) => (
         <button
           key={el}
-          className={
-            related === el
-              ? "text-sm w-16 border-2 border-[rgb(83,199,240)] bg-[rgb(83,199,240)] rounded-2xl text-white"
-              : "text-sm w-16 border-2 border-[rgb(83,199,240)] rounded-2xl text-[rgb(83,199,240)]"
-          }
+          className={`px-1 w-18 border-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] rounded-full m-1
+              ${
+                related === el ? "bg-[rgb(83,199,240)] text-white" : "bg-white"
+              }`}
           onClick={() => {
             setRelated(el);
           }}

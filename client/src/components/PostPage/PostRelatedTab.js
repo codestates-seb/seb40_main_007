@@ -8,6 +8,7 @@ const PostRelatedTab = () => {
   const restarant = ["한식", "중식", "양식", "일식", "술집"];
   const sight = ["자연", "문화", "유적", "공연", "놀거리"];
   const stay = ["호텔", "모텔", "게하", "펜션", "캠핑"];
+  console.log("related", related);
 
   return (
     <div className="flex flex-row justify-center space-x-2 mt-4 mb-1">
@@ -15,11 +16,10 @@ const PostRelatedTab = () => {
         ? restarant.map((el) => (
             <button
               key={el}
-              className={
-                related === el
-                  ? "text-sm w-16 border-2 border-[rgb(83,199,240)] bg-[rgb(83,199,240)] rounded-2xl text-white"
-                  : "text-sm w-16 border-2 border-[rgb(83,199,240)] rounded-2xl text-[rgb(83,199,240)]"
-              }
+              className={`w-16 border-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] rounded-full m-1
+              ${
+                related === el ? "bg-[rgb(83,199,240)] text-white" : "bg-white"
+              }`}
               onClick={() => {
                 setRelated(el);
               }}
@@ -31,11 +31,10 @@ const PostRelatedTab = () => {
         ? sight.map((el) => (
             <button
               key={el}
-              className={
-                related === el
-                  ? "text-sm w-16 border-2 border-[rgb(83,199,240)] bg-[rgb(83,199,240)] rounded-2xl text-white"
-                  : "text-sm w-16 border-2 border-[rgb(83,199,240)] rounded-2xl text-[rgb(83,199,240)]"
-              }
+              className={`w-16 border-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] rounded-full m-1
+              ${
+                related === el ? "bg-[rgb(83,199,240)] text-white" : "bg-white"
+              }`}
               onClick={() => {
                 setRelated(el);
               }}
@@ -46,11 +45,10 @@ const PostRelatedTab = () => {
         : stay.map((el) => (
             <button
               key={el}
-              className={
-                related === el
-                  ? "text-sm w-16 border-2 border-[rgb(83,199,240)] bg-[rgb(83,199,240)] rounded-2xl text-white"
-                  : "text-sm w-16 border-2 border-[rgb(83,199,240)] rounded-2xl text-[rgb(83,199,240)]"
-              }
+              className={`w-16 border-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] rounded-full m-1
+              ${
+                related === el ? "bg-[rgb(83,199,240)] text-white" : "bg-white"
+              }`}
               onClick={() => {
                 setRelated(el);
               }}
