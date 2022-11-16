@@ -1,5 +1,5 @@
 import Header from "../components/Header";
-import TrainStationSelect from "../components/TrainStationSelect";
+import PostTrainStationSelect from "../components/PostPage/PostTrainStationSelect";
 import StartRating from "../components/StarRating";
 import OnlineInput from "../components/OneLineInput";
 import PostMap from "../components/PostPage/PostMap";
@@ -17,9 +17,9 @@ export default function PostPage() {
       <Header />
       <div className="pb-32 max-w-5xl m-auto">
         <div className="pt-24">
-          <TrainStationSelect />
+          <PostTrainStationSelect />
         </div>
-        <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 text-18 text-[rgb(83,199,240)] mt-16">
+        <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 text-18 text-[rgb(83,199,240)] mt-14">
           위치 등록
         </div>
         <PostMap />

@@ -2,13 +2,12 @@ import { Map } from "react-kakao-maps-sdk";
 import { useEffect, useState } from "react";
 
 const PostMap = () => {
-  console.log(Map);
   const [style, setStyle] = useState({ width: "100%", height: "600px" });
   const windowResize = () => {
     if (window.innerWidth > 1024) {
-      setStyle({ width: "100%", height: "600px" });
+      setStyle({ width: "90%", height: "600px" });
     } else {
-      setStyle({ width: "100%", height: "300px" });
+      setStyle({ width: "90%", height: "300px" });
     }
   };
 
@@ -21,9 +20,9 @@ const PostMap = () => {
 
   useEffect(() => {
     if (window.innerWidth > 1024) {
-      setStyle({ width: "100%", height: "600px" });
+      setStyle({ width: "100%", height: "500px" });
     } else {
-      setStyle({ width: "100%", height: "300px" });
+      setStyle({ width: "90%", height: "400px" });
     }
   }, []);
 
