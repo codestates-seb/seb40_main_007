@@ -22,10 +22,10 @@ public class BoardController {
     @ResponseStatus(HttpStatus.CREATED)
     public void postBoard(@RequestHeader(name = "Authorization") String accessToken,
                           @RequestPart("data") BoardDto.Input postDto,
+                          @RequestParam("tags") List<Long> tagIds,
                           @RequestPart("files") List<MultipartFile> images) throws IOException {
 
-        Board board = boardMapper.boardDtoToBoard(postDto);
-        boardService.save(accessToken, board, images);
+        boardService.save(accessToken, postDto, images, tagIds);
     }
 
     @PatchMapping("/{board-id}")

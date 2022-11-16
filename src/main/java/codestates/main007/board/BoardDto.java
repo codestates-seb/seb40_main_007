@@ -1,5 +1,6 @@
 package codestates.main007.board;
 
+import codestates.main007.tag.TagDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -44,7 +45,7 @@ public class BoardDto {
         private LocalDateTime createdAt;
         private BoardDto.Writer writer;
         private List<String> imageUrls;
-        // todo: tag 추가필요
+        private List<TagDto> tags;
 
         public void setScoreStatus(int status){
             this.scoreStatus = status;
@@ -67,6 +68,7 @@ public class BoardDto {
         private String address;
         private double latitude;
         private double longitude;
+        private List<TagDto> tags;
         // todo: tag 추가필요
 
         public void setDibs(boolean newDibs){

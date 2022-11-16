@@ -5,6 +5,7 @@ import codestates.main007.boardMember.BoardMember;
 import codestates.main007.comments.Comment;
 import codestates.main007.member.Member;
 import codestates.main007.tag.Tag;
+import codestates.main007.tag.TagDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -102,6 +103,10 @@ public class Board {
         this.thumbnail = "https://s3주소/images/thumbnail_of_" + boardId;
     }
 
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
     // 게시글 업데이트를 위한 메서드
     public void patchBoard(String title, String review, Double star, Double latitude,
                            Double longitude, Long stationId, Long categoryId, String address, Integer timeFromStation) {
@@ -151,4 +156,14 @@ public class Board {
         }
     }
 
+    public List<TagDto> getTagDtos() {
+        List<TagDto> tagDtos = new ArrayList<>();
+
+        for (Tag tag : this.tags) {
+            tagDtos.add(TagDto.builder()
+                    .tagName(tag.getTagName())
+                    .build());
+        }
+        return tagDtos;
+    }
 }
