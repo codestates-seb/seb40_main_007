@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { TiPencil } from "react-icons/ti";
+import { Link } from "react-router-dom";
 
 const WriteModal = () => {
   const [showModal, setShowModal] = useState(false);
@@ -16,33 +17,39 @@ const WriteModal = () => {
         <>
           <div className="fixed bottom-20 right-5 z-40">
             <div className="flex flex-col justify-center items-center w-[150px] bg-white rounded-lg">
-              <button
-                className="text-sm text-[rgb(83,199,240)] py-3"
-                onClick={() => {
-                  console.log("식당");
-                  setShowModal(false);
-                }}
-              >
-                식당 후기 작성
-              </button>
-              <button
-                className="text-sm text-[rgb(83,199,240)] py-3"
-                onClick={() => {
-                  console.log("볼거리");
-                  setShowModal(false);
-                }}
-              >
-                볼거리 후기 작성
-              </button>
-              <button
-                className="text-sm text-[rgb(83,199,240)] py-3"
-                onClick={() => {
-                  console.log("숙소");
-                  setShowModal(false);
-                }}
-              >
-                숙소 후기 작성
-              </button>
+              <Link to="/post/restaurant">
+                <button
+                  className="text-sm text-[rgb(83,199,240)] py-3"
+                  onClick={() => {
+                    console.log("식당");
+                    setShowModal(false);
+                  }}
+                >
+                  식당 후기 작성
+                </button>
+              </Link>
+              <Link to="/post/touring">
+                <button
+                  className="text-sm text-[rgb(83,199,240)] py-3"
+                  onClick={() => {
+                    console.log("볼거리");
+                    setShowModal(false);
+                  }}
+                >
+                  볼거리 후기 작성
+                </button>
+              </Link>
+              <Link to="/post/lodging">
+                <button
+                  className="text-sm text-[rgb(83,199,240)] py-3"
+                  onClick={() => {
+                    console.log("숙소");
+                    setShowModal(false);
+                  }}
+                >
+                  숙소 후기 작성
+                </button>
+              </Link>
             </div>
           </div>
           <button

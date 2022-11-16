@@ -40,7 +40,7 @@ function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/initial" element={<InitialPage />} />
             <Route path="/main" element={<MainPage />} />
-            <Route path="/post" element={<PostPage />} />
+            <Route path="/post/:id" element={<PostPage />} />
             <Route path="/edit" element={<EditPage />} />
             <Route path="/image" element={<ImageUpload />} />
             <Route path="/mypage" element={<MyProfilePage />} />
