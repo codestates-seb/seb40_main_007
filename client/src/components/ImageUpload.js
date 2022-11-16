@@ -5,10 +5,12 @@ import ReactFileReader from "react-file-reader";
 import { FiTrash2 } from "react-icons/fi";
 
 export default function ImageUpload() {
+  // 대표 사진 인덱스번호
   const [index, setIndex] = useState(0);
-
+  // 이미지 주소 배열
   const [url, setUrl] = useState([]);
 
+  // 파일 추가
   const handleFiles = (files) => {
     console.log(files);
     // const formData = new FormData();
@@ -18,6 +20,7 @@ export default function ImageUpload() {
   };
   console.log(url);
 
+  // 파일 삭제
   const handleDelete = (idx) => {
     let copyUrl = url.slice();
     copyUrl.splice(idx, 1);
