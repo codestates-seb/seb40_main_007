@@ -19,9 +19,6 @@ public interface BoardMapper {
                 .stationId(boardDto.getStationId())
                 .latitude(boardDto.getLatitude())
                 .longitude(boardDto.getLongitude())
-                //todo: 이미지 처리로직, 썸네일 처리 로직
-//                .images()
-//                .thumbnail()
                 .star(boardDto.getStar())
                 .upScore(0)
                 .downScore(0)
@@ -50,7 +47,6 @@ public interface BoardMapper {
                         .categoryId(board.getCategoryId())
                         .address(board.getAddress())
                         .timeFromStation(board.getTimeFromStation())
-                        // todo: 이미지
                         .dibs(isDibs)
                         .upScore(board.getUpScore())
                         .downScore(board.getDownScore())
