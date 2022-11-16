@@ -13,6 +13,9 @@ import MyProfilePage from "./Routes/myPages/myProfilePage";
 import EditMyInfoPage from "./Routes/myPages/editMyInfoPage";
 import EditPasswordPage from "./Routes/myPages/editPasswordPage";
 import MyCommentPage from "./Routes/myCommentPage";
+import EditPage from "./Routes/editPage";
+import PostPage from "./Routes/postPage";
+
 import MyLikePostPage from "./Routes/myLikePostPage";
 import MyPostPage from "./Routes/myPostPage";
 const queryClient = new QueryClient({
@@ -37,6 +40,8 @@ function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/initial" element={<InitialPage />} />
             <Route path="/main" element={<MainPage />} />
+            <Route path="/post" element={<PostPage />} />
+            <Route path="/edit" element={<EditPage />} />
             <Route path="/image" element={<ImageUpload />} />
             <Route path="/mypage" element={<MyProfilePage />} />
             <Route path="/mypage/editmyinfo" element={<EditMyInfoPage />} />

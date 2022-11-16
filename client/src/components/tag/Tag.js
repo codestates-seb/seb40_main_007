@@ -3,6 +3,7 @@ import { useState } from "react";
 
 const Tag = ({ tagList }) => {
   const [selectTag, setSelectTag] = useState();
+
   return (
     <div className="flex flex-row">
       {tagList.map((text, idx) => (

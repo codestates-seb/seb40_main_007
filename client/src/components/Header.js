@@ -1,3 +1,4 @@
+import LoginDotModal from "./modals/LoginDotModal";
 const Header = () => {
   return (
     <>
@@ -8,8 +9,13 @@ const Header = () => {
             <span className="text-xl text-[rgb(83,199,240)] ml-2">역이요</span>
           </div>
           <div className="flex flex-row items-center">
-            <button className="btn font-medium">LOGIN</button>
-            <button className="btn-white font-medium">SIGN UP</button>
+            <button className="text-[rgb(83,199,240)] text-xl font-medium  sm:hidden">
+              <LoginDotModal />
+            </button>
+            <button className="btn font-medium hidden sm:block">LOGIN</button>
+            <button className="btn-white font-medium hidden sm:block">
+              SIGN UP
+            </button>
           </div>
         </div>
       </header>

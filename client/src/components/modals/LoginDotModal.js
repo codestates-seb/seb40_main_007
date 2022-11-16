@@ -1,16 +1,14 @@
+import { BiDotsVertical } from "react-icons/bi";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useState } from "react";
 
-export default function ProfileModal() {
+export default function LoginDotModal() {
   const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="relative">
       <button className="flex items-center" onClick={() => setShowModal(true)}>
-        <img src="images/profile.png" alt="profile" className="w-8 h-8" />
-        <span className="text-xl text-[rgb(83,199,240)] ml-2 hidden sm:block">
-          닉네임
-        </span>
+        <BiDotsVertical />
       </button>
       {showModal ? (
         <div className="absolute w-44 right-0 outline-none focus:outline-none">
@@ -28,10 +26,10 @@ export default function ProfileModal() {
             </div>
             <div className="mx-10 mb-3">
               <div className="my-3 text-base text-[rgb(83,199,240)] text-center">
-                마이페이지
+                로그인
               </div>
               <div className="mt-5 mb-3 text-base text-[rgb(83,199,240)] text-center">
-                로그아웃
+                회원가입
               </div>
             </div>
           </div>
