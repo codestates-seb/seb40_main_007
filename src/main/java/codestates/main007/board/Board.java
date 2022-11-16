@@ -93,29 +93,18 @@ public class Board {
     @JoinTable(name = "board_tag")
     private List<Tag> tags = new ArrayList<>();
 
-    // todo: 연관관계 -  태그
-
-    // 게시글 작성 시 작성자 추가를 위한 메서드
-    public void setWriter(Member member) {
-        this.writer = member;
-    }
-
-    public void setTimeFromStation(int time) {
-        this.timeFromStation = time;
-    }
-
-    public void setImages(List<BoardImage> images){
+    public void setImages(List<BoardImage> images) {
         this.images = images;
     }
 
-    public void setThumbnail(){
+    public void setThumbnail() {
         // todo: 나중에 변경
-        this.thumbnail = "https://s3주소/images/thumbnail_of_"+ boardId;
+        this.thumbnail = "https://s3주소/images/thumbnail_of_" + boardId;
     }
 
     // 게시글 업데이트를 위한 메서드
     public void patchBoard(String title, String review, Double star, Double latitude,
-                           Double longitude, Long stationId, Long categoryId, String address) {
+                           Double longitude, Long stationId, Long categoryId, String address, Integer timeFromStation) {
         if (title != null) {
             this.title = title;
         }
@@ -140,6 +129,9 @@ public class Board {
         if (address != null) {
             this.address = address;
         }
+        if (timeFromStation != null) {
+            this.timeFromStation = timeFromStation;
+        }
     }
 
     // 해당 게시글의 추천 수 변경 메서드 (총 추천합, 추천 수, 비추천 수 )
@@ -147,13 +139,13 @@ public class Board {
         if (fromStatus == -1 & status == 1) {
             this.downScore--;
             this.score++;
-        }else if (fromStatus == 0 & status == 1){
+        } else if (fromStatus == 0 & status == 1) {
             this.upScore++;
             this.score++;
-        }else if (fromStatus == 1 & status == -1){
+        } else if (fromStatus == 1 & status == -1) {
             this.upScore--;
             this.score--;
-        }else if (fromStatus == 0 & status == -1){
+        } else if (fromStatus == 0 & status == -1) {
             this.downScore++;
             this.score--;
         }

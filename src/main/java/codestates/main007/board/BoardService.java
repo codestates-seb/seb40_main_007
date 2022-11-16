@@ -30,17 +30,30 @@ public class BoardService {
     private final BoardMemberService boardMemberService;
     private final ImageHandler imageHandler;
 
-    public void save(String accessToken, Board board, List<MultipartFile> images) throws IOException {
-        Member writer = memberService.findByAccessToken(accessToken);
-        board.setWriter(writer);
-
-        Station station = new Station((int) board.getStationId());
+    public void save(String accessToken, BoardDto.Input boardDto, List<MultipartFile> images, List<Long> tagIds) throws IOException {
+        Station station = new Station(boardDto.getStationId().intValue());
         double startLat = station.getLatitude();
         double startLong = station.getLongitude();
-        double endLat = board.getLatitude();
-        double endLong = board.getLongitude();
+        double endLat = boardDto.getLatitude();
+        double endLong = boardDto.getLongitude();
 
-        board.setTimeFromStation(distanceService.getTime(startLat, startLong, endLat, endLong));
+        Board board = Board.builder()
+                .title(boardDto.getTitle())
+                .review(boardDto.getReview())
+                .createdAt(LocalDateTime.now())
+                .modifiedAt(LocalDateTime.now())
+                .categoryId(boardDto.getCategoryId())
+                .stationId(boardDto.getStationId())
+                .latitude(boardDto.getLatitude())
+                .longitude(boardDto.getLongitude())
+                .star(boardDto.getStar())
+                .upScore(0)
+                .downScore(0)
+                .viewCount(0)
+                .address(boardDto.getAddress())
+                .writer(memberService.findByAccessToken(accessToken))
+                .timeFromStation(distanceService.getTime(startLat, startLong, endLat, endLong))
+                .build();
 
         boardRepository.save(board);
 
@@ -49,6 +62,7 @@ public class BoardService {
             board.setThumbnail();
         }
 
+        // 섬네일을 게시글에 저장한 후 다시 저장
         boardRepository.save(board);
 
         List<BoardImage> boardImages = new ArrayList<>();
@@ -62,15 +76,6 @@ public class BoardService {
     public void update(String accessToken, long boardId, BoardDto.Input patch) {
         Board updatedBoard = find(boardId);
 
-        updatedBoard.patchBoard(patch.getTitle(),
-                patch.getReview(),
-                patch.getStar(),
-                patch.getLatitude(),
-                patch.getLongitude(),
-                patch.getStationId(),
-                patch.getCategoryId(),
-                patch.getAddress());
-
         if (patch.getLatitude() != null || patch.getLongitude() != null) {
             Station station = new Station((int) updatedBoard.getStationId());
             double startLat = station.getLatitude();
@@ -78,7 +83,16 @@ public class BoardService {
             double endLat = updatedBoard.getLatitude();
             double endLong = updatedBoard.getLongitude();
 
-            updatedBoard.setTimeFromStation(distanceService.getTime(startLat, startLong, endLat, endLong));
+        updatedBoard.patchBoard(patch.getTitle(),
+                patch.getReview(),
+                patch.getStar(),
+                patch.getLatitude(),
+                patch.getLongitude(),
+                patch.getStationId(),
+                patch.getCategoryId(),
+                patch.getAddress(),
+                distanceService.getTime(startLat, startLong, endLat, endLong))
+            ;
         }
 
         boardRepository.save(updatedBoard);

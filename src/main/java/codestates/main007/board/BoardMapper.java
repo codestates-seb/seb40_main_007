@@ -50,8 +50,11 @@ public interface BoardMapper {
                         .dibs(isDibs)
                         .upScore(board.getUpScore())
                         .downScore(board.getDownScore())
+                        .scoreStatus(scoreStatus)
                         .createdAt(board.getCreatedAt())
                         .writer(writer)
+                        .imageUrls(imageUrls)
+                        .tags(board.getTagDtos())
                         .build();
         return detailResponse;
     }
@@ -73,6 +76,7 @@ public interface BoardMapper {
                     .address(board.getAddress())
                     .latitude(board.getLatitude())
                     .longitude(board.getLongitude())
+                    .tags(board.getTagDtos())
                     .build();
 
             boardsResponses.add(response);

@@ -53,11 +53,10 @@ public class BoardController {
         Member member = memberService.findByAccessToken(accessToken);
 
         boolean isDibs = boardService.checkDibs(accessToken, boardId);
-        BoardDto.DetailResponse detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs, member);
         int status = boardService.checkScoreStatus(member, board);
+        List<String> imageUrls = boardService.findImageUrls(board);
+        BoardDto.DetailResponse detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs, member, imageUrls, status);
 
-        detailResponse.setImagesUrls(boardService.findImageUrls(board));
-        detailResponse.setScoreStatus(status);
 
         return detailResponse;
     }
