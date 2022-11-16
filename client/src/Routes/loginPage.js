@@ -1,6 +1,22 @@
 import Header from "../components/Header";
 
-export default function LoginPage() {
+// 테스트용 아이디/비밀번호입니다.
+import { useNavigate } from "react-router-dom";
+
+export default function LoginPage({ setLogin }) {
+  // 로그인 테스트 로직입니다.
+  const testId = { id: "", password: "" };
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    if (testId.id === "test" && testId.password === "1234") {
+      console.log("로그인성공!!");
+      setLogin(true);
+      navigate("/");
+    } else {
+      console.log("로그인되었습니다.");
+    }
+  };
+
   return (
     <>
       <Header />
@@ -24,6 +40,7 @@ export default function LoginPage() {
           <input
             type="email"
             className="border border-[rgb(83,199,240)] rounded-md  bg-transparent; focus:outline focus:outline-blue-500 w-80 p-2 m-1 mb-4"
+            onChange={(e) => (testId.id = e.target.value)}
           />
           <div className="font-normal text-[rgb(83,199,240)] ml-2">
             password
@@ -31,10 +48,21 @@ export default function LoginPage() {
           <input
             type="password"
             className="border border-[rgb(83,199,240)] rounded-md  bg-transparent; focus:outline focus:outline-blue-500 w-80 p-2 m-1 mb-4"
+            onChange={(e) => (testId.password = e.target.value)}
           />
-          <div className="text-white font-semibold m-auto w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-2 px-6 rounded-md">
+          {/* <div
+            className="text-white font-semibold m-auto w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-2 px-6 rounded-md"
+          >
             Login
-          </div>
+          </div> */}
+
+          {/* 로그인 테스트용 버튼입니다. */}
+          <button
+            className="text-white font-semibold m-auto w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-2 px-6 rounded-md"
+            onClick={handleLogin}
+          >
+            Login
+          </button>
         </div>
       </div>
     </>
