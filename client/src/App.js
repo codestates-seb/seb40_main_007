@@ -15,9 +15,13 @@ import EditPasswordPage from "./Routes/myPages/editPasswordPage";
 import MyCommentPage from "./Routes/myCommentPage";
 import EditPage from "./Routes/editPage";
 import PostPage from "./Routes/postPage";
-
 import MyLikePostPage from "./Routes/myLikePostPage";
 import MyPostPage from "./Routes/myPostPage";
+
+// 로그인 테스트용입니다.
+import { useRecoilState } from "recoil";
+import { loginOk } from "./atoms/loginTest";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -29,13 +33,18 @@ const queryClient = new QueryClient({
 });
 
 function App() {
+  // 로그인 테스트용입니다.
+  const [, setLogin] = useRecoilState(loginOk);
+
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
+            {/* <Route path="/login" element={<LoginPage/>} /> */}
+            {/* 로그인 테스트용입니다. */}
+            <Route path="/login" element={<LoginPage setLogin={setLogin} />} />
             <Route path="/logout" element={<LogoutPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/initial" element={<InitialPage />} />
