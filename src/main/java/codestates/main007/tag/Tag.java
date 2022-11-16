@@ -17,7 +17,6 @@ import java.util.List;
 @Entity
 public class Tag {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long tagId;
 
     @Column
@@ -26,7 +25,8 @@ public class Tag {
     @ManyToMany(mappedBy = "tags")
     private List<Board> boards = new ArrayList<>();
 
-    public Tag(String tagName) {
+    public Tag(long tagId, String tagName) {
+        this.tagId = tagId;
         this.tagName = tagName;
     }
 
