@@ -34,7 +34,7 @@ public interface BoardMapper {
                         .createdAt(board.getCreatedAt())
                         .writer(writer)
                         .imageUrls(imageUrls)
-                        .tags(board.getTagDtos())
+                        .tags(board.getTagDto())
                         .build();
         return detailResponse;
     }
@@ -56,7 +56,7 @@ public interface BoardMapper {
                     .address(board.getAddress())
                     .latitude(board.getLatitude())
                     .longitude(board.getLongitude())
-                    .tags(board.getTagDtos())
+                    .tags(board.getTagDto())
                     .build();
 
             boardsResponses.add(response);

@@ -9,4 +9,14 @@ import java.util.List;
 @Builder
 public class TagDto {
     String tagName;
+
+    @Getter
+    @Builder
+    public static class Response {
+        private String detailTag;
+        private List<String> moodTag;
+        private String priceTag;
+    }
 }
+
+

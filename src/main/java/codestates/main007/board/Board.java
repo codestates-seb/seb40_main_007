@@ -156,14 +156,28 @@ public class Board {
         }
     }
 
-    public List<TagDto> getTagDtos() {
-        List<TagDto> tagDtos = new ArrayList<>();
+    public TagDto.Response getTagDto() {
+        String detail = "";
+        List<String> moods = new ArrayList<>();
+        String price = "";
 
         for (Tag tag : this.tags) {
-            tagDtos.add(TagDto.builder()
-                    .tagName(tag.getTagName())
-                    .build());
+            //todo : 태그 변경 시 수정 필요
+            if (tag.getTagId() <= 20) {
+                detail = tag.getTagName();
+            } else if (tag.getTagId() > 20 && tag.getTagId() <= 40) {
+                price = tag.getTagName();
+            } else if (tag.getTagId()>40){
+                moods.add(tag.getTagName());
+            }
         }
-        return tagDtos;
+
+        TagDto.Response response = TagDto.Response.builder()
+                .detailTag(detail)
+                .moodTag(moods)
+                .priceTag(price)
+                .build();
+
+        return response;
     }
 }

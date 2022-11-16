@@ -23,7 +23,6 @@ public class BoardDto {
         private Long stationId;
         private Long categoryId;
         private String address;
-        // todo: tag 추가필요
     }
 
     @Getter
@@ -45,14 +44,8 @@ public class BoardDto {
         private LocalDateTime createdAt;
         private BoardDto.Writer writer;
         private List<String> imageUrls;
-        private List<TagDto> tags;
+        private TagDto.Response tags;
 
-        public void setScoreStatus(int status){
-            this.scoreStatus = status;
-        }
-        public void setImagesUrls(List <String> urls){
-            this.imageUrls = urls;
-        }
     }
 
     @Getter
@@ -68,8 +61,7 @@ public class BoardDto {
         private String address;
         private double latitude;
         private double longitude;
-        private List<TagDto> tags;
-        // todo: tag 추가필요
+        private TagDto.Response tags;
 
         public void setDibs(boolean newDibs){
             this.dibs = newDibs;

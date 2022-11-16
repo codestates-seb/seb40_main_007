@@ -86,7 +86,7 @@ public class MemberService {
         //return find(userId);
 
         // 임시 리턴값
-        return find(4);
+        return find(1);
     }
 
     public String findPassword(String email) {
