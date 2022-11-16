@@ -14,7 +14,7 @@ const StarRating = () => {
 
   return (
     <>
-      <div className="w-52 h-60 justify-center align-middle">
+      <div className="max-w-80 h-60 justify-center align-middle">
         <div className="flex justify-center">
           {[1, 2, 3, 4, 5].map((num) => {
             return (
@@ -48,8 +48,8 @@ const StarRating = () => {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="40"
-                  height="40"
+                  width="60"
+                  height="60"
                   viewBox="0 0 14 14"
                 >
                   <path
@@ -57,7 +57,7 @@ const StarRating = () => {
                     transform="translate(-2 -2)"
                     fill={
                       (clicked >= num) | (hovered >= num)
-                        ? "yellow"
+                        ? "#FFD203"
                         : "lightgray"
                     }
                   />

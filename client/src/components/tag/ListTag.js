@@ -5,13 +5,13 @@ const ListTag = ({ tagList }) => {
   const [selectTag, setSelectTag] = useState();
 
   return (
-    <>
+    <div>
       {tagList.map((text, idx) => (
         <button
           key={idx}
           onClick={() => setSelectTag(idx)}
           type="button"
-          className={`py-1 w-16 -ml-[2px] my-2 text-xs text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)] ${
+          className={`py-1 w-20 -ml-[2px] my-2 text-sm text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)] ${
             idx === 0 ? "rounded-l-md" : "null"
           }
         ${idx === lastIdx ? "rounded-r-md" : "null"}
@@ -20,7 +20,7 @@ const ListTag = ({ tagList }) => {
           {text}
         </button>
       ))}
-    </>
+    </div>
   );
 };
 
