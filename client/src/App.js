@@ -34,12 +34,12 @@ function App() {
       <BrowserRouter>
         <Suspense fallback={<Loading />}>
           <Routes>
+            <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/logout" element={<LogoutPage />} />
             <Route path="/signup" element={<SignupPage />} />
-            <Route path="/home" element={<HomePage />} />
             <Route path="/initial" element={<InitialPage />} />
-            <Route path="/main" element={<MainPage />} />
+            <Route path="/main/:id" element={<MainPage />} />
             <Route path="/post/:id" element={<PostPage />} />
             <Route path="/edit" element={<EditPage />} />
             <Route path="/image" element={<ImageUpload />} />
