@@ -62,7 +62,7 @@ public class MemberService {
 
     public void update(String accessToken, MemberDto.Patch patchDto) {
         Member member = findByAccessToken(accessToken);
-        member.patchMember(patchDto.getName(), patchDto.getAvatar(), passwordEncoder.encode(patchDto.getPassword()));
+        member.patchMember(patchDto.getName(), patchDto.getAvatar(), patchDto.getPassword(), passwordEncoder);
         memberRepository.save(member);
     }
 
@@ -117,6 +117,13 @@ public class MemberService {
 
         return boardRepository.findByWriter(member);
     }
+
+    public List<Board> findMyMapByStation(String accessToken, long stationId) {
+        Member member = findByAccessToken(accessToken);
+
+        return boardRepository.findByWriterAndStationId(member,stationId);
+    }
+
 
     public Page<Board> findMyPage(String accessToken, int page, int size, Sort sort) {
         Member member = findByAccessToken(accessToken);
