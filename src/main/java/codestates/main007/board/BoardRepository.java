@@ -13,6 +13,8 @@ import java.util.List;
 public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findByWriter(Member member);
 
+    List<Board> findByWriterAndStationId(Member member, long stationId);
+
     Page<Board> findByWriter(Member member, Pageable pageable);
 
     Integer countByWriter(Member member);

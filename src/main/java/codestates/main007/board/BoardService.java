@@ -84,6 +84,15 @@ public class BoardService {
     public void update(String accessToken, long boardId, BoardDto.Input patch) {
         Board updatedBoard = find(boardId);
 
+        updatedBoard.patchBoard(patch.getTitle(),
+                patch.getReview(),
+                patch.getStar(),
+                patch.getLatitude(),
+                patch.getLongitude(),
+                patch.getStationId(),
+                patch.getCategoryId(),
+                patch.getAddress());
+
         if (patch.getLatitude() != null || patch.getLongitude() != null) {
             Station station = new Station((int) updatedBoard.getStationId());
             double startLat = station.getLatitude();
@@ -91,16 +100,7 @@ public class BoardService {
             double endLat = updatedBoard.getLatitude();
             double endLong = updatedBoard.getLongitude();
 
-            updatedBoard.patchBoard(patch.getTitle(),
-                    patch.getReview(),
-                    patch.getStar(),
-                    patch.getLatitude(),
-                    patch.getLongitude(),
-                    patch.getStationId(),
-                    patch.getCategoryId(),
-                    patch.getAddress(),
-                    distanceService.getTime(startLat, startLong, endLat, endLong))
-            ;
+            updatedBoard.updateTimeFromStation(distanceService.getTime(startLat, startLong, endLat, endLong));
         }
 
         boardRepository.save(updatedBoard);
