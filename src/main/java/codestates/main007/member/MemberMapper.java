@@ -50,6 +50,7 @@ public interface MemberMapper {
                     .thumbnail(board.getThumbnail())
                     .latitude(board.getLatitude())
                     .longitude(board.getLongitude())
+                    .tags(board.getTagDto())
                     .build();
 
             myMaps.add(myMap);

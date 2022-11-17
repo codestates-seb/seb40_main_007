@@ -1,5 +1,6 @@
 package codestates.main007.member;
 
+import codestates.main007.tag.TagDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -53,6 +54,7 @@ public class MemberDto {
         private String thumbnail;
         private double latitude;
         private double longitude;
+        private TagDto.Response tags;
     }
 
     @Getter
