@@ -3,10 +3,9 @@ import { Map, MapMarker } from "react-kakao-maps-sdk"; //MarkerClusterer
 import { useEffect, useState } from "react";
 
 export default function PostTestMap() {
-  const [keyword, setKeyword] = useState("영등포역");
-  // const [info, setInfo] = useState();
-  const [markers, setMarkers] = useState([]);
-  const [dataList, setDataList] = useState([
+  const { kakao } = window;
+  const [keyword, setKeyword] = useState("영등포역"); //키워드 검색
+  const [markers, setMarkers] = useState([
     {
       address_name: "서울 영등포구 영등포동 618",
       id: "8001349",
@@ -14,13 +13,16 @@ export default function PostTestMap() {
       place_name: "영등포역",
       road_address_name: "서울 영등포구 경인로 846",
     },
-  ]);
+  ]); // 마커 리스트
+
+  // 마커가 하나의 좌표
   const [oneMarker, setOneMarker] = useState({
     lat: 37.51587012479348,
     lng: 126.90777569282984,
   });
+  // 맵 렌더링
   const [map, setMap] = useState();
-  const { kakao } = window;
+
   ////MapStyle//////
   const [style, setStyle] = useState({ width: "100%", height: "500px" });
   const windowResize = () => {
@@ -44,7 +46,7 @@ export default function PostTestMap() {
   }, []);
 
   //////////
-  console.log(dataList, oneMarker);
+  console.log(oneMarker);
   const onKeywordChange = (e) => {
     setKeyword(e.target.value);
     console.log(keyword);
@@ -82,7 +84,6 @@ export default function PostTestMap() {
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
         setMarkers(markers);
-        setDataList(data);
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
         map.setBounds(bounds);
@@ -94,11 +95,15 @@ export default function PostTestMap() {
     console.log(props);
     setOneMarker(props);
   };
-  console.log(dataList.length);
   return (
     <>
-      <input type="text" value={keyword} onChange={onKeywordChange} />
-      <button type="submit" onClick={() => onKeywordSubmit()}>
+      <input
+        type="text"
+        value={keyword}
+        onChange={onKeywordChange}
+        className="border-2"
+      />
+      <button type="submit" onClick={onKeywordSubmit} className="border-2">
         찾기
       </button>
       <Map // 로드뷰를 표시할 Container
@@ -110,7 +115,7 @@ export default function PostTestMap() {
         level={3}
         onCreate={setMap}
         onClick={(_t, mouseEvent) => {
-          if (dataList.length === 1) {
+          if (markers.length === 1) {
             oneMarkerSelect({
               lat: mouseEvent.latLng.getLat(),
               lng: mouseEvent.latLng.getLng(),
@@ -118,7 +123,7 @@ export default function PostTestMap() {
           }
         }}
       >
-        {dataList.length === 1 ? (
+        {markers.length === 1 ? (
           <MapMarker
             position={oneMarker}
             image={{
@@ -150,7 +155,7 @@ export default function PostTestMap() {
               onClick={() => {
                 setOneMarker(marker.position);
                 console.log(marker);
-                setDataList([marker]);
+                setMarkers([marker]);
               }}
               draggable={true}
             >
@@ -174,11 +179,11 @@ export default function PostTestMap() {
           위도는{oneMarker.lat}이고 경도는{oneMarker.lng}
         </div>
         <div className="">
-          {dataList.length === 1 ? (
+          {markers.length === 1 ? (
             <div className="border-4 p-2 border-blue-400 w-fit">
-              <div>{dataList[0].place_name}</div>
-              <div>{dataList[0].road_address_name}</div>
-              <div>{dataList[0].address_name}</div>
+              <div>{markers[0].place_name}</div>
+              <div>{markers[0].road_address_name}</div>
+              <div>{markers[0].address_name}</div>
             </div>
           ) : (
             markers.map((marker) => (
@@ -186,7 +191,7 @@ export default function PostTestMap() {
                 className="border-4 p-2 border-blue-400 w-fit"
                 onClick={() => {
                   setOneMarker(marker.position);
-                  setDataList([marker]);
+                  setMarkers([marker]);
                 }}
               >
                 <div>{marker.place_name}</div>
