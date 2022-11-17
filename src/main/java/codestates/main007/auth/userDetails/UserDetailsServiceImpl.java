@@ -31,12 +31,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final class UserDetailsImpl extends Member implements UserDetails {
         UserDetailsImpl(Member member) {
-            UserDetailsImpl.builder()
-                    .memberId(member.getMemberId())
-                    .email(member.getEmail())
-                    .password(member.getPassword())
-                    .roles(member.getRoles())
-                    .build();
+            setUserDetails(member.getMemberId(),
+                    member.getEmail(),
+                    member.getPassword());
         }
 
         @Override

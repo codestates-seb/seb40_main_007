@@ -3,6 +3,7 @@ package codestates.main007.member;
 
 import codestates.main007.auth.jwt.JwtTokenizer;
 import codestates.main007.auth.util.CustomAuthorityUtils;
+import codestates.main007.boardMember.BoardMemberRepository;
 import codestates.main007.exception.BusinessLogicException;
 import codestates.main007.exception.ExceptionCode;
 import codestates.main007.board.Board;
@@ -34,6 +35,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
+    private final BoardMemberRepository boardMemberRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
     private final RandomNamingService namingService;
@@ -59,7 +61,7 @@ public class MemberService {
 
     public void update(String accessToken, MemberDto.Patch patchDto) {
         Member member = findByAccessToken(accessToken);
-        member.patchMember(patchDto.getName(), patchDto.getAvatar(), patchDto.getPassword());
+        member.patchMember(patchDto.getName(), patchDto.getAvatar(), passwordEncoder.encode(patchDto.getPassword()));
         memberRepository.save(member);
     }
 
@@ -155,5 +157,19 @@ public class MemberService {
             }
         }
         return myStations;
+    }
+
+    public Page<Board> findMyDibsByStation(String accessToken, long stationId, int page, int size, Sort sort) {
+        Member member = findByAccessToken(accessToken);
+        List<Long> boardIds = boardMemberRepository.findBoardByMemberAndDibsTrue(member);
+        return boardRepository.findAllByBoardIdIn(boardIds,
+                PageRequest.of(page, size, sort));
+    }
+
+    public Page<Board> findMyDibs(String accessToken,int page, int size, Sort sort) {
+        Member member = findByAccessToken(accessToken);
+
+        return boardRepository.findByStationIdAndWriter(1, member,
+                PageRequest.of(page, size, sort));
     }
 }

@@ -57,7 +57,11 @@ public class Member {
             this.password = password;
         }
     }
-
+    public void setUserDetails(long memberId, String email, String password){
+        this.memberId = memberId;
+        this.email = email;
+        this.password = password;
+    }
     public void resetPassword(String password){
         this.password = password;
     }
