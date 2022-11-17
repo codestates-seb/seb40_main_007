@@ -5,6 +5,10 @@ import codestates.main007.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/boards")
@@ -17,10 +21,11 @@ public class BoardController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void postBoard(@RequestHeader(name = "Authorization") String accessToken,
-                          @RequestBody BoardDto.Input postDto) {
+                          @RequestPart("data") BoardDto.Input postDto,
+                          @RequestPart("files") List<MultipartFile> images) throws IOException {
 
         Board board = boardMapper.boardDtoToBoard(postDto);
-        boardService.save(accessToken, board);
+        boardService.save(accessToken, board, images);
     }
 
     @PatchMapping("/{board-id}")
@@ -49,24 +54,28 @@ public class BoardController {
 
         boolean isDibs = boardService.checkDibs(accessToken, boardId);
         BoardDto.DetailResponse detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs, member);
+        int status = boardService.checkScoreStatus(member, board);
+
+        detailResponse.setImagesUrls(boardService.findImageUrls(board));
+        detailResponse.setScoreStatus(status);
 
         return detailResponse;
     }
 
     @PostMapping("{board-id}/up-vote")
     @ResponseStatus(HttpStatus.OK)
-    public void upVote(@RequestHeader(name = "Authorization") String accessToken,
-                       @PathVariable("board-id") long boardId) {
+    public BoardDto.ScoreStatus upVote(@RequestHeader(name = "Authorization") String accessToken,
+                                       @PathVariable("board-id") long boardId) {
 
-        boardService.upVote(accessToken, boardId);
+        return BoardDto.ScoreStatus.builder().scoreStatus(boardService.upVote(accessToken, boardId)).build();
     }
 
     @PostMapping("{board-id}/down-vote")
     @ResponseStatus(HttpStatus.OK)
-    public void downVote(@RequestHeader(name = "Authorization") String accessToken,
-                         @PathVariable("board-id") long boardId) {
+    public BoardDto.ScoreStatus downVote(@RequestHeader(name = "Authorization") String accessToken,
+                                         @PathVariable("board-id") long boardId) {
 
-        boardService.downVote(accessToken, boardId);
+        return BoardDto.ScoreStatus.builder().scoreStatus(boardService.downVote(accessToken, boardId)).build();
     }
 
     @PostMapping("{board-id}/dibs")
