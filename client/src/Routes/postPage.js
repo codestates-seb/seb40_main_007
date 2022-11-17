@@ -2,7 +2,7 @@ import Header from "../components/Header";
 import PostTrainStationSelect from "../components/PostPage/PostTrainStationSelect";
 import StartRating from "../components/StarRating";
 import OnlineInput from "../components/OneLineInput";
-import PostMap from "../components/PostPage/PostMap";
+import PostMap from "../components/PostPage/postTestMap";
 import ImageUpload from "../components/ImageUpload";
 import PostCategoryTabs from "../components/PostPage/PostCategoriTabs";
 import PostRelatedTab from "../components/PostPage/PostRelatedTab";

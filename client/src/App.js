@@ -17,6 +17,7 @@ import EditPage from "./Routes/editPage";
 import PostPage from "./Routes/postPage";
 import MyLikePostPage from "./Routes/myLikePostPage";
 import MyPostPage from "./Routes/myPostPage";
+import PostTestMap from "./components/PostPage/postTestMap";
 
 // 로그인 테스트용입니다.
 import { useRecoilState } from "recoil";
@@ -58,6 +59,8 @@ function App() {
             <Route path="/mypage/mypost" element={<MyPostPage />} />
             <Route path="/mypage/likepost" element={<MyLikePostPage />} />
             <Route path="/mypage/mycomment" element={<MyCommentPage />} />
+            {/* 테스트 맵 */}
+            <Route path="/test" element={<PostTestMap />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

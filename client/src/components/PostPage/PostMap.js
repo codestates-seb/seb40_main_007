@@ -10,7 +10,11 @@ const PostMap = () => {
       setStyle({ width: "90%", height: "300px" });
     }
   };
-  console.log(Map);
+  const [markerSize, setMarkerSize] = useState({
+    width: 60,
+    height: 70,
+  });
+  console.log(markerSize);
 
   useEffect(() => {
     window.addEventListener("resize", windowResize);
@@ -23,6 +27,7 @@ const PostMap = () => {
     lat: 37.51587012479348,
     lng: 126.90777569282984,
   });
+
   console.log(position);
   return (
     <>
@@ -40,22 +45,6 @@ const PostMap = () => {
         )}
       </div>
       <div className="flex justify-center p-2 mt-14">
-        {/* <Map
-          center={{ lat: 37.51587012479348, lng: 126.90777569282984 }}
-          style={style}
-        >
-          <MapMarker
-            position={{ lat: 37.51587012479348, lng: 126.90777569282984 }}
-            draggable={true}
-          >
-            <div className="font-bold">영등포역</div>
-          </MapMarker> */}
-        {/* <MarkerClusterer averageCenter={true} minLevel={10}>
-          {clusterPositionsData.positions.map((pos) => (
-            <MapMarker key={`${pos.lat}-${pos.lng}`} position={pos} />
-          ))}
-        </MarkerClusterer> */}
-        {/* </Map> */}
         <Map // 지도를 표시할 Container
           center={{ lat: 37.51587012479348, lng: 126.90777569282984 }}
           style={style}
@@ -67,7 +56,31 @@ const PostMap = () => {
             })
           }
         >
-          {position && <MapMarker position={position} />}
+          {position && (
+            <MapMarker
+              position={position}
+              image={{
+                src: "/images/marker.png", // 마커이미지의 주소입니다
+                size: markerSize,
+              }}
+              draggable={true}
+              // onClick={getPosition}
+              onDragStart={() => {
+                setMarkerSize({
+                  width: 110,
+                  height: 120,
+                });
+              }}
+              onDragEnd={() => {
+                setMarkerSize({
+                  width: 60,
+                  height: 70,
+                });
+                // let tmp = marker.getPosition();
+                // setPosition(tmp);
+              }}
+            />
+          )}
         </Map>
       </div>{" "}
     </>
