@@ -109,7 +109,7 @@ public class Board {
 
     // 게시글 업데이트를 위한 메서드
     public void patchBoard(String title, String review, Double star, Double latitude,
-                           Double longitude, Long stationId, Long categoryId, String address, Integer timeFromStation) {
+                           Double longitude, Long stationId, Long categoryId, String address) {
         if (title != null) {
             this.title = title;
         }
@@ -134,11 +134,10 @@ public class Board {
         if (address != null) {
             this.address = address;
         }
-        if (timeFromStation != null) {
-            this.timeFromStation = timeFromStation;
-        }
     }
-
+    public void updateTimeFromStation(int TimeFromStation){
+        this.timeFromStation = timeFromStation;
+    }
     // 해당 게시글의 추천 수 변경 메서드 (총 추천합, 추천 수, 비추천 수 )
     public void changeScore(int fromStatus, int status) {
         if (fromStatus == -1 & status == 1) {

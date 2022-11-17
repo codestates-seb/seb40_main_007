@@ -3,6 +3,8 @@ package codestates.main007.member;
 
 import codestates.main007.auth.jwt.JwtTokenizer;
 import codestates.main007.auth.util.CustomAuthorityUtils;
+import codestates.main007.boardMember.BoardMember;
+import codestates.main007.boardMember.BoardMemberRepository;
 import codestates.main007.exception.BusinessLogicException;
 import codestates.main007.exception.ExceptionCode;
 import codestates.main007.board.Board;
@@ -34,6 +36,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
+    private final BoardMemberRepository boardMemberRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
     private final RandomNamingService namingService;
@@ -59,7 +62,7 @@ public class MemberService {
 
     public void update(String accessToken, MemberDto.Patch patchDto) {
         Member member = findByAccessToken(accessToken);
-        member.patchMember(patchDto.getName(), patchDto.getAvatar(), patchDto.getPassword());
+        member.patchMember(patchDto.getName(), patchDto.getAvatar(), patchDto.getPassword(), passwordEncoder);
         memberRepository.save(member);
     }
 
@@ -115,6 +118,13 @@ public class MemberService {
         return boardRepository.findByWriter(member);
     }
 
+    public List<Board> findMyMapByStation(String accessToken, long stationId) {
+        Member member = findByAccessToken(accessToken);
+
+        return boardRepository.findByWriterAndStationId(member,stationId);
+    }
+
+
     public Page<Board> findMyPage(String accessToken, int page, int size, Sort sort) {
         Member member = findByAccessToken(accessToken);
 
@@ -155,5 +165,35 @@ public class MemberService {
             }
         }
         return myStations;
+    }
+
+    public Page<Board> findMyDibsByStation(String accessToken, long stationId, int page, int size, Sort sort) {
+        Member member = findByAccessToken(accessToken);
+        List<BoardMember> boardMembers = boardMemberRepository.findByMemberAndDibsTrue(member);
+        List<Long> boardIds = new ArrayList<>();
+
+        for (BoardMember boardMember : boardMembers) {
+            Board board = boardMember.getBoard();
+            if (board.getStationId() == stationId) {
+                boardIds.add(board.getBoardId());
+            }
+        }
+
+        return boardRepository.findAllByBoardIdIn(boardIds,
+                PageRequest.of(page, size, sort));
+    }
+
+    public Page<Board> findMyDibs(String accessToken, int page, int size, Sort sort) {
+        Member member = findByAccessToken(accessToken);
+        List<BoardMember> boardMembers = boardMemberRepository.findByMemberAndDibsTrue(member);
+        List<Long> boardIds = new ArrayList<>();
+
+        for (BoardMember boardMember : boardMembers) {
+            Board board = boardMember.getBoard();
+            boardIds.add(board.getBoardId());
+        }
+
+        return boardRepository.findAllByBoardIdIn(boardIds,
+                PageRequest.of(page, size, sort));
     }
 }

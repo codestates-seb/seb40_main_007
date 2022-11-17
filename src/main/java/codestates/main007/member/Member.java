@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private final List<BoardMember> boardMembers = new ArrayList<>();
 
-    public void patchMember(String name, String avatar, String password) {
+    public void patchMember(String name, String avatar, String password, PasswordEncoder passwordEncoder) {
         if (name != null) {
             this.name = name;
         }
@@ -54,10 +55,14 @@ public class Member {
             this.avatar = avatar;
         }
         if (password != null) {
-            this.password = password;
+            this.password = passwordEncoder.encode(password);
         }
     }
-
+    public void setUserDetails(long memberId, String email, String password){
+        this.memberId = memberId;
+        this.email = email;
+        this.password = password;
+    }
     public void resetPassword(String password){
         this.password = password;
     }
