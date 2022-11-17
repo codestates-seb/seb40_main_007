@@ -26,4 +26,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     Page<Board> findByStationIdAndWriter(long stationId, Member member, Pageable pageable);
 
     Page<Board> findByStationIdAndCategoryIdAndTags(long stationId, long categoryId, Tag tag, Pageable pageable);
+
+    Page<Board> findAllByBoardIdIn(List<Long> boardIds, Pageable pageable);
 }

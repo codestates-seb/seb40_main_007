@@ -87,6 +87,21 @@ public class MemberController {
         return new MultiResponseDto<>(myMaps);
     }
 
+    @GetMapping("/my-page/dibs/{station-id}")
+    @ResponseStatus(HttpStatus.OK)
+    public PageDto getMyDibs(@RequestHeader(name = "Authorization") String accessToken,
+                             @PathVariable("station-id") long stationId,
+                             @RequestParam int page,
+                             @RequestParam int size) {
+        Page<Board> boardPage = memberService.findMyDibsByStation(accessToken, stationId, page - 1, size, Sort.by("boardId").descending());
+        if (stationId == 0) {
+            boardPage = memberService.findMyDibs(accessToken, page - 1, size, Sort.by("boardId").descending());
+        }
+        List<Board> boards = boardPage.getContent();
+
+        return new PageDto(memberMapper.boardsToMyPages(boards), boardPage);
+    }
+
     @GetMapping("/info")
     @ResponseStatus(HttpStatus.OK)
     public MemberDto.Info getMyInfo(@RequestHeader(name = "Authorization") String accessToken) {
