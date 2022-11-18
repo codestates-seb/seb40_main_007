@@ -51,7 +51,7 @@ export default function ImageUpload() {
             </ReactFileReader>
           </div>
         ) : (
-          <div className="bg-[#D9D9D9] rounded-lg w-32 h-32 flex justify-center items-center relative">
+          <div className="bg-[#D9D9D9] rounded-lg w-36 h-36 flex justify-center items-center relative">
             {index === 0 && url[0] ? (
               <span className="text-xs px-2 top-1 left-1 bg-[rgb(83,199,240)] text-white p-1 rounded-xl absolute">
                 대표
@@ -86,7 +86,7 @@ export default function ImageUpload() {
             </ReactFileReader>
           </div>
         ) : (
-          <div className="bg-[#D9D9D9] rounded-lg w-32 h-32 flex justify-center items-center relative">
+          <div className="bg-[#D9D9D9] rounded-lg w-36 h-36 flex justify-center items-center relative">
             {index === 1 && url[1] ? (
               <span className="text-xs px-2 top-1 left-1 bg-[rgb(83,199,240)] text-white p-1 rounded-xl absolute">
                 대표
@@ -121,7 +121,7 @@ export default function ImageUpload() {
             </ReactFileReader>
           </div>
         ) : (
-          <div className="bg-[#D9D9D9] rounded-lg w-32 h-32 flex justify-center items-center relative">
+          <div className="bg-[#D9D9D9] rounded-lg w-36 h-36 flex justify-center items-center relative">
             {index === 2 && url[2] ? (
               <span className="text-xs px-2 top-1 left-1 bg-[rgb(83,199,240)] text-white p-1 rounded-xl absolute">
                 대표
@@ -156,7 +156,7 @@ export default function ImageUpload() {
             </ReactFileReader>
           </div>
         ) : (
-          <div className="bg-[#D9D9D9] rounded-lg w-32 h-32 flex justify-center items-center relative">
+          <div className="bg-[#D9D9D9] rounded-lg w-36 h-36 flex justify-center items-center relative">
             {index === 3 && url[3] ? (
               <span className="text-xs px-2 top-1 left-1 bg-[rgb(83,199,240)] text-white p-1 rounded-xl absolute">
                 대표

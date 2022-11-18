@@ -1,6 +1,7 @@
 /*eslint-disable*/
 import { Map, MapMarker } from "react-kakao-maps-sdk"; //MarkerClusterer
 import { useEffect, useState } from "react";
+import { BsFillPencilFill } from "react-icons/bs";
 
 export default function PostMap() {
   const { kakao } = window;
@@ -90,10 +91,15 @@ export default function PostMap() {
     });
   };
 
+  const [title, setTitle] = useState("영등포역");
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+  };
+
   return (
     <>
       <div className="relative">
-        <div className="border-2 border-[rgb(83,199,240)] rounded-2xl py-1 px-2 bg-[rgba(256,256,256,0.6)] w-fit absolute z-20 top-2 left-2">
+        <div className="border-2 border-[rgb(83,199,240)] rounded-2xl py-1 px-2 bg-[rgba(256,256,256,0.6)] w-fit absolute z-10 top-2 left-2">
           <input
             type="text"
             value={keyword}
@@ -157,18 +163,19 @@ export default function PostMap() {
                   setOneMarker(marker.position);
                   console.log(marker);
                   setMarkers([marker]);
+                  setTitle(`${marker.place_name}(${marker.road_address_name})`);
                 }}
                 draggable={true}
               >
                 <div className="align-middle border-none">
-                  {marker.place_name}
+                  {`${marker.place_name}`}
                 </div>
               </MapMarker>
             ))
           )}
 
-          <div className=" text-white bg-[rgba(0,0,0,0.3)]">
-            {oneMarker.lat}/{oneMarker.lng}
+          <div className=" text-white bg-[rgba(0,0,0,0.2)] text-right">
+            Lat:{oneMarker.lat}/ Lng:{oneMarker.lng}
           </div>
           <div className="absolute top-16 left-6 z-10 bg-[rgba(256,256,256,0.7)] h-[200px] lg:h-[400px] overflow-scroll p-2">
             {markers.length === 1 ? (
@@ -194,6 +201,9 @@ export default function PostMap() {
                   onClick={() => {
                     setOneMarker(marker.position);
                     setMarkers([marker]);
+                    setTitle(
+                      `${marker.place_name}(${marker.road_address_name})`
+                    );
                   }}
                 >
                   <div className="text-base font-semibold text-[rgb(73,177,214)]">
@@ -213,24 +223,40 @@ export default function PostMap() {
           </div>
         </Map>
       </div>
-      <div className="text-sm font-semibold text-gray-400 mt-5 mb-1 flex justify-between items-center">
-        <div className="text-sm text-gray-500  mb-1">주소가 이곳이 맞나요?</div>
+      <div className="text-sm font-semibold text-gray-400 mt-5 mb-1 text-right">
         <div>
           <img
             src="/images/marker.png"
             alt="marker"
             className="w-7 h-8 inline mr-1"
           />
-          마커를 움직여 보다 정확한 위치로 옮겨보세요!
+          마커를 움직여 보다 정확한 위치를 알려주세요!
         </div>
       </div>
-      <div className="text-2xl font-semibold text-[rgb(83,199,240)] flex items-center">
+
+      {/* 장소명 */}
+      <div className="mb-2 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 text-18 text-[rgb(83,199,240)] mt-10">
+        장소명
+      </div>
+      <div className="text-sm text-gray-500  mt-5">
+        이곳이 아니라면 다시 검색해주세요!
+      </div>
+      <div className="mt-1 w-full text-2xl font-semibold text-[rgb(83,199,240)] flex items-center relative">
         <img
           src="/images/bluelogo.png"
           alt="marker"
           className="w-10 h-10 inline mr-1"
         />
-        {markers[0]?.place_name}({markers[0]?.address_name})
+
+        <input
+          className="w-full p-2 z-10 bg-[rgba(0,0,0,0)]"
+          value={title}
+          onChange={handleTitleChange}
+        />
+        <div className="z-0 absolute right-3 top-0">
+          <div className="text-gray-400 text-sm inline">상세작성</div>{" "}
+          <BsFillPencilFill className="inline" />
+        </div>
       </div>
     </>
   );

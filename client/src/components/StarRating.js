@@ -14,7 +14,7 @@ const StarRating = () => {
 
   return (
     <>
-      <div className="max-w-80 h-44 justify-center align-middle">
+      <div className="max-w-80 h-44 justify-center align-middle ">
         <div className="flex justify-center">
           {[1, 2, 3, 4, 5].map((num) => {
             return (
@@ -31,7 +31,7 @@ const StarRating = () => {
             );
           })}
         </div>
-        <div className="mt-12">
+        <div className="mt-16">
           {[1, 2, 3, 4, 5].map((num) => {
             return (
               <button

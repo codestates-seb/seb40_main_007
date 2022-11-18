@@ -17,6 +17,7 @@ import EditPage from "./Routes/editPage";
 import PostPage from "./Routes/postPage";
 import MyLikePostPage from "./Routes/myLikePostPage";
 import MyPostPage from "./Routes/myPostPage";
+import DetailPage from "./Routes/detailPage";
 import PostTestMap from "./components/PostPage/postTestMap";
 
 // 로그인 테스트용입니다.
@@ -50,6 +51,7 @@ function App() {
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/initial" element={<InitialPage />} />
             <Route path="/main/:id" element={<MainPage />} />
+            <Route path="/detail" element={<DetailPage />} />
             <Route path="/post/:id" element={<PostPage />} />
             <Route path="/edit" element={<EditPage />} />
             <Route path="/image" element={<ImageUpload />} />

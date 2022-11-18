@@ -74,7 +74,7 @@ export default function SignUpPage() {
                   value:
                     /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,16}$/,
                   message:
-                    "비밀번호를 8~16자로 영문 대소문자, 숫자, 특수기호를 조합해서 사용하세요.",
+                    "비밀번호를 8~16자로 영문, 숫자, 특수기호를 조합해서 사용하세요.",
                 },
               })}
               className="border border-[rgb(83,199,240)] rounded-md  bg-transparent; focus:outline focus:outline-blue-500 w-80 p-2 mt-1"

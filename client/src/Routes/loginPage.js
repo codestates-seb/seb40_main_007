@@ -22,7 +22,7 @@ export default function LoginPage({ setLogin }) {
     // getValues()로 data 가져오기
     const { email, password } = getValues();
     console.log(email, password);
-    if (email === "test@test.com" && password === "Abcd@1234") {
+    if (email === "test@test.com" && password === "abcd@1234") {
       console.log("로그인성공!!");
       // const [login] = useRecoilState(loginOk);
       setLogin(true);
