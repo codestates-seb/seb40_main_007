@@ -28,6 +28,33 @@ spring:
     multipart:
       maxFileSize: 50MB
       maxRequestSize: 50MB
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 271700253602-jg4ss6e6mpid627craeadftt8cjgeqa7.apps.googleusercontent.com
+            clientSecret: ${CLIENT_SECRET_GOOGLE}
+            scope:
+              - email
+              - profile
+          naver:
+            clientId: vslwDatKfTzz0X56xJYI
+            clientSecret: ${CLIENT_SECRET_NAVER}
+            scope:
+              - name
+              - email
+              - profile_image
+            client-name: Naver
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/naver
+          kakao:
+            clientId: 749f3cb4d02e255ec0e216a37e19c700
+            clientSecret: ${CLIENT_SECRET_KAKAO}
+            redirect-uri: http://localhost:8080/login/oauth2/code/kakao
+            authorization-grant-type: authorization_code
+            client-name: Kakao
+
 
 jwt:
   key:
