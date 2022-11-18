@@ -3,6 +3,7 @@ import TrainStationCard from "../components/TrainStationCard";
 import Footer from "../components/Footer";
 import HomeMap from "../components/homePage/HomeMap";
 import HomeIntrouce from "../components/homePage/HomeIntroduce";
+import TrainStationModal from "../components/modals/TrainStationModal";
 export default function HomePage() {
   return (
     <>
@@ -17,7 +18,7 @@ export default function HomePage() {
             <HomeMap />
           </div>
         </div>
-
+        <TrainStationModal />
         <div className="lg:w-full w-[1400px] flex justify-center mb-20 ">
           <TrainStationCard />
         </div>
