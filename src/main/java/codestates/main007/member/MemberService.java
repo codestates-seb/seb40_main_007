@@ -196,4 +196,11 @@ public class MemberService {
         return boardRepository.findAllByBoardIdIn(boardIds,
                 PageRequest.of(page, size, sort));
     }
+
+    public void deleteMember(String accessToken, String password){
+        verifyPassword(accessToken, password);
+        Member member = findByAccessToken(accessToken);
+
+        memberRepository.delete(member);
+    }
 }

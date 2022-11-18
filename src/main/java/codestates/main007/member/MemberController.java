@@ -157,4 +157,11 @@ public class MemberController {
 
         memberService.update(accessToken, patchDto);
     }
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void withdrawal(@RequestHeader(name = "Authorization") String accessToken,
+                            @RequestBody MemberDto.Password passwordDto) {
+
+        memberService.deleteMember(accessToken, passwordDto.getPassword());
+    }
 }
