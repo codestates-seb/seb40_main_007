@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+
+import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.List;
 
@@ -46,7 +48,7 @@ public class MemberController {
 
     @PostMapping("/find-password")
     @ResponseStatus(HttpStatus.OK)
-    public void findPassword(@RequestBody MemberDto.Email email) {
+    public void findPassword(@RequestBody MemberDto.Email email) throws MessagingException {
         String password = memberService.findPassword(email.getAddress());
 
         emailService.findPassword(email.getAddress(), password);
@@ -56,27 +58,23 @@ public class MemberController {
 
     @GetMapping("/my-page")
     @ResponseStatus(HttpStatus.OK)
-    public PageDto getMyPage(@RequestHeader(name = "Authorization") String accessToken,
-                             @RequestParam int page,
-                             @RequestParam int size) {
-        Page<Board> boardPage = memberService.findMyPage(accessToken, page - 1, size, Sort.by("boardId").descending());
+    public List<MemberDto.MyPage> getMyPage(@RequestHeader(name = "Authorization") String accessToken) {
+        Member member = memberService.findByAccessToken(accessToken);
+        List<Board> boards = boardRepository.findByWriter(member);
 
-        List<Board> boards = boardPage.getContent();
-
-        return new PageDto(memberMapper.boardsToMyPages(boards), boardPage);
+        List<MemberDto.MyPage> memberDtos = memberMapper.boardsToMyPages(boards);
+        return memberService.setIsDibsToMyPage(accessToken, memberDtos);
     }
-
 
     @GetMapping("/my-page/{station-id}")
     @ResponseStatus(HttpStatus.OK)
-    public PageDto getMyPageByStation(@RequestHeader(name = "Authorization") String accessToken,
-                             @PathVariable("station-id") long stationId,
-                             @RequestParam int page,
-                             @RequestParam int size) {
-        Page<Board> boardPage = memberService.findMyPageByStation(accessToken, stationId, page - 1, size, Sort.by("boardId").descending());
-        List<Board> boards = boardPage.getContent();
+    public List<MemberDto.MyPage> getMyPageByStation(@RequestHeader(name = "Authorization") String accessToken,
+                             @PathVariable("station-id") long stationId) {
+        Member member = memberService.findByAccessToken(accessToken);
+        List<Board> boards = boardRepository.findByWriterAndStationId(member,stationId);
 
-        return new PageDto(memberMapper.boardsToMyPages(boards), boardPage);
+        List<MemberDto.MyPage> memberDtos = memberMapper.boardsToMyPages(boards);
+        return memberService.setIsDibsToMyPage(accessToken, memberDtos);
     }
 
     @GetMapping("/my-page/comments")
@@ -88,25 +86,6 @@ public class MemberController {
         List<Comment> comments = commentPage.getContent();
 
         return new PageDto(memberMapper.commentsToMyComments(comments), commentPage);
-    }
-
-    @GetMapping("/my-page/map")
-    @ResponseStatus(HttpStatus.OK)
-    public MultiResponseDto getMyMap(@RequestHeader(name = "Authorization") String accessToken) {
-        List<Board> boards = memberService.findMyMap(accessToken);
-        List<MemberDto.MyMap> myMaps = memberMapper.boardsToMyMaps(boards);
-
-        return new MultiResponseDto<>(myMaps);
-    }
-
-    @GetMapping("/my-page/map/{station-id}")
-    @ResponseStatus(HttpStatus.OK)
-    public MultiResponseDto getMyMapByStation(@RequestHeader(name = "Authorization") String accessToken,
-                                              @PathVariable("station-id") long stationId) {
-        List<Board> boards = memberService.findMyMapByStation(accessToken, stationId);
-        List<MemberDto.MyMap> myMaps = memberMapper.boardsToMyMaps(boards);
-
-        return new MultiResponseDto<>(myMaps);
     }
 
     @GetMapping("/my-page/dibs")
@@ -159,6 +138,31 @@ public class MemberController {
 
         memberService.update(accessToken, patchDto);
     }
+
+    // 삭제된 메서드들
+//    @GetMapping("/my-page/map")
+//    @ResponseStatus(HttpStatus.OK)
+//    public MultiResponseDto getMyMap(@RequestHeader(name = "Authorization") String accessToken) {
+//        List<Board> boards = memberService.findMyMap(accessToken);
+//        List<MemberDto.MyMap> myMaps = memberMapper.boardsToMyMaps(boards);
+//
+//        return new MultiResponseDto<>(myMaps);
+//    }
+//
+//    @GetMapping("/my-page/{station-id}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public PageDto getMyPage(@RequestHeader(name = "Authorization") String accessToken,
+//                             @PathVariable("station-id") long stationId,
+//                             @RequestParam int page,
+//                             @RequestParam int size) {
+//        Page<Board> boardPage = memberService.findMyPageByStation(accessToken, stationId, page - 1, size, Sort.by("boardId").descending());
+//        if (stationId == 0) {
+//            boardPage = memberService.findMyPage(accessToken, page - 1, size, Sort.by("boardId").descending());
+//        }
+//        List<Board> boards = boardPage.getContent();
+//
+//        return new PageDto(memberMapper.boardsToMyPages(boards), boardPage);
+//    }
 
     @PatchMapping("/avatar")
     @ResponseStatus(HttpStatus.OK)

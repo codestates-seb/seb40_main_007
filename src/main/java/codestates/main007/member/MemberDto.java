@@ -6,9 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class MemberDto {
@@ -30,7 +28,21 @@ public class MemberDto {
         private String title;
         private String review;
         private double star;
+        private double latitude;
+        private double longitude;
+        private String thumbnail;
+        private long categoryId;
         private int timeFromStation;
+        private boolean dibs;
+        private int upScore;
+        private int downScore;
+        private int score;
+        private LocalDateTime createdAt;
+        private TagDto.Response tags;
+
+        public void setDibs(boolean isDibs){
+            this.dibs = isDibs;
+        }
     }
 
     @Getter
@@ -38,23 +50,12 @@ public class MemberDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class MyComment {
+
         private long commentId;
         private long boardId;
         private String title;
         private String comment;
         private String thumbnail;
-    }
-
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class MyMap {
-        private long boardId;
-        private String thumbnail;
-        private double latitude;
-        private double longitude;
-        private TagDto.Response tags;
     }
 
     @Getter
@@ -93,4 +94,28 @@ public class MemberDto {
         private int score;
         private List<Long> visitedStations;
     }
+
+    // 삭제 예정
+//    @Getter
+//    @Builder
+//    @NoArgsConstructor
+//    @AllArgsConstructor
+//    public static class MyMap {
+//        private long boardId;
+//        private String thumbnail;
+//        private double latitude;
+//        private double longitude;
+//    }
+//
+//    @Getter
+//    @Builder
+//    @NoArgsConstructor
+//    @AllArgsConstructor
+//    public static class MyPage {
+//        private long boardId;
+//        private String title;
+//        private String review;
+//        private double star;
+//        private int timeFromStation;
+//    }
 }

@@ -124,32 +124,6 @@ public class MemberService {
         }
     }
 
-    public List<Board> findMyMap(String accessToken) {
-        Member member = findByAccessToken(accessToken);
-
-        return boardRepository.findByWriter(member);
-    }
-
-    public List<Board> findMyMapByStation(String accessToken, long stationId) {
-        Member member = findByAccessToken(accessToken);
-
-        return boardRepository.findByWriterAndStationId(member,stationId);
-    }
-
-
-    public Page<Board> findMyPage(String accessToken, int page, int size, Sort sort) {
-        Member member = findByAccessToken(accessToken);
-
-        return boardRepository.findByWriter(member,
-                PageRequest.of(page, size, sort));
-    }
-
-    public Page<Board> findMyPageByStation(String accessToken, long stationId, int page, int size, Sort sort) {
-        Member member = findByAccessToken(accessToken);
-
-        return boardRepository.findByStationIdAndWriter(stationId, member,
-                PageRequest.of(page, size, sort));
-    }
 
     public Page<Comment> findMyComments(String accessToken, int page, int size, Sort sort) {
         Member member = findByAccessToken(accessToken);
@@ -208,6 +182,40 @@ public class MemberService {
         return boardRepository.findAllByBoardIdIn(boardIds,
                 PageRequest.of(page, size, sort));
     }
+
+    public List<MemberDto.MyPage> setIsDibsToMyPage(String accessToken, List<MemberDto.MyPage> memberDtos) {
+        Member member = findByAccessToken(accessToken);
+        for (MemberDto.MyPage myPage : memberDtos) {
+            Board board = boardRepository.findById(myPage.getBoardId()).get();
+            boolean isDibs = false;
+            Optional<BoardMember> boardMember = boardMemberRepository.findByMemberAndBoard(member, board);
+            if (boardMember.isPresent()){
+                isDibs = boardMember.get().isDibs();
+            }
+            myPage.setDibs(isDibs);
+        }
+        return memberDtos;
+    }
+
+    //삭제예정
+//    public List<Board> findMyMap(String accessToken) {
+//        Member member = findByAccessToken(accessToken);
+//
+//        return boardRepository.findByWriter(member);
+//    }
+//
+//    public Page<Board> findMyPage(String accessToken, int page, int size, Sort sort) {
+//        Member member = findByAccessToken(accessToken);
+//
+//        return boardRepository.findByWriter(member,
+//                PageRequest.of(page, size, sort));
+//    }
+//    public Page<Board> findMyPageByStation(String accessToken, long stationId, int page, int size, Sort sort) {
+//        Member member = findByAccessToken(accessToken);
+//
+//        return boardRepository.findByStationIdAndWriter(stationId, member,
+//                PageRequest.of(page, size, sort));
+//    }
 
     public void deleteMember(String accessToken, String password){
         verifyPassword(accessToken, password);
