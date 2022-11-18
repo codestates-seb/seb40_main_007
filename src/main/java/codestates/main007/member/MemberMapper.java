@@ -9,22 +9,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface MemberMapper {
-    default List<MemberDto.MyPage> boardsToMyPages(List<Board> boards) {
-        List<MemberDto.MyPage> myPages = new ArrayList<>();
-        for (Board board : boards) {
-            MemberDto.MyPage myPage = MemberDto.MyPage.builder()
-                    .boardId(board.getBoardId())
-                    .star(board.getStar())
-                    .title(board.getTitle())
-                    .review(board.getReview())
-                    .timeFromStation(board.getTimeFromStation())
-                    .build();
-
-            myPages.add(myPage);
-        }
-
-        return myPages;
-    }
 
     default List<MemberDto.MyComment> commentsToMyComments(List<Comment> comments) {
         List<MemberDto.MyComment> myComments = new ArrayList<>();
@@ -42,20 +26,70 @@ public interface MemberMapper {
         return myComments;
     }
 
-    default List<MemberDto.MyMap> boardsToMyMaps(List<Board> boards) {
-        List<MemberDto.MyMap> myMaps = new ArrayList<>();
+    default List<MemberDto.MyPage> boardsToMyPages(List<Board> boards){
+        List<MemberDto.MyPage> myPages = new ArrayList<>();
         for (Board board : boards) {
-            MemberDto.MyMap myMap = MemberDto.MyMap.builder()
+            MemberDto.MyPage myPage = MemberDto.MyPage.builder()
                     .boardId(board.getBoardId())
-                    .thumbnail(board.getThumbnail())
+                    .title(board.getTitle())
+                    .review(board.getReview())
+                    .star(board.getStar())
                     .latitude(board.getLatitude())
                     .longitude(board.getLongitude())
+                    .thumbnail(board.getThumbnail())
+                    .categoryId(board.getCategoryId())
+                    .timeFromStation(board.getTimeFromStation())
+                    .upScore(board.getUpScore())
+                    .downScore(board.getDownScore())
+                    .score(board.getScore())
+                    .createdAt(board.getCreatedAt())
                     .tags(board.getTagDto())
                     .build();
-
-            myMaps.add(myMap);
+            myPages.add(myPage);
         }
-
-        return myMaps;
+        return myPages;
     }
+
+    //삭제 예정
+//    default List<MemberDto.MyMap> boardsToMyMaps(List<Board> boards) {
+//        List<MemberDto.MyMap> myMaps = new ArrayList<>();
+//        for (Board board : boards) {
+//            MemberDto.MyMap myMap = MemberDto.MyMap.builder()
+//                    .boardId(board.getBoardId())
+//                    .thumbnail(board.getThumbnail())
+//                    .latitude(board.getLatitude())
+//                    .longitude(board.getLongitude())
+//                    .build();
+//
+//            myMaps.add(myMap);
+//        }
+//
+//        return myMaps;
+//    }
+//    default List<MemberDto.MyMap> boardsToMyMaps(List<Board> boards) {
+//        List<MemberDto.MyMap> myMaps = new ArrayList<>();
+//        for (Board board : boards) {
+//            MemberDto.MyMap myMap = MemberDto.MyMap.builder()
+//                    .boardId(board.getBoardId())
+//                    .thumbnail(board.getThumbnail())
+//                    .latitude(board.getLatitude())
+//                    .longitude(board.getLongitude())
+//                    .tags(board.getTagDto())
+//                    .build();
+//    default List<MemberDto.MyPage> boardsToMyPages(List<Board> boards) {
+//        List<MemberDto.MyPage> myPages = new ArrayList<>();
+//        for (Board board : boards) {
+//            MemberDto.MyPage myPage = MemberDto.MyPage.builder()
+//                    .boardId(board.getBoardId())
+//                    .star(board.getStar())
+//                    .title(board.getTitle())
+//                    .review(board.getReview())
+//                    .timeFromStation(board.getTimeFromStation())
+//                    .build();
+//
+//            myPages.add(myPage);
+//        }
+//
+//        return myPages;
+//    }
 }
