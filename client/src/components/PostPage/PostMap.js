@@ -166,11 +166,7 @@ export default function PostMap() {
                   setTitle(`${marker.place_name}(${marker.road_address_name})`);
                 }}
                 draggable={true}
-              >
-                <div className="align-middle border-none">
-                  {`${marker.place_name}`}
-                </div>
-              </MapMarker>
+              ></MapMarker>
             ))
           )}
           {/* 지도 위에 띄우는 마커 정보 */}
