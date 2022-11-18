@@ -2,9 +2,9 @@ package codestates.main007.member;
 
 
 import codestates.main007.auth.util.CustomAuthorityUtils;
-import codestates.main007.boardImage.ImageHandler;
 import codestates.main007.board.Board;
 import codestates.main007.board.BoardRepository;
+import codestates.main007.boardImage.ImageHandler;
 import codestates.main007.boardMember.BoardMember;
 import codestates.main007.boardMember.BoardMemberRepository;
 import codestates.main007.comments.Comment;
@@ -28,7 +28,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
-import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -75,7 +74,7 @@ public class MemberService {
     public void update(String accessToken, MemberDto.Patch patchDto) {
         Member member = findByAccessToken(accessToken);
 
-        member.patchMember(patchDto.getName(), patchDto.getPassword(), passwordEncoder);
+        member.patchMember(patchDto.getName(), patchDto.getPassword(), passwordEncoder());
         memberRepository.save(member);
     }
 
