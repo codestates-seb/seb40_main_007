@@ -10,11 +10,11 @@ public enum YeogiyoOAuth2Provider {
         public ClientRegistration.Builder getBuilder(String registrationId) {
             ClientRegistration.Builder builder = getBuilder(registrationId,
                     ClientAuthenticationMethod.POST, DEFAULT_LOGIN_REDIRECT_URL);
-            builder.scope("profile");
+            builder.scope("profile_image");
             builder.authorizationUri("https://nid.naver.com/oauth2.0/authorize");
             builder.tokenUri("https://nid.naver.com/oauth2.0/token");
             builder.userInfoUri("https://openapi.naver.com/v1/nid/me");
-            builder.userNameAttributeName("id");
+            builder.userNameAttributeName("response");
             builder.clientName("Naver");
             return builder;
         }
@@ -24,7 +24,7 @@ public enum YeogiyoOAuth2Provider {
         public ClientRegistration.Builder getBuilder(String registrationId) {
             ClientRegistration.Builder builder = getBuilder(registrationId,
                     ClientAuthenticationMethod.POST, DEFAULT_LOGIN_REDIRECT_URL);
-            builder.scope("profile");
+            builder.scope("profile_nickname", "profile_image", "account_email");
             builder.authorizationUri("https://kauth.kakao.com/oauth/authorize");
             builder.tokenUri("https://kauth.kakao.com/oauth/token");
             builder.userInfoUri("https://kapi.kakao.com/v2/user/me");
