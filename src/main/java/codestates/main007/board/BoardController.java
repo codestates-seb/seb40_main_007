@@ -22,10 +22,10 @@ public class BoardController {
     @ResponseStatus(HttpStatus.CREATED)
     public void postBoard(@RequestHeader(name = "Authorization") String accessToken,
                           @RequestPart("data") BoardDto.Input postDto,
+                          @RequestParam("tags") List<Long> tagIds,
                           @RequestPart("files") List<MultipartFile> images) throws IOException {
 
-        Board board = boardMapper.boardDtoToBoard(postDto);
-        boardService.save(accessToken, board, images);
+        boardService.save(accessToken, postDto, images, tagIds);
     }
 
     @PatchMapping("/{board-id}")
@@ -53,11 +53,10 @@ public class BoardController {
         Member member = memberService.findByAccessToken(accessToken);
 
         boolean isDibs = boardService.checkDibs(accessToken, boardId);
-        BoardDto.DetailResponse detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs, member);
         int status = boardService.checkScoreStatus(member, board);
+        List<String> imageUrls = boardService.findImageUrls(board);
+        BoardDto.DetailResponse detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs, member, imageUrls, status);
 
-        detailResponse.setImagesUrls(boardService.findImageUrls(board));
-        detailResponse.setScoreStatus(status);
 
         return detailResponse;
     }

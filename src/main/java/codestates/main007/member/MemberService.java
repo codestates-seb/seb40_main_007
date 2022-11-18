@@ -3,6 +3,10 @@ package codestates.main007.member;
 
 import codestates.main007.auth.jwt.JwtTokenizer;
 import codestates.main007.auth.util.CustomAuthorityUtils;
+import codestates.main007.boardMember.BoardMember;
+import codestates.main007.boardMember.BoardMemberRepository;
+import codestates.main007.exception.BusinessLogicException;
+import codestates.main007.exception.ExceptionCode;
 import codestates.main007.board.Board;
 import codestates.main007.board.BoardRepository;
 import codestates.main007.comments.Comment;
@@ -35,6 +39,8 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
+    private final BoardMemberRepository boardMemberRepository;
+    private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
     private final RandomNamingService namingService;
     private final RandomAvatarService avatarService;
@@ -43,9 +49,9 @@ public class MemberService {
 
     public Member save(MemberDto.Signup signupDto) {
         verifyExistEmail(signupDto.getEmail());
-        String encryptedPassword = passwordEncoder().encode(signupDto.getPassword());
+        String encryptedPassword = passwordEncoder.encode(signupDto.getPassword());
         List<String> roles = authorityUtils.createRoles(signupDto.getEmail());
-  
+
         Member createdMember = Member.builder()
                 .email(signupDto.getEmail())
                 .name(namingService.genName())
@@ -68,7 +74,7 @@ public class MemberService {
 
     public void update(String accessToken, MemberDto.Patch patchDto) {
         Member member = findByAccessToken(accessToken);
-        member.patchMember(patchDto.getName(), patchDto.getAvatar(), patchDto.getPassword());
+        member.patchMember(patchDto.getName(), patchDto.getAvatar(), patchDto.getPassword(), passwordEncoder);
         memberRepository.save(member);
     }
 
@@ -95,7 +101,7 @@ public class MemberService {
         //return find(userId);
 
         // 임시 리턴값
-        return find(4);
+        return find(1);
     }
 
     public String findPassword(String email) {
@@ -103,7 +109,7 @@ public class MemberService {
 
         String password = randomPasswordService.genPassword();
 
-        member.resetPassword(passwordEncoder().encode(password));
+        member.resetPassword(passwordEncoder.encode(password));
         memberRepository.save(member);
 
         return password;
@@ -113,7 +119,7 @@ public class MemberService {
     public void verifyPassword(String accessToken, String password) {
         Member member = findByAccessToken(accessToken);
 
-        if (!passwordEncoder().matches(password, member.getPassword())) {
+        if (!passwordEncoder.matches(password, member.getPassword())) {
             throw new Exception("비밀번호가 다릅니다.");
         }
     }
@@ -123,6 +129,13 @@ public class MemberService {
 
         return boardRepository.findByWriter(member);
     }
+
+    public List<Board> findMyMapByStation(String accessToken, long stationId) {
+        Member member = findByAccessToken(accessToken);
+
+        return boardRepository.findByWriterAndStationId(member,stationId);
+    }
+
 
     public Page<Board> findMyPage(String accessToken, int page, int size, Sort sort) {
         Member member = findByAccessToken(accessToken);
@@ -164,6 +177,36 @@ public class MemberService {
             }
         }
         return myStations;
+    }
+
+    public Page<Board> findMyDibsByStation(String accessToken, long stationId, int page, int size, Sort sort) {
+        Member member = findByAccessToken(accessToken);
+        List<BoardMember> boardMembers = boardMemberRepository.findByMemberAndDibsTrue(member);
+        List<Long> boardIds = new ArrayList<>();
+
+        for (BoardMember boardMember : boardMembers) {
+            Board board = boardMember.getBoard();
+            if (board.getStationId() == stationId) {
+                boardIds.add(board.getBoardId());
+            }
+        }
+
+        return boardRepository.findAllByBoardIdIn(boardIds,
+                PageRequest.of(page, size, sort));
+    }
+
+    public Page<Board> findMyDibs(String accessToken, int page, int size, Sort sort) {
+        Member member = findByAccessToken(accessToken);
+        List<BoardMember> boardMembers = boardMemberRepository.findByMemberAndDibsTrue(member);
+        List<Long> boardIds = new ArrayList<>();
+
+        for (BoardMember boardMember : boardMembers) {
+            Board board = boardMember.getBoard();
+            boardIds.add(board.getBoardId());
+        }
+
+        return boardRepository.findAllByBoardIdIn(boardIds,
+                PageRequest.of(page, size, sort));
     }
 
     public PasswordEncoder passwordEncoder() {

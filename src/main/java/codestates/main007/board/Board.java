@@ -4,6 +4,8 @@ import codestates.main007.boardImage.BoardImage;
 import codestates.main007.boardMember.BoardMember;
 import codestates.main007.comments.Comment;
 import codestates.main007.member.Member;
+import codestates.main007.tag.Tag;
+import codestates.main007.tag.TagDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -87,24 +89,22 @@ public class Board {
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private final List<BoardMember> boardMembers = new ArrayList<>();
-    // todo: 연관관계 -  태그
 
-    // 게시글 작성 시 작성자 추가를 위한 메서드
-    public void setWriter(Member member) {
-        this.writer = member;
-    }
+    @ManyToMany
+    @JoinTable(name = "board_tag")
+    private List<Tag> tags = new ArrayList<>();
 
-    public void setTimeFromStation(int time) {
-        this.timeFromStation = time;
-    }
-
-    public void setImages(List<BoardImage> images){
+    public void setImages(List<BoardImage> images) {
         this.images = images;
     }
 
-    public void setThumbnail(){
+    public void setThumbnail() {
         // todo: 나중에 변경
-        this.thumbnail = "https://s3주소/images/thumbnail_of_"+ boardId;
+        this.thumbnail = "https://s3주소/images/thumbnail_of_" + boardId;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 
     // 게시글 업데이트를 위한 메서드
@@ -135,22 +135,48 @@ public class Board {
             this.address = address;
         }
     }
-
+    public void updateTimeFromStation(int TimeFromStation){
+        this.timeFromStation = timeFromStation;
+    }
     // 해당 게시글의 추천 수 변경 메서드 (총 추천합, 추천 수, 비추천 수 )
     public void changeScore(int fromStatus, int status) {
         if (fromStatus == -1 & status == 1) {
             this.downScore--;
             this.score++;
-        }else if (fromStatus == 0 & status == 1){
+        } else if (fromStatus == 0 & status == 1) {
             this.upScore++;
             this.score++;
-        }else if (fromStatus == 1 & status == -1){
+        } else if (fromStatus == 1 & status == -1) {
             this.upScore--;
             this.score--;
-        }else if (fromStatus == 0 & status == -1){
+        } else if (fromStatus == 0 & status == -1) {
             this.downScore++;
             this.score--;
         }
     }
 
+    public TagDto.Response getTagDto() {
+        String detail = "";
+        List<String> moods = new ArrayList<>();
+        String price = "";
+
+        for (Tag tag : this.tags) {
+            //todo : 태그 변경 시 수정 필요
+            if (tag.getTagId() <= 20) {
+                detail = tag.getTagName();
+            } else if (tag.getTagId() > 20 && tag.getTagId() <= 40) {
+                price = tag.getTagName();
+            } else if (tag.getTagId()>40){
+                moods.add(tag.getTagName());
+            }
+        }
+
+        TagDto.Response response = TagDto.Response.builder()
+                .detailTag(detail)
+                .moodTag(moods)
+                .priceTag(price)
+                .build();
+
+        return response;
+    }
 }

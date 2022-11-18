@@ -2,8 +2,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/main007?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
-    username: user
-    password: 1234
+    username: user   # todo : ec2환경 변수에 저장
+    password: 1234   # todo : ec2환경 변수에 저장
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -11,11 +12,12 @@ spring:
     properties:
       hibernate:
         format_sql: true;
+
   mail:
     host: smtp.gmail.com
     port: 587
     username: yeogiyo007@gmail.com
-    password: pibrnoalgjanhzwo # 환경변수로 변경 필요
+    password: pibrnoalgjanhzwo # todo : ec2환경 변수에 저장
     properties:
       mail:
         smtp:
@@ -41,8 +43,8 @@ spring:
 
 jwt:
   key:
-    secret: ${JWT_SECRET_KEY}               # 민감한 정보는 시스템 환경 변수에서 로드한다.
+    secret: ${JWT_SECRET_KEY}               # todo : ec2환경 변수에 저장
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
 
-TMAP_APPKEY: l7xxc89bed3adc94451abfd7f0eebe850f9c
+TMAP_APPKEY: l7xxc89bed3adc94451abfd7f0eebe850f9c   # todo : ec2환경 변수에 저장
