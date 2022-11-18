@@ -38,8 +38,19 @@ spring:
             clientId: vslwDatKfTzz0X56xJYI
             clientSecret: ${CLIENT_SECRET_NAVER}
             scope:
+              - name
               - email
-              - profile
+              - profile_image
+            client-name: Naver
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/naver
+          kakao:
+            clientId: 749f3cb4d02e255ec0e216a37e19c700
+            clientSecret: ${CLIENT_SECRET_KAKAO}
+            redirect-uri: http://localhost:8080/login/oauth2/code/kakao
+            authorization-grant-type: authorization_code
+            client-name: Kakao
+
 
 jwt:
   key:
