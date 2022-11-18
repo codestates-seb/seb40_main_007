@@ -29,7 +29,7 @@ export default function ImageUpload() {
   };
 
   return (
-    <ul className="w-fit flex m-3 text-[rgb(83,199,240)]">
+    <ul className=" flex m-3 text-[rgb(83,199,240)]">
       <li
         className={
           index === 0 && url[0]

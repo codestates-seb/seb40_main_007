@@ -38,12 +38,14 @@ export default function LogoutPage() {
 
           {/* 로그인 테스트용입니다. */}
           <Link to="/">
-            <button
-              className="text-white font-semibold m-auto w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-4 px-6 rounded-md"
-              onClick={() => setLogin(false)}
-            >
-              Logout
-            </button>
+            <div className="w-fit m-auto">
+              <button
+                className="text-white font-semibold w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-4 px-6 rounded-md"
+                onClick={() => setLogin(false)}
+              >
+                Logout
+              </button>
+            </div>
           </Link>
         </div>
       </div>

@@ -99,19 +99,15 @@ export default function LoginPage({ setLogin }) {
                 "비밀번호를 입력해주세요"}
               {errors.password?.type === "pattern" && errors.password.message}
             </p>
-            {/* <div
-            className="text-white font-semibold m-auto w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-2 px-6 rounded-md"
-          >
-            Login
-          </div> */}
 
-            {/* 로그인 테스트용 버튼입니다. */}
-            <button
-              type="submit"
-              className="text-white font-semibold m-auto w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-2 px-6 rounded-md"
-            >
-              Login
-            </button>
+            <div className="w-fit m-auto">
+              <button
+                type="submit"
+                className="text-white font-semibold m-auto w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-2 px-6 rounded-md"
+              >
+                Login
+              </button>
+            </div>
           </form>
         </div>
       </div>

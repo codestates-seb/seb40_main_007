@@ -84,12 +84,15 @@ export default function SignUpPage() {
                 "비밀번호를 입력해주세요"}
               {errors.password?.type === "pattern" && errors.password.message}
             </p>
-            <button
-              type="submit"
-              className="text-white font-semibold m-auto w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 px-6 mb-2 rounded-md"
-            >
-              SignUp
-            </button>
+
+            <div className="w-fit m-auto">
+              <button
+                type="submit"
+                className="text-white font-semibold m-auto w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 px-6 mb-2 rounded-md"
+              >
+                SignUp
+              </button>
+            </div>
           </form>
         </div>
       </div>
