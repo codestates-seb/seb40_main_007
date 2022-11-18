@@ -24,6 +24,10 @@ spring:
           auth: true
           starttls:
             enable: true
+  servlet:
+    multipart:
+      maxFileSize: 50MB
+      maxRequestSize: 50MB
   security:
     oauth2:
       client:

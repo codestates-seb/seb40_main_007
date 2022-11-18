@@ -79,6 +79,14 @@ public class MemberDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
+    public static class Password {
+        private String password;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Info {
         private int totalBoard;
         private int totalComment;

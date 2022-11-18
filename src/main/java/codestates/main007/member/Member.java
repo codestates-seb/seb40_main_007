@@ -47,17 +47,19 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private final List<BoardMember> boardMembers = new ArrayList<>();
 
-    public void patchMember(String name, String avatar, String password, PasswordEncoder passwordEncoder) {
+    public void patchMember(String name, String password, PasswordEncoder passwordEncoder) {
         if (name != null) {
             this.name = name;
-        }
-        if (avatar != null) {
-            this.avatar = avatar;
         }
         if (password != null) {
             this.password = passwordEncoder.encode(password);
         }
     }
+
+    public void patchAvatar(String avatarUrl){
+        this.avatar = avatarUrl;
+    }
+
     public void setUserDetails(long memberId, String email, String password){
         this.memberId = memberId;
         this.email = email;
