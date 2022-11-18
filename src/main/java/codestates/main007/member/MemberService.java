@@ -3,12 +3,10 @@ package codestates.main007.member;
 
 import codestates.main007.auth.jwt.JwtTokenizer;
 import codestates.main007.auth.util.CustomAuthorityUtils;
-import codestates.main007.boardMember.BoardMember;
-import codestates.main007.boardMember.BoardMemberRepository;
-import codestates.main007.exception.BusinessLogicException;
-import codestates.main007.exception.ExceptionCode;
 import codestates.main007.board.Board;
 import codestates.main007.board.BoardRepository;
+import codestates.main007.boardMember.BoardMember;
+import codestates.main007.boardMember.BoardMemberRepository;
 import codestates.main007.comments.Comment;
 import codestates.main007.comments.CommentRepository;
 import codestates.main007.exception.BusinessLogicException;
@@ -40,7 +38,6 @@ public class MemberService {
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
     private final BoardMemberRepository boardMemberRepository;
-    private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
     private final RandomNamingService namingService;
     private final RandomAvatarService avatarService;
@@ -49,7 +46,7 @@ public class MemberService {
 
     public Member save(MemberDto.Signup signupDto) {
         verifyExistEmail(signupDto.getEmail());
-        String encryptedPassword = passwordEncoder.encode(signupDto.getPassword());
+        String encryptedPassword = passwordEncoder().encode(signupDto.getPassword());
         List<String> roles = authorityUtils.createRoles(signupDto.getEmail());
 
         Member createdMember = Member.builder()
@@ -74,7 +71,7 @@ public class MemberService {
 
     public void update(String accessToken, MemberDto.Patch patchDto) {
         Member member = findByAccessToken(accessToken);
-        member.patchMember(patchDto.getName(), patchDto.getAvatar(), patchDto.getPassword(), passwordEncoder);
+        member.patchMember(patchDto.getName(), patchDto.getAvatar(), patchDto.getPassword(), passwordEncoder());
         memberRepository.save(member);
     }
 
@@ -109,7 +106,7 @@ public class MemberService {
 
         String password = randomPasswordService.genPassword();
 
-        member.resetPassword(passwordEncoder.encode(password));
+        member.resetPassword(passwordEncoder().encode(password));
         memberRepository.save(member);
 
         return password;
@@ -119,7 +116,7 @@ public class MemberService {
     public void verifyPassword(String accessToken, String password) {
         Member member = findByAccessToken(accessToken);
 
-        if (!passwordEncoder.matches(password, member.getPassword())) {
+        if (!passwordEncoder().matches(password, member.getPassword())) {
             throw new Exception("비밀번호가 다릅니다.");
         }
     }
@@ -211,5 +208,5 @@ public class MemberService {
 
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    } //이부분 서비스로 옮기기 하루에 90분
+    }
 }
