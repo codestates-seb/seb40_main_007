@@ -3,10 +3,10 @@ import { IoMdPin } from "react-icons/io";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { trainStationState } from "../../atoms/postInfo";
+import { postTrainStationState } from "../../atoms/postFilter";
 
 export default function PostTrainStationSelect() {
-  const [trainStation, setTrainStation] = useRecoilState(trainStationState);
+  const [trainStation, setTrainStation] = useRecoilState(postTrainStationState);
   const [showModal, setShowModal] = useState(false);
   let BASE_URL = "post";
 

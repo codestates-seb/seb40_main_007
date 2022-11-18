@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { TiPencil } from "react-icons/ti";
 import { Link, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { trainStationState, categoriesState } from "../atoms/postInfo";
+import { postTrainStationState, postCategoryState } from "../atoms/postFilter";
 
 const WriteModal = () => {
   const [showModal, setShowModal] = useState(false);
-  const [trainStation, setTrainStation] = useRecoilState(trainStationState);
-  const [categories, setCategories] = useRecoilState(categoriesState);
+  const [trainStation, setTrainStation] = useRecoilState(postTrainStationState);
+  const [categories, setCategories] = useRecoilState(postCategoryState);
 
   const { id } = useParams();
   useEffect(() => {

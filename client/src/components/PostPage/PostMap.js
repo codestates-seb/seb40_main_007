@@ -177,7 +177,7 @@ export default function PostMap() {
           <div className=" text-white bg-[rgba(0,0,0,0.2)] text-right">
             Lat:{oneMarker.lat}/ Lng:{oneMarker.lng}
           </div>
-          <div className="absolute top-16 left-6 z-10 bg-[rgba(256,256,256,0.7)] h-[200px] lg:h-[400px] overflow-scroll p-2">
+          <div className="absolute top-16 left-6 z-10 bg-[rgba(256,256,256,0.7)] w-1/4 h-[200px] lg:h-[400px] overflow-scroll p-2">
             {markers.length === 1 ? (
               <div className="border-2 p-2 border-[rgb(83,199,240)] w-full rounded-md mb-1">
                 <div className="text-base font-semibold text-[rgb(73,177,214)]">

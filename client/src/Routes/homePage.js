@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 import TrainStationCard from "../components/TrainStationCard";
 import Footer from "../components/Footer";
+import HomeMap from "../components/homePage/HomeMap";
 
 export default function homePage() {
   return (
@@ -31,18 +32,7 @@ export default function homePage() {
               경부선
             </div>
             <div className="flex justify-end">
-              <div className="relative">
-                <img
-                  src="images/역이요노선/역이요_지도.png"
-                  alt="지도"
-                  className=""
-                />
-                <img
-                  src="images/역이요노선/역이요_노선.png"
-                  alt="노선"
-                  className="z-10 absolute top-[156px] right-6 w-3/5"
-                />
-              </div>
+              <HomeMap />
             </div>
           </div>
         </div>

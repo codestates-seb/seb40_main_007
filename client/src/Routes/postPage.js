@@ -6,8 +6,6 @@ import PostMap from "../components/PostPage/PostMap";
 import ImageUpload from "../components/ImageUpload";
 import PostCategoryTabs from "../components/PostPage/PostCategoriTabs";
 import PostRelatedTab from "../components/PostPage/PostRelatedTab";
-// import PostRelatedAtmasTab from "../components/PostPage/postRelatedAtmasTab";
-// import PostRelatedPriceTab from "../components/PostPage/postRelatedPriceTab";
 import Footer from "../components/Footer";
 import ListTag from "../components/tag/ListTag";
 
