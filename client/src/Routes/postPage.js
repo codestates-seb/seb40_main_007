@@ -2,7 +2,7 @@ import Header from "../components/Header";
 import PostTrainStationSelect from "../components/PostPage/PostTrainStationSelect";
 import StartRating from "../components/StarRating";
 import OnlineInput from "../components/OneLineInput";
-import PostMap from "../components/PostPage/postTestMap";
+import PostMap from "../components/PostPage/PostMap";
 import ImageUpload from "../components/ImageUpload";
 import PostCategoryTabs from "../components/PostPage/PostCategoriTabs";
 import PostRelatedTab from "../components/PostPage/PostRelatedTab";
@@ -15,11 +15,11 @@ export default function PostPage() {
   return (
     <>
       <Header />
-      <div className="pb-32 max-w-5xl m-auto">
-        <div className="pt-24">
+      <div className="pb-30 max-w-5xl m-auto">
+        <div className="pt-20">
           <PostTrainStationSelect />
         </div>
-        <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 text-18 text-[rgb(83,199,240)] mt-14">
+        <div className="mb-10 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 text-18 text-[rgb(83,199,240)] mt-10">
           위치 등록
         </div>
         <PostMap />

@@ -188,7 +188,7 @@ export default function PostTestMap() {
           ) : (
             markers.map((marker) => (
               <div
-                className="border-4 p-2 border-blue-400 w-fit"
+                className="border-4 p-2 border-blue-400 w-fit scrollbar-hide"
                 onClick={() => {
                   setOneMarker(marker.position);
                   setMarkers([marker]);
