@@ -60,7 +60,7 @@ export default function LoginPage({ setLogin }) {
             <input
               id="email"
               type="email"
-              placeholder="Email"
+              placeholder="test@test.com"
               {...register("email", {
                 required: true,
                 pattern: {
@@ -82,7 +82,7 @@ export default function LoginPage({ setLogin }) {
             <input
               id="password"
               type="password"
-              placeholder="Password"
+              placeholder="abcd@1234"
               {...register("password", {
                 required: true,
                 pattern: {
