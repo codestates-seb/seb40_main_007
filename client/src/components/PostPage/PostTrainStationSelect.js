@@ -3,7 +3,7 @@ import { IoMdPin } from "react-icons/io";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { postTrainStationState } from "../../atoms/postFilter";
+import { postTrainStationState } from "../../atoms/postInfo";
 
 export default function PostTrainStationSelect() {
   const [trainStation, setTrainStation] = useRecoilState(postTrainStationState);

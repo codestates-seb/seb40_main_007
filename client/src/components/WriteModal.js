@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { TiPencil } from "react-icons/ti";
 import { Link, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { postTrainStationState, postCategoryState } from "../atoms/postFilter";
+import { postTrainStationState, postCategoryState } from "../atoms/postInfo";
 
 const WriteModal = () => {
   const [showModal, setShowModal] = useState(false);

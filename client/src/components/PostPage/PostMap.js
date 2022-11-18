@@ -50,8 +50,8 @@ export default function PostMap() {
     };
   }, []);
 
+  // 맵 검색
   const onKeywordChange = (e) => {
-    // 맵 검색
     setKeyword(e.target.value);
   };
 
@@ -114,7 +114,7 @@ export default function PostMap() {
             검색
           </button>
         </div>
-        <Map // 로드뷰를 표시할 Container
+        <Map // 맵 표시할 Container
           center={{
             lat: 37.51587012479348,
             lng: 126.90777569282984,
@@ -131,15 +131,15 @@ export default function PostMap() {
             }
           }}
         >
+          {/* 마커들의 정보, 마커가 1개일 경우와 여러개일 경우로 나뉜다 */}
           {markers.length === 1 ? (
             <MapMarker
               position={oneMarker}
               image={{
-                src: "/images/marker.png", // 마커이미지의 주소입니다
+                src: "/images/marker.png",
                 size: markerSize,
               }}
               draggable={true}
-              // onClick={getPosition}
               onDragStart={() => {
                 setMarkerSize({
                   width: 110,
@@ -173,7 +173,7 @@ export default function PostMap() {
               </MapMarker>
             ))
           )}
-
+          {/* 지도 위에 띄우는 마커 정보 */}
           <div className=" text-white bg-[rgba(0,0,0,0.2)] text-right">
             Lat:{oneMarker.lat}/ Lng:{oneMarker.lng}
           </div>
@@ -223,6 +223,7 @@ export default function PostMap() {
           </div>
         </Map>
       </div>
+
       <div className="text-sm font-semibold text-gray-400 mt-5 mb-1 text-right">
         <div>
           <img
@@ -247,7 +248,7 @@ export default function PostMap() {
           alt="marker"
           className="w-10 h-10 inline mr-1"
         />
-
+        {/* 장소명 상세 작성 */}
         <input
           className="w-full p-2 z-10 bg-[rgba(0,0,0,0)]"
           value={title}

@@ -1,5 +1,5 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import { postCategoryState, postRelatedState } from "../../atoms/postFilter";
+import { postCategoryState, postRelatedState } from "../../atoms/postInfo";
 
 const PostRelatedTab = () => {
   const [related, setRelated] = useRecoilState(postRelatedState);

@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { postCategoryState } from "../../atoms/postFilter";
+import { postCategoryState } from "../../atoms/postInfo";
 
 export default function PostCategoryTabs() {
   const [category, setCategory] = useRecoilState(postCategoryState);
