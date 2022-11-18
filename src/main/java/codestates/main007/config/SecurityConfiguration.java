@@ -39,10 +39,6 @@ import static org.springframework.http.HttpMethod.POST;
 
 @Configuration
 public class SecurityConfiguration {
-//    @Value("${spring.security.oauth2.client.registration.kakao.clientId}")
-//    private String kakaoClientId;
-//    @Value("${spring.security.oauth2.client.registration.kakao.clientSecret}")
-//    private String kakaoClientSecret;
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
     private final MemberService memberService;
@@ -83,9 +79,9 @@ public class SecurityConfiguration {
                                                                      @Value("${spring.security.oauth2.client.registration.google.clientId}") String googleClientId,
                                                                      @Value("${spring.security.oauth2.client.registration.google.clientSecret}") String googleClientSecret,
                                                                      @Value("${spring.security.oauth2.client.registration.naver.clientId}") String naverClientId,
-                                                                     @Value("${spring.security.oauth2.client.registration.naver.clientSecret}") String naverClientSecret
-                                                                     //String kakaoClientId,
-                                                                     //String kakaoClientSecret
+                                                                     @Value("${spring.security.oauth2.client.registration.naver.clientSecret}") String naverClientSecret,
+                                                                     @Value("${spring.security.oauth2.client.registration.kakao.clientId}") String kakaoClientId,
+                                                                     @Value("${spring.security.oauth2.client.registration.kakao.clientSecret}") String kakaoClientSecret
     ) {
         List<ClientRegistration> registrations = oAuth2ClientProperties
                 .getRegistration().keySet().stream()
@@ -98,11 +94,11 @@ public class SecurityConfiguration {
                 .clientSecret(naverClientSecret)
                 .jwkSetUri("temp")
                 .build());
-//        registrations.add(YeogiyoOAuth2Provider.KAKAO.getBuilder("kakao")
-//                .clientId(kakaoClientId)
-//                .clientSecret(kakaoClientSecret)
-//                .jwkSetUri("temp")
-//                .build());
+        registrations.add(YeogiyoOAuth2Provider.KAKAO.getBuilder("kakao")
+                .clientId(kakaoClientId)
+                .clientSecret(kakaoClientSecret)
+                .jwkSetUri("temp")
+                .build());
 
         return new InMemoryClientRegistrationRepository(registrations);
     }
