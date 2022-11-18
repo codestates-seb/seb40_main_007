@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @RestController
@@ -44,7 +45,7 @@ public class MemberController {
 
     @PostMapping("/find-password")
     @ResponseStatus(HttpStatus.OK)
-    public void findPassword(@RequestBody MemberDto.Email email) {
+    public void findPassword(@RequestBody MemberDto.Email email) throws MessagingException {
         String password = memberService.findPassword(email.getAddress());
 
         emailService.findPassword(email.getAddress(), password);
