@@ -1,6 +1,7 @@
 package codestates.main007.boardImage;
 
 import codestates.main007.board.Board;
+import codestates.main007.member.Member;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -86,5 +87,42 @@ public class ImageHandler {
             }
         }
         return images;
+    }
+
+    public String updateAvatar(MultipartFile image, Member member) throws IOException {
+        // 절대 경로 설정
+        // todo: 나중에 s3로 변경
+        String absolutePath = new File("").getAbsolutePath() + "\\";
+        // 저장 경로 설정
+        String path = "images/" + "avatar";
+        File file = new File(path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+        String contentType = image.getContentType();
+        String originalFileExtension = ".jpg";
+        // 확장자 명이 없으면 잘못된 파일이므로 중지
+
+        if (contentType.contains("image/jpeg")) {
+            originalFileExtension = ".jpg";
+        } else if (contentType.contains("image/jpg")) {
+            originalFileExtension = ".jpg";
+        } else if (contentType.contains("image/png")) {
+            originalFileExtension = ".png";
+        } else if (contentType.contains("image/gif")) {
+            originalFileExtension = ".gif";
+        } else if (contentType.contains("image/heic")) {
+            originalFileExtension = ".heic";
+        }
+        // 현재 시간 + 확장자
+        String newFileName = "avatar_of_"+member.getMemberId() + originalFileExtension;
+
+        // 저장된 파일로 변경하여 이를 보여주기
+        file = new File(absolutePath + path + "/" + newFileName);
+        image.transferTo(file);
+
+        //todo: 배포후 변경
+        return "s3에 저장된 이미지 주소";
     }
 }

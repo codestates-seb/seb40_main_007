@@ -13,7 +13,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -153,10 +155,19 @@ public class MemberController {
     @PatchMapping
     @ResponseStatus(HttpStatus.OK)
     public void patchMyInfo(@RequestHeader(name = "Authorization") String accessToken,
-                            @RequestBody MemberDto.Patch patchDto) {
+                            @RequestBody MemberDto.Patch patchDto) throws IOException {
 
         memberService.update(accessToken, patchDto);
     }
+
+    @PatchMapping("/avatar")
+    @ResponseStatus(HttpStatus.OK)
+    public void patchMyAvatar(@RequestHeader(name = "Authorization") String accessToken,
+                            @RequestPart("file") MultipartFile image) throws IOException {
+
+        memberService.updateAvatar(accessToken,image);
+    }
+
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void withdrawal(@RequestHeader(name = "Authorization") String accessToken,
