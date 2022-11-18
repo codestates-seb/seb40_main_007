@@ -1,8 +1,8 @@
 package codestates.main007.member;
 
 
-import codestates.main007.auth.jwt.JwtTokenizer;
 import codestates.main007.auth.util.CustomAuthorityUtils;
+import codestates.main007.boardImage.ImageHandler;
 import codestates.main007.boardMember.BoardMember;
 import codestates.main007.boardMember.BoardMemberRepository;
 import codestates.main007.exception.BusinessLogicException;
@@ -23,8 +23,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +44,7 @@ public class MemberService {
     private final RandomNamingService namingService;
     private final RandomAvatarService avatarService;
     private final RandomPasswordService randomPasswordService;
-    private final JwtTokenizer jwtTokenizer;
+    private final ImageHandler imageHandler;
 
     public Member save(MemberDto.Signup signupDto) {
         verifyExistEmail(signupDto.getEmail());
@@ -62,7 +64,17 @@ public class MemberService {
 
     public void update(String accessToken, MemberDto.Patch patchDto) {
         Member member = findByAccessToken(accessToken);
-        member.patchMember(patchDto.getName(), patchDto.getAvatar(), patchDto.getPassword(), passwordEncoder);
+
+        member.patchMember(patchDto.getName(), patchDto.getPassword(), passwordEncoder);
+        memberRepository.save(member);
+    }
+
+    public void updateAvatar(String accessToken,MultipartFile image) throws IOException {
+        Member member = findByAccessToken(accessToken);
+        String avatarUrl = imageHandler.updateAvatar(image, member);
+
+        member.patchAvatar(avatarUrl);
+
         memberRepository.save(member);
     }
 
@@ -204,4 +216,11 @@ public class MemberService {
 //        return boardRepository.findByStationIdAndWriter(stationId, member,
 //                PageRequest.of(page, size, sort));
 //    }
+
+    public void deleteMember(String accessToken, String password){
+        verifyPassword(accessToken, password);
+        Member member = findByAccessToken(accessToken);
+
+        memberRepository.delete(member);
+    }
 }
