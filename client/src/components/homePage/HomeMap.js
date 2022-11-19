@@ -68,7 +68,7 @@ export default function HomeMap() {
           </div>
         )}
       </div>
-      <Map level={12} center={isCenter} style={style}>
+      <Map level={14} center={isCenter} style={style}>
         {trainMarkers.map((trainMarker) => (
           <MapMarker
             key={trainMarker.id}
