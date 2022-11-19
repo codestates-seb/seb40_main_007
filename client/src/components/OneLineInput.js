@@ -1,10 +1,7 @@
 export default function OneLineInput() {
   return (
     <div className="text-[rgb(83,199,240)] max-w-6xl">
-      <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 text-18">
-        한줄평
-      </div>
-      <div className="max-w-4xl m-auto mt-10">
+      <div className="max-w-4xl m-auto">
         <img src="/images/open_quote.png" alt="openQuote" />
         <div className="flex justify-center">
           <input

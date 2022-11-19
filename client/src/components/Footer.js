@@ -12,7 +12,7 @@ export default function footer() {
             <li className="text-base font-bold mb-3">INTRO</li>
             <li>
               <img
-                src="images/notfound_icon_w.png"
+                src="/images/notfound_icon_w.png"
                 alt="footerlogo"
                 className="w-10 inline my-3"
               />
