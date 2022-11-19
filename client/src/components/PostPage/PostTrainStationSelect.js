@@ -27,11 +27,11 @@ export default function PostTrainStationSelect() {
     16: "신경주역",
     17: "포항역",
   };
-  const trainList = useRecoilValue(trainInfo);
+  const trainStationInfo = useRecoilValue(trainInfo);
   const [trainStation, setTrainStation] = useRecoilState(postTrainStationState);
   const [trainName, setTrainName] = useState(trainId[trainStation]);
   const [showModal, setShowModal] = useState(false);
-  console.log(trainStation);
+  console.log("trainStation", trainStation);
   return (
     <>
       <button
@@ -59,7 +59,7 @@ export default function PostTrainStationSelect() {
                   </button>
                 </div>
                 <div className="px-3 pb-3 relative grid grid-cols-5 gap-4">
-                  {trainList.map((el) => {
+                  {trainStationInfo.map((el) => {
                     return (
                       <Link
                         to={`/post/${el.id}`}

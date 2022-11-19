@@ -1,7 +1,8 @@
 import { atom } from "recoil";
+import { v1 } from "uuid";
 
 export const trainInfo = atom({
-  key: "trainInfo",
+  key: `trainInfo/${v1()}`,
   default: [
     {
       id: 1,
@@ -144,3 +145,4 @@ export const trainInfo = atom({
 
 // import { useRecoilValue } from "recoil";
 // import { trainInfo } from "../atoms/trainInfo";
+// const trainStationInfo = useRecoilValue(trainInfo);

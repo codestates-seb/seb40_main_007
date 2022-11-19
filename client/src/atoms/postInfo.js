@@ -3,8 +3,9 @@ import { v1 } from "uuid";
 
 export const postTrainStationState = atom({
   key: `trainStation/${v1()}`,
-  default: 0,
+  default: "몰러",
 });
+//  const [trainStation, setTrainStation] = useRecoilState(postTrainStationState);
 
 export const postAdressState = atom({
   key: `adress/${v1()}`,
