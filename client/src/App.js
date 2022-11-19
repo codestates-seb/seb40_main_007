@@ -9,16 +9,17 @@ import HomePage from "./Routes/homePage";
 import Loading from "./components/Loading";
 import ImageUpload from "./components/ImageUpload";
 import MainPage from "./Routes/mainPage";
+import EditPage from "./Routes/editPage";
+import PostPage from "./Routes/postPage";
+import DetailPage from "./Routes/detailPage";
+import PostTestMap from "./components/PostPage/postTestMap";
+// myPages
 import MyProfilePage from "./Routes/myPages/myProfilePage";
 import EditMyInfoPage from "./Routes/myPages/editMyInfoPage";
 import EditPasswordPage from "./Routes/myPages/editPasswordPage";
-import MyCommentPage from "./Routes/myCommentPage";
-import EditPage from "./Routes/editPage";
-import PostPage from "./Routes/postPage";
-import MyLikePostPage from "./Routes/myLikePostPage";
-import MyPostPage from "./Routes/myPostPage";
-import DetailPage from "./Routes/detailPage";
-import PostTestMap from "./components/PostPage/postTestMap";
+import MyCommentPage from "./Routes/myPages/myCommentPage";
+import MyPostPage from "./Routes/myPages/myPostPage";
+import MyLikePostPage from "./Routes/myPages/myLikePostPage";
 
 // 로그인 테스트용입니다.
 import { useRecoilState } from "recoil";
