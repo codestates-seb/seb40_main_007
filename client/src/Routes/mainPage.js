@@ -4,7 +4,7 @@ import MainMap from "../components/MainPage/MainMap";
 import PostList from "../components/MainPage/Posts/PostList";
 import RelatedTab from "../components/MainPage/RelatedTab";
 import MainHeader from "../components/MainPage/MainHeader";
-import WriteModal from "../components/WriteModal";
+import WriteModal from "../components/modals/WriteModal";
 
 const MainPage = () => {
   return (

@@ -1,4 +1,3 @@
-/*eslint-disable */
 import { useState } from "react";
 import { IoMdPin } from "react-icons/io";
 import { AiOutlineCloseCircle } from "react-icons/ai";
@@ -49,6 +48,7 @@ export default function TrainStationSelect() {
                           setShowModal(false);
                           setTrainStation(el.train);
                         }}
+                        key={el.id}
                       >
                         <div>
                           <img

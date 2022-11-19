@@ -1,47 +1,48 @@
 import { atom } from "recoil";
+import { v1 } from "uuid";
 
 export const postTrainStationState = atom({
-  key: "trainStation",
-  default: "기차역",
+  key: `trainStation/${v1()}`,
+  default: 0,
 });
 
 export const postAdressState = atom({
-  key: "adress",
+  key: `adress/${v1()}`,
   default: "주소기본",
 });
 
 export const postTitleState = atom({
-  key: "trainStation",
+  key: `title/${v1()}`,
   default: "제목기본",
 });
 
 export const postCategoryState = atom({
-  key: "postCategory",
-  default: "식당기본",
+  key: `postCategory/${v1()}`,
+  default: "",
 });
 
 export const postRelatedState = atom({
-  key: "postRelated",
+  key: `postRelated/${v1()}`,
   default: "관련태그기본",
 });
 
 export const postRelatedAtmasState = atom({
-  key: "postAtmos",
+  key: `postAtmos/${v1()}`,
   default: "분위기기본",
 });
 
 export const postRelatedPriceState = atom({
-  key: "postPrice",
+  key: `postPrice/${v1()}`,
   default: "가격기본",
 });
 
 export const postStarState = atom({
-  key: "postStar",
-  default: "가격기본",
+  key: `postStar/${v1()}`,
+  default: "별기본",
 });
 
 export const postCommentState = atom({
-  key: "postComment",
+  key: `postComment/${v1()}`,
   default: "리뷰기본",
 });
 

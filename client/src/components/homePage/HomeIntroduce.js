@@ -39,7 +39,7 @@ export default function HomeIntroduce() {
               </div>
               <Animator animation={Fade()}>
                 <img
-                  src="images/역이요소개/phone.png"
+                  src="/images/역이요소개/phone.png"
                   alt="phone"
                   className="mr-24 w-72"
                 />
@@ -52,13 +52,13 @@ export default function HomeIntroduce() {
           <div className="w-full h-screen relative pt-10">
             <div className="max-w-6xl h-screen flex justify-between items-center font-bold m-auto z-10">
               <img
-                src="images/logo.png"
+                src="/images/logo.png"
                 alt="logo"
                 className="absolute left-0 ml-0 w-1/3 top-4"
               />
 
               <img
-                src="images/역이요소개/phone.png"
+                src="/images/역이요소개/phone.png"
                 alt="phone"
                 className="z-10 w-80"
               />
@@ -86,7 +86,7 @@ export default function HomeIntroduce() {
           <div className="max-w-6xl h-screen flex items-center justify-end font-bold m-auto">
             <Animator animation={(Fade(), MoveIn(0, 360))}>
               <img
-                src="images/역이요소개/phone.png"
+                src="/images/역이요소개/phone.png"
                 alt="phone"
                 className="w-72"
               />
