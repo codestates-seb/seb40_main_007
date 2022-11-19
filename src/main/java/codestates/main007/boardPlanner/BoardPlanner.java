@@ -25,5 +25,5 @@ public class BoardPlanner {
 
     @ManyToOne
     @JoinColumn(name = "planner_id")
-    private Planner plannerr;
+    private Planner planner;
 }
