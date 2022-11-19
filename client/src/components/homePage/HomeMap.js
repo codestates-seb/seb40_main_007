@@ -130,6 +130,7 @@ export default function HomeMap() {
   ];
   const [isVisible, setIsVisible] = useState(false);
   const [isMarker, setIsMarker] = useState("");
+  const [isCenter, setIsCenter] = useState({ lat: 36.6, lng: 127.7 });
 
   console.log(isMarker);
 
@@ -184,15 +185,16 @@ export default function HomeMap() {
           </div>
         )}
       </div>
-      <Map level={12} center={{ lat: 36.6, lng: 127.7 }} style={style}>
+      <Map level={12} center={isCenter} style={style}>
         {trainMarkers.map((trainMarker) => (
           <MapMarker
             key={trainMarker.id}
             position={trainMarker.position}
             // image={{ src: "/images/dot.png", size: { width: 25, height: 25 } }}
-            onClick={(marker) => {
-              marker.panTo(marker.getPosition());
-              setIsMarker(trainMarker);
+            onClick={() => {
+              // marker.panTo(marker.getPosition());
+              // setIsMarker(trainMarker);
+              setIsCenter(trainMarker.position);
             }}
             onMouseOver={() => {
               setIsVisible(true);
