@@ -18,7 +18,7 @@ export default function Heart() {
     }
   };
 
-  console.log(wishCount);
+  // console.log(wishCount);
   //콘솔 찍으면 0인지 1인지 나옵니다 0은 빈하트 1은 채워진 하트
   return (
     <>

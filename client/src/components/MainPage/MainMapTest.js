@@ -1,21 +1,79 @@
-import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { Map, CustomOverlayMap } from "react-kakao-maps-sdk";
+import MapItem from "../MapItems/MapItem";
+import {
+  mapImgClickEvent,
+  mapImgHoverEvent,
+  mapCenterMoveEvent,
+  postImgHoverEvent,
+} from "../../atoms/mapImage";
+import { postDummyState } from "../../atoms/dummyData";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { useEffect } from "react";
 
 const MainMapTest = () => {
+  const [mapImgClickId] = useRecoilState(mapImgClickEvent);
+  const [mapImgHoverId, setMapImgHoverId] = useRecoilState(mapImgHoverEvent);
+  const [, setPostImgHoverId] = useRecoilState(postImgHoverEvent);
+
+  const [...testData] = useRecoilValue(postDummyState);
+  const [...mapCenter] = useRecoilValue(mapCenterMoveEvent);
+
+  useEffect(() => {
+    setPostImgHoverId(null);
+  }, [mapImgClickId]);
+  const handelZIndex = (boardId) => {
+    if (boardId === mapImgHoverId) {
+      return 2;
+    } else if (boardId === mapImgClickId) {
+      return 1;
+    }
+    return -1;
+  };
   return (
-    <div className="w-full h-full flex justify-center p-2 mt-14">
-      {/* <Map
-        center={{ lat: 37.558090961074825, lng: 126.99847210567884 }}
-        style={{ width: "100%", height: "100%" }}
-      ></Map> */}
-      <Map
-        center={{ lat: 33.5563, lng: 126.79581 }}
-        style={{ width: "100%", height: "360px" }}
+    <>
+      <Map // 지도를 표시할 Container
+        center={
+          mapCenter.length !== 0
+            ? { lat: mapCenter[0].lat, lng: mapCenter[0].lng }
+            : {
+                // 지도의 중심좌표
+                lat: 35.1151146795779,
+                lng: 129.0414138363353,
+              }
+        }
+        style={{
+          // 지도의 크기
+          width: "90%",
+          height: "600px",
+        }}
+        level={5} // 지도의 확대 레벨
       >
-        <MapMarker position={{ lat: 33.55635, lng: 126.795841 }}>
-          <div style={{ color: "#000" }}>Hello World!</div>
-        </MapMarker>
+        {testData.map((data, index) => (
+          // 커스텀 오버레이를 표시할 Container
+          <CustomOverlayMap
+            key={index}
+            // 커스텀 오버레이가 표시될 위치입니다
+            position={{ lat: data.latitude, lng: data.longitude }}
+            // 커스텀 오버레이가에 대한 확장 옵션 x,y 좌표 이동.
+            xAnchor={mapImgClickId === data.boardId ? 0.05 : 0.1}
+            yAnchor={mapImgClickId === data.boardId ? 1.0 : 0.91}
+            // zIndex : z-index
+            zIndex={handelZIndex(data.boardId)}
+          >
+            <div
+              onMouseEnter={() => setMapImgHoverId(data.boardId)}
+              onMouseLeave={() => setMapImgHoverId(null)}
+            >
+              <MapItem
+                thumbnail={data.thumbnail}
+                boardId={data.boardId}
+                coordinate={{ lat: data.latitude, lng: data.longitude }}
+              />
+            </div>
+          </CustomOverlayMap>
+        ))}
       </Map>
-    </div>
+    </>
   );
 };
 
