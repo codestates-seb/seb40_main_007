@@ -14,7 +14,7 @@ const StarRating = () => {
 
   return (
     <>
-      <div className="max-w-80 h-60 justify-center align-middle">
+      <div className="max-w-80 h-44 justify-center align-middle ">
         <div className="flex justify-center">
           {[1, 2, 3, 4, 5].map((num) => {
             return (
@@ -31,7 +31,7 @@ const StarRating = () => {
             );
           })}
         </div>
-        <div className="mt-20">
+        <div className="mt-16">
           {[1, 2, 3, 4, 5].map((num) => {
             return (
               <button
@@ -48,8 +48,8 @@ const StarRating = () => {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="60"
-                  height="60"
+                  width="90"
+                  height="90"
                   viewBox="0 0 14 14"
                 >
                   <path

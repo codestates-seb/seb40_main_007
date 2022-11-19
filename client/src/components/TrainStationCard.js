@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function TrainStationCard() {
   return (
-    <div className="max-w-5xl pt-1">
+    <div className="w-[1400px] pt-1">
       <div className="w-full grid grid-cols-4 gap-1">
         <Link to="/main/행신역">
           <div className="relative flex justify-center items-center">
