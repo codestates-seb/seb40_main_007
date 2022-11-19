@@ -1,6 +1,6 @@
-import Header from "../components/Header";
-import MyPageTab from "../components/MyPageTab";
-import PostList from "../components/MainPage/Posts/PostList";
+import Header from "../../components/Header";
+import MyPageTab from "../../components/MyPageTab";
+import PostList from "../../components/MainPage/Posts/PostList";
 const MyLikePostPage = () => {
   return (
     <>

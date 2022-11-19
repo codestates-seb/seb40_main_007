@@ -1,7 +1,7 @@
-import Header from "../components/Header";
-import MyPageTab from "../components/MyPageTab";
+import Header from "../../components/Header";
+import MyPageTab from "../../components/MyPageTab";
 // import MyCommentList from "../components/mycomment/MyCommentList";
-import TestInfinitiScroll from "../components/TestInfinitiScroll";
+import TestInfinitiScroll from "../../components/TestInfinitiScroll";
 
 const MyCommentPage = () => {
   return (
