@@ -9,7 +9,7 @@ function Loading() {
           alt="loading"
         />
       </div>
-      {/* 2 */}
+      {/*
       <div className="w-full h-20 animate-goTrain ">
         <img
           className="w-20 h-20"
@@ -19,7 +19,6 @@ function Loading() {
       </div>
       <div className="w-full h-2 -m-5 p-4 border-t-2 border-black"></div>
 
-      {/* 3 */}
       <div className="flex justify-center align-bottom ">
         <div className="w-[140px] h-14 absolute bg-white overflow-hidden border-b-4 border-gray-500">
           <img
@@ -35,7 +34,7 @@ function Loading() {
         />
         <div className="w-[140px] mt-5 absolute border-b-[1px] animate-bigBounce border-blue-900 opacity-30"></div>
       </div>
-      <div className="w-36 h-2 p-4"></div>
+  <div className="w-36 h-2 p-4"></div>*/}
     </>
   );
 }

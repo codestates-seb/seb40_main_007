@@ -4,7 +4,7 @@ import PostList from "../../components/MainPage/Posts/PostList";
 import MyPostTab from "../../components/MyPostTab";
 import { useState } from "react";
 // import MainMap from "../components/MainPage/MainMap";
-import MainMapTest from "../../components/MainPage/MainMapTest";
+import MainMapTest from "../../components/MainPage/TestMainMap";
 
 const MyPostPage = () => {
   const [index, setIndex] = useState("게시글");
