@@ -183,7 +183,6 @@ export default function PostMap() {
   const [keyword, setKeyword] = useState(trainStationInfo[id].train);
   const [center, setCenter] = useState(trainStationInfo[id].position);
   // 초기값 Recoil에 저장, 키워드 검색 렌더링
-  console.log(trainStationInfo[0].adress);
   useEffect(() => {
     setTrainStation(id); // 기차역id
     setPositionState(trainStationInfo[id].position); //위도경도
@@ -194,7 +193,7 @@ export default function PostMap() {
     setCenter(trainStationInfo[id].position);
     onKeywordSubmit(); //초기화면 렌더링
   }, [trainStation]);
-  ///////////////////////////////////////////////////////////////////////
+
   console.log(
     "id",
     trainStation,
@@ -229,7 +228,7 @@ export default function PostMap() {
     setPositionState({ lat: position.Ma, lng: position.La }); //위도경도 초기화
   };
 
-  const [map, setMap] = useState(); // 맵 렌더링
+  const [map, setMap] = useState(); // 맵 키워드에 따라 렌더링
   const [style, setStyle] = useState({ width: "100%", height: "500px" });
   const windowResize = () => {
     // 맵 스타일 변경
@@ -250,11 +249,11 @@ export default function PostMap() {
     };
   }, []);
 
-  // 맵 검색
+  //키워드 input
   const onKeywordChange = (e) => {
     setKeyword(e.target.value);
   };
-
+  // 맵 검색
   const onKeywordSubmit = () => {
     if (!map) return;
     const ps = new kakao.maps.services.Places();
@@ -286,7 +285,7 @@ export default function PostMap() {
       }
     });
   };
-
+  // title 변경(세부정보)
   const handleTitleChange = (e) => {
     setTitleState(e.target.value); // 제목명
   };
@@ -324,6 +323,11 @@ export default function PostMap() {
                 lat: mouseEvent.latLng.getLat(),
                 lng: mouseEvent.latLng.getLng(),
               });
+              setPositionState({
+                lat: mouseEvent.latLng.getLat(),
+                lng: mouseEvent.latLng.getLng(),
+              }); //위도경도
+              setAdressState(markers.adress); // 주소값
             }
           }}
         >
@@ -393,6 +397,7 @@ export default function PostMap() {
                     setAdressState(marker.adress); // 주소값
                     setTitleState(`${marker.place_name}(${marker.adress})`);
                   }}
+                  key={`marker-${marker.place_name}`}
                 >
                   <div className="text-base font-semibold text-[rgb(73,177,214)]">
                     <img
@@ -411,14 +416,14 @@ export default function PostMap() {
         </Map>
       </div>
 
-      <div className="text-sm font-semibold text-gray-400 mt-5 mb-1 text-right">
+      <div className="text-xs font-semibold text-gray-400 mt-5 mb-1 text-right">
         <div>
           <img
             src="/images/marker.png"
             alt="marker"
             className="w-7 h-8 inline mr-1"
           />
-          마커를 움직여 보다 정확한 위치를 알려주세요!
+          마커로 보다 정확한 위치를 표시해 보세요!
         </div>
       </div>
 
@@ -426,8 +431,8 @@ export default function PostMap() {
       <div className="mb-2 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 text-18 text-[rgb(83,199,240)] mt-10">
         장소명
       </div>
-      <div className="text-sm text-gray-500  mt-5">
-        {trainName} 부근이 아니라면 "역 선택"에서 기차역을 다시 선택해 주세요
+      <div className="text-xs text-gray-500  mt-5">
+        근방의 기차역이 {trainName} 맞나요? 아니라면 "역 선택"을 다시해 주세요
       </div>
       <div className="mt-1 w-full text-2xl font-semibold text-[rgb(83,199,240)] flex items-center relative">
         <img
@@ -442,7 +447,9 @@ export default function PostMap() {
           onChange={handleTitleChange}
         />
         <div className="z-0 absolute right-3 top-0">
-          <div className="text-gray-400 text-sm inline">상세작성</div>{" "}
+          <div className="text-gray-400 text-sm inline font-light">
+            장소 상세작성
+          </div>
           <BsFillPencilFill className="inline" />
         </div>
       </div>

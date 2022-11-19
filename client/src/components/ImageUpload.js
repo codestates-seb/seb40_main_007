@@ -46,6 +46,7 @@ export default function ImageUpload() {
               fileTypes={[".png", ".jpg", ".jpeg", ".heic"]}
               base64={true}
               handleFiles={handleFiles}
+              multipleFiles={true}
             >
               <BsPlusLg className="sm:w-20 sm:h-20 w-16 h-16" />
             </ReactFileReader>
@@ -80,6 +81,7 @@ export default function ImageUpload() {
             <ReactFileReader
               fileTypes={[".png", ".jpg", ".jpeg", ".heic"]}
               base64={true}
+              multipleFiles={true}
               handleFiles={handleFiles}
             >
               <BsPlusLg className="sm:w-20 sm:h-20 w-16 h-16" />
