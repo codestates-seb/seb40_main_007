@@ -29,6 +29,7 @@ export default function PostPage() {
   const postRelatedAtmas = useRecoilValue(postRelatedAtmasState);
   const postRelatedPrice = useRecoilValue(postRelatedPriceState);
   const postComment = useRecoilValue(postCommentState);
+
   const onPostSubmit = () => {
     console.log(
       //form-data
@@ -62,12 +63,16 @@ export default function PostPage() {
       <Header />
       <div className="pb-30 max-w-5xl m-auto">
         <div className="pt-20">
+          <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 pt-10 pb-2 mb-5  text-18 text-[rgb(83,199,240)]">
+            역 선택
+          </div>
           <PostTrainStationSelect />
         </div>
         <div className="mb-10 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 text-18 text-[rgb(83,199,240)] mt-10">
           위치 등록
         </div>
         <PostMap />
+
         <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 text-18 text-[rgb(83,199,240)] my-16">
           사진 등록
         </div>

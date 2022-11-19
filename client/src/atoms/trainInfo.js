@@ -11,6 +11,7 @@ export const trainInfo = atom({
       describe:
         "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다.",
       adress: "경기도 고양시 덕양구 소원로 102",
+      phone: "000 - 0000",
     },
     {
       id: 2,
@@ -19,6 +20,7 @@ export const trainInfo = atom({
       describe:
         "서울역(Seoul station은 서울특별시 용산구와 중구에 위치한 철도역이다.",
       adress: "서울특별시 용산구 한강대로 405",
+      phone: "000 - 0000",
     },
     {
       id: 3,
@@ -27,6 +29,7 @@ export const trainInfo = atom({
       describe:
         "영등포역(Yeongdeungpo station)은 서울특별시 영등포구 영등포본동에 있는 경부선의 철도역이자 수도권 전철 1호선의 전철역이다",
       adress: "경기도 고양시 덕양구 소원로 102",
+      phone: "000 - 0000",
     },
     {
       id: 4,
@@ -35,6 +38,7 @@ export const trainInfo = atom({
       describe:
         "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
       adress: "경기도 고양시 덕양구 소원로 102",
+      phone: "000 - 0000",
     },
     {
       id: 5,
@@ -43,6 +47,7 @@ export const trainInfo = atom({
       describe:
         "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
       adress: "경기도 고양시 덕양구 소원로 102",
+      phone: "000 - 0000",
     },
     {
       id: 6,
@@ -51,6 +56,7 @@ export const trainInfo = atom({
       describe:
         "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
       adress: "경기도 고양시 덕양구 소원로 102",
+      phone: "000 - 0000",
     },
     {
       id: 7,
@@ -59,6 +65,7 @@ export const trainInfo = atom({
       describe:
         "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
       adress: "경기도 고양시 덕양구 소원로 102",
+      phone: "000 - 0000",
     },
     {
       id: 8,
@@ -67,6 +74,7 @@ export const trainInfo = atom({
       describe:
         "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
       adress: "경기도 고양시 덕양구 소원로 102",
+      phone: "000 - 0000",
     },
     {
       id: 9,
@@ -75,6 +83,7 @@ export const trainInfo = atom({
       describe:
         "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
       adress: "경기도 고양시 덕양구 소원로 102",
+      phone: "000 - 0000",
     },
     {
       id: 10,
@@ -83,6 +92,7 @@ export const trainInfo = atom({
       describe:
         "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
       adress: "경기도 고양시 덕양구 소원로 102",
+      phone: "000 - 0000",
     },
     {
       id: 11,
@@ -91,6 +101,7 @@ export const trainInfo = atom({
       describe:
         "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
       adress: "경기도 고양시 덕양구 소원로 102",
+      phone: "000 - 0000",
     },
     {
       id: 12,
@@ -99,6 +110,7 @@ export const trainInfo = atom({
       describe:
         "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
       adress: "경기도 고양시 덕양구 소원로 102",
+      phone: "000 - 0000",
     },
     {
       id: 13,
@@ -107,6 +119,7 @@ export const trainInfo = atom({
       describe:
         "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
       adress: "경기도 고양시 덕양구 소원로 102",
+      phone: "000 - 0000",
     },
     {
       id: 14,
@@ -115,6 +128,7 @@ export const trainInfo = atom({
       describe:
         "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
       adress: "경기도 고양시 덕양구 소원로 102",
+      phone: "000 - 0000",
     },
     {
       id: 15,
@@ -123,6 +137,7 @@ export const trainInfo = atom({
       describe:
         "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
       adress: "경기도 고양시 덕양구 소원로 102",
+      phone: "000 - 0000",
     },
     {
       id: 16,
@@ -131,6 +146,7 @@ export const trainInfo = atom({
       describe:
         "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
       adress: "경기도 고양시 덕양구 소원로 102",
+      phone: "000 - 0000",
     },
     {
       id: 17,
@@ -139,6 +155,7 @@ export const trainInfo = atom({
       describe:
         "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
       adress: "경기도 고양시 덕양구 소원로 102",
+      phone: "000 - 0000",
     },
   ],
 });

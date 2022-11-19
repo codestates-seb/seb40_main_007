@@ -9,7 +9,12 @@ export const postTrainStationState = atom({
 
 export const postAdressState = atom({
   key: `adress/${v1()}`,
-  default: "주소기본",
+  default: "주소",
+});
+
+export const postpostionState = atom({
+  key: `position/${v1()}`,
+  default: "위도",
 });
 
 export const postTitleState = atom({
