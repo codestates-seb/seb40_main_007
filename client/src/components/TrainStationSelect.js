@@ -1,14 +1,19 @@
+/*eslint-disable */
 import { useState } from "react";
 import { IoMdPin } from "react-icons/io";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useParams, Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { trainInfo } from "../atoms/trainInfo";
 
 export default function TrainStationSelect() {
+  const trainStationInfo = useRecoilValue(trainInfo);
   const [showModal, setShowModal] = useState(false);
-  let BASE_URL = "main";
   const { id } = useParams();
-
-  console.log(id);
+  // trainStation 정보 id 가 1부터 시작하므로 -1을 해주어야 한다.
+  const [trainStation, setTrainStation] = useState(
+    trainStationInfo[id - 1].train
+  );
   return (
     <>
       <button
@@ -17,7 +22,7 @@ export default function TrainStationSelect() {
         onClick={() => setShowModal(true)}
       >
         <div className="text-2xl flex items-center font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-3 py-2">
-          {id}
+          {trainStation}
           <IoMdPin className="inline text-[rgb(83,199,240)] ml-2" size={26} />
         </div>
       </button>
@@ -36,205 +41,27 @@ export default function TrainStationSelect() {
                   </button>
                 </div>
                 <div className="px-3 pb-3 relative grid grid-cols-5 gap-4">
-                  <Link to={`/${BASE_URL}`} onClick={() => setShowModal(false)}>
-                    <div>
-                      <img src="/images/기차역도장/행신역.png" alt="행신역" />
-                      <div className="text-[10px] text-center pt-1 font-semibold">
-                        행신역
-                      </div>
-                    </div>
-                  </Link>
-                  <Link to={`/${BASE_URL}`} onClick={() => setShowModal(false)}>
-                    <div>
-                      <img src="/images/기차역도장/서울역.png" alt="서울역" />
-                      <div className="text-[10px] text-center pt-1 font-semibold">
-                        서울역
-                      </div>
-                    </div>
-                  </Link>
-                  <Link
-                    to={`/${BASE_URL}/영등포역`}
-                    onClick={() => setShowModal(false)}
-                  >
-                    <div>
-                      <img
-                        src="/images/기차역도장/영등포역.png"
-                        alt="영등포역"
-                      />
-                      <div className="text-[10px] text-center pt-1 font-semibold">
-                        영등포역
-                      </div>
-                    </div>
-                  </Link>
-                  <Link
-                    to={`/${BASE_URL}/광명역`}
-                    onClick={() => setShowModal(false)}
-                  >
-                    <div>
-                      <img src="/images/기차역도장/광명역.png" alt="광명역" />
-                      <div className="text-[10px] text-center pt-1 font-semibold">
-                        광명역
-                      </div>
-                    </div>
-                  </Link>
-                  <Link
-                    to={`/${BASE_URL}/수원역`}
-                    onClick={() => setShowModal(false)}
-                  >
-                    <div>
-                      <img src="/images/기차역도장/수원역.png" alt="영등포역" />
-                      <div className="text-[10px] text-center pt-1 font-semibold">
-                        수원역
-                      </div>
-                    </div>
-                  </Link>
-                  <Link
-                    to={`/${BASE_URL}/천안아산역`}
-                    onClick={() => setShowModal(false)}
-                  >
-                    <div>
-                      <img
-                        src="/images/기차역도장/천안아산역.png"
-                        alt="천안아산역"
-                      />
-                      <div className="text-[10px] text-center pt-1 font-semibold">
-                        천안아산역
-                      </div>
-                    </div>
-                  </Link>
-                  <Link
-                    to={`/${BASE_URL}/오송역`}
-                    onClick={() => setShowModal(false)}
-                  >
-                    <div>
-                      <img src="/images/기차역도장/오송역.png" alt="오송역" />
-                      <div className="text-[10px] text-center pt-1 font-semibold">
-                        오송역
-                      </div>
-                    </div>
-                  </Link>
-                  <Link
-                    to={`/${BASE_URL}/대전역`}
-                    onClick={() => setShowModal(false)}
-                  >
-                    <div>
-                      <img src="/images/기차역도장/대전역.png" alt="대전역" />
-                      <div className="text-[10px] text-center pt-1 font-semibold">
-                        대전역
-                      </div>
-                    </div>
-                  </Link>
-                  <Link
-                    to={`/${BASE_URL}/김천구미역`}
-                    onClick={() => setShowModal(false)}
-                  >
-                    <div>
-                      <img
-                        src="/images/기차역도장/김천구미역.png"
-                        alt="김천구미역"
-                      />
-                      <div className="text-[10px] text-center pt-1 font-semibold">
-                        김천구미역
-                      </div>
-                    </div>
-                  </Link>
-                  <Link
-                    to={`/${BASE_URL}/동대구역`}
-                    onClick={() => setShowModal(false)}
-                  >
-                    <div>
-                      <img
-                        src="/images/기차역도장/동대구역.png"
-                        alt="동대구역"
-                      />
-                      <div className="text-[10px] text-center pt-1 font-semibold">
-                        동대구역
-                      </div>
-                    </div>
-                  </Link>
-                  <Link
-                    to={`/${BASE_URL}/서대구역`}
-                    onClick={() => setShowModal(false)}
-                  >
-                    <div>
-                      <img
-                        src="/images/기차역도장/서대구역.png"
-                        alt="서대구역"
-                      />
-                      <div className="text-[10px] text-center pt-1 font-semibold">
-                        서대구역
-                      </div>
-                    </div>
-                  </Link>
-                  <Link
-                    to={`/${BASE_URL}/신경주역`}
-                    onClick={() => setShowModal(false)}
-                  >
-                    <div>
-                      <img
-                        src="/images/기차역도장/신경주역.png"
-                        alt="신경주역"
-                      />
-                      <div className="text-[10px] text-center pt-1 font-semibold">
-                        신경주역
-                      </div>
-                    </div>
-                  </Link>
-                  <Link
-                    to={`/${BASE_URL}/울산역`}
-                    onClick={() => setShowModal(false)}
-                  >
-                    <div>
-                      <img src="/images/기차역도장/울산역.png" alt="울산역" />
-                      <div className="text-[10px] text-center pt-1 font-semibold">
-                        울산역
-                      </div>
-                    </div>
-                  </Link>
-                  <Link
-                    to={`/${BASE_URL}/밀양역`}
-                    onClick={() => setShowModal(false)}
-                  >
-                    <div>
-                      <img src="/images/기차역도장/밀양역.png" alt="밀양역" />
-                      <div className="text-[10px] text-center pt-1 font-semibold">
-                        밀양역
-                      </div>
-                    </div>
-                  </Link>
-                  <Link
-                    to={`/${BASE_URL}/구포역`}
-                    onClick={() => setShowModal(false)}
-                  >
-                    <div>
-                      <img src="/images/기차역도장/구포역.png" alt="구포역" />
-                      <div className="text-[10px] text-center pt-1 font-semibold">
-                        구포역
-                      </div>
-                    </div>
-                  </Link>
-                  <Link
-                    to={`/${BASE_URL}/부산역`}
-                    onClick={() => setShowModal(false)}
-                  >
-                    <div>
-                      <img src="/images/기차역도장/부산역.png" alt="부산역" />
-                      <div className="text-[10px] text-center pt-1 font-semibold">
-                        부산역
-                      </div>
-                    </div>
-                  </Link>
-                  <Link
-                    to={`/${BASE_URL}/포항역`}
-                    onClick={() => setShowModal(false)}
-                  >
-                    <div>
-                      <img src="/images/기차역도장/포항역.png" alt="포항역" />
-                      <div className="text-[10px] text-center pt-1 font-semibold">
-                        포항역
-                      </div>
-                    </div>
-                  </Link>
+                  {trainStationInfo.map((el) => {
+                    return (
+                      <Link
+                        to={`/main/${el.id}`}
+                        onClick={() => {
+                          setShowModal(false);
+                          setTrainStation(el.train);
+                        }}
+                      >
+                        <div>
+                          <img
+                            src={`/images/기차역도장/${el.train}.png`}
+                            alt="행신역"
+                          />
+                          <div className="text-[10px] text-center pt-1 font-semibold">
+                            {el.train}
+                          </div>
+                        </div>
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
             </div>

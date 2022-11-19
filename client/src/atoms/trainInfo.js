@@ -1,34 +1,30 @@
-import { Map, MapMarker } from "react-kakao-maps-sdk"; //MarkerClusterer
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { atom } from "recoil";
 
-export default function HomeMap() {
-  // 1.행신 2.서울 3.영등포
-  // 4.광명 5.수원 6.천안아산
-  // 7.오송 8.대전 9.김천구미 10서대구  11.동대구
-  // 12.밀양 13.구포 14.부산 15.울산 16.신경주 17.포항
-
-  const trainMarkers = [
+export const trainInfo = atom({
+  key: "trainInfo",
+  default: [
     {
       id: 1,
       train: "행신역",
       position: { lat: 37.612133259092005, lng: 126.83424521252282 },
       describe:
-        "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
+        "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다.",
+      adress: "경기도 고양시 덕양구 소원로 102",
     },
     {
       id: 2,
       train: "서울역",
       position: { lat: 37.55592978778571, lng: 126.97210824616438 },
       describe:
-        "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
+        "서울역(Seoul station은 서울특별시 용산구와 중구에 위치한 철도역이다.",
+      adress: "서울특별시 용산구 한강대로 405",
     },
     {
       id: 3,
       train: "영등포역",
       position: { lat: 37.51564687008552, lng: 126.90744793931377 },
       describe:
-        "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
+        "영등포역(Yeongdeungpo station)은 서울특별시 영등포구 영등포본동에 있는 경부선의 철도역이자 수도권 전철 1호선의 전철역이다",
     },
     {
       id: 4,
@@ -116,7 +112,7 @@ export default function HomeMap() {
     },
     {
       id: 16,
-      train: "신경주",
+      train: "신경주역",
       position: { lat: 35.79829560393723, lng: 129.13978970633767 },
       describe:
         "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
@@ -128,89 +124,8 @@ export default function HomeMap() {
       describe:
         "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
     },
-  ];
-  const [isVisible, setIsVisible] = useState(false);
-  const [isMarker, setIsMarker] = useState("");
+  ],
+});
 
-  console.log(isMarker);
-
-  const [style, setStyle] = useState({ width: "50%", height: "700px" });
-  const windowResize = () => {
-    // 맵 스타일 변경
-    if (window.innerWidth >= 1024) {
-      setStyle({ width: "50%", height: "700px" });
-    } else {
-      setStyle({ width: "90%", height: "300px" });
-    }
-  };
-  console.log(style);
-  useEffect(() => {
-    window.addEventListener("resize", windowResize);
-    return () => {
-      window.removeEventListener("resize", windowResize);
-    };
-  }, []);
-
-  return (
-    <div className="flex justify-between">
-      <div className="w-1/2">
-        {isMarker ? (
-          <div className="m-auto mt-20 text-center">
-            <div className="text-2xl font-semibold text-start ml-10">
-              {isMarker.train}
-            </div>
-            <div className="mt-10">{isMarker.describe}</div>
-            <img
-              src={`/images/기차역도장/${isMarker.train}.png`}
-              alt="stamp"
-              className="w-80 h-80 m-auto mt-16"
-            />
-
-            <Link to={`/main/${isMarker.id}`}>
-              <button className="bg-gray-400 mt-10 p-3 font-bold text-white rounded-xl hover:bg-[rgb(83,199,240)]">
-                이동하기
-              </button>
-            </Link>
-          </div>
-        ) : (
-          <div className="m-auto mt-20 text-center">
-            <img
-              src={`/images/logo.png`}
-              alt="logo"
-              className="w-80 h-80 m-auto mt-24"
-            />
-            <div className="text-center mt-20 text-2xl font-semibold text-[rgb(83,199,240)]">
-              지도에서 좌표를 클릭해보세요
-            </div>
-          </div>
-        )}
-      </div>
-      <Map level={12} center={{ lat: 36.6, lng: 127.7 }} style={style}>
-        {trainMarkers.map((trainMarker) => (
-          <MapMarker
-            key={trainMarker.id}
-            position={trainMarker.position}
-            onClick={() => {
-              // onClick={(marker) => {
-              // marker.panTo(marker.getPosition());
-              setIsMarker(trainMarker);
-            }}
-            onMouseOver={() => {
-              setIsVisible(true);
-              setIsMarker(trainMarker);
-            }}
-            onMouseOut={() => setIsVisible(false)}
-          >
-            {isVisible && isMarker.id === trainMarker.id ? (
-              <Link to={`/main/${trainMarker.train}`}>
-                <div className=" w-40 py-1 font-semibold hover:border-4 bg-gray-500   text-white text-center">
-                  {trainMarker.train}
-                </div>
-              </Link>
-            ) : null}
-          </MapMarker>
-        ))}
-      </Map>
-    </div>
-  );
-}
+// import { useRecoilValue } from "recoil";
+// import { trainInfo } from "../atoms/trainInfo";

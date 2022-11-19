@@ -8,8 +8,55 @@ import PostCategoryTabs from "../components/PostPage/PostCategoriTabs";
 import PostRelatedTab from "../components/PostPage/PostRelatedTab";
 import Footer from "../components/Footer";
 import ListTag from "../components/tag/ListTag";
+import { useRecoilValue } from "recoil";
+import {
+  postTrainStationState,
+  postAdressState,
+  postTitleState,
+  postCategoryState,
+  postRelatedState,
+  postRelatedAtmasState,
+  postRelatedPriceState,
+  postCommentState,
+} from "../atoms/postInfo";
 
 export default function PostPage() {
+  const postTrainStation = useRecoilValue(postTrainStationState);
+  const postAdress = useRecoilValue(postAdressState);
+  const postTitle = useRecoilValue(postTitleState);
+  const postCategory = useRecoilValue(postCategoryState);
+  const postRelated = useRecoilValue(postRelatedState);
+  const postRelatedAtmas = useRecoilValue(postRelatedAtmasState);
+  const postRelatedPrice = useRecoilValue(postRelatedPriceState);
+  const postComment = useRecoilValue(postCommentState);
+  const onPostSubmit = () => {
+    console.log(
+      //form-data
+      // application/json
+      {
+        data: {
+          title: postTitle,
+          review: postComment,
+          star: 5.0,
+          latitude: 1231.12312,
+          longitude: 1231.1521,
+          stationId: postTrainStation,
+          // 위 번호로 줘야 함..
+          categoryId: [
+            postCategory,
+            postRelated,
+            postRelatedAtmas,
+            postRelatedPrice,
+          ],
+          //카테고리 아이디도 번호로 줘야함
+          address: postAdress,
+        },
+
+        // multipart/form-data
+        files: "이미지들",
+      }
+    );
+  };
   return (
     <>
       <Header />
@@ -71,8 +118,13 @@ export default function PostPage() {
         </div>
         <OnlineInput />
       </div>
-      <div className="bg-gray-400 w-fit m-auto text-white py-3 px-5 rounded-lg hover:bg-[rgb(83,199,240)] my-32">
-        작성완료
+      <div className="flex justify-center">
+        <button
+          className="bg-gray-400 w-fit m-auto text-white py-3 px-5 rounded-lg hover:bg-[rgb(83,199,240)] my-32"
+          onClick={onPostSubmit}
+        >
+          작성완료
+        </button>
       </div>
       <Footer />
     </>
