@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import Header from "../components/Header";
 import TrainStationCard from "../components/TrainStationCard";
 import Footer from "../components/Footer";

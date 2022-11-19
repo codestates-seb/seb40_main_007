@@ -82,25 +82,28 @@ export default function HomeIntroduce() {
           </div>
         </ScrollPage>
         {/* 세번째 소개 페이지 */}
-        <div className="w-full h-screen bg-gradient-to-br from-[rgb(83,199,240)] ">
-          <div className="max-w-6xl h-screen flex items-center justify-end font-bold m-auto">
-            <Animator animation={(Fade(), MoveIn(0, 360))}>
-              <img
-                src="/images/역이요소개/phone.png"
-                alt="phone"
-                className="w-72"
-              />
-            </Animator>
-            <div className="text-white text-6xl font-semibold ml-10">
-              <Animator animation={(Fade(), MoveIn(0, -360))}>
-                <div className="">
-                  대한민국 <span className="text-[rgb(65,152,224)]">No.1</span>
-                </div>
-                <div className="mt-1">위치기반 기차여행 커뮤니티</div>
+        <ScrollPage>
+          <div className="w-full h-screen bg-gradient-to-br from-[rgb(83,199,240)] ">
+            <div className="max-w-6xl h-screen flex items-center justify-end font-bold m-auto">
+              <Animator animation={(Fade(), MoveIn(0, 360))}>
+                <img
+                  src="/images/역이요소개/phone.png"
+                  alt="phone"
+                  className="w-72"
+                />
               </Animator>
+              <div className="text-white text-6xl font-semibold ml-10">
+                <Animator animation={(Fade(), MoveIn(0, -360))}>
+                  <div className="">
+                    대한민국{" "}
+                    <span className="text-[rgb(65,152,224)]">No.1</span>
+                  </div>
+                  <div className="mt-1">위치기반 기차여행 커뮤니티</div>
+                </Animator>
+              </div>
             </div>
           </div>
-        </div>
+        </ScrollPage>
       </ScrollContainer>
     </>
   );

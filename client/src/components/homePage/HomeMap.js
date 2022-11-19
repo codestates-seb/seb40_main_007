@@ -15,8 +15,6 @@ export default function HomeMap() {
   const [isMarker, setIsMarker] = useState("");
   const [isCenter, setIsCenter] = useState({ lat: 36.6, lng: 127.7 });
 
-  console.log(isMarker);
-
   const [style, setStyle] = useState({ width: "50%", height: "700px" });
   const windowResize = () => {
     // 맵 스타일 변경
@@ -26,7 +24,7 @@ export default function HomeMap() {
       setStyle({ width: "90%", height: "300px" });
     }
   };
-  console.log(style);
+
   useEffect(() => {
     window.addEventListener("resize", windowResize);
     return () => {
