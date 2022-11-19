@@ -30,4 +30,14 @@ public class Planner {
 
     @OneToMany(mappedBy = "planner", cascade = CascadeType.REMOVE)
     private final List<BoardPlanner> boardPlanners = new ArrayList<>();
+
+    public void changeName(String plannerName){
+        this.plannerName=plannerName;
+    }
+
+    public void patchPlanner(String plannerName) {
+        if (plannerName != null) {
+            this.plannerName = plannerName;
+        }
+    }
 }
