@@ -4,7 +4,7 @@ export default function TrainStationCard() {
   return (
     <div className="w-[1400px] pt-1">
       <div className="w-full grid grid-cols-4 gap-1">
-        <Link to="/main/행신역">
+        <Link to="/main/1">
           <div className="relative flex justify-center items-center">
             <img
               src="images/기차역사진/행신역사진.png"
@@ -16,7 +16,7 @@ export default function TrainStationCard() {
             </div>
           </div>
         </Link>
-        <Link to="/main/서울역">
+        <Link to="/main/2">
           <div className="relative flex justify-center items-center">
             <img
               src="images/기차역사진/서울역사진.png"
@@ -28,7 +28,7 @@ export default function TrainStationCard() {
             </div>
           </div>
         </Link>
-        <Link to="/main/영등포역">
+        <Link to="/main/3">
           <div className="relative flex justify-center items-center">
             <img
               src="images/기차역사진/영등포역사진.png"
@@ -40,7 +40,7 @@ export default function TrainStationCard() {
             </div>
           </div>
         </Link>
-        <Link to="/main/광명역">
+        <Link to="/main/4">
           <div className="relative flex justify-center items-center">
             <img
               src="images/기차역사진/광명역사진.png"
@@ -52,7 +52,7 @@ export default function TrainStationCard() {
             </div>
           </div>
         </Link>
-        <Link to="/main/수원역">
+        <Link to="/main/5">
           <div className="relative flex justify-center items-center">
             <img
               src="images/기차역사진/수원역사진.png"
@@ -64,7 +64,7 @@ export default function TrainStationCard() {
             </div>
           </div>
         </Link>
-        <Link to="/main/천안아산역">
+        <Link to="/main/6">
           <div className="relative flex justify-center items-center">
             <img
               src="images/기차역사진/천안아산역사진.png"
@@ -76,7 +76,7 @@ export default function TrainStationCard() {
             </div>
           </div>
         </Link>
-        <Link to="/main/오송역">
+        <Link to="/main/7">
           <div className="relative flex justify-center items-center">
             <img
               src="images/기차역사진/오송역사진.png"
@@ -88,7 +88,7 @@ export default function TrainStationCard() {
             </div>
           </div>
         </Link>
-        <Link to="/main/대전역">
+        <Link to="/main/8">
           <div className="relative flex justify-center items-center">
             <img
               src="images/기차역사진/대전역사진.png"
@@ -100,7 +100,7 @@ export default function TrainStationCard() {
             </div>
           </div>
         </Link>
-        <Link to="/main/김천구미역">
+        <Link to="/main/9">
           <div className="relative flex justify-center items-center">
             <img
               src="images/기차역사진/김천구미역사진.png"
@@ -112,19 +112,7 @@ export default function TrainStationCard() {
             </div>
           </div>
         </Link>
-        <Link to="/main/동대구역">
-          <div className="relative flex justify-center items-center">
-            <img
-              src="images/기차역사진/동대구역사진.png"
-              alt="동대구역"
-              className="w-full h-full rounded-xl hover:ring hover:ring-[rgb(83,199,240)]"
-            />
-            <div className="text-3xl text-white pt-1 font-semibold absolute">
-              동대구역
-            </div>
-          </div>
-        </Link>
-        <Link to="/main/서대구역">
+        <Link to="/main/10">
           <div className="relative flex justify-center items-center">
             <img
               src="images/기차역사진/서대구역사진.png"
@@ -136,31 +124,19 @@ export default function TrainStationCard() {
             </div>
           </div>
         </Link>
-        <Link to="/main/신경주역">
+        <Link to="/main/11">
           <div className="relative flex justify-center items-center">
             <img
-              src="images/기차역사진/신경주역사진.png"
-              alt="신경주역"
+              src="images/기차역사진/동대구역사진.png"
+              alt="동대구역"
               className="w-full h-full rounded-xl hover:ring hover:ring-[rgb(83,199,240)]"
             />
             <div className="text-3xl text-white pt-1 font-semibold absolute">
-              신경주역
+              동대구역
             </div>
           </div>
         </Link>
-        <Link to="/main/울산역">
-          <div className="relative flex justify-center items-center">
-            <img
-              src="images/기차역사진/울산역사진.png"
-              alt="울산역"
-              className="w-full h-full rounded-xl hover:ring hover:ring-[rgb(83,199,240)]"
-            />
-            <div className="text-3xl text-white pt-1 font-semibold absolute">
-              울산역
-            </div>
-          </div>
-        </Link>
-        <Link to="/main/밀양역">
+        <Link to="/main/12">
           <div className="relative flex justify-center items-center">
             <img
               src="images/기차역사진/밀양역사진.png"
@@ -172,7 +148,7 @@ export default function TrainStationCard() {
             </div>
           </div>
         </Link>
-        <Link to="/main/구포역">
+        <Link to="/main/13">
           <div className="relative flex justify-center items-center">
             <img
               src="images/기차역사진/구포역사진.png"
@@ -184,7 +160,7 @@ export default function TrainStationCard() {
             </div>
           </div>
         </Link>
-        <Link to="/main/부산역">
+        <Link to="/main/14">
           <div className="relative flex justify-center items-center">
             <img
               src="images/기차역사진/부산역사진.png"
@@ -196,7 +172,31 @@ export default function TrainStationCard() {
             </div>
           </div>
         </Link>
-        <Link to="/main/포항역">
+        <Link to="/main/15">
+          <div className="relative flex justify-center items-center">
+            <img
+              src="images/기차역사진/울산역사진.png"
+              alt="울산역"
+              className="w-full h-full rounded-xl hover:ring hover:ring-[rgb(83,199,240)]"
+            />
+            <div className="text-3xl text-white pt-1 font-semibold absolute">
+              울산역
+            </div>
+          </div>
+        </Link>
+        <Link to="/main/16">
+          <div className="relative flex justify-center items-center">
+            <img
+              src="images/기차역사진/신경주역사진.png"
+              alt="신경주역"
+              className="w-full h-full rounded-xl hover:ring hover:ring-[rgb(83,199,240)]"
+            />
+            <div className="text-3xl text-white pt-1 font-semibold absolute">
+              신경주역
+            </div>
+          </div>
+        </Link>
+        <Link to="/main/17">
           <div className="relative flex justify-center items-center">
             <img
               src="images/기차역사진/포항역사진.png"

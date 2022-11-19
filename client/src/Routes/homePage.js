@@ -17,7 +17,6 @@ export default function HomePage() {
             <HomeMap />
           </div>
         </div>
-
         <div className="lg:w-full w-[1400px] flex justify-center mb-20 ">
           <TrainStationCard />
         </div>

@@ -1,11 +1,17 @@
 /*eslint-disable*/
-import { Map, MapMarker } from "react-kakao-maps-sdk"; //MarkerClusterer
+import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { BsFillPencilFill } from "react-icons/bs";
+import { useRecoilValue } from "recoil";
 
 export default function PostMap() {
   const { kakao } = window;
+  const { id } = useParams();
+  console.log(id);
+
   const [keyword, setKeyword] = useState("영등포역"); //키워드 검색
+
   const [markers, setMarkers] = useState([
     {
       // 마커 리스트

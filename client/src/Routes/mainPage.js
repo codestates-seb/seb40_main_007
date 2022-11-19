@@ -4,7 +4,7 @@ import CategoryTabs from "../components/MainPage/CategoryTab";
 import PostList from "../components/MainPage/Posts/PostList";
 import RelatedTab from "../components/MainPage/RelatedTab";
 import MainHeader from "../components/MainPage/MainHeader";
-import WriteModal from "../components/WriteModal";
+import WriteModal from "../components/modals/WriteModal";
 import MainMapTest from "../components/MainPage/MainMapTest";
 
 const MainPage = () => {

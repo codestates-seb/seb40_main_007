@@ -6,12 +6,11 @@ export default function TrainStationModal() {
   return (
     <>
       <button
-        className="bg-white flex font-bold border border-gray-400 text-sm px-3 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+        className="ease-linear transition-all duration-150"
         type="button"
         onClick={() => setShowModal(true)}
       >
-        <span className="text-gray-500"> 기차역</span>
-        <IoMdPin className="inline ml-1 text-gray-500" size={18} />
+        <IoMdPin className="inline ml-1 text-[rgb(83,199,240)]" size={32} />
       </button>
       {showModal ? (
         <>

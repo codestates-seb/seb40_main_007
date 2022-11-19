@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { TiPencil } from "react-icons/ti";
 import { Link, useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { postTrainStationState, postCategoryState } from "../atoms/postInfo";
+import { postTrainStationState, postCategoryState } from "../../atoms/postInfo";
 
 const WriteModal = () => {
   const [showModal, setShowModal] = useState(false);
@@ -30,7 +30,7 @@ const WriteModal = () => {
                 <button
                   className="text-sm text-[rgb(83,199,240)] py-3"
                   onClick={() => {
-                    setCategories("식당");
+                    setCategories(1);
                     setShowModal(false);
                   }}
                 >
@@ -41,7 +41,7 @@ const WriteModal = () => {
                 <button
                   className="text-sm text-[rgb(83,199,240)] py-3"
                   onClick={() => {
-                    setCategories("볼거리");
+                    setCategories(2);
                     setShowModal(false);
                   }}
                 >
@@ -52,7 +52,7 @@ const WriteModal = () => {
                 <button
                   className="text-sm text-[rgb(83,199,240)] py-3"
                   onClick={() => {
-                    setCategories("숙소");
+                    setCategories(3);
                     setShowModal(false);
                   }}
                 >

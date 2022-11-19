@@ -5,7 +5,7 @@ import DetailImageSlider from "../components/DetailPage/DetailImageSlider";
 import DetailMap from "../components/DetailPage/DetailMap";
 import NeighborhoodPlace from "../components/DetailPage/NeighborhoodPlace";
 import Header from "../components/Header";
-import WriteModal from "../components/WriteModal";
+import WriteModal from "../components/modals/WriteModal";
 import Review from "../components/DetailPage/Review/Review";
 
 const DetailPage = () => {
