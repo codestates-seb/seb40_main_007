@@ -3,7 +3,7 @@ import { v1 } from "uuid";
 
 export const postTrainStationState = atom({
   key: `trainStation/${v1()}`,
-  default: "몰러",
+  default: "기차역",
 });
 //  const [trainStation, setTrainStation] = useRecoilState(postTrainStationState);
 
@@ -19,7 +19,7 @@ export const postpostionState = atom({
 
 export const postTitleState = atom({
   key: `title/${v1()}`,
-  default: "제목기본",
+  default: "제목",
 });
 
 export const postCategoryState = atom({
@@ -44,12 +44,12 @@ export const postRelatedPriceState = atom({
 
 export const postStarState = atom({
   key: `postStar/${v1()}`,
-  default: "별기본",
+  default: "0",
 });
 
 export const postCommentState = atom({
   key: `postComment/${v1()}`,
-  default: "리뷰기본",
+  default: "",
 });
 
 //post 페이지 정보 (기차역, 주소, 카테고리 태그, 관련 카테고리 태그, 분위기태그, 가격태그)

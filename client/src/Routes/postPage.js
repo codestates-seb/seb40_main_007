@@ -6,28 +6,33 @@ import PostMap from "../components/PostPage/PostMap";
 import ImageUpload from "../components/ImageUpload";
 import PostCategoryTabs from "../components/PostPage/PostCategoriTabs";
 import PostRelatedTab from "../components/PostPage/PostRelatedTab";
+import PostRelatedAtmasTab from "../components/PostPage/postRelatedAtmasTab";
 import Footer from "../components/Footer";
 import ListTag from "../components/tag/ListTag";
 import { useRecoilValue } from "recoil";
 import {
   postTrainStationState,
+  postpostionState,
   postAdressState,
   postTitleState,
   postCategoryState,
   postRelatedState,
   postRelatedAtmasState,
   postRelatedPriceState,
+  postStarState,
   postCommentState,
 } from "../atoms/postInfo";
 
 export default function PostPage() {
   const postTrainStation = useRecoilValue(postTrainStationState);
+  const postionState = useRecoilValue(postpostionState);
   const postAdress = useRecoilValue(postAdressState);
   const postTitle = useRecoilValue(postTitleState);
   const postCategory = useRecoilValue(postCategoryState);
   const postRelated = useRecoilValue(postRelatedState);
   const postRelatedAtmas = useRecoilValue(postRelatedAtmasState);
   const postRelatedPrice = useRecoilValue(postRelatedPriceState);
+  const postStar = useRecoilValue(postStarState);
   const postComment = useRecoilValue(postCommentState);
 
   const onPostSubmit = () => {
@@ -38,9 +43,9 @@ export default function PostPage() {
         data: {
           title: postTitle,
           review: postComment,
-          star: 5.0,
-          latitude: 1231.12312,
-          longitude: 1231.1521,
+          star: postStar,
+          latitude: postionState.lat,
+          longitude: postionState.lng,
           stationId: postTrainStation,
           // 위 번호로 줘야 함..
           categoryId: [
@@ -99,23 +104,11 @@ export default function PostPage() {
           </div>
           <div className="font-bold flex items-center">
             <span className="mr-14">분위기</span>
-            <ListTag
-              tagList={["아늑한", "활기찬", "정겨운", "깔끔한", "뷰가좋은"]}
-            />
-            {/* <PostRelatedAtmasTab /> */}
+            <PostRelatedAtmasTab />
           </div>
           <div className="font-bold flex items-center">
             <span className="mr-14">가격대</span>
-            <ListTag
-              tagList={[
-                "무료",
-                "만원이하",
-                "2만원이하",
-                "3만원이하",
-                "4만원이하",
-              ]}
-            />
-            {/* <PostRelatedPriceTab /> */}
+            <ListTag />
           </div>
         </div>
 

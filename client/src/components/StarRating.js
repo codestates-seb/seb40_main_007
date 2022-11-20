@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { postStarState } from "../atoms/postInfo";
 
 const StarRating = () => {
+  const [startState, setStarState] = useRecoilState(postStarState);
   const [hovered, setHovered] = useState(null);
-  const [clicked, setClicked] = useState(null);
-
+  const [clicked, setClicked] = useState(startState);
   const textList = [
     "너무 별로예요",
     "별로예요",
@@ -44,6 +46,7 @@ const StarRating = () => {
                 }}
                 onClick={() => {
                   setClicked(num);
+                  setStarState(num);
                 }}
               >
                 <svg
