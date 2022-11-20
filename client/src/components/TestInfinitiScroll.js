@@ -42,9 +42,11 @@ const TestInfinitiScroll = () => {
   return (
     <div className="pt-5 flex justify-center">
       <InfiniteScroll
+        className="scrollbar-hide"
         dataLength={state.items.length}
         next={fetchMoreData}
         hasMore={state.hasMore}
+        height={600}
         loader={
           <div className="w-full flex justify-center">
             <Loading />
@@ -52,7 +54,7 @@ const TestInfinitiScroll = () => {
         }
         endMessage={<div>끝</div>}
       >
-        <div className="grid grid-cols-1 max-w-max m-3 gap-2 sm:grid-cols-2 sm:gap-5">
+        <div className="grid grid-cols-1 max-w-max m-3 gap-2 sm:grid-cols-2 sm:gap-5 ">
           {state.items.map((el, idx) => (
             <div className="border-2" key={idx}>
               <Item imgUrl={el.imgUrl} title={el.title} content={el.content} />

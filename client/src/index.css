@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* 
+  [rgb(83,199,240)] : 베이직 색상 
+  #53C7F0 : 베이직 색상
+*/
 
 @layer components {
   .btn {

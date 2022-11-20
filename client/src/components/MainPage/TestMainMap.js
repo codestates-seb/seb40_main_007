@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import { Map, CustomOverlayMap } from "react-kakao-maps-sdk";
 import MapItem from "../MapItems/MapItem";
 import {
@@ -6,7 +7,7 @@ import {
   mapCenterMoveEvent,
   postImgHoverEvent,
 } from "../../atoms/mapImage";
-import { postDummyState } from "../../atoms/dummyData";
+import { postDummyState, dummyDataState } from "../../atoms/dummyData";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useEffect } from "react";
 
@@ -15,8 +16,12 @@ const MainMapTest = () => {
   const [mapImgHoverId, setMapImgHoverId] = useRecoilState(mapImgHoverEvent);
   const [, setPostImgHoverId] = useRecoilState(postImgHoverEvent);
 
-  const [...testData] = useRecoilValue(postDummyState);
+  const [...posts] = useRecoilValue(postDummyState);
   const [...mapCenter] = useRecoilValue(mapCenterMoveEvent);
+  const [dummyData] = useRecoilState(dummyDataState);
+  const dummy = dummyData.length === 0 ? posts.slice(0, 15) : dummyData;
+
+  // console.log(dummyData);
 
   useEffect(() => {
     setPostImgHoverId(null);
@@ -30,7 +35,7 @@ const MainMapTest = () => {
     return -1;
   };
   return (
-    <>
+    <div className="w-full flex justify-center">
       <Map // 지도를 표시할 Container
         center={
           mapCenter.length !== 0
@@ -43,12 +48,12 @@ const MainMapTest = () => {
         }
         style={{
           // 지도의 크기
-          width: "90%",
+          width: "100%",
           height: "600px",
         }}
         level={5} // 지도의 확대 레벨
       >
-        {testData.map((data, index) => (
+        {dummy.map((data, index) => (
           // 커스텀 오버레이를 표시할 Container
           <CustomOverlayMap
             key={index}
@@ -73,7 +78,7 @@ const MainMapTest = () => {
           </CustomOverlayMap>
         ))}
       </Map>
-    </>
+    </div>
   );
 };
 
