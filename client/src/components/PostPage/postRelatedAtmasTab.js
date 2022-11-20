@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { postRelatedAtmasState } from "../../atoms/postFilter";
+import { postRelatedAtmasState } from "../../atoms/postInfo";
 
 const PostRelatedAtmasTab = () => {
   const [related, setRelated] = useRecoilState(postRelatedAtmasState);

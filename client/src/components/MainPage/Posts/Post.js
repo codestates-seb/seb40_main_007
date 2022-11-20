@@ -20,7 +20,7 @@ function Post({ data }) {
   };
   return (
     <div
-      className={`w-40 group  ${
+      className={`w-40 group mb-4 ${
         postHoverId === data.boardId
           ? "shadow-all shadow-[rgb(83,199,240)]"
           : null
