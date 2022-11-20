@@ -21,7 +21,7 @@ const DetailPage = () => {
             <DetailImageSlider />
             <DetailMap />
           </div>
-          <div className="flex flex-row justify-end">
+          <div className="flex flex-row mt-5 justify-end">
             <Like />
             <Dislike />
           </div>
@@ -30,6 +30,7 @@ const DetailPage = () => {
           <CommentEditor />
         </div>
       </div>
+
       <NeighborhoodPlace />
       <Footer />
     </>

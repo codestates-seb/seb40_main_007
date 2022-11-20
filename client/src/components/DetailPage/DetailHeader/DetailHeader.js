@@ -32,7 +32,7 @@ const DetailHeader = () => {
     tags: {
       detailTag: "한식",
       moodTag: ["아늑한", "정겨운", "깔끔한", "뷰가 좋은"],
-      priceTag: "만원 초과 2만원 이하",
+      priceTag: "2만원 이하",
     },
   };
 
