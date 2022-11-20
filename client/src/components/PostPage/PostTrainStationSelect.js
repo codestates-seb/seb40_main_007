@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdPin } from "react-icons/io";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { postTrainStationState } from "../../atoms/postInfo";
 import { trainInfo } from "../../atoms/trainInfo";
@@ -27,11 +27,16 @@ export default function PostTrainStationSelect() {
     16: "신경주역",
     17: "포항역",
   };
+  const { id } = useParams();
+  useEffect(() => {
+    setTrainStation(id);
+  }, []);
+
   const trainStationInfo = useRecoilValue(trainInfo);
-  const [trainStation, setTrainStation] = useRecoilState(postTrainStationState);
-  const [trainName, setTrainName] = useState(trainId[trainStation]);
+  const [, setTrainStation] = useRecoilState(postTrainStationState);
+  const [trainName, setTrainName] = useState(trainId[id]);
   const [showModal, setShowModal] = useState(false);
-  console.log("trainStation", trainStation);
+
   return (
     <>
       <button

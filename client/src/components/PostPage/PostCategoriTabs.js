@@ -3,7 +3,7 @@ import { postCategoryState } from "../../atoms/postInfo";
 
 export default function PostCategoryTabs() {
   const [category, setCategory] = useRecoilState(postCategoryState);
-
+  console.log("category", category);
   return (
     <>
       <div className="flex flex-row justify-center items-center">

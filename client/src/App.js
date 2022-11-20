@@ -4,7 +4,8 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import LoginPage from "./Routes/loginPage";
 import LogoutPage from "./Routes/logoutPage";
 import InitialPage from "./Routes/initialPage";
-import SignupPage from "./Routes/signUpPage";
+import SignupPage from "./Routes/signupPage";
+import SignoutPage from "./Routes/signoutPage";
 import HomePage from "./Routes/homePage";
 import Loading from "./components/Loading";
 import ImageUpload from "./components/ImageUpload";
@@ -12,7 +13,7 @@ import MainPage from "./Routes/mainPage";
 import EditPage from "./Routes/editPage";
 import PostPage from "./Routes/postPage";
 import DetailPage from "./Routes/detailPage";
-import PostTestMap from "./components/PostPage/postTestMap";
+import NotFoundPage from "./Routes/notFound";
 // myPages
 import MyProfilePage from "./Routes/myPages/myProfilePage";
 import EditMyInfoPage from "./Routes/myPages/editMyInfoPage";
@@ -51,6 +52,7 @@ function App() {
             <Route path="/login" element={<LoginPage setLogin={setLogin} />} />
             <Route path="/logout" element={<LogoutPage />} />
             <Route path="/signup" element={<SignupPage />} />
+            <Route path="/signout" element={<SignoutPage />} />
             <Route path="/initial" element={<InitialPage />} />
             <Route path="/main/:id" element={<MainPage />} />
             <Route path="/detail" element={<DetailPage />} />
@@ -64,9 +66,7 @@ function App() {
             <Route path="/mypage/likepost" element={<MyLikePostPage />} />
             <Route path="/mypage/mycomment" element={<MyCommentPage />} />
             <Route path="/mypage/mytravel" element={<MyTravelPage />} />
-
-            {/* 테스트 맵 */}
-            <Route path="/test" element={<PostTestMap />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
       </BrowserRouter>
