@@ -191,7 +191,17 @@ export default function PostMap() {
     setTrainName(trainStationInfo[id].train); // 기차역이름
     setKeyword(trainStationInfo[id].train);
     setCenter(trainStationInfo[id].position);
-    onKeywordSubmit(); //초기화면 렌더링
+    // 초기 마커 배열값
+    setMarkers([
+      {
+        id: trainStationInfo[id].id,
+        phone: trainStationInfo[id].phone,
+        place_name: trainStationInfo[id].train,
+        adress: trainStationInfo[id].adress,
+      },
+    ]);
+    setOneMarker(trainStationInfo[id].position);
+    onKeywordSubmit; //초기화면 렌더링
   }, [trainStation]);
 
   // console.log("id",trainStation, "postion",  positionState, adressState, "title", titleState);
@@ -284,6 +294,9 @@ export default function PostMap() {
 
   return (
     <>
+      <div className="mb-10 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 text-18 text-[rgb(83,199,240)] mt-10">
+        위치 등록
+      </div>
       <div className="relative">
         <div className="border-2 border-[rgb(83,199,240)] rounded-2xl py-1 px-2 bg-[rgba(256,256,256,0.6)] w-fit absolute z-10 top-2 left-2">
           <input

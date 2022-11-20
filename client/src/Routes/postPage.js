@@ -73,18 +73,9 @@ export default function PostPage() {
           </div>
           <PostTrainStationSelect />
         </div>
-
-        <div className="mb-10 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 text-18 text-[rgb(83,199,240)] mt-10">
-          위치 등록
-        </div>
         <PostMap />
+        <ImageUpload />
 
-        <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 text-18 text-[rgb(83,199,240)] mt-20 mb-16">
-          사진 등록
-        </div>
-        <div className="flex justify-center items-center m-auto">
-          <ImageUpload />
-        </div>
         <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 pt-2 text-18 text-[rgb(83,199,240)] mt-16">
           별점
         </div>
@@ -112,9 +103,6 @@ export default function PostPage() {
           </div>
         </div>
 
-        <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 my-16 text-18 text-[rgb(83,199,240)] ">
-          관련태그
-        </div>
         <OnlineInput />
       </div>
       <div className="flex justify-center">
