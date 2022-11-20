@@ -29,9 +29,9 @@ const MyTravelPost = ({ data }) => {
     },
   ];
   const dummyTagList = [
-    dummy[0].tags.detailTag,
-    ...dummy[0].tags.moodTag,
-    dummy[0].tags.priceTag,
+    data.tags.detailTag,
+    ...data.tags.moodTag,
+    data.tags.priceTag,
   ];
   return (
     <div className="mt-4 border-[1px] border-[rgb(83,199,240)] flex flex-row items-center">
@@ -50,9 +50,7 @@ const MyTravelPost = ({ data }) => {
           <img
             className="w-32 h-32 rounded-xl"
             alt="post img"
-            src={
-              "https://d12zq4w4guyljn.cloudfront.net/20220215014519053_photo_79460f6e0b30.jpg"
-            }
+            src={data.thumbnail}
           />
         </div>
         {/* 내용 밑 삭제 버튼 */}
@@ -65,9 +63,9 @@ const MyTravelPost = ({ data }) => {
           <div className="px-2">
             {/* 타이틀 */}
             <div className="flex flex-row items-center">
-              <h2 className="text-sm mr-2 font-semibold">{dummy[0].title}</h2>
+              <h2 className="text-sm mr-2 font-semibold">{data.title}</h2>
               <div>
-                <PostStarScore score={dummy[0].star} size={15} />
+                <PostStarScore score={data.star} size={15} />
               </div>
             </div>
             {/* 태그 */}
@@ -84,7 +82,7 @@ const MyTravelPost = ({ data }) => {
                   alt="openQuote"
                 />
                 <p className="h-full w-full flex justify-center items-center px-1 overflow-hidden">
-                  {dummy[0].review}
+                  {data.review}
                 </p>
                 <div className="h-full flex flex-col justify-end">
                   <img
