@@ -6,7 +6,8 @@ export default function PostCategoryTabs() {
   console.log("category", category);
   return (
     <>
-      <div className="flex flex-row justify-center items-center">
+      <div className="flex flex-row items-center font-bold">
+        <span className="mr-12">카테고리</span>
         <button
           onClick={() => setCategory("식당")}
           className={`w-16 border-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] rounded-full m-1

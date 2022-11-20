@@ -17,6 +17,8 @@ export default function HomeIntroduce() {
     <>
       <Swiper
         modules={[Pagination, Navigation]}
+        loop={true}
+        slidesPerView={1}
         pagination={true}
         navigation={true}
       >
