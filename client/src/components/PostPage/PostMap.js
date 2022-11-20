@@ -165,7 +165,7 @@ export default function PostMap() {
     {
       id: 17,
       train: "포항역",
-      position: { lat: 35.79829560393723, lng: 129.13978970633767 },
+      position: { lat: 36.071737996704506, lng: 129.34223174717678 },
       describe:
         "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
       adress: "경기도 고양시 덕양구 소원로 102",
@@ -175,8 +175,8 @@ export default function PostMap() {
 
   // 기차역 id, 위도경도, 주소값, 제목명 Recoil, 기차역이름
   const [trainStation, setTrainStation] = useRecoilState(postTrainStationState);
-  const [positionState, setPositionState] = useRecoilState(postpostionState);
-  const [adressState, setAdressState] = useRecoilState(postAdressState);
+  const [, setPositionState] = useRecoilState(postpostionState);
+  const [, setAdressState] = useRecoilState(postAdressState);
   const [titleState, setTitleState] = useRecoilState(postTitleState);
   const [trainName, setTrainName] = useState(trainStationInfo[id].train);
   //키워드, 맵과 마커중심 (기차역 상태가 변경될 때마다 검색창 키워드가 변경된다)
@@ -194,15 +194,7 @@ export default function PostMap() {
     onKeywordSubmit(); //초기화면 렌더링
   }, [trainStation]);
 
-  console.log(
-    "id",
-    trainStation,
-    "postion",
-    positionState,
-    adressState,
-    "title",
-    titleState
-  );
+  // console.log("id",trainStation, "postion",  positionState, adressState, "title", titleState);
 
   //마커 상태 변경
   const [markers, setMarkers] = useState(

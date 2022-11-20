@@ -1,4 +1,4 @@
-import { Map, MapMarker } from "react-kakao-maps-sdk"; //MarkerClusterer
+import { Map, MapMarker, Polyline } from "react-kakao-maps-sdk"; //MarkerClusterer
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
@@ -66,15 +66,40 @@ export default function HomeMap() {
           </div>
         )}
       </div>
-      <Map level={14} center={isCenter} style={style}>
+      <Map level={13} center={isCenter} style={style}>
+        <Polyline
+          path={[
+            [
+              { lat: 37.612133259092005, lng: 126.83424521252282 },
+              { lat: 37.55592978778571, lng: 126.97210824616438 },
+              { lat: 37.51564687008552, lng: 126.90744793931377 },
+              { lat: 37.416664546209894, lng: 126.88492056682958 },
+              { lat: 37.26564253711089, lng: 127.00007046138899 },
+              { lat: 37.416664546209894, lng: 126.88492056682958 },
+              { lat: 36.62009444926888, lng: 127.3275725873306 },
+              { lat: 36.331515660740514, lng: 127.43274734876098 },
+              { lat: 36.11350772356422, lng: 128.1808380410188 },
+              { lat: 35.88149725008915, lng: 128.53991636668655 },
+              { lat: 35.79829560393723, lng: 129.13978970633767 },
+              //동대구
+              { lat: 35.87923403176077, lng: 128.62831608587155 },
+              { lat: 35.4744653487994, lng: 128.77138264933427 },
+              { lat: 35.20553573180837, lng: 128.9972344310166 },
+              { lat: 35.11519430741748, lng: 129.04043150413258 },
+              { lat: 35.55143883893413, lng: 129.13859938669552 },
+              { lat: 35.79829560393723, lng: 129.13978970633767 },
+              { lat: 36.071737996704506, lng: 129.34223174717678 },
+            ],
+          ]}
+          strokeWeight={6} // 선의 두께 입니다
+          strokeColor={"#6385a0 "} // 선의 색깔입니다
+          strokeOpacity={1} // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+        />
         {trainMarkers.map((trainMarker) => (
           <MapMarker
             key={trainMarker.id}
             position={trainMarker.position}
-            // image={{ src: "/images/dot.png", size: { width: 25, height: 25 } }}
             onClick={() => {
-              // marker.panTo(marker.getPosition());
-              // setIsMarker(trainMarker);
               setIsCenter(trainMarker.position);
             }}
             onMouseOver={() => {

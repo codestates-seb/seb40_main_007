@@ -12,7 +12,7 @@ export default function footer() {
             <li className="text-base font-bold mb-3">INTRO</li>
             <li>
               <img
-                src="images/notfound_icon_w.png"
+                src="/images/footerlogo.png"
                 alt="footerlogo"
                 className="w-10 inline my-3"
               />
@@ -27,17 +27,29 @@ export default function footer() {
           </ul>
           <ul>
             <li className="text-base font-bold mb-3">FRONT-END</li>
-            <li>React</li>
-            <li>TailwindCSS</li>
-            <li>Recoil</li>
-            <li>React-Query</li>
-            <li>axios</li>
+            <li className="my-2">
+              <a href="https://github.com/raon9401">
+                <AiFillGithub size={32} className="inline" /> 정희찬
+              </a>
+            </li>
+            <li className="my-2">
+              <a href="https://github.com/Eugenius1st">
+                <AiFillGithub size={32} className="inline" /> 안유진
+              </a>
+            </li>
           </ul>
           <ul>
             <li className="text-base font-bold mb-3">BACK-END</li>
-            <li>Java</li>
-            <li>Spring</li>
-            <li></li>
+            <li className="my-2">
+              <a href="https://github.com/woong-sung">
+                <AiFillGithub size={32} className="inline" /> 조성우
+              </a>
+            </li>
+            <li className="my-2">
+              <a href="https://github.com/casava840">
+                <AiFillGithub size={32} className="inline" /> 강병재
+              </a>
+            </li>
           </ul>
           <ul>
             <li className="text-base font-bold mb-3">GET TO KNOW US</li>
@@ -51,11 +63,12 @@ export default function footer() {
         <div className="flex justify-between pt-24">
           <div>
             <AiFillGithub className="inline mr-1" size={32} />
-            https://github.com/codestates-seb/seb40_main_007
+            <a href=" https://github.com/codestates-seb/seb40_main_007">
+              https://github.com/역이요_007
+            </a>
           </div>
           <div>
             <FaAws className="inline mr-1" size={32} />
-            배포링크
           </div>
         </div>
       </div>

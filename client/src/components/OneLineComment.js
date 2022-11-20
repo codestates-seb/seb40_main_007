@@ -1,8 +1,7 @@
 export default function OneLineComment(props) {
-  props = "둘이 먹다 하나가 죽어도 모를 맛!";
   return (
     <div className="text-[rgb(83,199,240)] max-w-6xl">
-      <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 text-18">
+      <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 text-lg">
         한줄평
       </div>
       <div className="max-w-4xl m-auto mt-10">
@@ -10,7 +9,7 @@ export default function OneLineComment(props) {
         <div className="flex justify-center">
           <input
             type="text"
-            value={props}
+            value={props.review}
             maxLength="40"
             className="text-center font-semibold text-black  text-lg rounded-md  bg-transparent focus:outline-none w-10/12 p-2 m-1 my-4"
           />

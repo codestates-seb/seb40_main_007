@@ -10,15 +10,13 @@ export default function TrainStationCard() {
         {trainStationInfo.map((el) => {
           return (
             <Link to={`/main/${el.id}`} key={el.id}>
-              <div className="relative flex justify-center items-center">
+              <div className="relative flex justify-center items-center text-white text-3xl  hover:ring hover:ring-[rgb(83,199,240)] hover:text-[rgb(83,199,240)] hover:text-4xl">
                 <img
                   src={`images/기차역사진/${el.train}사진.png`}
                   alt={el.train}
-                  className="w-full h-full rounded-xl hover:ring hover:ring-[rgb(83,199,240)]"
+                  className="w-full h-full rounded-xl"
                 />
-                <div className="text-3xl text-white pt-1 font-semibold absolute">
-                  {el.train}
-                </div>
+                <div className="pt-1 font-semibold absolute">{el.train}</div>
               </div>
             </Link>
           );

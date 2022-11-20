@@ -27,7 +27,7 @@ export const trainInfo = atom({
       train: "영등포역",
       position: { lat: 37.51564687008552, lng: 126.90744793931377 },
       describe:
-        "영등포역(Yeongdeungpo station)은 서울특별시 영등포구 영등포본동에 있는 경부선의 철도역이자 수도권 전철 1호선의 전철역이다",
+        "영등포역은 서울특별시 영등포구 영등포본동에 있는 경부선의 철도역이다",
       adress: "경기도 고양시 덕양구 소원로 102",
       phone: "000 - 0000",
     },
@@ -151,7 +151,7 @@ export const trainInfo = atom({
     {
       id: 17,
       train: "포항역",
-      position: { lat: 35.79829560393723, lng: 129.13978970633767 },
+      position: { lat: 36.071737996704506, lng: 129.34223174717678 },
       describe:
         "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
       adress: "경기도 고양시 덕양구 소원로 102",

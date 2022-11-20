@@ -94,7 +94,7 @@ export default function PostPage() {
         <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 my-16 text-18 text-[rgb(83,199,240)] ">
           관련태그
         </div>
-        <div className="mb-5 w-fit m-auto">
+        <div className="mb-5 w-fit m-auto sm:ml-56">
           <div className="font-bold flex items-center">
             <span className="mr-12">카테고리</span> <PostCategoryTabs />
           </div>
