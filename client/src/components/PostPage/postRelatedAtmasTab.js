@@ -1,22 +1,46 @@
+import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { postRelatedAtmasState } from "../../atoms/postInfo";
 
 const PostRelatedAtmasTab = () => {
-  const [related, setRelated] = useRecoilState(postRelatedAtmasState);
+  const [, setRelated] = useRecoilState(postRelatedAtmasState);
 
-  const atmos = ["아늑한", "활기찬", "정겨운", "깔끔한", "뷰가좋은"];
-  console.log(related);
+  const atmas = ["아늑한", "활기찬", "정겨운", "깔끔한", "뷰가 좋은"];
+  const [myAtmas, setMyAtmas] = useState([]);
+
+  function checkAtmas(props) {
+    for (let i of myAtmas) {
+      if (props === i) return true;
+    }
+  }
+
+  const addMyAtmas = (props) => {
+    setMyAtmas([...myAtmas, props]);
+    setRelated([...myAtmas, props]);
+  };
+  const deleteMyAtmas = (props) => {
+    let copyMyAtmas = myAtmas.slice();
+    copyMyAtmas = copyMyAtmas.filter((el) => el !== props);
+    setMyAtmas(copyMyAtmas);
+    setRelated(copyMyAtmas);
+  };
+
   return (
-    <div className="flex flex-row justify-center space-x-2 mt-4 mb-1">
-      {atmos.map((el) => (
+    <div className="flex flex-row justify-center space-x-2 mt-4 mb-1 ">
+      {atmas.map((el) => (
         <button
           key={el}
-          className={`px-1 w-18 border-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] rounded-full m-1
-              ${
-                related === el ? "bg-[rgb(83,199,240)] text-white" : "bg-white"
-              }`}
+          className={
+            checkAtmas(el)
+              ? "px-2 w-18 border-2 border-[rgb(83,199,240)] bg-[rgb(83,199,240)] text-white rounded-full m-1"
+              : "px-2 w-18 border-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] rounded-full m-1"
+          }
           onClick={() => {
-            setRelated(el);
+            if (checkAtmas(el)) {
+              deleteMyAtmas(el);
+            } else {
+              addMyAtmas(el);
+            }
           }}
         >
           {el}

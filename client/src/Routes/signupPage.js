@@ -2,7 +2,7 @@
 import Header from "../components/Header";
 import { useForm } from "react-hook-form";
 
-export default function SignUpPage() {
+export default function SignupPage() {
   const {
     register,
     handleSubmit,

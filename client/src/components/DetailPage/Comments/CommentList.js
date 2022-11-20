@@ -23,8 +23,8 @@ const CommentList = () => {
   ];
   return (
     <>
-      <div className="mb-5">
-        <span className="text-lg text-[rgb(83,199,240)] border-b-2 border-b-[rgb(83,199,240)] px-3 py-1">
+      <div className="mt-10 mb-5">
+        <span className="text-lg text-[rgb(83,199,240)] border-b-2 border-b-[rgb(83,199,240)] px-3 py-1 font-semibold">
           댓글
         </span>
       </div>

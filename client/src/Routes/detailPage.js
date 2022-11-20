@@ -5,8 +5,10 @@ import DetailImageSlider from "../components/DetailPage/DetailImageSlider";
 import DetailMap from "../components/DetailPage/DetailMap";
 import NeighborhoodPlace from "../components/DetailPage/NeighborhoodPlace";
 import Header from "../components/Header";
-import WriteModal from "../components/modals/WriteModal";
-import Review from "../components/DetailPage/Review/Review";
+import Like from "../components/DetailPage/Review/Like";
+import Dislike from "../components/DetailPage/Review/Dislike";
+import OneLineComment from "../components/OneLineComment";
+import Footer from "../components/Footer";
 
 const DetailPage = () => {
   return (
@@ -19,13 +21,18 @@ const DetailPage = () => {
             <DetailImageSlider />
             <DetailMap />
           </div>
-          <Review />
+          <div className="flex flex-row mt-5 justify-end">
+            <Like />
+            <Dislike />
+          </div>
+          <OneLineComment review={"뉴진스 만큼 멋진 곳"} />
           <CommentList />
           <CommentEditor />
         </div>
       </div>
+
       <NeighborhoodPlace />
-      <WriteModal />
+      <Footer />
     </>
   );
 };

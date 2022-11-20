@@ -30,7 +30,7 @@ const WriteModal = () => {
                 <button
                   className="text-sm text-[rgb(83,199,240)] py-3"
                   onClick={() => {
-                    setCategories(1);
+                    setCategories("식당");
                     setShowModal(false);
                   }}
                 >
@@ -52,7 +52,7 @@ const WriteModal = () => {
                 <button
                   className="text-sm text-[rgb(83,199,240)] py-3"
                   onClick={() => {
-                    setCategories(3);
+                    setCategories("볼거리");
                     setShowModal(false);
                   }}
                 >
@@ -64,7 +64,10 @@ const WriteModal = () => {
           <button
             className="fixed inset-0"
             type="button"
-            onClick={() => setShowModal(false)}
+            onClick={() => {
+              setCategories("숙소");
+              setShowModal(false);
+            }}
           ></button>
         </>
       ) : null}
