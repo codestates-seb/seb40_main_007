@@ -1,4 +1,4 @@
-const PostStarScore = ({ score }) => {
+const PostStarScore = ({ score, size }) => {
   return (
     <>
       <div className="flex flex-row">
@@ -7,8 +7,8 @@ const PostStarScore = ({ score }) => {
             <span key={num}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
+                width={size ? `${size}` : "20"}
+                height={size ? `${size}` : "20"}
                 viewBox="0 0 14 14"
               >
                 <path
