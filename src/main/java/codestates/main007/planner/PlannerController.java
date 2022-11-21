@@ -19,12 +19,20 @@ public class PlannerController {
         plannerService.save(accessToken);
     }
 
-    @PatchMapping("/{planner-id}")
+    @PatchMapping("/{planner-id}")//일단 이름만 바꿀 수 있음.
     @ResponseStatus(HttpStatus.OK)
     public void patchPlanner(@RequestHeader(name = "Authorization") String accessToken,
                            @PathVariable("planner-id") long plannerId,
                            @RequestBody PlannerDto.Patch patchDto) {
 
         plannerService.update(accessToken, plannerId, patchDto);
+    }
+
+    @GetMapping("/{planner-id}")
+    @ResponseStatus(HttpStatus.OK)
+    public PlannerDto.MyPlannerResponse getMyPlannerPage (@RequestHeader(name = "Authorization") String accessToken,
+                                            @PathVariable("planner-id") long plannerId) {
+
+        return plannerService.getMyPlannerPage(accessToken,plannerId);
     }
 }
