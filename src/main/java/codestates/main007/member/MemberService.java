@@ -1,6 +1,7 @@
 package codestates.main007.member;
 
 
+import codestates.main007.auth.jwt.JwtTokenizer;
 import codestates.main007.auth.util.CustomAuthorityUtils;
 import codestates.main007.board.Board;
 import codestates.main007.board.BoardRepository;
@@ -45,6 +46,7 @@ public class MemberService {
     private final RandomAvatarService avatarService;
     private final RandomPasswordService randomPasswordService;
     private final ImageHandler imageHandler;
+    private final JwtTokenizer jwtTokenizer;
 
     public Member save(MemberDto.Signup signupDto) {
         verifyExistEmail(signupDto.getEmail());
@@ -105,12 +107,8 @@ public class MemberService {
     }
 
     public Member findByAccessToken(String accessToken) {
-        // todo: 정식 리턴 값
-//        long userId = jwtTokenizer.getUserId(accessToken);
-        //return find(userId);
-
-        // 임시 리턴값
-        return find(1);
+        long userId = jwtTokenizer.getUserId(accessToken);
+        return find(userId);
     }
 
     public String findPassword(String email) {

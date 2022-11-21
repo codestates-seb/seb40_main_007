@@ -110,14 +110,15 @@ public class OAuthMemberAuthenticationSuccessHandler extends SimpleUrlAuthentica
 
     private URI createURI(String accessToken, String refreshToken) {
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
-        queryParams.add("access_token", accessToken);
+        queryParams.add("Authorization", accessToken);
         queryParams.add("refresh_token", refreshToken);
 
         return UriComponentsBuilder
                 .newInstance()
                 .scheme("http")
                 .host("localhost")
-                .port(8080)
+                //todo : 테스트시 3000 배포시 ec2주소
+                .port(3000)
                 .path("/receive-token.html")
                 .queryParams(queryParams)
                 .build()
