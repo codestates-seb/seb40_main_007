@@ -9,6 +9,7 @@ import codestates.main007.member.Member;
 import codestates.main007.member.MemberService;
 import codestates.main007.service.DistanceMeasuringService;
 import codestates.main007.station.Station;
+import codestates.main007.tag.Tag;
 import codestates.main007.tag.TagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -34,12 +35,14 @@ public class BoardService {
     private final TagService tagService;
     private final ImageHandler imageHandler;
 
-    public void save(String accessToken, BoardDto.Input boardDto, List<MultipartFile> images, List<Long> tagIds) throws IOException {
+    public void save(String accessToken, BoardDto.Input boardDto, List<MultipartFile> images) throws IOException {
         Station station = new Station(boardDto.getStationId().intValue());
         double startLat = station.getLatitude();
         double startLong = station.getLongitude();
         double endLat = boardDto.getLatitude();
         double endLong = boardDto.getLongitude();
+
+        List<Tag> tags = tagService.findAll(boardDto.getTags());
 
         Board board = Board.builder()
                 .title(boardDto.getTitle())
@@ -57,10 +60,8 @@ public class BoardService {
                 .address(boardDto.getAddress())
                 .writer(memberService.findByAccessToken(accessToken))
                 .timeFromStation(distanceService.getTime(startLat, startLong, endLat, endLong))
+                .tags(tags)
                 .build();
-
-        // 태그 저장
-        board.setTags(tagService.save(tagIds, board));
 
         // image 핸들러에서 boardId 를 사용하기위해 한 번 저장
         boardRepository.save(board);
@@ -102,6 +103,10 @@ public class BoardService {
 
             updatedBoard.updateTimeFromStation(distanceService.getTime(startLat, startLong, endLat, endLong));
         }
+
+        List<Long> tagIds = patch.getTags();
+
+        updatedBoard.setTags(tagService.findAll(tagIds));
 
         boardRepository.save(updatedBoard);
     }

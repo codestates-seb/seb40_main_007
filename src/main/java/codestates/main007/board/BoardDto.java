@@ -25,6 +25,7 @@ public class BoardDto {
         private Long stationId;
         private Long categoryId;
         private String address;
+        private List<Long> tags;
     }
 
     @Getter
