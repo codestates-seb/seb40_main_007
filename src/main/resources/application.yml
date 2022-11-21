@@ -1,9 +1,9 @@
 spring:
-  profiles: deploy
-
+  profiles:
+    include: deploy
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:3306/main007?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=CST
+    url: jdbc:mysql://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:3306/main007?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Seoul
     username: ${MYSQL_USERNAME}   # todo : ec2환경 변수에 저장
     password: ${MYSQL_PASSWORD}   # todo : ec2환경 변수에 저장
   jpa:
