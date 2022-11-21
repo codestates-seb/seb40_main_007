@@ -183,4 +183,41 @@ public class BoardService {
 
         return imageUrls;
     }
+
+    public List<Board> findByAddress(String address, long stationId, long boardId, long categoryId) {
+        List<Board> boards = boardRepository.findByAddressAndStationIdAndCategoryId(address, stationId, categoryId);
+        for (int i = 0; i < boards.size(); i++) {
+            Board board = boards.get(i);
+
+            if (board.getBoardId() == boardId) {
+                boards.remove(i);
+                break;
+            }
+        }
+        return boards;
+    }
+
+    public List<Board> findByAddressViewCategory(long stationId, long categoryId, long boardId) {
+        Board thisBoard = find(boardId);
+
+        List<Board> boards = boardRepository.findByStationIdAndCategoryId(stationId, categoryId);
+        for (int i = 0; i < boards.size(); i++) {
+            Board board = boards.get(i);
+            if (board.getLongitude() < thisBoard.getLongitude() - 0.0005 || board.getLongitude() > thisBoard.getLongitude() + 0.0005) {
+                boards.remove(i);
+            } else if (board.getLongitude() < thisBoard.getLatitude() - 0.0005 || board.getLongitude() > thisBoard.getLatitude() + 0.0005) {
+                boards.remove(i);
+            }
+        }
+
+        return boards;
+    }
+
+    public List<Boolean> findAroundDibs(String access, List<Board> boards) {
+        List<Boolean> booleans = new ArrayList<>();
+        for (Board board : boards) {
+            booleans.add(checkDibs(access, board.getBoardId()));
+        }
+        return booleans;
+    }
 }

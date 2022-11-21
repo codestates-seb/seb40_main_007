@@ -85,9 +85,13 @@ public class BoardDto {
 
     @Getter
     @Builder
-    public static class Writer {
-        private long memberId;
-        private String name;
-        private String avatar;
+    public static class aroundResponse {
+        private long boardId;
+        private String title;
+        private String review;
+        private String thumbnail;
+        private double star;
+        private int timeFromStation;
+        private boolean dibs;
     }
 }
