@@ -5,12 +5,17 @@ import MyPostTab from "../../components/MyPostTab";
 import { useState, useEffect } from "react";
 // import MainMap from "../components/MainPage/MainMap";
 import MainMapTest from "../../components/MainPage/TestMainMap";
-import { useRecoilState } from "recoil";
 import { mapImgClickEvent } from "../../atoms/mapImage";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { postDummyState } from "../../atoms/dummyData";
+
 import TrainStationModal from "../../components/modals/TrainStationModal";
 
 const MyPostPage = () => {
   const [index, setIndex] = useState("작성한게시글");
+
+  // 더미 데이터 통신 될 경우 변경
+  const [...posts] = useRecoilValue(postDummyState);
 
   // 지도에서 게시글 정보 보이는 기능 초기화
   const [, setMapImgClickId] = useRecoilState(mapImgClickEvent);
@@ -38,7 +43,7 @@ const MyPostPage = () => {
         </div>
         {index === "작성한게시글" ? (
           <div className="w-full max-w-5xl flex flex-col sm:flex-row justify-end gap-2 relative">
-            <MainMapTest />
+            <MainMapTest posts={posts} />
             <PostList />
           </div>
         ) : (

@@ -7,16 +7,15 @@ import {
   mapCenterMoveEvent,
   postImgHoverEvent,
 } from "../../atoms/mapImage";
-import { postDummyState, dummyDataState } from "../../atoms/dummyData";
+import { dummyDataState } from "../../atoms/dummyData";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useEffect } from "react";
 
-const MainMapTest = () => {
+const MainMapTest = (posts) => {
   const [mapImgClickId] = useRecoilState(mapImgClickEvent);
   const [mapImgHoverId, setMapImgHoverId] = useRecoilState(mapImgHoverEvent);
   const [, setPostImgHoverId] = useRecoilState(postImgHoverEvent);
 
-  const [...posts] = useRecoilValue(postDummyState);
   const [...mapCenter] = useRecoilValue(mapCenterMoveEvent);
   const [dummyData] = useRecoilState(dummyDataState);
   const dummy = dummyData.length === 0 ? posts.slice(0, 15) : dummyData;

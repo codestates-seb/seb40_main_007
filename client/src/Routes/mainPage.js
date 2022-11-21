@@ -8,10 +8,14 @@ import WriteModal from "../components/modals/WriteModal";
 import MainMapTest from "../components/MainPage/TestMainMap";
 import TestPostList from "../components/MainPage/Posts/TestPostList";
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { mapImgClickEvent } from "../atoms/mapImage";
+import { postDummyState } from "../atoms/dummyData";
 
 const MainPage = () => {
+  // 더미 데이터 통신 될 경우 변경
+  const [...posts] = useRecoilValue(postDummyState);
+
   // 지도에서 게시글 정보 보이는 기능 초기화
   const [, setMapImgClickId] = useRecoilState(mapImgClickEvent);
   useEffect(() => {
@@ -27,7 +31,7 @@ const MainPage = () => {
             <MainHeader />
             {/* <MainMap /> */}
             <div className="mt-14">
-              <MainMapTest />
+              <MainMapTest posts={posts} />
             </div>
           </div>
           <div>
