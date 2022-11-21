@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { postRelatedPriceState } from "../../atoms/postFilter";
+import { postRelatedPriceState } from "../../atoms/postInfo";
 
 const PostRelatedPriceTab = () => {
   const [related, setRelated] = useRecoilState(postRelatedPriceState);
