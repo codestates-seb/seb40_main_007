@@ -69,8 +69,8 @@ TMAP_APPKEY: ${TMAP_APPKEY}   # todo : ec2환경 변수에 저장
 cloud:
   aws:
     credentials:
-      access-key: ${AWS_ACCESS_KEY}
-      secret-key: ${AWS_SECRET_KEY}
+      access-key: ${CLOUD_AWS_ACCESS_KEY}
+      secret-key: ${CLOUD_AWS_SECRET_KEY}
     s3:
       bucket: pre-032-bucket
     region:
