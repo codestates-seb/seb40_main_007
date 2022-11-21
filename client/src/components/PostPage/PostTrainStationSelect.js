@@ -39,6 +39,9 @@ export default function PostTrainStationSelect() {
 
   return (
     <>
+      <div className="pt-20 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 pb-2 mb-5  text-18 text-[rgb(83,199,240)]">
+        역 선택
+      </div>
       <button
         className="text-sm text-[rgb(83,199,240)] hover:shadow-lg outline-none ease-linear transition-all duration-150"
         type="button"

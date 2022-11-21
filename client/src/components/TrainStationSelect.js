@@ -53,7 +53,7 @@ export default function TrainStationSelect() {
                         <div>
                           <img
                             src={`/images/기차역도장/${el.train}.png`}
-                            alt="행신역"
+                            alt={el.train}
                           />
                           <div className="text-[10px] text-center pt-1 font-semibold">
                             {el.train}
