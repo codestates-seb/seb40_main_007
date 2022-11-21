@@ -3,8 +3,11 @@ import { Map, CustomOverlayMap, Polyline } from "react-kakao-maps-sdk";
 // import TravelMapItem from "./MapItem/TravelMapItem";
 
 const MyTravelMap = ({ data }) => {
-  const [initCoordinate, setInitCoordinate] = useState();
-  const [initLevel, setInitLevel] = useState(5);
+  const [initCoordinate, setInitCoordinate] = useState({
+    lat: 36.58834236643186,
+    lng: 128.0072011230013,
+  });
+  const [initLevel, setInitLevel] = useState(14);
 
   const coordinate = data.map((el) => ({
     lat: el.latitude,
@@ -12,19 +15,19 @@ const MyTravelMap = ({ data }) => {
   }));
 
   useEffect(() => {
-    data.length !== 0
+    data.length > 0
       ? setInitCoordinate(
           {
             lat: data[0].latitude,
             lng: data[0].longitude,
           },
-          setInitLevel(5)
+          setInitLevel(6)
         )
       : (setInitCoordinate({ lat: 36.58834236643186, lng: 128.0072011230013 }),
         setInitLevel(14));
   }, [data]);
 
-  return initCoordinate ? (
+  return (
     <div className="w-full h-60 sm:h-[600px] flex flex-col justify-center">
       <div className="flex flex-row items-center mb-4">
         <img className="w-10 h-10 mr-2" alt="logo" src="/images/logo.png"></img>
@@ -69,7 +72,7 @@ const MyTravelMap = ({ data }) => {
           : null}
       </Map>
     </div>
-  ) : null;
+  );
 };
 
 export default MyTravelMap;
