@@ -1,10 +1,18 @@
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
-
+import { useLocation, useNavigate } from "react-router-dom";
 const ConfirmPasword = ({ setShowModal }) => {
   const [isOk, setIsOk] = useState(false);
   const [isHide, setisHide] = useState(true);
+
+  // 비밀번호가 검증 되고, 현재페이지가 회원탈퇴의 경우 홈페이지로 이동
+  const location = useLocation();
+  const navigation = useNavigate();
+  useEffect(() => {
+    let currentLocation = location.pathname.slice(1, 5);
+    if (isOk && currentLocation === "signout") navigation("/");
+  });
 
   return (
     <>

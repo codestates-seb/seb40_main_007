@@ -3,6 +3,7 @@ import MyTravelPost from "./ListItem/MyTravelPost";
 import { VscDebugRestart } from "react-icons/vsc";
 import { AiOutlineSave } from "react-icons/ai";
 import { useEffect, useState } from "react";
+import MyTravelDot from "../mytravel/MyTravelDot";
 const MyTravelList = ({ data, initData, setData }) => {
   const [deleteIndex, setDeleteIndex] = useState();
   const [swapIndex, setSwapIndex] = useState();
@@ -40,42 +41,49 @@ const MyTravelList = ({ data, initData, setData }) => {
         </p>
         <p className="mr-4 text-sm text-[rgb(83,199,240)]">{data.length} /10</p>
       </div>
-      <div className="w-4/6 h-[510px] overflow-y-scroll">
-        {data.length !== 0 ? (
-          data.map((item, index) => (
-            <MyTravelPost
-              key={index}
-              data={item}
-              index={index}
-              lastIndex={data.length - 1}
-              // 테스트 데이터 이동
-              setDeleteIndex={setDeleteIndex}
-              setSwapIndex={setSwapIndex}
-              setData={setData}
-            />
-          ))
-        ) : (
-          <div className="text-xl text-[#8A8A8A] h-full flex justify-center items-center">
-            여행 목록이 비었습니다.
+      <div className="relative">
+        <div className="absolute top-0 right-[150px]">
+          <MyTravelDot props={["5분", "6분", "7분", "8분", "99분"]} />
+        </div>
+        <div>
+          <div className="w-4/6 h-[510px] overflow-y-scroll">
+            {data.length !== 0 ? (
+              data.map((item, index) => (
+                <MyTravelPost
+                  key={index}
+                  data={item}
+                  index={index}
+                  lastIndex={data.length - 1}
+                  // 테스트 데이터 이동
+                  setDeleteIndex={setDeleteIndex}
+                  setSwapIndex={setSwapIndex}
+                  setData={setData}
+                />
+              ))
+            ) : (
+              <div className="text-xl text-[#8A8A8A] h-full flex justify-center items-center">
+                여행 목록이 비었습니다.
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      <div className="w-4/6 flex justify-center">
-        <button
-          onClick={() => setData(initData)}
-          className="btn m-2 text-sm bg-gray-400 hover:scale-105 active:scale-100"
-        >
-          <div className="flex flex-row w-full justify-center items-center">
-            <VscDebugRestart size={18} />
-            되돌리기
+          <div className="w-4/6 flex justify-center">
+            <button
+              onClick={() => setData(initData)}
+              className="btn m-2 text-sm bg-gray-400 hover:scale-105 active:scale-100"
+            >
+              <div className="flex flex-row w-full justify-center items-center">
+                <VscDebugRestart size={18} />
+                되돌리기
+              </div>
+            </button>
+            <button className="btn hover:scale-105 active:scale-100 m-2 text-sm">
+              <div className="flex flex-row w-full justify-center items-center">
+                <AiOutlineSave size={18} />
+                저장하기
+              </div>
+            </button>
           </div>
-        </button>
-        <button className="btn hover:scale-105 active:scale-100 m-2 text-sm">
-          <div className="flex flex-row w-full justify-center items-center">
-            <AiOutlineSave size={18} />
-            저장하기
-          </div>
-        </button>
+        </div>
       </div>
     </div>
   );

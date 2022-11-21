@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IoMdPin } from "react-icons/io";
+import { BiCaretDown } from "react-icons/bi";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { Link, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -49,7 +49,10 @@ export default function PostTrainStationSelect() {
       >
         <div className="text-2xl flex items-center font-semibold border-[rgb(83,199,240)] w-fit px-3 py-2">
           {trainName}
-          <IoMdPin className="inline text-[rgb(83,199,240)] ml-2" size={26} />
+          <BiCaretDown
+            className="inline text-[rgb(83,199,240)] ml-2"
+            size={26}
+          />
         </div>
       </button>
       {showModal ? (
