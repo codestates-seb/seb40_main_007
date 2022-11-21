@@ -58,9 +58,9 @@ public class BoardMemberService {
     public int upVote(Member member, Board board) {
         BoardMember boardMember = getBoardMember(member, board);
         if (boardMember.getScoreStatus() == 1) {
-            return 1;
-        }
-        if (boardMember.getScoreStatus() == 0) {
+            boardMember.changeScoreStatus(0);
+            board.changeScore(1, 0);
+        } else if (boardMember.getScoreStatus() == 0) {
             boardMember.changeScoreStatus(1);
             board.changeScore(0, 1);
         } else if (boardMember.getScoreStatus() == -1) {
@@ -78,9 +78,9 @@ public class BoardMemberService {
     public int downVote(Member member, Board board) {
         BoardMember boardMember = getBoardMember(member, board);
         if (boardMember.getScoreStatus() == -1) {
-            return -1;
-        }
-        if (boardMember.getScoreStatus() == 0) {
+            boardMember.changeScoreStatus(0);
+            board.changeScore(-1, 0);
+        } else if (boardMember.getScoreStatus() == 0) {
             boardMember.changeScoreStatus(-1);
             board.changeScore(0, -1);
         } else if (boardMember.getScoreStatus() == 1) {
