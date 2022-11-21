@@ -78,6 +78,11 @@ public class ImageHandler {
                     // 저장된 파일로 변경하여 이를 보여주기
                     file = new File(absolutePath + path + "/" + newFileName);
                     multipartFile.transferTo(file);
+                    // 10MB 초과 시 리사이징
+                    if (multipartFile.getSize()>10485760){
+                        Thumbnails.of(file).size(1920,1280).toFile(file);
+                    }
+                    System.out.println(multipartFile.getSize());
                 }
                 if (i == 0) {
                     //썸네일 생성 메서드
@@ -116,7 +121,7 @@ public class ImageHandler {
             originalFileExtension = ".heic";
         }
         // 현재 시간 + 확장자
-        String newFileName = "avatar_of_"+member.getMemberId() + originalFileExtension;
+        String newFileName = "avatar_of_" + member.getMemberId() + originalFileExtension;
 
         // 저장된 파일로 변경하여 이를 보여주기
         file = new File(absolutePath + path + "/" + newFileName);
