@@ -12,13 +12,13 @@ export default function ImageUpload() {
 
   // 파일 추가
   const handleFiles = (files) => {
-    console.log(files);
+    // console.log(files);
     // const formData = new FormData();
     // formData.append("file", files[0]);
     let fileUrl = files.base64;
     setUrl([...url, fileUrl]);
   };
-  console.log(url);
+  // console.log(url);
 
   // 파일 삭제
   const handleDelete = (idx) => {

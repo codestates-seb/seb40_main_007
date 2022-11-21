@@ -6,7 +6,7 @@ import MyPageTab from "../../components/MyPageTab";
 
 const EditPasswordPage = () => {
   const [showModal, setShowModal] = useState(false);
-  const [samePasswrod, setSamePasswrod] = useState(true);
+  const [samePasswrod, setSamePassword] = useState(true);
 
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -14,10 +14,10 @@ const EditPasswordPage = () => {
   const checkPaswword = () => {
     if (newPassword === confirmPassword) {
       setShowModal(true);
-      setSamePasswrod(true);
+      setSamePassword(true);
     } else {
       setShowModal(false);
-      setSamePasswrod(false);
+      setSamePassword(false);
     }
   };
   return (

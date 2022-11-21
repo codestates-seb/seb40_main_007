@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import MainMapTest from "../../components/MainPage/TestMainMap";
 import { useRecoilState } from "recoil";
 import { mapImgClickEvent } from "../../atoms/mapImage";
+import TrainStationModal from "../../components/modals/TrainStationModal";
 
 const MyPostPage = () => {
   const [index, setIndex] = useState("작성한게시글");
@@ -20,13 +21,23 @@ const MyPostPage = () => {
   return (
     <div className="">
       <Header />
-      <div className="mypage-header-tab">
+      <div className="mypage-header-tab ">
         <MyPageTab index={"내게시글"} />
-        <div className="w-full max-w-2xl flex justify-center scrollbar-hide">
+
+        <div className="w-full max-w-2xl flex justify-center scrollbar-hide relative">
           <MyPostTab setIndex={setIndex} index={index} />
+          <div
+            className={
+              index === "작성한게시글"
+                ? "absolute top-1 right-[-175px]"
+                : "absolute right-0 top-[-3px]"
+            }
+          >
+            <TrainStationModal />
+          </div>
         </div>
         {index === "작성한게시글" ? (
-          <div className="w-full max-w-7xl flex flex-col sm:flex-row justify-end gap-2 ">
+          <div className="w-full max-w-5xl flex flex-col sm:flex-row justify-end gap-2 relative">
             <MainMapTest />
             <PostList />
           </div>
