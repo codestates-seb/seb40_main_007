@@ -6,8 +6,8 @@ import { postDummyState } from "../../../atoms/dummyData";
 function PostList() {
   const [...posts] = useRecoilValue(postDummyState);
   return (
-    <>
-      <div className="flex justify-end mt-3">
+    <div className="w-full flex flex-col">
+      <div className="flex justify-end ">
         <SortDropdown />
       </div>
       <div className="mx-auto p-2 overflow-y-scroll h-[600px] scrollbar-hide">
@@ -17,7 +17,7 @@ function PostList() {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
