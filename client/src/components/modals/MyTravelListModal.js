@@ -6,7 +6,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 const ListModal = ({ offModal }) => {
   const dummyList = ["기본 목록", "부산역 여행", "부산역 여행", "부산역 여행"];
   return (
-    <div className="p-1 w-40 mt-8 bg-white text-[rgb(83,199,240)] text-sm rounded-2xl border-2 flex flex-col align-middle absolute">
+    <div className="p-1 w-40 mt-8 bg-white text-[rgb(83,199,240)] text-sm rounded-2xl border-2 flex flex-col align-middle absolute z-10">
       <div className="flex justify-between border-b-2">
         <div className="ml-5 font-semibold">내 여행 목록</div>
         <AiOutlineCloseCircle

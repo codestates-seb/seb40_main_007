@@ -19,7 +19,7 @@ const MyTravelHeader = () => {
         </div>
         <div className="w-40 flex justify-end">
           <button
-            onClick={() => setShowModal(true)}
+            onClick={() => (setShowModal(true), setOnListModal(false))}
             className="flex flex-row items-center"
           >
             <BsPlusLg
