@@ -1,5 +1,7 @@
 package codestates.main007.board;
 
+import codestates.main007.comments.CommentDto;
+import codestates.main007.comments.CommentMapper;
 import codestates.main007.member.Member;
 import codestates.main007.member.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,6 +19,7 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
     private final BoardMapper boardMapper;
+    private final CommentMapper commentMapper;
     private final MemberService memberService;
 
     @PostMapping
@@ -51,7 +55,7 @@ public class BoardController {
                                             @PathVariable("board-id") long boardId) {
         Board board = boardService.find(boardId);
         Member member = memberService.findByAccessToken(accessToken);
-
+        List<CommentDto.Response> comments = commentMapper.commentsToResponses(board.getComments());
         boolean isDibs = boardService.checkDibs(accessToken, boardId);
         int status = boardService.checkScoreStatus(member, board);
         List<String> imageUrls = boardService.findImageUrls(board);

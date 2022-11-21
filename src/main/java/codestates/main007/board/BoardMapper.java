@@ -1,6 +1,8 @@
 package codestates.main007.board;
 
+import codestates.main007.comments.CommentDto;
 import codestates.main007.member.Member;
+import codestates.main007.member.MemberDto;
 import org.mapstruct.Mapper;
 
 import java.util.ArrayList;
@@ -9,8 +11,8 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface BoardMapper {
 
-    default BoardDto.DetailResponse boardToDetailResponseDto(Board board, boolean isDibs, Member member, List<String> imageUrls, int scoreStatus) {
-        BoardDto.Writer writer = BoardDto.Writer.builder()
+    default BoardDto.DetailResponse boardToDetailResponseDto(Board board, boolean isDibs, Member member, List<CommentDto.Response> comments, List<String> imageUrls, int scoreStatus) {
+        MemberDto.Writer writer = MemberDto.Writer.builder()
                 .memberId(member.getMemberId())
                 .name(member.getName())
                 .avatar(member.getAvatar())
@@ -35,6 +37,8 @@ public interface BoardMapper {
                         .writer(writer)
                         .imageUrls(imageUrls)
                         .tags(board.getTagDto())
+                        .comments(comments)
+//                        .around()
                         .build();
         return detailResponse;
     }
