@@ -117,6 +117,7 @@ public class OAuthMemberAuthenticationSuccessHandler extends SimpleUrlAuthentica
                 .newInstance()
                 .scheme("http")
                 .host("localhost")
+                //.port(3000) //프론트랑 연결시 3000
                 .port(8080)
                 .path("/receive-token.html")
                 .queryParams(queryParams)
