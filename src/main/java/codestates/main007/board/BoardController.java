@@ -1,5 +1,7 @@
 package codestates.main007.board;
 
+import codestates.main007.comments.CommentDto;
+import codestates.main007.comments.CommentMapper;
 import codestates.main007.member.Member;
 import codestates.main007.member.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -16,16 +18,16 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
     private final BoardMapper boardMapper;
+    private final CommentMapper commentMapper;
     private final MemberService memberService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void postBoard(@RequestHeader(name = "Authorization") String accessToken,
                           @RequestPart("data") BoardDto.Input postDto,
-                          @RequestParam("tags") List<Long> tagIds,
                           @RequestPart("files") List<MultipartFile> images) throws IOException {
 
-        boardService.save(accessToken, postDto, images, tagIds);
+        boardService.save(accessToken, postDto, images);
     }
 
     @PatchMapping("/{board-id}")
@@ -50,12 +52,45 @@ public class BoardController {
     public BoardDto.DetailResponse getBoard(@RequestHeader(name = "Authorization") String accessToken,
                                             @PathVariable("board-id") long boardId) {
         Board board = boardService.find(boardId);
-        Member member = memberService.findByAccessToken(accessToken);
 
-        boolean isDibs = boardService.checkDibs(accessToken, boardId);
-        int status = boardService.checkScoreStatus(member, board);
-        List<String> imageUrls = boardService.findImageUrls(board);
-        BoardDto.DetailResponse detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs, member, imageUrls, status);
+        BoardDto.DetailResponse detailResponse = BoardDto.DetailResponse.builder().build();
+        // 식당,숙소의 경우 주소가 동일한 경우만 추출
+        if (board.getCategoryId() == 1 || board.getCategoryId() == 3) {
+            Member member = memberService.findByAccessToken(accessToken);
+            List<CommentDto.Response> comments = commentMapper.commentsToResponses(board.getComments());
+            // 해당글 찜 여부
+            boolean isDibs = boardService.checkDibs(accessToken, boardId);
+            // 해당글 추천 여부
+            int status = boardService.checkScoreStatus(member, board);
+            // 해당글 이미지 리스트
+            List<String> imageUrls = boardService.findImageUrls(board);
+            // 주변 가게 게시글 리스트
+            List<Board> around = boardService.findByAddress(board.getAddress(), board.getStationId(), boardId, board.getCategoryId());// 근처 보드 정보
+            // 주변 가게 찜 정보 리스트
+            List<Boolean> booleans = boardService.findAroundDibs(accessToken, around);
+            // 주변가게 DTO로 변경
+            List<BoardDto.aroundResponse> aroundResponses = boardMapper.boardsToAround(around, booleans);
+
+            detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs, member, comments, imageUrls, status, aroundResponses);
+            // 볼거리의 경우 근처애들 추출
+        } else if (board.getCategoryId() == 2) {
+            Member member = memberService.findByAccessToken(accessToken);
+            List<CommentDto.Response> comments = commentMapper.commentsToResponses(board.getComments());
+            // 해당글 찜 여부
+            boolean isDibs = boardService.checkDibs(accessToken, boardId);
+            // 해당글 추천 여부
+            int status = boardService.checkScoreStatus(member, board);
+            // 해당글 이미지 리스트
+            List<String> imageUrls = boardService.findImageUrls(board);
+            // 주변 가게 게시글 리스트
+            List<Board> around = boardService.findByAddressViewCategory(board.getStationId(), board.getCategoryId(), boardId);// 근처 보드 정보
+            // 주변 가게 찜 정보 리스트
+            List<Boolean> booleans = boardService.findAroundDibs(accessToken, around);
+            // 주변가게 DTO로 변경
+            List<BoardDto.aroundResponse> aroundResponses = boardMapper.boardsToAround(around, booleans);
+
+            detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs, member, comments, imageUrls, status, aroundResponses);
+        }
 
 
         return detailResponse;

@@ -95,6 +95,13 @@ public class MemberDto {
         private List<Long> visitedStations;
     }
 
+    @Getter
+    @Builder
+    public static class Writer {
+        private long memberId;
+        private String name;
+        private String avatar;
+    }
     // 삭제 예정
 //    @Getter
 //    @Builder

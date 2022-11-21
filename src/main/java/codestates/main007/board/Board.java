@@ -156,18 +156,18 @@ public class Board {
     }
 
     public TagDto.Response getTagDto() {
-        String detail = "";
-        List<String> moods = new ArrayList<>();
-        String price = "";
+        long detail = 0;
+        List<Long> moods = new ArrayList<>();
+        long price = 0;
 
         for (Tag tag : this.tags) {
             //todo : 태그 변경 시 수정 필요
             if (tag.getTagId() <= 20) {
-                detail = tag.getTagName();
+                detail = tag.getTagId();
             } else if (tag.getTagId() > 20 && tag.getTagId() <= 40) {
-                price = tag.getTagName();
+                price = tag.getTagId();
             } else if (tag.getTagId()>40){
-                moods.add(tag.getTagName());
+                moods.add(tag.getTagId());
             }
         }
 
