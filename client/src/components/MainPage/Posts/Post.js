@@ -10,17 +10,24 @@ import { useRecoilState } from "recoil";
 import timeFunc from "../../../utils/timeFunc";
 // TravelPlus모달 추가
 import MyTravelModal from "../../mytravel/MyTravelModal";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Post({ data }) {
   const [, setMapImgHoverId] = useRecoilState(mapImgHoverEvent);
-  const [, setMapImgClickId] = useRecoilState(mapImgClickEvent);
+  const [mapImgClickId, setMapImgClickId] = useRecoilState(mapImgClickEvent);
   const [, setMapCenter] = useRecoilState(mapCenterMoveEvent);
   const [postHoverId] = useRecoilState(postImgHoverEvent);
+
+  const [onLink, setOnLink] = useState(false);
 
   const handleMapClick = () => {
     setMapImgClickId(data.boardId);
     setMapCenter([{ lat: data.latitude, lng: data.longitude }]);
   };
+  useEffect(() => {
+    mapImgClickId === data.boardId ? setOnLink(true) : setOnLink(false);
+  }, [mapImgClickId]);
   return (
     <div
       className={`w-40 group mb-4 ${
@@ -34,13 +41,26 @@ function Post({ data }) {
           <MyTravelModal /> <Heart />
         </div>
         <button onClick={handleMapClick}>
-          <img
-            src={data.thumbnail}
-            alt="alt"
-            className={`w-40 h-40 object-fit static hover:opacity-60`}
-            onMouseEnter={() => setMapImgHoverId(data.boardId)}
-            onMouseLeave={() => setMapImgHoverId(null)}
-          />
+          {onLink ? (
+            // 테스트용 링크
+            <Link to="/detail">
+              <img
+                src={data.thumbnail}
+                alt="alt"
+                className={`w-40 h-40 object-fit static `}
+                onMouseEnter={() => setMapImgHoverId(data.boardId)}
+                onMouseLeave={() => setMapImgHoverId(null)}
+              />
+            </Link>
+          ) : (
+            <img
+              src={data.thumbnail}
+              alt="alt"
+              className={`w-40 h-40 object-fit static hover:opacity-60`}
+              onMouseEnter={() => setMapImgHoverId(data.boardId)}
+              onMouseLeave={() => setMapImgHoverId(null)}
+            />
+          )}
         </button>
         <PostStarScore score={data.star} />
       </div>
