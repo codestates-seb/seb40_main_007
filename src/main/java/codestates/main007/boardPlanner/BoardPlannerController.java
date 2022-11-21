@@ -11,7 +11,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class BoardPlannerController {
     private final BoardPlannerService boardPlannerService;
-    @PostMapping("/boards/{board-id}/{planner-id}")
+    @PostMapping("/boardplanners/{board-id}/{planner-id}")
     @ResponseStatus(HttpStatus.CREATED)
     public void postBoardPlanner(@RequestHeader(name = "Authorization") String accessToken,
                           @RequestParam("board-id") long boardId,
@@ -20,7 +20,7 @@ public class BoardPlannerController {
         boardPlannerService.save(accessToken, boardId, plannerId);
     }
 
-    @PatchMapping("/{planner-id}")
+    @PatchMapping("/boardplanners/{planner-id}")
     @ResponseStatus(HttpStatus.OK)
     public PlannerDto.MyPlannerResponse patchPriority(@RequestHeader(name = "Authorization") String accessToken,
                                                       @PathVariable("planner-id") long plannerId,
