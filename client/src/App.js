@@ -20,7 +20,6 @@ import EditMyInfoPage from "./Routes/myPages/editMyInfoPage";
 import EditPasswordPage from "./Routes/myPages/editPasswordPage";
 import MyCommentPage from "./Routes/myPages/myCommentPage";
 import MyPostPage from "./Routes/myPages/myPostPage";
-import MyLikePostPage from "./Routes/myPages/myLikePostPage";
 import MyTravelPage from "./Routes/myPages/myTravelPage";
 
 // 로그인 테스트용입니다.
@@ -63,7 +62,6 @@ function App() {
             <Route path="/mypage/editmyinfo" element={<EditMyInfoPage />} />
             <Route path="/mypage/editpassword" element={<EditPasswordPage />} />
             <Route path="/mypage/mypost" element={<MyPostPage />} />
-            <Route path="/mypage/likepost" element={<MyLikePostPage />} />
             <Route path="/mypage/mycomment" element={<MyCommentPage />} />
             <Route path="/mypage/mytravel" element={<MyTravelPage />} />
             <Route path="*" element={<NotFoundPage />} />

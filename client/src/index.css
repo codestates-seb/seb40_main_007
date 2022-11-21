@@ -24,4 +24,19 @@
   .hover-img {
     @apply hover:absolute hover:duration-300 hover:scale-150;
   }
+  /* 크롬기준 스크롤바 디자인 부분 */
+  *::-webkit-scrollbar {
+    width: 14px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: white;
+    border-radius: 5px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: rgba(83, 199, 240, 0.7);
+    border-radius: 14px;
+    border: 2px solid white;
+  }
 }

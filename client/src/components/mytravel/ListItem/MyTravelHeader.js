@@ -1,30 +1,48 @@
-import { BsList } from "react-icons/bs";
+import { BsList, BsPlusLg } from "react-icons/bs";
 import { useState } from "react";
-import ListModal from "../../modals/ListModal";
-
+import ListModal from "../../modals/MyTravelListModal";
+import MyTravelAddModal from "../../modals/MyTravelAddModal";
 const MyTravelHeader = () => {
-  const [onModal, setOnModal] = useState(false);
+  const [onListModal, setOnListModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
   const handleOnModal = () => {
-    setOnModal(!onModal);
+    setOnListModal(!onListModal);
   };
   return (
-    <>
-      <div className="w-full flex flex-row items-center justify-between">
-        <div className="flex flex-row items-center">
-          <img className="w-8 h-8 mr-2" alt="logo" src="/images/logo.png"></img>
-          <h2 className="text-lg text-[rgb(83,199,240)]">부산역 여행</h2>
+    <div className="w-full">
+      <div className="w-4/5 flex flex-row items-center justify-between">
+        <div className="flex flex-row">
+          <h2 className="pt-1.5 text-base font-semibold text-[rgb(83,199,240)]">
+            총 소요 시간 2시간
+          </h2>
         </div>
-        <div className="flex justify-end">
+        <div className="w-40 flex justify-end">
           <button
-            onClick={handleOnModal}
+            onClick={() => setShowModal(true)}
             className="flex flex-row items-center"
           >
-            <BsList color={"rgb(83, 199, 240)"} size={30} />
+            <BsPlusLg
+              className="hover:scale-110 mr-2"
+              color={"rgb(83, 199, 240)"}
+              size={22}
+            />
           </button>
-          {onModal ? <ListModal offModal={handleOnModal} /> : null}
+          {showModal ? <MyTravelAddModal setShowModal={setShowModal} /> : null}
+          <button
+            onClick={() => setOnListModal(true)}
+            className="flex flex-row items-center"
+          >
+            <BsList
+              className="hover:scale-110"
+              color={"rgb(83, 199, 240)"}
+              size={30}
+            />
+          </button>
+          {onListModal ? <ListModal offModal={handleOnModal} /> : null}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
