@@ -1,10 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/main007?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
-    username: user   # todo : ec2환경 변수에 저장
-    password: 1234   # todo : ec2환경 변수에 저장
-
+    url: jdbc:mysql://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:3306/main007?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=CST
+    username: ${MYSQL_USERNAME}   # todo : ec2환경 변수에 저장
+    password: ${MYSQL_PASSWORD}   # todo : ec2환경 변수에 저장
   jpa:
     hibernate:
       ddl-auto: update
@@ -12,12 +11,14 @@ spring:
     properties:
       hibernate:
         format_sql: true;
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
   mail:
     host: smtp.gmail.com
     port: 587
     username: yeogiyo007@gmail.com
-    password: pibrnoalgjanhzwo # todo : ec2환경 변수에 저장
+    password: ${MAIL_SECRET_KEY} # todo : ec2환경 변수에 저장
     properties:
       mail:
         smtp:
@@ -28,6 +29,7 @@ spring:
     multipart:
       maxFileSize: 50MB
       maxRequestSize: 50MB
+
   security:
     oauth2:
       client:
@@ -62,4 +64,4 @@ jwt:
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
 
-TMAP_APPKEY: l7xxc89bed3adc94451abfd7f0eebe850f9c   # todo : ec2환경 변수에 저장
+TMAP_APPKEY: ${TMAP_APPKEY}   # todo : ec2환경 변수에 저장
