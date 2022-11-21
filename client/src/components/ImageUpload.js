@@ -36,6 +36,7 @@ export default function ImageUpload() {
       <div className="flex justify-center items-center m-auto">
         <ul className=" flex m-3 text-[rgb(83,199,240)]">
           <li
+            // 선택한 인덱스가 0번이고 해당 위치에 값이 있을 경우 대표 테두리
             className={
               index === 0 && url[0]
                 ? "border-4 border-[rgb(83,199,240)] rounded-xl m-1"
@@ -45,7 +46,7 @@ export default function ImageUpload() {
               if (url[0] !== undefined) setIndex(0);
             }}
           >
-            {!url[0] ? (
+            {!url[0] ? ( // url[0]에 값이 없는 경우
               <div className="bg-[#D9D9D9] rounded-lg sm:p-8 p-2">
                 <ReactFileReader
                   fileTypes={[".png", ".jpg", ".jpeg", ".heic"]}
@@ -57,12 +58,15 @@ export default function ImageUpload() {
                 </ReactFileReader>
               </div>
             ) : (
+              // url[0]에 값이 있는 경우
               <div className="bg-[#D9D9D9] rounded-lg w-36 h-36 flex justify-center items-center relative">
                 {index === 0 && url[0] ? (
+                  // 선택한 인덱스가 0번이고 해당 위치에 값이 있을 경우 대표 문구
                   <span className="text-xs px-2 top-1 left-1 bg-[rgb(83,199,240)] text-white p-1 rounded-xl absolute">
                     대표
                   </span>
                 ) : null}
+
                 <button className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full">
                   <FiTrash2 onClick={() => handleDelete(0)} />
                 </button>

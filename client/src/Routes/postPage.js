@@ -23,6 +23,9 @@ import {
   postCommentState,
 } from "../atoms/postInfo";
 
+//이미지 테스트
+import ImageTest from "../components/ImageTest";
+
 export default function PostPage() {
   const postTrainStation = useRecoilValue(postTrainStationState);
   const postionState = useRecoilValue(postpostionState);
@@ -70,6 +73,9 @@ export default function PostPage() {
         <PostTrainStationSelect />
         <PostMap />
         <ImageUpload />
+
+        {/* 이미지 테스트 */}
+        <ImageTest />
 
         <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 pt-2 text-18 text-[rgb(83,199,240)] mt-16">
           별점

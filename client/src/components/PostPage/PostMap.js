@@ -366,7 +366,7 @@ export default function PostMap() {
                 onClick={() => {
                   oneMarkerSelect(marker);
                   setMarkers([marker]);
-                  setTitleState(`${marker.place_name}(${marker.adress})`);
+                  setTitleState(marker.place_name);
                 }}
                 draggable={true}
               ></MapMarker>
@@ -399,7 +399,7 @@ export default function PostMap() {
                     setMarkers([marker]);
                     setPositionState(marker.position); //위도경도
                     setAdressState(marker.adress); // 주소값
-                    setTitleState(`${marker.place_name}(${marker.adress})`);
+                    setTitleState(marker.place_name);
                   }}
                   key={`marker-${marker.place_name}`}
                 >
