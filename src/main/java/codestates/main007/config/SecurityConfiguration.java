@@ -2,10 +2,7 @@ package codestates.main007.config;
 
 import codestates.main007.auth.filter.JwtAuthenticationFilter;
 import codestates.main007.auth.filter.JwtVerificationFilter;
-import codestates.main007.auth.handler.MemberAccessDeniedHandler;
-import codestates.main007.auth.handler.MemberAuthenticationEntryPoint;
-import codestates.main007.auth.handler.MemberAuthenticationFailureHandler;
-import codestates.main007.auth.handler.OAuthMemberAuthenticationSuccessHandler;
+import codestates.main007.auth.handler.*;
 import codestates.main007.auth.jwt.JwtTokenizer;
 import codestates.main007.auth.util.CustomAuthorityUtils;
 import codestates.main007.auth.util.YeogiyoOAuth2Provider;
@@ -61,7 +58,7 @@ public class SecurityConfiguration {
                 .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
                 .accessDeniedHandler(new MemberAccessDeniedHandler())
                 .and()
-                .apply(new CustomFilterConfigurer())
+                .apply(new LoginFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
                                 .antMatchers(POST, "/login").permitAll()
@@ -126,13 +123,31 @@ public class SecurityConfiguration {
         return source;
     }
 
-    public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
+    public class LoginFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
         @Override
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
             jwtAuthenticationFilter.setFilterProcessesUrl("/login");
+            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
+            jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
+
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
+
+            builder
+                    .addFilter(jwtAuthenticationFilter)
+                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
+        }
+    }
+
+    public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
+        @Override
+        public void configure(HttpSecurity builder) throws Exception {
+            AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
+
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
+            //jwtAuthenticationFilter.setFilterProcessesUrl("/login");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new OAuthMemberAuthenticationSuccessHandler(jwtTokenizer, authorityUtils, memberService));
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 

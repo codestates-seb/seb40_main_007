@@ -19,6 +19,9 @@ public class BoardPlanner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardPlannerId;
 
+    @Column
+    private int priority;
+
     @ManyToOne
     @JoinColumn(name = "board_id")
     private Board board;
@@ -26,4 +29,8 @@ public class BoardPlanner {
     @ManyToOne
     @JoinColumn(name = "planner_id")
     private Planner planner;
+
+    public void setPriority(int priority){
+        this.priority=priority;
+    }
 }
