@@ -8,6 +8,9 @@ import {
 } from "../../../atoms/mapImage";
 import { useRecoilState } from "recoil";
 import timeFunc from "../../../utils/timeFunc";
+// TravelPlus모달 추가
+import MyTravelModal from "../../mytravel/MyTravelModal";
+
 function Post({ data }) {
   const [, setMapImgHoverId] = useRecoilState(mapImgHoverEvent);
   const [, setMapImgClickId] = useRecoilState(mapImgClickEvent);
@@ -26,15 +29,15 @@ function Post({ data }) {
           : null
       }`}
     >
-      <div className="rounded-md group-hover:opacity-60 relative">
-        <div className="absolute right-0">
-          <Heart />
+      <div className="rounded-md  relative">
+        <div className="absolute right-0 bg-[rgba(256,256,256,0.5)] flex p-[1px] m-1 rounded-lg z-10">
+          <MyTravelModal /> <Heart />
         </div>
         <button onClick={handleMapClick}>
           <img
             src={data.thumbnail}
             alt="alt"
-            className={`w-40 h-40 object-fit static`}
+            className={`w-40 h-40 object-fit static hover:opacity-60`}
             onMouseEnter={() => setMapImgHoverId(data.boardId)}
             onMouseLeave={() => setMapImgHoverId(null)}
           />

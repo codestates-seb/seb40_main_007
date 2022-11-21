@@ -24,13 +24,13 @@ export default function Heart() {
     <>
       {isWishAdd ? (
         <AiFillHeart
-          size={24}
+          size={30}
           className="text-[#EC1258]"
           onClick={wishCountHandler}
         />
       ) : (
         <AiOutlineHeart
-          size={24}
+          size={30}
           className="text-[#EC1258]"
           onClick={wishCountHandler}
         />

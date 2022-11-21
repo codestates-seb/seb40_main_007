@@ -6,6 +6,7 @@ import { postDummyState, dummyDataState } from "../../../atoms/dummyData";
 import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loading from "../../Loading";
+
 function TestPostList() {
   // 더미 데이터 세팅하는 로직 통신 전까지만 사용
   const [...posts] = useRecoilValue(postDummyState);

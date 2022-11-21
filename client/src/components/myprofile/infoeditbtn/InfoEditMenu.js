@@ -1,11 +1,11 @@
-import { VscKey } from "react-icons/vsc";
+import { VscKey, VscSignOut } from "react-icons/vsc";
 import { TiPencil } from "react-icons/ti";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 const InfoEditMenu = ({ offModal }) => {
   return (
-    <div className="p-1 w-40 h-24 mt-9 bg-white text-[rgb(83,199,240)] text-sm rounded-2xl border-2 flex flex-col align-middle absolute">
+    <div className="p-1 w-40 h-28 mt-9 bg-white text-[rgb(83,199,240)] text-sm rounded-2xl border-2 flex flex-col align-middle absolute">
       <div className="flex justify-end rounded-full">
         <AiOutlineCloseCircle
           onClick={offModal}
@@ -22,9 +22,15 @@ const InfoEditMenu = ({ offModal }) => {
           </li>
         </Link>
         <Link to="/mypage/editpassword">
-          <li className="flex flex-row justify-between">
+          <li className="mb-2 flex flex-row justify-between">
             비밀번호 변경
             <VscKey size="18" />
+          </li>
+        </Link>
+        <Link to="/signout">
+          <li className="flex flex-row justify-between">
+            회원탈퇴
+            <VscSignOut size="18" />
           </li>
         </Link>
       </ul>

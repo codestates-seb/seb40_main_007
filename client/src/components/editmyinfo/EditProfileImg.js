@@ -1,16 +1,25 @@
-import EditBtn from "./EditBtn";
-import ReactFileReader from "react-file-reader";
+// import ReactFileReader from "react-file-reader";
 import { useState } from "react";
+import { TiPencil } from "react-icons/ti";
 
 const EditProfileImg = () => {
   // HTTP 통신 되면 로그인 유저 프로필 url로 url 교체. -> 전역상태 관리 필요
   const [url, setUrl] = useState("");
 
-  const handleFiles = (files) => {
-    console.log(files);
-    setUrl(files.base64);
-  };
+  const insertImg = (e) => {
+    let fileImage = e.target.files[0];
+    const formData = new FormData();
+    formData.append("file", fileImage);
 
+    let reader = new FileReader();
+    if (fileImage) {
+      reader.readAsDataURL(fileImage);
+    }
+    reader.onloadend = () => {
+      const preveiwUrl = reader.result;
+      setUrl(preveiwUrl);
+    };
+  };
   return (
     <div className="w-[260px] mt-20">
       <div className="">
@@ -20,13 +29,21 @@ const EditProfileImg = () => {
         <div className="mt-2 w-[5rem] h-[5rem] flex items-end justify-end">
           <>
             <div className="absolute">
-              <ReactFileReader
-                fileTypes={[".png", ".jpg"]}
-                base64={true}
-                handleFiles={handleFiles}
-              >
-                <EditBtn usePlace="EditProfileImg" />
-              </ReactFileReader>
+              <form encType="multipart/form-data">
+                <label htmlFor="file" className="z-10">
+                  <TiPencil
+                    className="border-[rgb(83,199,240)] rounded-full border-[2px] p-[1px] m-[3px] bg-white text-[rgb(83,199,240)]"
+                    size={22}
+                  />
+                </label>
+                <input
+                  type="file"
+                  id="file"
+                  accept="image/jpg, image/jpeg, image/png, image/heif, image/heic"
+                  onChange={(e) => insertImg(e)}
+                  className="hidden"
+                />{" "}
+              </form>
             </div>
             {url !== "" ? (
               <img

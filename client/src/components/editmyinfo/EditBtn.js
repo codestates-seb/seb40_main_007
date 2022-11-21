@@ -3,8 +3,9 @@ import { TiPencil } from "react-icons/ti";
 const EditBtn = ({ usePlace, iconSize, position }) => {
   return (
     <button
-      className={`border-[rgb(83,199,240)] rounded-full border-[2px]
-      }] p-[1px] m-[3px] ${position ? position : "static"}
+      className={`border-[rgb(83,199,240)] rounded-full border-[2px] p-[1px] m-[3px] ${
+        position ? position : "static"
+      }
       ${usePlace === "main" ? "bg-[rgb(83,199,240)]" : "bg-white"}`}
     >
       <TiPencil
