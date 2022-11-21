@@ -7,27 +7,6 @@ import ViewDislike from "../../ViewLike/ViewDisLike";
 import ViewLike from "../../ViewLike/ViewLike";
 
 const MyTravelPost = ({ data }) => {
-  console.log(data);
-  const dummy = [
-    {
-      boardId: 1,
-      title: "돼지국밥",
-      review: "크으 이게 국밥이여 부추여",
-      star: 1,
-      thumbnail:
-        "https://d12zq4w4guyljn.cloudfront.net/20220215014519053_photo_79460f6e0b30.jpg",
-      dibs: false,
-      address: "교동짬뽕",
-      latitude: 35.11645769146161,
-      longitude: 129.04139799578658,
-      timeFromStation: 627,
-      tags: {
-        detailTag: "한식",
-        moodTag: ["아늑한", "정겨운", "깔끔한", "뷰가 좋은"],
-        priceTag: "만원 초과 2만원 이하",
-      },
-    },
-  ];
   const dummyTagList = [
     data.tags.detailTag,
     ...data.tags.moodTag,

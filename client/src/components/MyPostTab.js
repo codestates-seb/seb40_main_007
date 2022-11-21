@@ -8,19 +8,19 @@ const MyPostTab = ({ setIndex, index }) => {
       <div className="w-4/5 h-10 flex flex-row">
         <button
           className={`${normalStyle} rounded-tl-2xl rounded-bl-2xl ${
-            index === "게시글" ? activeStyle : ""
+            index === "작성한게시글" ? activeStyle : ""
           }`}
-          onClick={() => setIndex("게시글")}
+          onClick={() => setIndex("작성한게시글")}
         >
-          게시글
+          작성한 게시글
         </button>
         <button
           className={`${normalStyle} rounded-tr-2xl rounded-br-2xl ${
-            index === "지도" ? activeStyle : ""
+            index === "내찜목록" ? activeStyle : ""
           }`}
-          onClick={() => setIndex("지도")}
+          onClick={() => setIndex("내찜목록")}
         >
-          지도
+          내 찜 목록
         </button>
       </div>
     </>

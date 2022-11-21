@@ -7,8 +7,17 @@ import MainHeader from "../components/MainPage/MainHeader";
 import WriteModal from "../components/modals/WriteModal";
 import MainMapTest from "../components/MainPage/TestMainMap";
 import TestPostList from "../components/MainPage/Posts/TestPostList";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { mapImgClickEvent } from "../atoms/mapImage";
 
 const MainPage = () => {
+  // 지도에서 게시글 정보 보이는 기능 초기화
+  const [, setMapImgClickId] = useRecoilState(mapImgClickEvent);
+  useEffect(() => {
+    setMapImgClickId(null);
+  }, []);
+
   return (
     <>
       <Header />

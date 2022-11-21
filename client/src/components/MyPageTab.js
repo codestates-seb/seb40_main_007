@@ -32,12 +32,12 @@ export default function MyPageTab({ index }) {
           </Link>
         </li>
         <li>
-          <Link to="/mypage/likepost">
+          <Link to="/mypage/mytravel">
             <button
               // onClick={() => setIndex(2)}
-              className={index === "내찜목록" ? unactiveStyle : activeStyle}
+              className={index === "내여행계획" ? unactiveStyle : activeStyle}
             >
-              내 찜 목록
+              내 여행 계획
             </button>
           </Link>
         </li>

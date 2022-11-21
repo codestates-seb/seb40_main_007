@@ -14,7 +14,7 @@ const MyTravelPage = () => {
     <>
       <Header />
       <div className="mypage-header-tab">
-        <MyPageTab index={"내역이요"} />
+        <MyPageTab index={"내여행계획"} />
         <div className="lg:w-full w-full flex justify-center items-center flex-col">
           <div className="w-full max-w-7xl flex flex-col sm:flex-row justify-end gap-2 ">
             <MyTravelMap data={dummyData} />
