@@ -31,8 +31,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
+import static org.springframework.http.HttpMethod.PATCH;
 
 @Configuration
 public class SecurityConfiguration {
@@ -64,6 +64,16 @@ public class SecurityConfiguration {
                                 .antMatchers(POST, "/login").permitAll()
                                 .antMatchers(POST, "/members/signup").permitAll()
                                 .antMatchers(GET, "/{station-id}").permitAll()
+                                //boardController
+                                .antMatchers(POST, "/boards").permitAll()
+                                //plannerController
+                                .antMatchers(POST, "/planners").permitAll()
+                                .antMatchers(PATCH, "/planners/{planner-id}").permitAll()
+                                .antMatchers(GET, "/planners/{planner-id}").permitAll()
+                                //boardPlannerController
+                                .antMatchers(POST, "/boardplanners/{board-id}/{planner-id}").permitAll()
+                                .antMatchers(PATCH, "/boardplanners/temp/{planner-id}").permitAll()
+                                .antMatchers(PATCH, "/boardplanners/confirm/{planner-id}").permitAll()
                         //todo:계속 추가예정
                 )
                 .oauth2Login(oauth2 -> oauth2
@@ -99,8 +109,9 @@ public class SecurityConfiguration {
 
         return new InMemoryClientRegistrationRepository(registrations);
     }
+
     private ClientRegistration getRegistration(OAuth2ClientProperties clientProperties, String client) {
-        if("google".equals(client)) {
+        if ("google".equals(client)) {
             OAuth2ClientProperties.Registration registration = clientProperties.getRegistration().get("google");
             return CommonOAuth2Provider.GOOGLE.getBuilder(client)
                     .clientId(registration.getClientId())
@@ -110,6 +121,7 @@ public class SecurityConfiguration {
         }
         return null;
     }
+
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
