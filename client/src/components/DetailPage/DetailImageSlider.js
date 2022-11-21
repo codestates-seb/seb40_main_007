@@ -44,7 +44,7 @@ const DetailImageSlider = () => {
       <Swiper modules={[Navigation]} navigation={true}>
         {allUrls.map((el) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={el}>
               <div className="flex justify-center items-center">
                 <img
                   className="object-cover w-[500px] h-[480px] block py-10"

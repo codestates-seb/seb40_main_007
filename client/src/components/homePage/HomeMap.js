@@ -75,7 +75,7 @@ export default function HomeMap() {
               { lat: 37.51564687008552, lng: 126.90744793931377 },
               { lat: 37.416664546209894, lng: 126.88492056682958 },
               { lat: 37.26564253711089, lng: 127.00007046138899 },
-              { lat: 37.416664546209894, lng: 126.88492056682958 },
+              { lat: 36.79420674636496, lng: 127.1045366477671 },
               { lat: 36.62009444926888, lng: 127.3275725873306 },
               { lat: 36.331515660740514, lng: 127.43274734876098 },
               { lat: 36.11350772356422, lng: 128.1808380410188 },
@@ -110,7 +110,7 @@ export default function HomeMap() {
           >
             {isVisible && isMarker.id === trainMarker.id ? (
               <Link to={`/main/${trainMarker.id}`}>
-                <div className=" w-40 py-1 font-semibold hover:border-4 bg-gray-500   text-white text-center">
+                <div className=" w-40 py-1 font-semibold hover:border-4 bg-gray-500 text-white text-center">
                   {trainMarker.train}
                 </div>
               </Link>

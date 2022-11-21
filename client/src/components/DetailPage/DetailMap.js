@@ -1,4 +1,6 @@
-import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { useState } from "react";
+import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
+import MapItemDetail from "../MapItems/MapItemDetail";
 
 const DetailMap = () => {
   const trainInfo = {
@@ -11,20 +13,29 @@ const DetailMap = () => {
     phone: "000 - 0000",
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="flex justify-center items-center">
       <Map
         level={5}
         center={trainInfo.position}
         style={{ width: "500px", height: "400px" }}
+        onClick={() => setIsOpen(false)}
       >
         <MapMarker
+          onClick={() => setIsOpen(true)}
           position={trainInfo.position}
           image={{
             src: "/images/marker.png",
             size: { width: 60, height: 70 },
           }}
         />
+        {isOpen && (
+          <CustomOverlayMap position={trainInfo.position}>
+            <MapItemDetail thumbnail="https://i.ytimg.com/vi/lgfXrQUx4go/maxresdefault.jpg" />
+          </CustomOverlayMap>
+        )}
       </Map>
     </div>
   );

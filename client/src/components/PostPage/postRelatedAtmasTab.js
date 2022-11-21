@@ -26,7 +26,8 @@ const PostRelatedAtmasTab = () => {
   };
 
   return (
-    <div className="flex flex-row justify-center space-x-2 mt-4 mb-1 ">
+    <div className="flex items-center space-x-2 mt-4 mb-1 font-bold">
+      <span className="mr-14">분위기</span>
       {atmas.map((el) => (
         <button
           key={el}

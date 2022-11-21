@@ -7,12 +7,9 @@ export default function OneLineComment(props) {
       <div className="max-w-4xl m-auto mt-10">
         <img src="images/open_quote.png" alt="openQuote" />
         <div className="flex justify-center">
-          <input
-            type="text"
-            value={props.review}
-            maxLength="40"
-            className="text-center font-semibold text-black  text-lg rounded-md  bg-transparent focus:outline-none w-10/12 p-2 m-1 my-4"
-          />
+          <div className="text-center font-semibold text-black  text-lg rounded-md  bg-transparent focus:outline-none w-10/12 p-2 m-1 my-4">
+            {props.review}
+          </div>
         </div>
         <div className="flex justify-end">
           <img src="images/close_quote.png" alt="closeQuote" />

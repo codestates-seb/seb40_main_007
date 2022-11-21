@@ -38,7 +38,8 @@ export default function ListTag() {
   });
 
   return (
-    <div>
+    <div className="font-bold flex items-center">
+      <span className="mr-14">가격대</span>
       {category === "식당"
         ? restarant.map((text, idx) => (
             <button

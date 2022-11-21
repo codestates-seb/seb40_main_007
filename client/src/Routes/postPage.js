@@ -23,6 +23,9 @@ import {
   postCommentState,
 } from "../atoms/postInfo";
 
+//이미지 테스트
+import ImageTest from "../components/ImageTest";
+
 export default function PostPage() {
   const postTrainStation = useRecoilValue(postTrainStationState);
   const postionState = useRecoilValue(postpostionState);
@@ -67,14 +70,12 @@ export default function PostPage() {
     <>
       <Header />
       <div className="pb-30 max-w-5xl m-auto">
-        <div className="pt-20">
-          <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 pt-10 pb-2 mb-5  text-18 text-[rgb(83,199,240)]">
-            역 선택
-          </div>
-          <PostTrainStationSelect />
-        </div>
+        <PostTrainStationSelect />
         <PostMap />
         <ImageUpload />
+
+        {/* 이미지 테스트 */}
+        <ImageTest />
 
         <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 pt-2 text-18 text-[rgb(83,199,240)] mt-16">
           별점
@@ -86,21 +87,10 @@ export default function PostPage() {
           관련태그
         </div>
         <div className="mb-5 w-fit m-auto sm:ml-56">
-          <div className="font-bold flex items-center">
-            <span className="mr-12">카테고리</span> <PostCategoryTabs />
-          </div>
-          <div className="font-bold flex items-center ">
-            <span className="mr-9">관련 태그</span>
-            <PostRelatedTab />
-          </div>
-          <div className="font-bold flex items-center">
-            <span className="mr-14">분위기</span>
-            <PostRelatedAtmasTab />
-          </div>
-          <div className="font-bold flex items-center">
-            <span className="mr-14">가격대</span>
-            <ListTag />
-          </div>
+          <PostCategoryTabs />
+          <PostRelatedTab />
+          <PostRelatedAtmasTab />
+          <ListTag />
         </div>
 
         <OnlineInput />

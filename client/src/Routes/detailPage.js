@@ -9,6 +9,9 @@ import Like from "../components/DetailPage/Review/Like";
 import Dislike from "../components/DetailPage/Review/Dislike";
 import OneLineComment from "../components/OneLineComment";
 import Footer from "../components/Footer";
+import KakaoShareButton from "../components/DetailPage/KakaoShareButton";
+import EveryShareButton from "../components/DetailPage/EveryShareButton";
+import { AiOutlineShareAlt } from "react-icons/ai";
 
 const DetailPage = () => {
   return (
@@ -21,7 +24,12 @@ const DetailPage = () => {
             <DetailImageSlider />
             <DetailMap />
           </div>
-          <div className="flex flex-row mt-5 justify-end">
+          <div className="flex items-center justify-end">
+            <AiOutlineShareAlt className="mr-1" />
+            <KakaoShareButton />
+            <EveryShareButton />
+          </div>
+          <div className="flex flex-row mt-10 justify-end">
             <Like />
             <Dislike />
           </div>
@@ -30,7 +38,6 @@ const DetailPage = () => {
           <CommentEditor />
         </div>
       </div>
-
       <NeighborhoodPlace />
       <Footer />
     </>
