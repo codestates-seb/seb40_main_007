@@ -2,10 +2,7 @@ package codestates.main007.config;
 
 import codestates.main007.auth.filter.JwtAuthenticationFilter;
 import codestates.main007.auth.filter.JwtVerificationFilter;
-import codestates.main007.auth.handler.MemberAccessDeniedHandler;
-import codestates.main007.auth.handler.MemberAuthenticationEntryPoint;
-import codestates.main007.auth.handler.MemberAuthenticationFailureHandler;
-import codestates.main007.auth.handler.OAuthMemberAuthenticationSuccessHandler;
+import codestates.main007.auth.handler.*;
 import codestates.main007.auth.jwt.JwtTokenizer;
 import codestates.main007.auth.util.CustomAuthorityUtils;
 import codestates.main007.auth.util.YeogiyoOAuth2Provider;
