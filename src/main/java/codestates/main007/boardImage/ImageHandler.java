@@ -209,52 +209,56 @@ public class ImageHandler {
 
                     images.add(boardImage);
 
-//                    if (i == 0) {
-//                        // 절대 경로 설정
-//                        // todo: 나중에 s3로 변경
-//                        String absolutePath = new File("").getAbsolutePath() + "/";
-//                        // 저장 경로 설정
-//                        String path = "thumbnail";
-//
-//                        File file = new File(path);
-//
-//                        // 디렉토리가 없을 때 생성
-//                        if (!file.exists()) {
-//                            file.mkdirs();
-//                        }
-//
-//                        //썸네일 생성 메서드
-//                        file = new File(absolutePath + path + "/" + image.getOriginalFilename());
-//                        image.transferTo(file);
-//
-//                        String thumbnailName = "thumbnail_of_" + board.getBoardId()+image;
-//                        File thumbnail = new File(absolutePath + path + "/" + thumbnailName);
-//                        Thumbnails.of(file).size(300, 300).outputFormat("png").toFile(thumbnail);
-//
-//                        FileItem fileItem = new DiskFileItem("thumbnail", Files.probeContentType(thumbnail.toPath()), false, thumbnail.getName(), (int) thumbnail.length(), thumbnail.getParentFile());
-//
-//                        try {
-//                            InputStream input = new FileInputStream(file);
-//                            OutputStream os = fileItem.getOutputStream();
-//                            IOUtils.copy(input, os);
-//                            // Or faster..
-//                            // IOUtils.copy(new FileInputStream(file), fileItem.getOutputStream());
-//                        } catch (IOException ex) {
-//                            // do something.
-//                        }
-//
-//                        //jpa.png -> multipart 변환
-//                        MultipartFile mpThumbnail = new CommonsMultipartFile(fileItem);
-//
-//                        ObjectMetadata metadata = new ObjectMetadata();
-//                        metadata.setContentType("image/png");
-//
-//                        amazonS3.putObject(new PutObjectRequest(bucket, thumbnailName, mpThumbnail.getInputStream(), metadata)
-//                                .withCannedAcl(CannedAccessControlList.PublicRead));
-//                        // ec2에 저장된 이미지는 삭제
-//                        file.delete();
-//                        thumbnail.delete();
-//                    }
+                    if (i == 0) {
+                        String absolutePath = new File("").getAbsolutePath() + "\\";
+                        // 저장 경로 설정
+                        String path = "images";
+                        File file = new File(path);
+
+                        // 디렉토리가 없을 때 생성
+                        if (!file.exists()) {
+                            file.mkdirs();
+                        }
+
+                        String newFileName = System.nanoTime() + originalFileExtension;
+
+                        file = new File(absolutePath + path + "/" + newFileName);
+                        image.transferTo(file);
+
+                        Thumbnails.of(file).size(300, 300).outputFormat("png").toFile(file);
+
+                        FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(file.toPath()), false, file.getName(), (int) file.length(), file.getParentFile());
+
+                        try {
+                            InputStream input = new FileInputStream(file);
+                            OutputStream os = fileItem.getOutputStream();
+                            IOUtils.copy(input, os);
+                            // Or faster..
+                            // IOUtils.copy(new FileInputStream(file), fileItem.getOutputStream());
+                        } catch (IOException ex) {
+                            // do something.
+                        }
+
+                        MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
+
+                        String thumbnailName = "board_thumbnail/thumbnail_of_" + board.getBoardId();
+
+                        try {
+                            ObjectMetadata metadata = new ObjectMetadata();
+                            byte[] bytes = IOUtils.toByteArray(multipartFile.getInputStream());
+                            metadata.setContentType(contentType);
+                            metadata.setContentLength(bytes.length);
+                            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+
+                            amazonS3.putObject(new PutObjectRequest(bucket, thumbnailName, byteArrayInputStream, metadata)
+                                    .withCannedAcl(CannedAccessControlList.PublicRead));
+
+                        } catch (AmazonServiceException e) {
+                            e.printStackTrace();
+                        } catch (SdkClientException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
         }
