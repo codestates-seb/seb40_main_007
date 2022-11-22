@@ -158,7 +158,7 @@ public class ImageHandler {
         for (int i = 0; i < multipartFiles.size(); i++) {
             MultipartFile image = multipartFiles.get(i);
 
-            String fileName = board.getBoardId() + "board_" + i;
+            String fileName = "board_images/" + board.getBoardId() + "board_" + i;
 
             //파일 형식 구하기
             if (!image.isEmpty()) {
