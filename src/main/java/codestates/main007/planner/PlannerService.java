@@ -1,6 +1,8 @@
 package codestates.main007.planner;
 
 import codestates.main007.board.Board;
+import codestates.main007.board.BoardMapper;
+import codestates.main007.boardPlanner.BoardPlanner;
 import codestates.main007.exception.BusinessLogicException;
 import codestates.main007.exception.ExceptionCode;
 import codestates.main007.member.Member;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +26,7 @@ public class PlannerService {
     private final MemberService memberService;
     private final DistanceMeasuringService distanceMeasuringService;
     private final PlannerMapper plannerMapper;
+    private final BoardMapper boardMapper;
 
     public void save(String accessToken, PlannerDto.Input inputDto) throws IOException {
         Planner createdPlanner = Planner.builder()
@@ -47,19 +51,19 @@ public class PlannerService {
             PlannerDto.MyPlannerResponse responseDto = PlannerDto.MyPlannerResponse.builder()
                     .plannerId(plannerId)
                     .plannerName(planner.getPlannerName())
-                    .boards(
-                            planner.getBoardPlanners().stream()
-                                    .map(boardPlanner -> {
-                                                PlannerDto.Board boardDto = plannerMapper.entityToResponseDto(
-                                                        boardPlanner.getBoard());
-                                                return boardDto;
-                                            }
-                                    )
-                                    .collect(Collectors.toList())
+                    .boards(boardMapper.boardsToBoardsResponse(planner.getBoardPlanners().stream()
+                            .sorted(Comparator.comparing(BoardPlanner::getPriority))
+                            .map(BoardPlanner::getBoard)
+                            .collect(Collectors.toList()))
                     )
                     .build();
             return responseDto;
         } else throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
+    }
+
+    public void deletePlanner(String accessToken, long plannerId) throws IOException {
+        Planner planner = find(plannerId);
+        plannerRepository.delete(planner);
     }
 
     public Planner find(long plannerId) {
