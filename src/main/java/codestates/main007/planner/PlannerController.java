@@ -36,4 +36,12 @@ public class PlannerController {
 
         return plannerService.getMyPlannerPage(accessToken,plannerId);
     }
+
+    @DeleteMapping("/{planner-id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePlanner(@RequestHeader(name = "Authorization") String accessToken,
+                            @PathVariable("planner-id") long plannerId) throws IOException {
+
+        plannerService.deletePlanner(accessToken, plannerId);
+    }
 }
