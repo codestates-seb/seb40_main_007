@@ -20,11 +20,27 @@ public class BoardPlannerController {
         boardPlannerService.save(accessToken, boardId, plannerId);
     }
 
-    @PatchMapping("/boardplanners/{planner-id}")
+    @PatchMapping("/boardplanners/temp/{planner-id}")
+    @ResponseStatus(HttpStatus.OK)
+    public PlannerDto.MyPlannerResponse patchTempPriority(@RequestHeader(name = "Authorization") String accessToken,
+                                                      @PathVariable("planner-id") long plannerId,
+                                                      @RequestBody BoardPlannerDto.PriorityPatch priorityPatchDto) {
+        return boardPlannerService.updateTempPriority(accessToken, plannerId, priorityPatchDto);
+    }
+
+    @PatchMapping("/boardplanners/final/{planner-id}")
     @ResponseStatus(HttpStatus.OK)
     public PlannerDto.MyPlannerResponse patchPriority(@RequestHeader(name = "Authorization") String accessToken,
                                                       @PathVariable("planner-id") long plannerId,
                                                       @RequestBody BoardPlannerDto.PriorityPatch priorityPatchDto) {
         return boardPlannerService.updatePriority(accessToken, plannerId, priorityPatchDto);
+    }
+
+    @DeleteMapping("/boardplanners/{boardplanner-id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePlanner(@RequestHeader(name = "Authorization") String accessToken,
+                              @PathVariable("boardplanner-id") long boardPlannerId) throws IOException {
+
+        boardPlannerService.deleteBoardPlanner(accessToken, boardPlannerId);
     }
 }
