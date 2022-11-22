@@ -2,10 +2,7 @@ package codestates.main007.config;
 
 import codestates.main007.auth.filter.JwtAuthenticationFilter;
 import codestates.main007.auth.filter.JwtVerificationFilter;
-import codestates.main007.auth.handler.MemberAccessDeniedHandler;
-import codestates.main007.auth.handler.MemberAuthenticationEntryPoint;
-import codestates.main007.auth.handler.MemberAuthenticationFailureHandler;
-import codestates.main007.auth.handler.OAuthMemberAuthenticationSuccessHandler;
+import codestates.main007.auth.handler.*;
 import codestates.main007.auth.jwt.JwtTokenizer;
 import codestates.main007.auth.util.CustomAuthorityUtils;
 import codestates.main007.auth.util.YeogiyoOAuth2Provider;
@@ -34,8 +31,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
+import static org.springframework.http.HttpMethod.PATCH;
 
 @Configuration
 public class SecurityConfiguration {
@@ -61,12 +58,22 @@ public class SecurityConfiguration {
                 .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
                 .accessDeniedHandler(new MemberAccessDeniedHandler())
                 .and()
-                .apply(new CustomFilterConfigurer())
+                .apply(new LoginFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
                                 .antMatchers(POST, "/login").permitAll()
                                 .antMatchers(POST, "/members/signup").permitAll()
                                 .antMatchers(GET, "/{station-id}").permitAll()
+                                //boardController
+                                .antMatchers(POST, "/boards").permitAll()
+                                //plannerController
+                                .antMatchers(POST, "/planners").permitAll()
+                                .antMatchers(PATCH, "/planners/{planner-id}").permitAll()
+                                .antMatchers(GET, "/planners/{planner-id}").permitAll()
+                                //boardPlannerController
+                                .antMatchers(POST, "/boardplanners/{board-id}/{planner-id}").permitAll()
+                                .antMatchers(PATCH, "/boardplanners/temp/{planner-id}").permitAll()
+                                .antMatchers(PATCH, "/boardplanners/confirm/{planner-id}").permitAll()
                         //todo:계속 추가예정
                 )
                 .oauth2Login(oauth2 -> oauth2
@@ -124,6 +131,24 @@ public class SecurityConfiguration {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+
+    public class LoginFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
+        @Override
+        public void configure(HttpSecurity builder) throws Exception {
+            AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
+
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
+            jwtAuthenticationFilter.setFilterProcessesUrl("/login");
+            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
+            jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
+
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
+
+            builder
+                    .addFilter(jwtAuthenticationFilter)
+                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
+        }
     }
 
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {

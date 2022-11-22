@@ -110,7 +110,7 @@ public class OAuthMemberAuthenticationSuccessHandler extends SimpleUrlAuthentica
 
     private URI createURI(String accessToken, String refreshToken) {
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
-        queryParams.add("access_token", accessToken);
+        queryParams.add("Authorization", "Bearer " + accessToken);
         queryParams.add("refresh_token", refreshToken);
 
         return UriComponentsBuilder

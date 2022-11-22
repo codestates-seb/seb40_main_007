@@ -33,7 +33,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserDetailsImpl(Member member) {
             setUserDetails(member.getMemberId(),
                     member.getEmail(),
-                    member.getPassword());
+                    member.getPassword(),
+                    member.getAvatar(),
+                    member.getName());
         }
 
         @Override
