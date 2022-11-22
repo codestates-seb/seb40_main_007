@@ -186,12 +186,14 @@ public class ImageHandler {
 
                     try {
                         ObjectMetadata metadata = new ObjectMetadata();
+                        byte[] bytes = IOUtils.toByteArray(image.getInputStream());
                         metadata.setContentType(contentType);
+                        metadata.setContentLength(bytes.length);
+                        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
 
-
-
-                        amazonS3.putObject(new PutObjectRequest(bucket, fileName, image.getInputStream(), metadata)
+                        amazonS3.putObject(new PutObjectRequest(bucket, fileName, byteArrayInputStream, metadata)
                                 .withCannedAcl(CannedAccessControlList.PublicRead));
+
                     } catch (AmazonServiceException e) {
                         e.printStackTrace();
                     } catch (SdkClientException e) {
