@@ -1,6 +1,7 @@
 package codestates.main007.boardImage;
 
 import codestates.main007.board.Board;
+import codestates.main007.board.BoardRepository;
 import codestates.main007.member.Member;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
@@ -31,6 +32,8 @@ public class ImageHandler {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
     private final AmazonS3 amazonS3;
+
+    private final BoardRepository boardRepository;
 
 
     // 로컬에 저장하는 메서드 - 삭제예정
@@ -162,7 +165,7 @@ public class ImageHandler {
 
         MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
 
-        String avatarName = "member_avatar/" + LocalDateTime.now() + "avatar_of_" + member.getMemberId();
+        String avatarName = "member_avatar/" + System.nanoTime() + "avatar_of_" + member.getMemberId();
 
         try {
             ObjectMetadata metadata = new ObjectMetadata();
@@ -279,7 +282,7 @@ public class ImageHandler {
 
                         MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
 
-                        String thumbnailName = "board_thumbnail/thumbnail_of_" + board.getBoardId();
+                        String thumbnailName = "board_thumbnail/" + System.nanoTime() + "thumbnail_of_" + board.getBoardId();
 
                         try {
                             ObjectMetadata metadata = new ObjectMetadata();
@@ -297,6 +300,8 @@ public class ImageHandler {
                             e.printStackTrace();
                         }
 
+                        board.setThumbnail(thumbnailName);
+                        boardRepository.save(board);
                         // s3에 업로드 후 ec2 파일은 제거
                         file.delete();
                     }

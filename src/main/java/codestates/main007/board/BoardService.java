@@ -67,12 +67,6 @@ public class BoardService {
         boardRepository.save(board);
 
         List<BoardImage> list = imageHandler.saveImageOnS3(board, images);
-        if (!list.isEmpty()) {
-            board.setThumbnail();
-        }
-
-        // 섬네일을 게시글에 저장한 후 다시 저장
-        boardRepository.save(board);
 
         List<BoardImage> boardImages = new ArrayList<>();
         for (BoardImage tempImage : list) {

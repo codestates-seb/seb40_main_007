@@ -98,8 +98,8 @@ public class Board {
         this.images = images;
     }
 
-    public void setThumbnail() {
-        this.thumbnail = "https://pre-032-bucket.s3.ap-northeast-2.amazonaws.com/board_thumbnail/thumbnail_of_" + boardId;
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public void setTags(List<Tag> tags) {
