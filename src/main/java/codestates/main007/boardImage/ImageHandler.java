@@ -300,7 +300,7 @@ public class ImageHandler {
                             e.printStackTrace();
                         }
 
-                        board.setThumbnail(thumbnailName);
+                        board.setThumbnail("https://pre-032-bucket.s3.ap-northeast-2.amazonaws.com/"+thumbnailName);
                         boardRepository.save(board);
                         // s3에 업로드 후 ec2 파일은 제거
                         file.delete();
