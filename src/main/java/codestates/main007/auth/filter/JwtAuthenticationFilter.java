@@ -27,6 +27,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.authenticationManager = authenticationManager;
         this.jwtTokenizer = jwtTokenizer;
     }
+
     @SneakyThrows
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
@@ -51,10 +52,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String refreshToken = delegateRefreshToken(member);
 
         response.setHeader("Authorization", "Bearer " + accessToken);
-        response.setHeader("Refresh", refreshToken);
-        response.setHeader("MemberId", Long.toString(member.getMemberId()));
-        response.addHeader("Avatar", member.getAvatar());
-        response.setHeader("Nickname", member.getName());
+        response.setHeader("Refresh", "Bearer " + refreshToken);
 
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
