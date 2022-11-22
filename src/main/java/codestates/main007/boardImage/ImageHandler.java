@@ -20,6 +20,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import java.io.*;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -161,7 +162,7 @@ public class ImageHandler {
 
         MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
 
-        String avatarName = "member_avatar/avatar_of_" + member.getMemberId();
+        String avatarName = "member_avatar/" + LocalDateTime.now() + "avatar_of_" + member.getMemberId();
 
         try {
             ObjectMetadata metadata = new ObjectMetadata();
@@ -182,7 +183,7 @@ public class ImageHandler {
         // s3에 업로드 후 ec2 파일은 제거
         file.delete();
 
-        return "s3에 저장된 이미지 주소";
+        return "https://pre-032-bucket.s3.ap-northeast-2.amazonaws.com/" + avatarName;
     }
 
     public List<BoardImage> saveImageOnS3(Board board, List<MultipartFile> multipartFiles) throws IOException {
