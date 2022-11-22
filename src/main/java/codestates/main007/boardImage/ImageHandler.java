@@ -258,6 +258,9 @@ public class ImageHandler {
                         } catch (SdkClientException e) {
                             e.printStackTrace();
                         }
+
+                        // s3에 업로드 후 ec2 파일은 제거
+                        file.delete();
                     }
                 }
             }
