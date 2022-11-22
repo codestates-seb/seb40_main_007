@@ -31,92 +31,93 @@ public class ImageHandler {
     private String bucket;
     private final AmazonS3 amazonS3;
 
-    public List<BoardImage> parseImageInfo(Board board, List<MultipartFile> multipartFiles) throws IOException {
-        List<BoardImage> images = new ArrayList<>();
 
-        if (multipartFiles.isEmpty()) {
-            return images;
-        }
-
-        // 파일 이름은 업로드 일자로 저장
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        String currentDate = simpleDateFormat.format(new Date());
-
-        // 절대 경로 설정
-        // todo: 나중에 s3로 변경
-        String absolutePath = new File("").getAbsolutePath() + "\\";
-        // 저장 경로 설정
-        String path = "images/" + currentDate;
-        File file = new File(path);
-
-        // 디렉토리가 없을 때 생성
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        for (int i = 0; i < multipartFiles.size(); i++) {
-            MultipartFile multipartFile = multipartFiles.get(i);
-
-            if (!multipartFile.isEmpty()) {
-                // 확장자 명 검증 절차
-                String contentType = multipartFile.getContentType();
-                String originalFileExtension;
-                // 확장자 명이 없으면 잘못된 파일이므로 중지
-                if (ObjectUtils.isEmpty(contentType)) {
-                    break;
-                } else {
-                    if (contentType.contains("image/jpeg")) {
-                        originalFileExtension = ".jpg";
-                    } else if (contentType.contains("image/jpg")) {
-                        originalFileExtension = ".jpg";
-                    } else if (contentType.contains("image/png")) {
-                        originalFileExtension = ".png";
-                    } else if (contentType.contains("image/gif")) {
-                        originalFileExtension = ".gif";
-                    } else if (contentType.contains("image/heic")) {
-                        originalFileExtension = ".heic";
-                    } else {
-                        break;
-                    }
-                    // 현재 시간 + 확장자
-                    String newFileName = System.nanoTime() + originalFileExtension;
-
-                    // 보드-이미지 생성
-                    BoardImage boardImage = BoardImage.builder()
-                            .board(board)
-                            .originalFileName(newFileName)
-                            .stored_file_path(path + "/" + newFileName)
-                            .fileSize(multipartFile.getSize())
-                            .build();
-
-                    images.add(boardImage);
-
-                    // 저장된 파일로 변경하여 이를 보여주기
-                    file = new File(absolutePath + path + "/" + newFileName);
-                    multipartFile.transferTo(file);
-                    // 10MB 초과 시 리사이징
-                    if (multipartFile.getSize() > 10485760) {
-                        Thumbnails.of(file).size(1920, 1280).toFile(file);
-                    }
-                    System.out.println(multipartFile.getSize());
-
-
-                }
-                if (i == 0) {
-                    //썸네일 생성 메서드
-                    File thumbnail = new File(absolutePath + path + "/" + "thumbnail_of_" + board.getBoardId());
-                    Thumbnails.of(file).size(300, 300).outputFormat("png").toFile(thumbnail);
-                }
-            }
-        }
-        return images;
-    }
+    // 로컬에 저장하는 메서드 - 삭제예정
+//    public List<BoardImage> parseImageInfo(Board board, List<MultipartFile> multipartFiles) throws IOException {
+//        List<BoardImage> images = new ArrayList<>();
+//
+//        if (multipartFiles.isEmpty()) {
+//            return images;
+//        }
+//
+//        // 파일 이름은 업로드 일자로 저장
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+//        String currentDate = simpleDateFormat.format(new Date());
+//
+//        // 절대 경로 설정
+//        String absolutePath = new File("").getAbsolutePath() + "\\";
+//        // 저장 경로 설정
+//        String path = "images/" + currentDate;
+//        File file = new File(path);
+//
+//        // 디렉토리가 없을 때 생성
+//        if (!file.exists()) {
+//            file.mkdirs();
+//        }
+//        for (int i = 0; i < multipartFiles.size(); i++) {
+//            MultipartFile multipartFile = multipartFiles.get(i);
+//
+//            if (!multipartFile.isEmpty()) {
+//                // 확장자 명 검증 절차
+//                String contentType = multipartFile.getContentType();
+//                String originalFileExtension;
+//                // 확장자 명이 없으면 잘못된 파일이므로 중지
+//                if (ObjectUtils.isEmpty(contentType)) {
+//                    break;
+//                } else {
+//                    if (contentType.contains("image/jpeg")) {
+//                        originalFileExtension = ".jpg";
+//                    } else if (contentType.contains("image/jpg")) {
+//                        originalFileExtension = ".jpg";
+//                    } else if (contentType.contains("image/png")) {
+//                        originalFileExtension = ".png";
+//                    } else if (contentType.contains("image/gif")) {
+//                        originalFileExtension = ".gif";
+//                    } else if (contentType.contains("image/heic")) {
+//                        originalFileExtension = ".heic";
+//                    } else {
+//                        break;
+//                    }
+//                    // 현재 시간 + 확장자
+//                    String newFileName = System.nanoTime() + originalFileExtension;
+//
+//                    // 보드-이미지 생성
+//                    BoardImage boardImage = BoardImage.builder()
+//                            .board(board)
+//                            .originalFileName(newFileName)
+//                            .stored_file_path(path + "/" + newFileName)
+//                            .fileSize(multipartFile.getSize())
+//                            .build();
+//
+//                    images.add(boardImage);
+//
+//                    // 저장된 파일로 변경하여 이를 보여주기
+//                    file = new File(absolutePath + path + "/" + newFileName);
+//                    multipartFile.transferTo(file);
+//                    // 10MB 초과 시 리사이징
+//                    if (multipartFile.getSize() > 10485760) {
+//                        Thumbnails.of(file).size(1920, 1280).toFile(file);
+//                    }
+//                    System.out.println(multipartFile.getSize());
+//
+//
+//                }
+//                if (i == 0) {
+//                    //썸네일 생성 메서드
+//                    File thumbnail = new File(absolutePath + path + "/" + "thumbnail_of_" + board.getBoardId());
+//                    Thumbnails.of(file).size(300, 300).outputFormat("png").toFile(thumbnail);
+//                }
+//            }
+//        }
+//        return images;
+//    }
 
     public String updateAvatar(MultipartFile image, Member member) throws IOException {
         // 절대 경로 설정
         // todo: 나중에 s3로 변경
-        String absolutePath = new File("").getAbsolutePath() + "\\";
+        String absolutePath = new File("").getAbsolutePath() + "/";
         // 저장 경로 설정
-        String path = "images/" + "avatar";
+        String path = "images/avatar";
         File file = new File(path);
         if (!file.exists()) {
             file.mkdirs();
@@ -137,14 +138,50 @@ public class ImageHandler {
         } else if (contentType.contains("image/heic")) {
             originalFileExtension = ".heic";
         }
-        // 현재 시간 + 확장자
+
         String newFileName = "avatar_of_" + member.getMemberId() + originalFileExtension;
 
         // 저장된 파일로 변경하여 이를 보여주기
         file = new File(absolutePath + path + "/" + newFileName);
         image.transferTo(file);
 
-        //todo: 배포후 변경
+        Thumbnails.of(file).size(100, 100).outputFormat("png").toFile(file);
+
+        FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(file.toPath()), false, file.getName(), (int) file.length(), file.getParentFile());
+
+        try {
+            InputStream input = new FileInputStream(file);
+            OutputStream os = fileItem.getOutputStream();
+            IOUtils.copy(input, os);
+            // Or faster..
+            // IOUtils.copy(new FileInputStream(file), fileItem.getOutputStream());
+        } catch (IOException ex) {
+            // do something.
+        }
+
+        MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
+
+        String avatarName = "member_avatar/avatar_of_" + member.getMemberId();
+
+        try {
+            ObjectMetadata metadata = new ObjectMetadata();
+            byte[] bytes = IOUtils.toByteArray(multipartFile.getInputStream());
+            metadata.setContentType(contentType);
+            metadata.setContentLength(bytes.length);
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+
+            amazonS3.putObject(new PutObjectRequest(bucket, avatarName, byteArrayInputStream, metadata)
+                    .withCannedAcl(CannedAccessControlList.PublicRead));
+
+        } catch (AmazonServiceException e) {
+            e.printStackTrace();
+        } catch (SdkClientException e) {
+            e.printStackTrace();
+        }
+
+        // s3에 업로드 후 ec2 파일은 제거
+        file.delete();
+
         return "s3에 저장된 이미지 주소";
     }
 
