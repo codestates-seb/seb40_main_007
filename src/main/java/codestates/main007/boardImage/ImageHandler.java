@@ -228,15 +228,14 @@ public class ImageHandler {
                         }
 
                         //썸네일 생성 메서드
-                        String thumbnailName = "thumbnail_of_" + board.getBoardId();
-                        file = new File(absolutePath+path+"/"+board.getBoardId());
-
+                        file = new File(absolutePath + path + "/" + image.getOriginalFilename());
                         image.transferTo(file);
 
-                        File thumbnail = new File(absolutePath+path+"/"+thumbnailName);
+                        String thumbnailName = "thumbnail_of_" + board.getBoardId()+image;
+                        File thumbnail = new File(absolutePath + path + "/" + thumbnailName);
                         Thumbnails.of(file).size(300, 300).outputFormat("png").toFile(thumbnail);
 
-                        FileItem fileItem = new DiskFileItem("thumbnail", Files.probeContentType(thumbnail.toPath()), false, thumbnail.getName(), (int) thumbnail.length() , thumbnail.getParentFile());
+                        FileItem fileItem = new DiskFileItem("thumbnail", Files.probeContentType(thumbnail.toPath()), false, thumbnail.getName(), (int) thumbnail.length(), thumbnail.getParentFile());
 
                         try {
                             InputStream input = new FileInputStream(file);
