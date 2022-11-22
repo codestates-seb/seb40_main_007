@@ -210,7 +210,7 @@ public class ImageHandler {
                     images.add(boardImage);
 
                     if (i == 0) {
-                        String absolutePath = new File("").getAbsolutePath() + "\\";
+                        String absolutePath = new File("").getAbsolutePath() + "/";
                         // 저장 경로 설정
                         String path = "images";
                         File file = new File(path);
