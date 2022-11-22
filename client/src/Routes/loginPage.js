@@ -1,6 +1,7 @@
 /*eslint-disable*/
 import Header from "../components/Header";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 // 테스트용 아이디/비밀번호입니다.
 import { useNavigate } from "react-router-dom";
@@ -22,19 +23,29 @@ export default function LoginPage({ setLogin }) {
     // getValues()로 data 가져오기
     const { email, password } = getValues();
     console.log(email, password);
-    if (email === "test@test.com" && password === "abcd@1234") {
-      console.log("로그인성공!!");
-      // const [login] = useRecoilState(loginOk);
-      setLogin(true);
-      navigate("/");
-    } else {
-      console.log("로그인되었습니다.");
-    }
+    // if (email === "test@test.com" && password === "abcd@1234") {
+    //   console.log("로그인성공!!");
+    //   // const [login] = useRecoilState(loginOk);
+    //   setLogin(true);
+    //   navigate("/");
+    // } else {
+    //   console.log("로그인되었습니다.");
+    // }
   };
-
   const onError = (error) => {
     console.log(error);
   };
+
+  //로그인 테스트2
+  const { email, password } = getValues();
+  function loginClick() {
+    axios
+      .post("url주소", {
+        eamil: email,
+        password: password,
+      })
+      .then((res) => console.log(res));
+  }
 
   return (
     <>
@@ -104,6 +115,7 @@ export default function LoginPage({ setLogin }) {
               <button
                 type="submit"
                 className="text-white font-semibold m-auto w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-2 px-6 rounded-md"
+                onClick={loginClick}
               >
                 Login
               </button>

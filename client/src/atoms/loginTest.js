@@ -8,3 +8,9 @@ export const loginOk = atom({
   default: false,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const token = atom({
+  key: "token",
+  default: "",
+  effects_UNSTABLE: [persistAtom],
+});
