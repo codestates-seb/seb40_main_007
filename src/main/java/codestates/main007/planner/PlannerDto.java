@@ -1,5 +1,6 @@
 package codestates.main007.planner;
 
+import codestates.main007.board.BoardDto;
 import codestates.main007.tag.TagDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,10 +38,14 @@ public class PlannerDto {
     public static class MyPlannerResponse {
         private long plannerId;
         private String plannerName;
-        private List<PlannerDto.Board> boards;
+        List<BoardDto.boardsResponse> boards;
         private List<Integer> timeBetweenBoards;
     }
 
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Board{
         private long boardId;
         private String title;
