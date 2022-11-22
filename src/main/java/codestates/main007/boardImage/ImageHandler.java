@@ -216,7 +216,7 @@ public class ImageHandler {
                     if (i == 0) {
                         // 절대 경로 설정
                         // todo: 나중에 s3로 변경
-                        String absolutePath = new File("").getAbsolutePath() + "\\";
+                        String absolutePath = new File("").getAbsolutePath() + "/";
                         // 저장 경로 설정
                         String path = "thumbnail";
 
