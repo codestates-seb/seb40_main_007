@@ -85,6 +85,7 @@ public class OAuthMemberAuthenticationSuccessHandler extends SimpleUrlAuthentica
 
     private String delegateAccessToken(String username, List<String> authorities) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("memberId", memberService.findByEmail(username).getMemberId());
         claims.put("username", username);
         claims.put("roles", authorities);
 
