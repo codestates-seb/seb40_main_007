@@ -1,4 +1,3 @@
-// import ReactFileReader from "react-file-reader";
 import { useState } from "react";
 import { TiPencil } from "react-icons/ti";
 
