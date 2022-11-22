@@ -109,9 +109,8 @@ public class SecurityConfiguration {
 
         return new InMemoryClientRegistrationRepository(registrations);
     }
-
     private ClientRegistration getRegistration(OAuth2ClientProperties clientProperties, String client) {
-        if ("google".equals(client)) {
+        if("google".equals(client)) {
             OAuth2ClientProperties.Registration registration = clientProperties.getRegistration().get("google");
             return CommonOAuth2Provider.GOOGLE.getBuilder(client)
                     .clientId(registration.getClientId())
@@ -121,7 +120,6 @@ public class SecurityConfiguration {
         }
         return null;
     }
-
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -159,7 +157,7 @@ public class SecurityConfiguration {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
-            //jwtAuthenticationFilter.setFilterProcessesUrl("/login");
+            jwtAuthenticationFilter.setFilterProcessesUrl("/login");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new OAuthMemberAuthenticationSuccessHandler(jwtTokenizer, authorityUtils, memberService));
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 

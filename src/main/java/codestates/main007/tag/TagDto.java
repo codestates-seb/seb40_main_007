@@ -13,9 +13,9 @@ public class TagDto {
     @Getter
     @Builder
     public static class Response {
-        private String detailTag;
-        private List<String> moodTag;
-        private String priceTag;
+        private long detailTag;
+        private List<Long> moodTag;
+        private long priceTag;
     }
 }
 

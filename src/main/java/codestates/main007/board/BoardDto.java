@@ -1,5 +1,7 @@
 package codestates.main007.board;
 
+import codestates.main007.comments.CommentDto;
+import codestates.main007.member.MemberDto;
 import codestates.main007.tag.TagDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +25,7 @@ public class BoardDto {
         private Long stationId;
         private Long categoryId;
         private String address;
+        private List<Long> tags;
     }
 
     @Getter
@@ -42,10 +45,11 @@ public class BoardDto {
         private int downScore;
         private int scoreStatus;
         private LocalDateTime createdAt;
-        private BoardDto.Writer writer;
+        private MemberDto.Writer writer;
         private List<String> imageUrls;
         private TagDto.Response tags;
-
+        private List<CommentDto.Response> comments;
+        private List<BoardDto.aroundResponse> around;
     }
 
     @Getter
@@ -82,9 +86,13 @@ public class BoardDto {
 
     @Getter
     @Builder
-    public static class Writer {
-        private long memberId;
-        private String name;
-        private String avatar;
+    public static class aroundResponse {
+        private long boardId;
+        private String title;
+        private String review;
+        private String thumbnail;
+        private double star;
+        private int timeFromStation;
+        private boolean dibs;
     }
 }

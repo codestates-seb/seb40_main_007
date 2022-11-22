@@ -64,10 +64,12 @@ public class Member {
         this.avatar = avatarUrl;
     }
 
-    public void setUserDetails(long memberId, String email, String password){
+    public void setUserDetails(long memberId, String email, String password, String avatar, String name){
         this.memberId = memberId;
         this.email = email;
         this.password = password;
+        this.avatar = avatar;
+        this.name = name;
     }
     public void resetPassword(String password){
         this.password = password;
