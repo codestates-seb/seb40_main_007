@@ -214,17 +214,26 @@ public class ImageHandler {
                     images.add(boardImage);
 
                     if (i == 0) {
-                        String thumbnailName = "thumbnail_of_" + board.getBoardId();
-                        //썸네일 생성 메서드
-                        File file = new File("ex");
+                        // 절대 경로 설정
+                        // todo: 나중에 s3로 변경
+                        String absolutePath = new File("").getAbsolutePath() + "\\";
+                        // 저장 경로 설정
+                        String path = "thumbnail";
 
+                        File file = new File(path);
+
+                        // 디렉토리가 없을 때 생성
                         if (!file.exists()) {
                             file.mkdirs();
                         }
 
+                        //썸네일 생성 메서드
+                        String thumbnailName = "thumbnail_of_" + board.getBoardId();
+                        file = new File(absolutePath+path+"/"+board.getBoardId());
+
                         image.transferTo(file);
 
-                        File thumbnail = new File(thumbnailName);
+                        File thumbnail = new File(absolutePath+path+"/"+thumbnailName);
                         Thumbnails.of(file).size(300, 300).outputFormat("png").toFile(thumbnail);
 
                         FileItem fileItem = new DiskFileItem("thumbnail", Files.probeContentType(thumbnail.toPath()), false, thumbnail.getName(), (int) thumbnail.length() , thumbnail.getParentFile());
@@ -247,6 +256,9 @@ public class ImageHandler {
 
                         amazonS3.putObject(new PutObjectRequest(bucket, thumbnailName, mpThumbnail.getInputStream(), metadata)
                                 .withCannedAcl(CannedAccessControlList.PublicRead));
+                        // ec2에 저장된 이미지는 삭제
+                        file.delete();
+                        thumbnail.delete();
                     }
                 }
             }
