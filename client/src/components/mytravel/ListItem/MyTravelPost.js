@@ -8,7 +8,30 @@ const MyTravelPost = ({
   lastIndex,
   setDeleteIndex,
   setSwapIndex,
+  handleStackCnt,
+  handelInitFrontStack,
 }) => {
+  const handleUpBtn = () => {
+    setSwapIndex({ state: "up", index });
+    // setStackCnt(stackCnt + 1);
+    handleStackCnt();
+    handelInitFrontStack();
+  };
+
+  const handleDownBtn = () => {
+    setSwapIndex({ state: "down", index });
+    // setStackCnt(stackCnt + 1);
+    handleStackCnt();
+    handelInitFrontStack();
+  };
+
+  const handleDeletBtn = () => {
+    setDeleteIndex(index);
+    // setStackCnt(stackCnt + 1);
+    handleStackCnt();
+    handelInitFrontStack();
+  };
+
   const dummyTagList = [
     data.tags.detailTag,
     ...data.tags.moodTag,
@@ -18,27 +41,9 @@ const MyTravelPost = ({
     <div className="mb-4 border-[1px] border-[rgb(83,199,240)] flex flex-row items-center">
       {/* 업,다운 */}
       <div className="w-10 h-full flex flex-col items-center justify-around">
-        {/* 최상단, 최하단 버튼 없는 버전 */}
-        {/* {index !== 0 ? (
-          <button
-            onClick={() => setSwapIndex({ state: "up", index })}
-            className="hover:scale-125 active:scale-100"
-          >
-            <MdKeyboardArrowUp size={40} />
-          </button>
-        ) : null} */}
-        {/* {index !== lastIndex ? (
-          <button
-            onClick={() => setSwapIndex({ state: "down", index })}
-            className="hover:scale-125 active:scale-100"
-          >
-            <MdKeyboardArrowDown size={40} color="rgb(83,199,240)" />
-          </button>
-        ) : null} */}
-
         {/* 최상단, 최하단 버튼 회색 버전 */}
         <button
-          onClick={() => setSwapIndex({ state: "up", index })}
+          onClick={handleUpBtn}
           className={`hover:scale-125 active:scale-100 
             ${
               index !== 0
@@ -49,7 +54,7 @@ const MyTravelPost = ({
           <MdKeyboardArrowUp size={40} />
         </button>
         <button
-          onClick={() => setSwapIndex({ state: "down", index })}
+          onClick={handleDownBtn}
           className={`hover:scale-125 active:scale-100 
             ${
               index !== lastIndex
@@ -83,7 +88,7 @@ const MyTravelPost = ({
               {/* 삭제버튼 */}
               <div>
                 <button
-                  onClick={() => setDeleteIndex(index)}
+                  onClick={handleDeletBtn}
                   className="hover:scale-125 active:scale-100"
                 >
                   <RiCloseFill size={25} color="rgb(83,199,240)" />
