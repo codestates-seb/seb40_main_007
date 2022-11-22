@@ -164,7 +164,7 @@ public class MemberController {
 //        return new PageDto(memberMapper.boardsToMyPages(boards), boardPage);
 //    }
 
-    @PatchMapping("/avatar")
+    @PostMapping("/avatar")
     @ResponseStatus(HttpStatus.OK)
     public void patchMyAvatar(@RequestHeader(name = "Authorization") String accessToken,
                             @RequestPart("file") MultipartFile image) throws IOException {
