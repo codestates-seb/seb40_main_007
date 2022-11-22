@@ -14,8 +14,8 @@ public class BoardPlannerController {
     @PostMapping("/boardplanners/{board-id}/{planner-id}")
     @ResponseStatus(HttpStatus.CREATED)
     public void postBoardPlanner(@RequestHeader(name = "Authorization") String accessToken,
-                          @RequestParam("board-id") long boardId,
-                          @RequestParam("planner-id") long plannerId) throws IOException {
+                                 @PathVariable("board-id") long boardId,
+                                 @PathVariable("planner-id") long plannerId) throws IOException {
 
         boardPlannerService.save(accessToken, boardId, plannerId);
     }
