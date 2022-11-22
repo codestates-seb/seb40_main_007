@@ -217,6 +217,11 @@ public class ImageHandler {
                         String thumbnailName = "thumbnail_of_" + board.getBoardId();
                         //썸네일 생성 메서드
                         File file = new File("ex");
+
+                        if (!file.exists()) {
+                            file.mkdirs();
+                        }
+
                         image.transferTo(file);
 
                         File thumbnail = new File(thumbnailName);
