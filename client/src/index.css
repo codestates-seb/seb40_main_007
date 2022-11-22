@@ -27,7 +27,7 @@
 
   /* 페이지네이션 관련 */
   button[aria-current="page"] {
-    @apply bg-[rgb(83,199,240)] text-white;
+    @apply bg-[rgb(83,199,240)] text-white pointer-events-none;
   }
 
   /* 크롬기준 스크롤바 디자인 부분 */

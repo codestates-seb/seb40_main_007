@@ -2,7 +2,7 @@ import Header from "../../components/Header";
 import MyPageTab from "../../components/MyPageTab";
 import MyCommentList from "../../components/mycomment/MyCommentList";
 // import TestInfinitiScroll from "../../components/TestInfinitiScroll";
-import TestCommentPagination from "../../components/mycomment/TestCommentPagination";
+import MyCommentPagination from "../../components/mycomment/MyCommentPagination";
 import { useState } from "react";
 
 const obj = {
@@ -12,14 +12,13 @@ const obj = {
   content:
     "부추 국밥입니다. 근데 이제 돼지를 곁들인 부추 국밥입니다. 근데 이제 돼지를 곁들인부추 국밥입니다.  부추 국밥입니다. 근데 이제 돼지를 곁들인부추 국밥입니다. 부추 국밥입니다. 근데 이제 돼지를 곁들인부추 국밥입니다. 부추 국밥입니다. 근데 이제 돼지를 곁들인부추 국밥입니다. ",
 };
-const dummy = Array(100).fill(obj);
+const dummy = Array(95).fill(obj);
 
 const MyCommentPage = () => {
   const [page, setPage] = useState(1);
 
   //나중에 사용할 URL 형식
   // let url = `${process.env.REACT_APP_URL}/questions?page=${page}&size=${15}`;
-
   const handlePageChange = (page) => {
     setPage(page);
   };
@@ -35,7 +34,7 @@ const MyCommentPage = () => {
             data={dummy.slice((page - 1) * 10, page * 10)}
             page={page}
           />
-          <TestCommentPagination
+          <MyCommentPagination
             postsCnt={dummy.length}
             page={page}
             handlePageChange={handlePageChange}
