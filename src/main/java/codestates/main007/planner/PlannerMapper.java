@@ -6,4 +6,5 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface PlannerMapper {
     PlannerDto.Board entityToResponseDto(Board board);
+    Planner inputDtoToentity(PlannerDto.Input inputDto);
 }

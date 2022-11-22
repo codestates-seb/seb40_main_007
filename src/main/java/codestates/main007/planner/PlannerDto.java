@@ -26,7 +26,7 @@ public class PlannerDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Patch {
+    public static class Input {
         private String plannerName;
     }
 

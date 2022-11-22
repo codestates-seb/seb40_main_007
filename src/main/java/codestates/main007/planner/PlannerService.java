@@ -24,16 +24,16 @@ public class PlannerService {
     private final DistanceMeasuringService distanceMeasuringService;
     private final PlannerMapper plannerMapper;
 
-    public void save(String accessToken) throws IOException {
+    public void save(String accessToken, PlannerDto.Input inputDto) throws IOException {
         Planner createdPlanner = Planner.builder()
-                .plannerName("MyPlanner" + (plannerRepository.findAll().size() + 1))
+                .plannerName(plannerMapper.inputDtoToentity(inputDto).getPlannerName())
                 .member(memberService.findByAccessToken(accessToken))
                 .build();
         Member member = memberService.findByAccessToken(accessToken);
         plannerRepository.save(createdPlanner);
     }
 
-    public void update(String accessToken, long plannerId, PlannerDto.Patch patchDto) {
+    public void update(String accessToken, long plannerId, PlannerDto.Input patchDto) {
         if (memberService.findByAccessToken(accessToken).equals(find(plannerId).getMember())) {
             Planner updatedPlanner = find(plannerId);
             updatedPlanner.patchPlanner(patchDto.getPlannerName());

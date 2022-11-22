@@ -14,16 +14,17 @@ public class PlannerController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void postPlanner(
-            @RequestHeader(name = "Authorization") String accessToken) throws IOException {
+            @RequestHeader(name = "Authorization") String accessToken,
+            @RequestBody PlannerDto.Input inputDto) throws IOException {
 
-        plannerService.save(accessToken);
+        plannerService.save(accessToken,inputDto);
     }
 
     @PatchMapping("/{planner-id}")//일단 이름만 바꿀 수 있음.
     @ResponseStatus(HttpStatus.OK)
     public void patchPlanner(@RequestHeader(name = "Authorization") String accessToken,
                            @PathVariable("planner-id") long plannerId,
-                           @RequestBody PlannerDto.Patch patchDto) {
+                           @RequestBody PlannerDto.Input patchDto) {
 
         plannerService.update(accessToken, plannerId, patchDto);
     }
