@@ -99,8 +99,7 @@ public class Board {
     }
 
     public void setThumbnail() {
-        // todo: 나중에 변경
-        this.thumbnail = "https://s3주소/images/thumbnail_of_" + boardId;
+        this.thumbnail = "https://pre-032-bucket.s3.ap-northeast-2.amazonaws.com/board_thumbnail/thumbnail_of_" + boardId;
     }
 
     public void setTags(List<Tag> tags) {

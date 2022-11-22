@@ -66,7 +66,6 @@ public class BoardService {
         // image 핸들러에서 boardId 를 사용하기위해 한 번 저장
         boardRepository.save(board);
 
-//        List<BoardImage> list = imageHandler.parseImageInfo(board, images);
         List<BoardImage> list = imageHandler.saveImageOnS3(board, images);
         if (!list.isEmpty()) {
             board.setThumbnail();
