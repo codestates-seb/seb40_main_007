@@ -99,6 +99,10 @@ public class MemberService {
                 .orElseThrow(() -> new NullPointerException("해당 멤버가 존재하지 않습니다."));
     }
 
+    public int countByEmail(String email){
+        return memberRepository.countByEmail(email);
+    }
+
 
     private void verifyExistEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);

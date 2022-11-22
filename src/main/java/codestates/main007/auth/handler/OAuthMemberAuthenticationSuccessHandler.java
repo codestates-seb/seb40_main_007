@@ -42,6 +42,7 @@ public class OAuthMemberAuthenticationSuccessHandler extends SimpleUrlAuthentica
         String email;
         String avatar;
         List<String> authorities;
+
         //Google
         if(String.valueOf(oAuth2User.getAttributes()).startsWith("{s")){
             name = String.valueOf(oAuth2User.getAttributes().get("name"));
@@ -66,7 +67,11 @@ public class OAuthMemberAuthenticationSuccessHandler extends SimpleUrlAuthentica
             avatar = String.valueOf(map.get("profile_image"));
             authorities = authorityUtils.createRoles(email);
         }
-        saveMember(name, email, avatar);
+        // 이메일 등록 여부 체크
+        if (memberService.countByEmail(email)==0){
+            saveMember(name, email, avatar);
+        }
+
         redirect(request, response, email, authorities);
         log.info("# Authenticated successfully!");
     }
@@ -85,9 +90,9 @@ public class OAuthMemberAuthenticationSuccessHandler extends SimpleUrlAuthentica
 
     private String delegateAccessToken(String username, List<String> authorities) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("memberId", memberService.findByEmail(username).getMemberId());
         claims.put("username", username);
         claims.put("roles", authorities);
+        claims.put("memberId", memberService.findByEmail(username).getMemberId());
 
         String subject = username;
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
