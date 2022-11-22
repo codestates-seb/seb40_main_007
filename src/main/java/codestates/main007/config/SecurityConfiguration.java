@@ -31,8 +31,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
+import static org.springframework.http.HttpMethod.PATCH;
 
 @Configuration
 public class SecurityConfiguration {
@@ -64,6 +64,16 @@ public class SecurityConfiguration {
                                 .antMatchers(POST, "/login").permitAll()
                                 .antMatchers(POST, "/members/signup").permitAll()
                                 .antMatchers(GET, "/{station-id}").permitAll()
+                                //boardController
+                                .antMatchers(POST, "/boards").permitAll()
+                                //plannerController
+                                .antMatchers(POST, "/planners").permitAll()
+                                .antMatchers(PATCH, "/planners/{planner-id}").permitAll()
+                                .antMatchers(GET, "/planners/{planner-id}").permitAll()
+                                //boardPlannerController
+                                .antMatchers(POST, "/boardplanners/{board-id}/{planner-id}").permitAll()
+                                .antMatchers(PATCH, "/boardplanners/temp/{planner-id}").permitAll()
+                                .antMatchers(PATCH, "/boardplanners/confirm/{planner-id}").permitAll()
                         //todo:계속 추가예정
                 )
                 .oauth2Login(oauth2 -> oauth2
@@ -130,7 +140,7 @@ public class SecurityConfiguration {
 
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
             jwtAuthenticationFilter.setFilterProcessesUrl("/login");
-//            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
+            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 
             JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
@@ -147,7 +157,7 @@ public class SecurityConfiguration {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
-            //jwtAuthenticationFilter.setFilterProcessesUrl("/login");
+            jwtAuthenticationFilter.setFilterProcessesUrl("/login");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new OAuthMemberAuthenticationSuccessHandler(jwtTokenizer, authorityUtils, memberService));
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 
