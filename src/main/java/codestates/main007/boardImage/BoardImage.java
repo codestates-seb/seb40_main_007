@@ -22,9 +22,11 @@ public class BoardImage {
     @JoinColumn(name = "board_id")
     private Board board;
 
-    private String originalFileName;
+    private String fileName;
 
-    private String stored_file_path;
+    private String s3Url;
+
+    private String thumbnailUrl;
 
     private long fileSize;
 }
