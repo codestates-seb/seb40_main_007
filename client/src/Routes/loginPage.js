@@ -2,13 +2,15 @@
 import Header from "../components/Header";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-
-// 테스트용 아이디/비밀번호입니다.
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { accessToken, userInfo, refereshToken } from "../atoms/loginTest";
 
-export default function LoginPage({ setLogin }) {
-  // 로그인 테스트 로직입니다.
+export default function LoginPage() {
   const navigate = useNavigate();
+  const [, setLoginState] = useRecoilState(userInfo);
+  const [, setAccessToken] = useRecoilState(accessToken);
+  const [, setRefreshToken] = useRecoilState(refereshToken);
 
   const {
     register,
@@ -17,41 +19,43 @@ export default function LoginPage({ setLogin }) {
     formState: { isSubmitting, errors },
   } = useForm();
 
+  //유효성 검사
   const onValid = (data) => {
-    // 기본으로 data 가져오기
-    console.log(data);
-    // getValues()로 data 가져오기
     const { email, password } = getValues();
-    console.log(email, password);
-    // if (email === "test@test.com" && password === "abcd@1234") {
-    //   console.log("로그인성공!!");
-    //   // const [login] = useRecoilState(loginOk);
-    //   setLogin(true);
-    //   navigate("/");
-    // } else {
-    //   console.log("로그인되었습니다.");
-    // }
+    userLogin(email, password);
   };
   const onError = (error) => {
     console.log(error);
   };
 
-  //로그인 테스트2
-  const { email, password } = getValues();
-  function loginClick() {
+  //로그인 테스트
+  function userLogin(email, password) {
     axios
-      .post("url주소", {
-        eamil: email,
-        password: password,
+      .post(
+        `http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/login`,
+        {
+          email: email,
+          password: password,
+        }
+      )
+      .then((response) => {
+        alert("로그인 완료");
+        console.log(response.headers);
+        setLoginState(response.headers.avatar); // 일단 유저정보는 아바타만 들어있다
+        setAccessToken(response.headers.authorization);
+        setRefreshToken(response.headers.refresh);
+        // setToken(response.headers.authorization);
+        navigate("/");
       })
-      .then((res) => console.log(res));
+      .catch((error) => {
+        alert("로그인 실패");
+      });
   }
 
   return (
     <>
       <Header />
       <div className="lg:w-full w-full h-screen align-baseline flex justify-center items-center">
-        {/*  */}
         <div className="max-w-md p-2 px-10 m-auto border border-[rgba(83,198,240,0.4)] rounded-xl text-[rgb(83,199,240)]">
           <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2">
             Login
@@ -82,13 +86,17 @@ export default function LoginPage({ setLogin }) {
               className="border border-[rgb(83,199,240)] rounded-md  bg-transparent; focus:outline focus:outline-blue-500 w-80 p-2 mt-1 "
             />
             <p className="w-80 text-red-500 mb-4 ml-2">
-              {" "}
               {errors.email?.type === "required" && "아이디를 입력하세요"}
               {errors.email?.type === "pattern" && errors.email.message}
             </p>
             <div className="font-normal text-[rgb(83,199,240)] ml-2">
               password
             </div>
+            <button>
+              <a href="http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google">
+                dddd
+              </a>
+            </button>
             {/* password 란 라벨이 붙은 input 생성 */}
             <input
               id="password"
@@ -115,7 +123,6 @@ export default function LoginPage({ setLogin }) {
               <button
                 type="submit"
                 className="text-white font-semibold m-auto w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-2 px-6 rounded-md"
-                onClick={loginClick}
               >
                 Login
               </button>

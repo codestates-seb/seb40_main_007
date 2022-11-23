@@ -1,17 +1,15 @@
 import LoginDotModal from "./modals/LoginDotModal";
 import { Link } from "react-router-dom";
 
-// 로그인 테스트용입니다.
-import { loginOk } from "../atoms/loginTest";
+import { accessToken } from "../atoms/loginTest";
 import { useRecoilState } from "recoil";
 import LoginHeader from "./LoginHeader";
 const Header = () => {
-  // 로그인 테스트용입니다.
-  const [login] = useRecoilState(loginOk);
+  const [TOKEN] = useRecoilState(accessToken);
 
   return (
     <>
-      {login ? (
+      {TOKEN !== "" ? (
         <LoginHeader />
       ) : (
         <header className="w-full border-b-[2px] border-b-[rgb(83,199,240)] fixed z-20 bg-white">
@@ -29,32 +27,19 @@ const Header = () => {
               </div>
             </Link>
             <div className="flex flex-row items-center">
-              <button className="text-[rgb(83,199,240)] text-xl font-medium  sm:hidden">
+              <div className="text-[rgb(83,199,240)] text-xl font-medium  sm:hidden">
                 <LoginDotModal />
-              </button>
-
-              {/* 원래 페이지 */}
-              {/* <Link to="/login">
-              <button className="btn font-medium hidden sm:block">
-                LOGIN
-              </button>
-            </Link>
-            <Link to="/signup">
-              <button className="btn-white font-medium hidden sm:block">
-                SIGN UP
-              </button>
-            </Link> */}
-
+              </div>
               <>
                 <Link to="/login">
-                  <button className="btn font-medium hidden sm:block">
+                  <div className="btn font-medium hidden text-center mt-2  sm:block">
                     LOGIN
-                  </button>
+                  </div>
                 </Link>
                 <Link to="/signup">
-                  <button className="btn-white font-medium hidden sm:block">
+                  <div className="btn-white hidden text-center mt-2 font-medium sm:block">
                     SIGN UP
-                  </button>
+                  </div>
                 </Link>
               </>
             </div>

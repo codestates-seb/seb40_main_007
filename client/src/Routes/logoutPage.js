@@ -2,11 +2,25 @@ import LoginHeader from "../components/LoginHeader";
 
 // 로그인 테스트용입니다.
 import { useRecoilState } from "recoil";
-import { loginOk } from "../atoms/loginTest";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { userInfo, accessToken, refereshToken } from "../atoms/loginTest";
 
 export default function LogoutPage() {
-  const [, setLogin] = useRecoilState(loginOk);
+  const navigate = useNavigate();
+  const [, setLoginState] = useRecoilState(userInfo);
+  const [, setAccessToken] = useRecoilState(accessToken);
+  const [, setRefreshToken] = useRecoilState(refereshToken);
+
+  const userLogout = () => {
+    // axios.post(`http://localhost:8080/logout`).then((response) => {
+    alert("로그아웃 완료");
+
+    setLoginState(""); // 일단 유저정보는 아바타만 들어있다
+    setAccessToken("");
+    setRefreshToken("");
+    navigate("/initial");
+    // });
+  };
 
   return (
     <>
@@ -41,7 +55,7 @@ export default function LogoutPage() {
             <div className="w-fit m-auto">
               <button
                 className="text-white font-semibold w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-4 px-6 rounded-md"
-                onClick={() => setLogin(false)}
+                onClick={() => userLogout(false)}
               >
                 Logout
               </button>

@@ -22,6 +22,11 @@ export const postTitleState = atom({
   default: "제목",
 });
 
+export const postImageState = atom({
+  key: `postImage/${v1()}`,
+  default: "",
+});
+
 export const postCategoryState = atom({
   key: `postCategory/${v1()}`,
   default: "",
