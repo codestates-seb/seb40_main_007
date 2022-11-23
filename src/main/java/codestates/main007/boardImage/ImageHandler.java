@@ -155,6 +155,7 @@ public class ImageHandler {
         Thumbnails.of(file).size(100, 100).outputFormat("png").toFile(file2);
 
         FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(file2.toPath()), false, file2.getName(), (int) file2.length(), file2.getParentFile());
+        fileItem.getOutputStream();
 
         try {
             InputStream input = new FileInputStream(file2);
