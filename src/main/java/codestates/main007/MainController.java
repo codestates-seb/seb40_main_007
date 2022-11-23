@@ -34,7 +34,7 @@ public class MainController {
         List<Board> boards = boardPage.getContent();
         List<BoardDto.boardsResponse> responses = boardMapper.boardsToBoardsResponse(boards);
 
-        if (!accessToken.isEmpty()){
+        if (accessToken!=null){
             responses = boardService.listCheckDibs(accessToken, responses);
         }
 
@@ -59,7 +59,7 @@ public class MainController {
         List<Board> boards = boardPage.getContent();
         List<BoardDto.boardsResponse> responses = boardMapper.boardsToBoardsResponse(boards);
 
-        if (!accessToken.isEmpty()){
+        if (accessToken!=null){
             responses = boardService.listCheckDibs(accessToken, responses);
         }
 
