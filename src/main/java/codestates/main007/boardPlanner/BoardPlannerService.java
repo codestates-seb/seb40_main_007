@@ -47,7 +47,7 @@ public class BoardPlannerService {
             List<Long> boardIds = plannerService.find(plannerId).getBoardPlanners().stream()
                     .map(boardPlanner -> boardPlanner.getBoard().getBoardId())
                     .collect(Collectors.toList());
-            List<Integer> priorities = boardPlannerMapper.DtoToMap(priorityPatchDto);//[boardId1,boardId2]
+            List<Integer> priorities = boardPlannerMapper.DtoToMap(priorityPatchDto);
             for (long boardId : boardIds) {
                 if (!priorities.contains((int) boardId)) {
                     boardPlannerRepository.deleteById(boardPlannerRepository.findBoardPlannerByBoardAndPlanner(
@@ -63,9 +63,8 @@ public class BoardPlannerService {
                 boardPlanner.setPriority(i);
                 boardPlannerRepository.save(boardPlanner);
             }
-            boardPlannerRepository.flush();//필요한지 검증필요
             Planner planner = plannerService.find(plannerId);
-            List<BoardPlanner> boardPlanners = plannerService.find(plannerId).getBoardPlanners();
+            List<BoardPlanner> boardPlanners = boardPlannerRepository.findAllByPlanner(planner);
             return getMyPlannerResponse(plannerId, planner, boardPlanners);
         } else throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
     }
@@ -74,7 +73,7 @@ public class BoardPlannerService {
         List<Integer> timeList = plannerService.getTimeBetweenBoardsList(
                 boardPlanners.stream()
                         .sorted(Comparator.comparing(BoardPlanner::getPriority))
-                        .map(boardPlanner -> boardPlanner.getBoard())
+                        .map(BoardPlanner::getBoard)
                         .collect(Collectors.toList()));
 
         return plannerService.getMyPlannerResponse(plannerId, planner, timeList, boardMapper);
