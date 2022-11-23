@@ -46,7 +46,7 @@ public class MemberController {
         memberService.verifyPassword(accessToken, password);
     }
 
-    @GetMapping("/info")
+    @GetMapping("/header")
     @ResponseStatus(HttpStatus.OK)
     public MemberDto.HeaderInfo findInfo(@RequestHeader(name = "Authorization") String accessToken) {
         MemberDto.HeaderInfo info = memberMapper.memberToHeaderInfo(memberService.findByAccessToken(accessToken));
