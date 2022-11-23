@@ -61,6 +61,23 @@ module.exports = {
           "0%": { transform: "translateX(0%)" },
           "100%": { transform: "translateX(-72%)" },
         },
+        oneBounce: {
+          "0%": {
+            transform: "rotate(8deg) scalex(1.2) scaley(1.2)",
+          },
+          "25%": {
+            transform: "rotate(0deg)",
+          },
+          "50%": {
+            transform: "rotate(-8deg)",
+          },
+          "75%": {
+            transform: "rotate(0deg)",
+          },
+          "100%": {
+            transform: "rotate(8deg)",
+          },
+        },
       },
       animation: {
         waving: "wave 0.05s linear 3",
@@ -69,6 +86,7 @@ module.exports = {
         smallBounce: "smallBounce 1s linear infinite",
         bigBounce: "bigBounce 1s linear infinite",
         bgMove: "bgMove 5s linear infinite",
+        oneBounce: "oneBounce .2s linear 3",
       },
     },
   },
