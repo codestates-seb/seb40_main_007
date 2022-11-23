@@ -94,6 +94,15 @@ public class MemberDto {
         private int score;
         private List<Long> visitedStations;
     }
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class HeaderInfo {
+        private long memberId;
+        private String name;
+        private String avatar;
+    }
 
     @Getter
     @Builder

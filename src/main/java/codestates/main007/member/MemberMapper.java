@@ -26,7 +26,16 @@ public interface MemberMapper {
         return myComments;
     }
 
-    default List<MemberDto.MyPage> boardsToMyPages(List<Board> boards){
+    default MemberDto.HeaderInfo memberToHeaderInfo(Member member) {
+        return MemberDto.HeaderInfo
+                .builder()
+                .memberId(member.getMemberId())
+                .avatar(member.getAvatar())
+                .name(member.getName())
+                .build();
+    }
+
+    default List<MemberDto.MyPage> boardsToMyPages(List<Board> boards) {
         List<MemberDto.MyPage> myPages = new ArrayList<>();
         for (Board board : boards) {
             MemberDto.MyPage myPage = MemberDto.MyPage.builder()
