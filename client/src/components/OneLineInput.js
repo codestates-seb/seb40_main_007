@@ -3,7 +3,6 @@ import { postCommentState } from "../atoms/postInfo";
 
 export default function OneLineInput() {
   const [commentState, setPostComment] = useRecoilState(postCommentState);
-  console.log(commentState);
   const handlePostCommemt = (e) => {
     setPostComment(e.target.value);
   };

@@ -22,10 +22,6 @@ import MyCommentPage from "./Routes/myPages/myCommentPage";
 import MyPostPage from "./Routes/myPages/myPostPage";
 import MyTravelPage from "./Routes/myPages/myTravelPage";
 
-// 로그인 테스트용입니다.
-import { useRecoilState } from "recoil";
-import { loginOk } from "./atoms/loginTest";
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -37,18 +33,13 @@ const queryClient = new QueryClient({
 });
 
 function App() {
-  // 로그인 테스트용입니다.
-  const [, setLogin] = useRecoilState(loginOk);
-
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            {/* <Route path="/login" element={<LoginPage/>} /> */}
-            {/* 로그인 테스트용입니다. */}
-            <Route path="/login" element={<LoginPage setLogin={setLogin} />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/logout" element={<LogoutPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/signout" element={<SignoutPage />} />
