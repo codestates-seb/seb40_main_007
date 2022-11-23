@@ -11,4 +11,8 @@ public class MultiResponseDto<T> {
     public MultiResponseDto(List<T> items) {
         this.items = items;
     }
+
+    public static <T> MultiResponseDto<T> of(List<T> items) {
+        return new MultiResponseDto<>(items);
+    }
 }

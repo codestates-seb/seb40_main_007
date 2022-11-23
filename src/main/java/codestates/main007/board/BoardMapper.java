@@ -61,6 +61,7 @@ public interface BoardMapper {
                     .latitude(board.getLatitude())
                     .longitude(board.getLongitude())
                     .tags(board.getTagDto())
+                    .dibs(false)
                     .build();
 
             boardsResponses.add(response);

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -49,47 +50,70 @@ public class BoardController {
 
     @GetMapping("/{board-id}")
     @ResponseStatus(HttpStatus.OK)
-    public BoardDto.DetailResponse getBoard(@RequestHeader(name = "Authorization") String accessToken,
+    public BoardDto.DetailResponse getBoard(@RequestHeader(name = "Authorization", required = false) String accessToken,
                                             @PathVariable("board-id") long boardId) {
         Board board = boardService.find(boardId);
 
         BoardDto.DetailResponse detailResponse = BoardDto.DetailResponse.builder().build();
         // 식당,숙소의 경우 주소가 동일한 경우만 추출
         if (board.getCategoryId() == 1 || board.getCategoryId() == 3) {
-            Member member = memberService.findByAccessToken(accessToken);
             List<CommentDto.Response> comments = commentMapper.commentsToResponses(board.getComments());
-            // 해당글 찜 여부
-            boolean isDibs = boardService.checkDibs(accessToken, boardId);
-            // 해당글 추천 여부
-            int status = boardService.checkScoreStatus(member, board);
             // 해당글 이미지 리스트
             List<String> imageUrls = boardService.findImageUrls(board);
             // 주변 가게 게시글 리스트
             List<Board> around = boardService.findByAddress(board.getAddress(), board.getStationId(), boardId, board.getCategoryId());// 근처 보드 정보
-            // 주변 가게 찜 정보 리스트
-            List<Boolean> booleans = boardService.findAroundDibs(accessToken, around);
+
+            boolean isDibs = false;
+            int status = 0;
+            List<Boolean> booleans = new ArrayList<>();
+            for (int i = 0; i < around.size(); i++) {
+                booleans.add(false);
+            }
+            // 로그인 시에만 바뀌는 정보
+            if (accessToken!=null){
+                // 해당글 찜 여부
+                isDibs = boardService.checkDibs(accessToken, boardId);
+                // 해당글 추천 여부
+                Member member = memberService.findByAccessToken(accessToken);
+                status = boardService.checkScoreStatus(member, board);
+                // 주변 가게 찜 정보 리스트
+                booleans = boardService.findAroundDibs(accessToken, around);
+            }
+
             // 주변가게 DTO로 변경
             List<BoardDto.aroundResponse> aroundResponses = boardMapper.boardsToAround(around, booleans);
 
-            detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs, member, comments, imageUrls, status, aroundResponses);
+            detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs, board.getWriter(), comments, imageUrls, status, aroundResponses);
+
             // 볼거리의 경우 근처애들 추출
         } else if (board.getCategoryId() == 2) {
-            Member member = memberService.findByAccessToken(accessToken);
             List<CommentDto.Response> comments = commentMapper.commentsToResponses(board.getComments());
-            // 해당글 찜 여부
-            boolean isDibs = boardService.checkDibs(accessToken, boardId);
-            // 해당글 추천 여부
-            int status = boardService.checkScoreStatus(member, board);
             // 해당글 이미지 리스트
             List<String> imageUrls = boardService.findImageUrls(board);
             // 주변 가게 게시글 리스트
             List<Board> around = boardService.findByAddressViewCategory(board.getStationId(), board.getCategoryId(), boardId);// 근처 보드 정보
-            // 주변 가게 찜 정보 리스트
-            List<Boolean> booleans = boardService.findAroundDibs(accessToken, around);
+
+            boolean isDibs = false;
+            int status = 0;
+            List<Boolean> booleans = new ArrayList<>();
+            for (int i = 0; i < around.size(); i++) {
+                booleans.add(false);
+            }
+
+            // 로그인 시에만 바뀌는 정보
+            if (accessToken!=null){
+                // 해당글 찜 여부
+                isDibs = boardService.checkDibs(accessToken, boardId);
+                Member member = memberService.findByAccessToken(accessToken);
+                // 해당글 추천 여부
+                status = boardService.checkScoreStatus(member, board);
+                // 주변 가게 찜 정보 리스트
+                booleans = boardService.findAroundDibs(accessToken, around);
+            }
             // 주변가게 DTO로 변경
             List<BoardDto.aroundResponse> aroundResponses = boardMapper.boardsToAround(around, booleans);
 
-            detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs, member, comments, imageUrls, status, aroundResponses);
+            detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs, board.getWriter(), comments, imageUrls, status, aroundResponses);
         }
 
 

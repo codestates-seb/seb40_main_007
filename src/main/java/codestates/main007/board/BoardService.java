@@ -66,7 +66,7 @@ public class BoardService {
         // image 핸들러에서 boardId 를 사용하기위해 한 번 저장
         boardRepository.save(board);
 
-        List<BoardImage> list = imageHandler.saveImageOnS3(board, images);
+        List<BoardImage> list = imageHandler.saveImageOnS3ver2(board, images);
 
         List<BoardImage> boardImages = new ArrayList<>();
         for (BoardImage tempImage : list) {
@@ -184,8 +184,7 @@ public class BoardService {
         List<String> imageUrls = new ArrayList<>();
         List<BoardImage> boardImages = boardImageRepository.findAllByBoard(board);
         for (BoardImage boardImage : boardImages) {
-            // todo: 나중에 s3로 바꾸기
-            imageUrls.add(boardImage.getStored_file_path());
+            imageUrls.add(boardImage.getS3Url());
         }
 
         return imageUrls;

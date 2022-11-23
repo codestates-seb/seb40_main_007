@@ -19,7 +19,7 @@ public class MainController {
 
     @GetMapping("/{station-id}/{category-id}/{sort}")
     @ResponseStatus(HttpStatus.OK)
-    public PageDto getBoardByCategory(@RequestHeader(name = "Authorization") String accessToken,
+    public PageDto getBoardByCategory(@RequestHeader(name = "Authorization", required = false) String accessToken,
                                       @PathVariable("station-id") long stationId,
                                       @PathVariable("category-id") long categoryId,
                                       @PathVariable String sort,
@@ -34,14 +34,16 @@ public class MainController {
         List<Board> boards = boardPage.getContent();
         List<BoardDto.boardsResponse> responses = boardMapper.boardsToBoardsResponse(boards);
 
-        responses = boardService.listCheckDibs(accessToken, responses);
+        if (accessToken!=null){
+            responses = boardService.listCheckDibs(accessToken, responses);
+        }
 
         return new PageDto(responses, boardPage);
     }
 
     @GetMapping("/{station-id}/{category-id}/{sort}/search")
     @ResponseStatus(HttpStatus.OK)
-    public PageDto getBoardByTag(@RequestHeader(name = "Authorization") String accessToken,
+    public PageDto getBoardByTag(@RequestHeader(name = "Authorization", required = false) String accessToken,
                                  @PathVariable("station-id") long stationId,
                                  @PathVariable("category-id") long categoryId,
                                  @PathVariable String sort,
@@ -55,7 +57,12 @@ public class MainController {
         }
         Page<Board> boardPage = boardService.findBoardPageByTag(stationId, categoryId, page - 1, size, Sort.by(sort).descending(), tagId);
         List<Board> boards = boardPage.getContent();
+        List<BoardDto.boardsResponse> responses = boardMapper.boardsToBoardsResponse(boards);
 
-        return new PageDto(boardMapper.boardsToBoardsResponse(boards), boardPage);
+        if (accessToken!=null){
+            responses = boardService.listCheckDibs(accessToken, responses);
+        }
+
+        return new PageDto(responses, boardPage);
     }
 }
