@@ -62,7 +62,7 @@ public class PlannerService {
         } else throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
     }
 
-    public static PlannerDto.MyPlannerResponse getMyPlannerResponse(long plannerId, Planner planner, List<Integer> timeList, BoardMapper boardMapper) {
+    public PlannerDto.MyPlannerResponse getMyPlannerResponse(long plannerId, Planner planner, List<Integer> timeList, BoardMapper boardMapper) {
         PlannerDto.MyPlannerResponse responseDto = PlannerDto.MyPlannerResponse.builder()
                 .plannerId(plannerId)
                 .plannerName(planner.getPlannerName())
