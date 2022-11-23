@@ -40,6 +40,16 @@ public class PlannerDto {
         private String plannerName;
         List<BoardDto.boardsResponse> boards;
         private List<Integer> timeBetweenBoards;
+        private int wholeTime;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyPlannersResponse {
+        private long plannerId;
+        private String plannerName;
     }
 
     @Getter
