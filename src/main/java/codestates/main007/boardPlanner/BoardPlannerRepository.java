@@ -1,6 +1,9 @@
 package codestates.main007.boardPlanner;
 
+import codestates.main007.board.Board;
+import codestates.main007.planner.Planner;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BoardPlannerRepository extends JpaRepository<BoardPlanner, Long> {
+    BoardPlanner findBoardPlannerByBoardAndPlanner(Board board, Planner planner);
 }
