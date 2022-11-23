@@ -1,16 +1,20 @@
 // import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { userInfo } from "../../atoms/loginTest";
+import { useRecoilValue } from "recoil";
 
 export default function ProfileModal() {
   const [showModal, setShowModal] = useState(false);
+  const userAvatar = useRecoilValue(userInfo);
+  const userNickName = "수정요청";
 
   return (
     <div className="relative">
       <button className="flex items-center" onClick={() => setShowModal(true)}>
-        <img src="/images/profile.png" alt="profile" className="w-8 h-8" />
+        <img src={userAvatar} alt="profile" className="w-8 h-8" />
         <span className="text-xl text-[rgb(83,199,240)] ml-2 hidden sm:block">
-          닉네임
+          {userNickName}
         </span>
       </button>
       {showModal ? (

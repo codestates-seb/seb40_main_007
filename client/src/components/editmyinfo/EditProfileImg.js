@@ -1,9 +1,33 @@
-import { useState } from "react";
 import { TiPencil } from "react-icons/ti";
+import { useRecoilState } from "recoil";
+import { userInfo, accessToken } from "../../atoms/loginTest";
+import axios from "axios";
 
 const EditProfileImg = () => {
-  // HTTP 통신 되면 로그인 유저 프로필 url로 url 교체. -> 전역상태 관리 필요
-  const [url, setUrl] = useState("");
+  const [avatar, setAvatar] = useRecoilState(userInfo);
+  const [TOKEN] = useRecoilState(accessToken);
+
+  // 이미지 업로드 함수
+  function upload(formData) {
+    console.log(formData);
+    axios({
+      method: "post",
+      url: "http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/members/avatar",
+      file: formData,
+      headers: {
+        Authorization: TOKEN,
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then(function (response) {
+        //handle success
+        console.log(response);
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      });
+  }
 
   const insertImg = (e) => {
     let fileImage = e.target.files[0];
@@ -16,9 +40,11 @@ const EditProfileImg = () => {
     }
     reader.onloadend = () => {
       const preveiwUrl = reader.result;
-      setUrl(preveiwUrl);
+      setAvatar(preveiwUrl);
     };
+    upload(fileImage); // 이미지 업로드
   };
+
   return (
     <div className="w-[260px] mt-20">
       <div className="">
@@ -36,6 +62,7 @@ const EditProfileImg = () => {
                   />
                 </label>
                 <input
+                  multiple
                   type="file"
                   id="file"
                   accept="image/jpg, image/jpeg, image/png, image/heif, image/heic"
@@ -44,11 +71,11 @@ const EditProfileImg = () => {
                 />{" "}
               </form>
             </div>
-            {url !== "" ? (
+            {avatar !== "" ? (
               <img
                 className="w-20 h-20 rounded-full p-1 m-0 static border-2 border-[rgb(83,199,240)]"
                 alt="PreImg"
-                src={url}
+                src={avatar}
               />
             ) : (
               <img

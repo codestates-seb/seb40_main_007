@@ -12,7 +12,7 @@ const NotFoundW = () => {
         <img
           className="w-[8.5rem] h-[15rem]"
           alt="notfound_icon_w."
-          src="images/notfound_icon_w.png"
+          src="/images/notfound_icon_w.png"
         />
         <span className="p-5 text-[3rem]">찾을 수 없습니다 !</span>
       </div>

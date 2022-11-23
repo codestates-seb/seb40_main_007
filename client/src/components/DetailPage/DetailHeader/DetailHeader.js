@@ -42,6 +42,8 @@ const DetailHeader = () => {
     info.tags.priceTag,
   ];
 
+  const DateTime = new Date(info.createdAt);
+
   const trainInfo = { 2: "부산역" };
 
   return (
@@ -65,7 +67,7 @@ const DetailHeader = () => {
           <span className="text-2xl font-bold">{info.title}</span>
           <DetailStarScore />
           <span className="flex justify-center items-end text-xs text-gray-500">
-            {info.createdAt}
+            {DateTime.toLocaleString("ko-KR")}
           </span>
         </div>
       </div>

@@ -1,21 +1,46 @@
 /*eslint-disable*/
 import Header from "../components/Header";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function SignupPage() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     getValues,
     formState: { isSubmitting, errors },
   } = useForm();
+
   const onValid = (data) => {
     // 기본으로 data 가져오기
     console.log(data);
     // getValues()로 data 가져오기
     const { email, password } = getValues();
-    console.log(email, password);
+    userSignup(email, password);
   };
+
+  function userSignup(email, password) {
+    return axios
+      .post(
+        `http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/members/signup`,
+        {
+          email: email,
+          password: password,
+        }
+      )
+      .then((response) => {
+        alert("회원가입 완료");
+        console.log(response);
+        navigate("/login");
+      })
+      .catch((error) => {
+        alert("회원가입 실패");
+        console.log(error);
+        navigate("/signup");
+      });
+  }
 
   const onError = (error) => {
     console.log(error);

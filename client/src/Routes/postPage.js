@@ -10,6 +10,9 @@ import PostRelatedAtmasTab from "../components/PostPage/postRelatedAtmasTab";
 import Footer from "../components/Footer";
 import ListTag from "../components/tag/ListTag";
 import { useRecoilValue } from "recoil";
+import { useState } from "react";
+import axios from "axios";
+import { accessToken } from "../atoms/loginTest";
 import {
   postTrainStationState,
   postpostionState,
@@ -37,11 +40,94 @@ export default function PostPage() {
   const postRelatedPrice = useRecoilValue(postRelatedPriceState);
   const postStar = useRecoilValue(postStarState);
   const postComment = useRecoilValue(postCommentState);
+  //액세스토큰
+  const TOKEN = useRecoilValue(accessToken);
+
+  const categoryList = { 식당: 1, 볼거리: 2, 숙소: 3 };
+  const detailTagList = {
+    한식: 1,
+    중식: 2,
+    양식: 3,
+    일식: 4,
+    분식: 5,
+    디저트: 6,
+    호텔: 7,
+    모텔: 8,
+    펜션: 9,
+    캠핑: 10,
+    게스트하우스: 11,
+    자연: 12,
+    문화: 13,
+    유적: 14,
+    공연: 15,
+    놀거리: 16,
+  };
+  const priceTagList = {
+    무료: 21,
+    "만원 이하": 22,
+    "2만원 이하": 23,
+    "3만원 이하": 25,
+    "4만원 이하": 26,
+    "5만원 이하": 29,
+    "5만원 초과": 30,
+    "10만원 이하": 31,
+    "15만원 이하": 33,
+    "20만원 이하": 34,
+    "20만원 초과": 35,
+  };
+  const moodeTagList = {
+    아늑한: 41,
+    활기찬: 42,
+    정겨운: 43,
+    깔끔한: 44,
+    "뷰가 좋은": 45,
+  };
+
+  // 단일 이미지 업로드
+  const formData = new FormData();
+  const [preveiwUrl, setPreviewUrl] = useState();
+  const insertImg = (e) => {
+    let fileImage = e.target.files[0];
+
+    formData.append("file", fileImage);
+
+    let reader = new FileReader(); // 파일 읽기
+    if (fileImage) {
+      reader.readAsDataURL(fileImage);
+    }
+    reader.onloadend = () => {
+      setPreviewUrl(reader.result);
+    };
+  };
 
   const onPostSubmit = () => {
+    const postRelatedAtmasId = postRelatedAtmas.map((el) => {
+      return moodeTagList[el];
+    });
+    const tagsList = [
+      categoryList[postCategory],
+      detailTagList[postRelated],
+      ...postRelatedAtmasId,
+      priceTagList[postRelatedPrice],
+    ];
+    console.log("postRelatedAtmasId", postRelatedAtmasId);
     console.log(
-      //form-data
+      //       form-data
       // application/json
+      // data:
+      // {
+      //   "title" : "title",
+      //   "review" : "review",
+      //   "star" : 5.0,
+      //   "latitude" : 1231.12312,
+      //   "longitude" : 1231.1521,
+      //   "stationId" : "1",
+      //   "categoryId" : "1",
+      //   "address" : "서울로 152"
+      //   "tags" : [1,2,3]
+      // }
+      // files:  (이미지들)
+
       {
         data: {
           title: postTitle,
@@ -51,30 +137,100 @@ export default function PostPage() {
           longitude: postionState.lng,
           stationId: postTrainStation,
           // 위 번호로 줘야 함..
-          categoryId: [
-            postCategory,
-            postRelated,
-            postRelatedAtmas,
-            postRelatedPrice,
-          ],
+          categoryId: categoryList[postCategory],
+          tags: [tagsList],
           //카테고리 아이디도 번호로 줘야함
           address: postAdress,
         },
 
-        // multipart/form-data
-        files: "이미지들",
+        // multipart/form-data <- files: "이미지들"
+        formData,
       }
     );
+
+    // axios({
+    //   method: "post",
+    //   url: "http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/boards",
+    //   headers: {
+    //     Authorization: TOKEN,
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    //   data: {
+    //     title: postTitle,
+    //     review: postComment,
+    //     star: postStar,
+    //     latitude: postionState.lat,
+    //     longitude: postionState.lng,
+    //     stationId: postTrainStation,
+    //     // 위 번호로 줘야 함..
+    //     categoryId: categoryList[postCategory],
+    //     tags: [tagsList],
+    //     //카테고리 아이디도 번호로 줘야함
+    //     address: postAdress,
+    //   },
+    //   // multipart/form-data <- files: "이미지들"
+    //   formData,
+    // })
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (response) {
+    //     console.log(response);
+    //   });
+    axios({
+      method: "post",
+      url: "http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/boards",
+      headers: {
+        Authorization: TOKEN,
+        "Content-Type": "multipart/form-data",
+      },
+      data: {
+        title: postTitle,
+        review: postComment,
+        star: postStar,
+        latitude: postionState.lat,
+        longitude: postionState.lng,
+        stationId: 1,
+        // 위 번호로 줘야 함..
+        categoryId: 2,
+        tags: [tagsList],
+        //카테고리 아이디도 번호로 줘야함
+        address: postAdress,
+      },
+      // multipart/form-data <- files: "이미지들"
+      formData,
+    })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
   };
+
   return (
     <>
       <Header />
       <div className="pb-30 max-w-5xl m-auto">
         <PostTrainStationSelect />
         <PostMap />
-        <ImageUpload />
 
+        <ImageUpload />
         {/* 이미지 테스트 */}
+        <div className="mb-10">
+          단일테스트용
+          <form encType="multipart/form-data">
+            <label htmlFor="file">이미지업로드</label>
+            <input
+              type="file"
+              id="file"
+              accept="image/jpg, image/jpeg, image/png, image/heif, image/heic"
+              onChange={(e) => insertImg(e)}
+            />
+          </form>
+          {preveiwUrl && <img src={preveiwUrl} alt="img" />}
+        </div>
+        <div>여러개 테스트용</div>
         <ImageTest />
 
         <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 pt-2 text-18 text-[rgb(83,199,240)] mt-16">

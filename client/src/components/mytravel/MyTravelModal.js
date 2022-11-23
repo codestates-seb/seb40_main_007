@@ -21,10 +21,10 @@ const MyTravelModal = (props) => {
       </button>
       {showModal ? (
         <>
-          <div className="w-fit relative">
-            {/* showMyModal은 안의 내용물 자체를 바꿉니다 */}
+          <div className="w-fit relative bg-rgba(0,0,0,0.3)">
+            {/* showMyAdd은 안의 내용물 자체를 바꿉니다 */}
             {showMyAdd ? (
-              <div className="fixed top-50 left-45 shadow-lg bg-white z-10 rounded-lg">
+              <div className="fixed shadow-lg bg-red-500 z-30 rounded-lg">
                 {/* 닫힘버튼 */}
                 <div className="flex justify-end">
                   <AiOutlineCloseCircle

@@ -1,41 +1,34 @@
 import { useState } from "react";
-export default function ImageTest() {
-  const [imageList, setImageList] = useState();
 
+export default function ImageTest() {
+  // const [uploadList, setUploadList] = useState();
+  const [imageList, setImageList] = useState([]); // 미리보기 이미지
+  // 이벤트 발생한 직전 파일 리스트 담기
   const fileList = [];
+
   // 이미지 업로드 버튼이 눌렀을 때
   const insertImg = (e) => {
     let fileImage = e.target.files[0];
     fileList.push(fileImage);
-    console.log(fileImage);
+    console.log("fileImage", fileImage); // 단일 이미지
 
-    const formData = new FormData();
-    formData.append("file", fileList);
-    console.log(formData.file);
-
-    // const formData = new FormData();
-    // formData.append("file", fileImage);
-    // console.log("fileImage", fileImage);
-    // console.log("여이요", formData.get("file"));
-    // formData.append(
-    //   "movie",
-    //   // 얘는 new File  객체보다 뭔가 더 부족한 녀석..
-    //   new Blob([JSON.stringify(fileImage)], {
-    //     type: "application/json",
-    //   })
-    // );
-    // console.log(formData.movie);
-
-    let reader = new FileReader();
-    // readAsDataURL메서드는, 컨테츠를 특정 Blob이나 File에서 읽어오는 역할을 하게되고, 읽어오는 read가 종료되는 경우에, readyState의 상태가 DONE이 되고, loadend이벤트가 트리거 되면서, base64 인코딩된 스트링 데이터가 result에 담겨지게 된다.
+    let reader = new FileReader(); // 파일 읽기
     if (fileImage) {
       reader.readAsDataURL(fileImage);
     }
     reader.onloadend = () => {
       const preveiwUrl = reader.result;
-      setImageList(preveiwUrl);
+      setImageList([...imageList, preveiwUrl]); // 미리보기 이미지
     };
   };
+
+  // const uploadImg = () =>{
+  //   const formData = new FormData();
+  //   formData.append("file", fileList);
+  //   console.log("formData", formData.file);
+  //   console.log("imageList", imageList);
+  // }
+  console.log("last", fileList);
 
   return (
     // form태그에 encType을 multipart/form-data로 지정해준다.
