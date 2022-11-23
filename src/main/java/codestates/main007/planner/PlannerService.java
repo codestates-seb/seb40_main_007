@@ -29,12 +29,16 @@ public class PlannerService {
     private final BoardMapper boardMapper;
 
     public void save(String accessToken, PlannerDto.Input inputDto) throws IOException {
-        Planner createdPlanner = Planner.builder()
-                .plannerName(plannerMapper.inputDtoToentity(inputDto).getPlannerName())
-                .member(memberService.findByAccessToken(accessToken))
-                .build();
-        Member member = memberService.findByAccessToken(accessToken);
-        plannerRepository.save(createdPlanner);
+        String plannerName = plannerMapper.inputDtoToentity(inputDto).getPlannerName();
+        if(plannerRepository.findByPlannerName(plannerName).isEmpty()){
+            Planner createdPlanner = Planner.builder()
+                    .plannerName(plannerName)
+                    .member(memberService.findByAccessToken(accessToken))
+                    .build();
+            plannerRepository.save(createdPlanner);
+        }
+        else throw new BusinessLogicException(ExceptionCode.PLANNER_EXISTS);
+
     }
 
     public void update(String accessToken, long plannerId, PlannerDto.Input patchDto) {
@@ -45,20 +49,38 @@ public class PlannerService {
         } else throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
     }
 
-    public PlannerDto.MyPlannerResponse getMyPlannerPage(String accessToken, long plannerId) {
+    public PlannerDto.MyPlannerResponse getMyPlannerPage(String accessToken, long plannerId) throws InterruptedException {
         Planner planner = find(plannerId);
+        List<BoardPlanner> boardPlanners = find(plannerId).getBoardPlanners();
+        List<Integer> timeList = getTimeBetweenBoardsList(
+                boardPlanners.stream()
+                        .sorted(Comparator.comparing(BoardPlanner::getPriority))
+                        .map(BoardPlanner::getBoard)
+                        .collect(Collectors.toList()));
         if (memberService.findByAccessToken(accessToken).equals(planner.getMember())) {
-            PlannerDto.MyPlannerResponse responseDto = PlannerDto.MyPlannerResponse.builder()
-                    .plannerId(plannerId)
-                    .plannerName(planner.getPlannerName())
-                    .boards(boardMapper.boardsToBoardsResponse(planner.getBoardPlanners().stream()
-                            .sorted(Comparator.comparing(BoardPlanner::getPriority))
-                            .map(BoardPlanner::getBoard)
-                            .collect(Collectors.toList()))
-                    )
-                    .build();
-            return responseDto;
+            return getMyPlannerResponse(plannerId, planner, timeList, boardMapper);
         } else throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
+    }
+
+    public static PlannerDto.MyPlannerResponse getMyPlannerResponse(long plannerId, Planner planner, List<Integer> timeList, BoardMapper boardMapper) {
+        PlannerDto.MyPlannerResponse responseDto = PlannerDto.MyPlannerResponse.builder()
+                .plannerId(plannerId)
+                .plannerName(planner.getPlannerName())
+                .boards(boardMapper.boardsToBoardsResponse(planner.getBoardPlanners().stream()
+                        .sorted(Comparator.comparing(BoardPlanner::getPriority))
+                        .map(BoardPlanner::getBoard)
+                        .collect(Collectors.toList()))
+                )
+                .timeBetweenBoards(timeList)
+                .wholeTime(timeList.stream().mapToInt(t -> t).sum())
+                .build();
+        return responseDto;
+    }
+
+    public List<PlannerDto.MyPlannersResponse> getMyPlanners(String accessToken){
+        Member member = memberService.findByAccessToken(accessToken);
+        List<Planner> planners = plannerRepository.findAllByMember(member);
+        return plannerMapper.entityListToResponseDtoList(planners);
     }
 
     public void deletePlanner(String accessToken, long plannerId) throws IOException {
@@ -70,12 +92,13 @@ public class PlannerService {
         return plannerRepository.findById(plannerId)
                 .orElseThrow(() -> new NullPointerException("해당 플래너가 존재하지 않습니다."));
     }
-    public List<Integer> getTimeBetweenBoardsList(List<Board> boards){
+    public List<Integer> getTimeBetweenBoardsList(List<Board> boards) throws InterruptedException {
         List<Integer> timeList = new ArrayList<>();
         for (int i = 0; i < boards.size()-1; i++) {
             timeList.add(
                     getTimeBetweenBoards(boards.get(i), boards.get(i+1))
             );
+            Thread.sleep(400);
         }
         return timeList;
     }
