@@ -41,8 +41,9 @@ export default function LoginPage() {
       .then((response) => {
         alert("로그인 완료");
         console.log(response.headers);
-        setLoginState(response.headers.avatar);
-        setAccessToken(response.headers.authorization.refresh);
+        setLoginState(response.headers.avatar); // 일단 유저정보는 아바타만 들어있다
+        setAccessToken(response.headers.authorization);
+        setRefreshToken(response.headers.refresh);
         // setToken(response.headers.authorization);
         navigate("/");
       })

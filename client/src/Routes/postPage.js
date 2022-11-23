@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Header from "../components/Header";
 import PostTrainStationSelect from "../components/PostPage/PostTrainStationSelect";
 import StartRating from "../components/StarRating";
@@ -55,7 +56,7 @@ export default function PostPage() {
     모텔: 8,
     펜션: 9,
     캠핑: 10,
-    게스트하우스: 11,
+    게하: 11,
     자연: 12,
     문화: 13,
     유적: 14,
@@ -84,13 +85,20 @@ export default function PostPage() {
   };
 
   // 단일 이미지 업로드
+
   const formData = new FormData();
   const [preveiwUrl, setPreviewUrl] = useState();
+
   const insertImg = (e) => {
     let fileImage = e.target.files[0];
 
-    formData.append("file", fileImage);
-
+    formData.append("files", fileImage);
+    let blobImg = new Blob();
+    formData.append(
+      "data",
+      '{    "title" : "배고파서",\n    "review" : "몽쉘하나먹음",\n    "star" : 3.5,\n    "latitude" : 37.55345694428185,\n    "longitude" : 126.97383501554378,\n    "stationId" : 3,\n    "categoryId" : 1,\n    "address" : "우리",\n    "tags" : [2,24,41,43,44,45]\n}'
+      // { contentType: "application/json" }
+    );
     let reader = new FileReader(); // 파일 읽기
     if (fileImage) {
       reader.readAsDataURL(fileImage);
@@ -98,106 +106,19 @@ export default function PostPage() {
     reader.onloadend = () => {
       setPreviewUrl(reader.result);
     };
+    console.log(formData.get("files"));
+    console.log(formData.get("data"));
   };
 
   const onPostSubmit = () => {
-    const postRelatedAtmasId = postRelatedAtmas.map((el) => {
-      return moodeTagList[el];
-    });
-    const tagsList = [
-      categoryList[postCategory],
-      detailTagList[postRelated],
-      ...postRelatedAtmasId,
-      priceTagList[postRelatedPrice],
-    ];
-    console.log("postRelatedAtmasId", postRelatedAtmasId);
-    console.log(
-      //       form-data
-      // application/json
-      // data:
-      // {
-      //   "title" : "title",
-      //   "review" : "review",
-      //   "star" : 5.0,
-      //   "latitude" : 1231.12312,
-      //   "longitude" : 1231.1521,
-      //   "stationId" : "1",
-      //   "categoryId" : "1",
-      //   "address" : "서울로 152"
-      //   "tags" : [1,2,3]
-      // }
-      // files:  (이미지들)
-
-      {
-        data: {
-          title: postTitle,
-          review: postComment,
-          star: postStar,
-          latitude: postionState.lat,
-          longitude: postionState.lng,
-          stationId: postTrainStation,
-          // 위 번호로 줘야 함..
-          categoryId: categoryList[postCategory],
-          tags: [tagsList],
-          //카테고리 아이디도 번호로 줘야함
-          address: postAdress,
-        },
-
-        // multipart/form-data <- files: "이미지들"
-        formData,
-      }
-    );
-
-    // axios({
-    //   method: "post",
-    //   url: "http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/boards",
-    //   headers: {
-    //     Authorization: TOKEN,
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    //   data: {
-    //     title: postTitle,
-    //     review: postComment,
-    //     star: postStar,
-    //     latitude: postionState.lat,
-    //     longitude: postionState.lng,
-    //     stationId: postTrainStation,
-    //     // 위 번호로 줘야 함..
-    //     categoryId: categoryList[postCategory],
-    //     tags: [tagsList],
-    //     //카테고리 아이디도 번호로 줘야함
-    //     address: postAdress,
-    //   },
-    //   // multipart/form-data <- files: "이미지들"
-    //   formData,
-    // })
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (response) {
-    //     console.log(response);
-    //   });
     axios({
       method: "post",
       url: "http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/boards",
       headers: {
+        "Content-Type": "multipart/mixed", //<- files: "이미지들"
+        // ...formData.getHeaders(),
         Authorization: TOKEN,
-        "Content-Type": "multipart/form-data",
       },
-      data: {
-        title: postTitle,
-        review: postComment,
-        star: postStar,
-        latitude: postionState.lat,
-        longitude: postionState.lng,
-        stationId: 1,
-        // 위 번호로 줘야 함..
-        categoryId: 2,
-        tags: [tagsList],
-        //카테고리 아이디도 번호로 줘야함
-        address: postAdress,
-      },
-      // multipart/form-data <- files: "이미지들"
       formData,
     })
       .then(function (response) {
@@ -207,7 +128,6 @@ export default function PostPage() {
         console.log(err);
       });
   };
-
   return (
     <>
       <Header />
@@ -263,3 +183,16 @@ export default function PostPage() {
     </>
   );
 }
+// data: {
+//   title: postTitle,
+//   review: postComment,
+//   star: postStar,
+//   latitude: postionState.lat,
+//   longitude: postionState.lng,
+//   stationId: 1,
+//   // 위 번호로 줘야 함..
+//   categoryId: 2,
+//   tags: tagsList,
+//   //카테고리 아이디도 번호로 줘야함
+//   address: postAdress,
+// },
