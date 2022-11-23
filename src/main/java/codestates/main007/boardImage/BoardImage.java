@@ -22,9 +22,12 @@ public class BoardImage {
     @JoinColumn(name = "board_id")
     private Board board;
 
+    @Column
     private String originalFileName;
 
-    private String stored_file_path;
+    @Column
+    private String storedFilePath;
 
+    @Column
     private long fileSize;
 }

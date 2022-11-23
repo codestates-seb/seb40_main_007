@@ -34,7 +34,7 @@ public class BoardController {
     @ResponseStatus(HttpStatus.OK)
     public void patchBoard(@RequestHeader(name = "Authorization") String accessToken,
                            @PathVariable("board-id") long boardId,
-                           @RequestBody BoardDto.Input patchDto) {
+                           @RequestBody BoardDto.Patch patchDto) {
 
         boardService.update(accessToken, boardId, patchDto);
     }

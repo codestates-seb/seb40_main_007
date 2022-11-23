@@ -35,6 +35,8 @@ public class ImageHandler {
 
     private final BoardRepository boardRepository;
 
+    private final BoardImageRepository boardImageRepository;
+
 
     // 로컬에 저장하는 메서드 - 삭제예정
 //    public List<BoardImage> parseImageInfo(Board board, List<MultipartFile> multipartFiles) throws IOException {
@@ -244,7 +246,7 @@ public class ImageHandler {
                     BoardImage boardImage = BoardImage.builder()
                             .board(board)
                             .originalFileName(fileName)
-                            .stored_file_path(amazonS3.getUrl(bucket, fileName).toString())
+                            .storedFilePath(amazonS3.getUrl(bucket, fileName).toString())
                             .fileSize(image.getSize())
                             .build();
 
@@ -309,5 +311,24 @@ public class ImageHandler {
             }
         }
         return images;
+    }
+    public List<BoardImage> updateImages(Board board, List<String> images){
+        List<BoardImage> imagessss = new ArrayList<>();
+        for (int i = 0; i < images.size(); i++) {
+            String imageString = images.get(i);
+
+            if (imageString.contains("https://")){
+//                "url이므로 처리"
+                String bucket = "https://pre-032-bucket.s3.ap-northeast-2.amazonaws.com/";
+
+                BoardImage boardImage = boardImageRepository.findByStoredFilePath(imageString);
+
+            }else {
+                // blob데이타 처리
+
+
+            }
+        }
+        return  imagessss;
     }
 }

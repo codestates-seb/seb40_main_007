@@ -76,7 +76,7 @@ public class BoardService {
 
     }
 
-    public void update(String accessToken, long boardId, BoardDto.Input patch) {
+    public void update(String accessToken, long boardId, BoardDto.Patch patch) {
         Board updatedBoard = find(boardId);
 
         updatedBoard.patchBoard(patch.getTitle(),
@@ -101,6 +101,14 @@ public class BoardService {
         List<Long> tagIds = patch.getTags();
 
         updatedBoard.setTags(tagService.findAll(tagIds));
+
+        List<BoardImage> list = imageHandler.updateImages(updatedBoard, patch.getImages());
+
+        List<BoardImage> boardImages = new ArrayList<>();
+        for (BoardImage tempImage : list) {
+            boardImages.add(boardImageRepository.save(tempImage));
+        }
+        updatedBoard.setImages(boardImages);
 
         boardRepository.save(updatedBoard);
     }

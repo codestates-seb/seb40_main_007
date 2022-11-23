@@ -27,6 +27,22 @@ public class BoardDto {
         private String address;
         private List<Long> tags;
     }
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Patch {
+        private String title;
+        private String review;
+        private Double star;
+        private Double latitude;
+        private Double longitude;
+        private Long stationId;
+        private Long categoryId;
+        private String address;
+        private List<Long> tags;
+        private List<String> images;
+    }
 
     @Getter
     @Builder
