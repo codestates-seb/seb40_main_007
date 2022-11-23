@@ -2,6 +2,7 @@ import { mapImgClickEvent, mapImgHoverEvent } from "../../atoms/mapImage";
 import { useRecoilState } from "recoil";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import MapItemTag from "./MapItemTag";
+import OneStarScore from "../OneStarScore";
 
 const MapItemDetail = ({ thumbnail }) => {
   const [, setMapImgClickId] = useRecoilState(mapImgClickEvent);
@@ -32,8 +33,11 @@ const MapItemDetail = ({ thumbnail }) => {
           ></img>
         </div>
         <div className=" text-white p-1 flex flex-col">
-          <p className="text-sm border-b-2 pb-1 mb-1">돼지국밥</p>
-          <div className="gap-1 pt-1 truncate grid grid-cols-3">
+          <div className="border-b-2 pb-1 pr-2 mb-1 flex flex-row justify-between">
+            <p className="text-sm font-medium">돼지국밥</p>
+            <OneStarScore size={13} score={2} />
+          </div>
+          <div className="gap-1 pt-1 truncate grid grid-cols-3 ">
             {testTag.map((tagName, index) => (
               <MapItemTag key={index} tagName={tagName} />
             ))}
