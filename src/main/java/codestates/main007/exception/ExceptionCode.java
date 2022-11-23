@@ -10,6 +10,7 @@ public enum ExceptionCode {
     BOARD_NOT_FOUND(404, "Board not found"),
     MEMBER_UNAUTHORIZED(403, "Member unauthorized"),
     COMMENT_NOT_FOUND(404,"Comment not found"),
+    PLANNER_EXISTS(409,"Planner exists"),
     ;
     private final int status;
     private final String message;
