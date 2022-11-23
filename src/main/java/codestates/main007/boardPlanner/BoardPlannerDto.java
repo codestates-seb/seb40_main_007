@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Map;
+import java.util.List;
 
 public class BoardPlannerDto {
     @Getter
@@ -13,7 +13,7 @@ public class BoardPlannerDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class PriorityPatch {
-        private Map<Long, Integer> priorities;
+        private List<Integer> priorities;
     }
 
     @Getter
@@ -21,6 +21,6 @@ public class BoardPlannerDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class PriorityResponse {
-        private Map<Long, Integer> priorities;
+        private List<Integer> priorities;
     }
 }
