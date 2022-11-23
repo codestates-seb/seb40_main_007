@@ -9,8 +9,16 @@ import { useState } from "react";
 const MyTravelPage = () => {
   const [...posts] = useRecoilValue(postDummyState);
 
+  // 원본 데이터
   const dummyData = posts.slice(0, 10);
+
+  // 가변데이터
   const [data, setData] = useState(dummyData);
+  // console.log(
+  //   "boardId:",
+  //   data.map((el) => el.boardId)
+  // );
+
   // 빈 데이터
   // const voidData = [];
   return (

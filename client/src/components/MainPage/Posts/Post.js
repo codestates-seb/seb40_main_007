@@ -9,7 +9,8 @@ import {
 import { useRecoilState } from "recoil";
 import timeFunc from "../../../utils/timeFunc";
 // TravelPlus모달 추가
-import MyTravelModal from "../../mytravel/MyTravelModal";
+// import MyTravelModal from "../../mytravel/MyTravelModal";
+import TestMyTravelModal from "../../mytravel/TestMyTravelModal";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -38,7 +39,10 @@ function Post({ data }) {
     >
       <div className="rounded-md  relative">
         <div className="absolute right-0 bg-[rgba(256,256,256,0.5)] flex p-[1px] m-1 rounded-lg z-10">
-          <MyTravelModal /> <Heart />
+          {/* 모달 형태 수정해야함. */}
+          {/* <MyTravelModal />  */}
+          <TestMyTravelModal></TestMyTravelModal>
+          <Heart />
         </div>
         <button onClick={handleMapClick}>
           {onLink ? (
