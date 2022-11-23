@@ -3,12 +3,12 @@ import { useRecoilState } from "recoil";
 import MapItemDetail from "./MapItemDetail";
 import MapItemThumbnail from "./MapItemThumbnail";
 
-const MapItem = ({ thumbnail, boardId, coordinate }) => {
+const MapItem = ({ thumbnail, detailData, boardId, coordinate }) => {
   const [mapImgClickId] = useRecoilState(mapImgClickEvent);
   return (
     <>
       {mapImgClickId === boardId ? (
-        <MapItemDetail thumbnail={thumbnail} />
+        <MapItemDetail thumbnail={thumbnail} detailData={detailData} />
       ) : (
         <MapItemThumbnail
           thumbnail={thumbnail}
