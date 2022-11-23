@@ -70,11 +70,11 @@ public class SecurityConfiguration {
                                 .antMatchers(POST, "/planners").permitAll()
                                 .antMatchers(PATCH, "/planners/{planner-id}").permitAll()
                                 .antMatchers(GET, "/planners/{planner-id}").permitAll()
+                                .antMatchers(GET, "/planners").permitAll()
                                 .antMatchers(DELETE, "/planners/{planner-id}").permitAll()
                                 //boardPlannerController
                                 .antMatchers(POST, "/boardplanners/{board-id}/{planner-id}").permitAll()
-                                .antMatchers(PATCH, "/boardplanners/temp/{planner-id}").permitAll()
-                                .antMatchers(PATCH, "/boardplanners/final/{planner-id}").permitAll()
+                                .antMatchers(PATCH, "/boardplanners/{planner-id}").permitAll()
                                 .antMatchers(DELETE, "/boardplanners/{boardplanner-id}").permitAll()
                         //todo:계속 추가예정
                 )
