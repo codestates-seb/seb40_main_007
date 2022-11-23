@@ -16,8 +16,8 @@ public class RandomNamingService {
     private final MemberRepository memberRepository;
 
     public String genName() {
-        List<String> first = Arrays.asList("민트", "아보카도", "통후추", "간장", "레몬");
-        List<String> last = Arrays.asList("볶음밥", "김치찜", "비빔면", "감자칩", "초콜릿", "아메리카노");
+        List<String> first = Arrays.asList("고독한", "마스터", "멋진", "아름다운", "발랄한", "즐거운", "부유한");
+        List<String> last = Arrays.asList("여행가", "탐험가", "방랑자", "정복자", "대식가", "미식가", "빈털털이");
         Collections.shuffle(first);
         Collections.shuffle(last);
 
