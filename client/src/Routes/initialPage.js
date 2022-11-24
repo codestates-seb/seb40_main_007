@@ -1,5 +1,6 @@
 import Header from "../components/Header";
 import { FcGoogle } from "react-icons/fc";
+import { Link } from "react-router-dom";
 
 export default function InitialPage() {
   return (
@@ -16,7 +17,9 @@ export default function InitialPage() {
             />
           </div>
           <div className="text-center my-3">
-            <FcGoogle className="w-8 h-8 inline m-1" />
+            <a href="http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google">
+              <FcGoogle className="w-8 h-8 inline m-1" />
+            </a>
             <img
               src="images/kakao.png"
               alt="kakao"
@@ -28,12 +31,16 @@ export default function InitialPage() {
               className="w-8 h-8 inline rounded-md m-1"
             />
           </div>
-          <div className="text-white font-semibold text-center m-auto bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-3 rounded-md hover:ring hover:ring-sky-300">
-            Login
-          </div>
-          <div className="text-white font-semibold m-auto text-center  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-2 rounded-md hover:ring hover:ring-sky-300">
-            SignUp
-          </div>
+          <Link to="/login">
+            <div className="text-white font-semibold text-center m-auto bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-3 rounded-md hover:ring hover:ring-sky-300">
+              Login
+            </div>
+          </Link>
+          <Link to="/signup">
+            <div className="text-white font-semibold m-auto text-center  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-2 rounded-md hover:ring hover:ring-sky-300">
+              SignUp
+            </div>
+          </Link>
         </div>
       </div>
     </>

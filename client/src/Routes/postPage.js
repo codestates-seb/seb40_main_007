@@ -86,19 +86,23 @@ export default function PostPage() {
 
   // 단일 이미지 업로드
 
-  const formData = new FormData();
-  const [preveiwUrl, setPreviewUrl] = useState();
+  const [preveiwUrl, setPreviewUrl] = useState(); //미리보기 이미지
+  const jsonData = {
+    title: "배고파서",
+    review: "몽쉘하나먹음",
+    star: 3.5,
+    latitude: 37.55345694428185,
+    longitude: 126.97383501554378,
+    stationId: 3,
+    categoryId: 1,
+    address: "우리",
+    tags: [2, 24, 41, 43, 44, 45],
+  };
+
+  const [file, setFile] = useState(); //form데이터 파일
 
   const insertImg = (e) => {
     let fileImage = e.target.files[0];
-
-    formData.append("files", fileImage);
-    let blobImg = new Blob();
-    formData.append(
-      "data",
-      '{    "title" : "배고파서",\n    "review" : "몽쉘하나먹음",\n    "star" : 3.5,\n    "latitude" : 37.55345694428185,\n    "longitude" : 126.97383501554378,\n    "stationId" : 3,\n    "categoryId" : 1,\n    "address" : "우리",\n    "tags" : [2,24,41,43,44,45]\n}'
-      // { contentType: "application/json" }
-    );
     let reader = new FileReader(); // 파일 읽기
     if (fileImage) {
       reader.readAsDataURL(fileImage);
@@ -106,28 +110,95 @@ export default function PostPage() {
     reader.onloadend = () => {
       setPreviewUrl(reader.result);
     };
-    console.log(formData.get("files"));
-    console.log(formData.get("data"));
+
+    const data = new FormData();
+    // data.append("files", "https://ifh.cc/g/jBqBFy.png");
+    data.append(
+      "data",
+      new Blob([
+        JSON.stringify({
+          title: "배고파서",
+          review: "몽쉘하나먹음",
+          star: 3.5,
+          latitude: 37.55345694428185,
+          longitude: 126.97383501554378,
+          stationId: 3,
+          categoryId: 1,
+          address: "우리",
+          tags: [2, 24, 41, 43, 44, 45],
+        }),
+      ]),
+      {
+        type: "application/json",
+      }
+    ); // { contentType: "application/json" }
+    setFile(data); // 폼데이터 useState로 저장
+
+    for (var value of data.values()) {
+      console.log(value);
+    }
   };
 
-  const onPostSubmit = () => {
-    axios({
-      method: "post",
-      url: "http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/boards",
+  console.log(preveiwUrl);
+  const data = new Blob([
+    JSON.stringify({
+      title: "배고파서",
+      review: "몽쉘하나먹음",
+      star: 3.5,
+      latitude: 37.55345694428185,
+      longitude: 126.97383501554378,
+      stationId: 3,
+      categoryId: 1,
+      address: "우리",
+      tags: [2, 24, 41, 43, 44, 45],
+      image: ["https://ifh.cc/g/jBqBFy.png"],
+    }),
+  ]);
+
+  //  contentType: "multipart/form-data",
+
+  const onPostSubmitTWO = (e) => {
+    e.preventDefault();
+    const config = {
       headers: {
-        "Content-Type": "multipart/mixed", //<- files: "이미지들"
-        // ...formData.getHeaders(),
         Authorization: TOKEN,
+        // "content-type": "multipart/form-data",
       },
-      formData,
-    })
+    };
+    axios
+      .post(
+        `http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/boards/`,
+        data,
+        config
+      )
       .then(function (response) {
+        // -- 이 200일 경우
         console.log(response);
       })
-      .catch(function (err) {
-        console.log(err);
+      .catch(function (error) {
+        console.log(error);
       });
   };
+
+  // const onPostSubmit = (e) => {
+  //   e.preventDefault();
+  //   axios({
+  //     method: "post",
+  //     url: `http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/boards/`,
+  //     file,
+  //     headers: {
+  //       contentType: "multipart/form-data", //<- files: "이미지들"
+  //       Authorization: TOKEN,
+  //     },
+  //   })
+  //     .then(function (response) {
+  //       console.log(response);
+  //     })
+  //     .catch(function (err) {
+  //       console.log(err);
+  //     });
+  // };
+
   return (
     <>
       <Header />
@@ -139,12 +210,12 @@ export default function PostPage() {
         {/* 이미지 테스트 */}
         <div className="mb-10">
           단일테스트용
-          <form encType="multipart/form-data">
+          <form>
             <label htmlFor="file">이미지업로드</label>
             <input
               type="file"
               id="file"
-              accept="image/jpg, image/jpeg, image/png, image/heif, image/heic"
+              accept="image/jpg, image/png, image/jpeg, image/png, image/heif, image/heic"
               onChange={(e) => insertImg(e)}
             />
           </form>
@@ -174,7 +245,7 @@ export default function PostPage() {
       <div className="flex justify-center">
         <button
           className="bg-gray-400 w-fit m-auto text-white py-3 px-5 rounded-lg hover:bg-[rgb(83,199,240)] my-32"
-          onClick={onPostSubmit}
+          onClick={(e) => onPostSubmitTWO(e)}
         >
           작성완료
         </button>
