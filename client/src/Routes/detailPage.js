@@ -24,19 +24,29 @@ const DetailPage = () => {
   const [detailInfo, setDetailInfo] = useRecoilState(detailData);
   const TOKEN = useRecoilValue(accessToken);
   useEffect(() => {
-    const config = {
-      headers: { Authorization: TOKEN },
-    };
-
-    axios
-      .get(`${process.env.REACT_APP_URL}/boards/${id}`, config)
-      .then((response) => {
-        setDetailInfo(response.data);
-        console.log("detail 페이지 get");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (TOKEN === "") {
+      axios
+        .get(`${process.env.REACT_APP_URL}/boards/${id}`)
+        .then((response) => {
+          setDetailInfo(response.data);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      const config = {
+        headers: { Authorization: TOKEN },
+      };
+      axios
+        .get(`${process.env.REACT_APP_URL}/boards/${id}`, config)
+        .then((response) => {
+          setDetailInfo(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }, []);
 
   return (

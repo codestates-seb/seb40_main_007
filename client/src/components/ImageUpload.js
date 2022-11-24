@@ -26,13 +26,14 @@ export default function ImageUpload() {
   };
 
   // 파일 삭제
-  const handleDelete = (idx) => {
-    let copyImg = image.slice();
-    let copyUrl = previewImage.slice();
+  const handleDelete = (e, idx) => {
+    e.preventDefault();
+    const copyImg = image.slice();
+    const copyUrl = previewImage.slice();
     copyImg.splice(idx, 1);
     copyUrl.splice(idx, 1);
-    setPreviewImage([...copyUrl]);
-    setImage([...copyImg]);
+    setPreviewImage(copyUrl);
+    setImage(copyImg);
   };
 
   // 썸네일 사진 선택
@@ -50,10 +51,7 @@ export default function ImageUpload() {
         사진 등록
       </div>
 
-      <form
-        encType="multipart/form-data"
-        className="w-6xl border flex justify-center"
-      >
+      <form encType="multipart/form-data" className="w-6xl flex justify-center">
         <div>
           {previewImage[0] === undefined ? (
             <>
@@ -75,17 +73,18 @@ export default function ImageUpload() {
             </>
           ) : (
             <div className=" flex m-3 text-[rgb(83,199,240)]">
-              <div className="bg-[#D9D9D9] rounded-lg w-36 h-36 flex justify-center items-center relative">
+              <div className="bg-[#D9D9D9] rounded-lg w-36 h-36 flex justify-center items-center relative border-4 border-[rgb(83,199,240)]">
                 <img
                   src={previewImage[0]}
                   alt="preveiwImage[0]"
                   onClick={() => selectThumnail(0)}
+                  className="max-w-36 max-h-36 "
                 />
                 <span className="text-xs px-2 top-1 left-1 bg-[rgb(83,199,240)] text-white p-1 rounded-xl absolute">
                   대표
                 </span>
                 <button className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full">
-                  <FiTrash2 onClick={() => handleDelete(0)} />
+                  <FiTrash2 onClick={(e) => handleDelete(e, 0)} />
                 </button>
               </div>
             </div>
@@ -117,9 +116,10 @@ export default function ImageUpload() {
                   src={previewImage[1]}
                   alt="preveiwImage[1]"
                   onClick={() => selectThumnail(1)}
+                  className="max-w-36 max-h-36"
                 />
                 <button className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full">
-                  <FiTrash2 onClick={() => handleDelete(1)} />
+                  <FiTrash2 onClick={(e) => handleDelete(e, 1)} />
                 </button>
               </div>
             </div>
@@ -151,9 +151,10 @@ export default function ImageUpload() {
                   src={previewImage[2]}
                   alt="preveiwImage[2]"
                   onClick={() => selectThumnail(2)}
+                  className="max-w-36 max-h-36"
                 />
                 <button className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full">
-                  <FiTrash2 onClick={() => handleDelete(2)} />
+                  <FiTrash2 onClick={(e) => handleDelete(e, 2)} />
                 </button>
               </div>
             </div>
@@ -185,9 +186,10 @@ export default function ImageUpload() {
                   src={previewImage[3]}
                   alt="preveiwImage[3]"
                   onClick={() => selectThumnail(3)}
+                  className="max-w-36 max-h-36"
                 />
                 <button className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full">
-                  <FiTrash2 onClick={() => handleDelete(3)} />
+                  <FiTrash2 onClick={(e) => handleDelete(e, 3)} />
                 </button>
               </div>
             </div>

@@ -6,7 +6,6 @@ import Heart from "../../Heart";
 import { useRecoilValue } from "recoil";
 import { trainInfo } from "../../../atoms/trainInfo";
 import { kategorieInfoList, tagsInfoList } from "../../../atoms/tagsInfo";
-import { useEffect } from "react";
 import { detailData } from "../../../atoms/detailPageData";
 
 const DetailHeader = () => {

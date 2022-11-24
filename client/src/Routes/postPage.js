@@ -10,8 +10,9 @@ import PostRelatedTab from "../components/PostPage/PostRelatedTab";
 import PostRelatedAtmasTab from "../components/PostPage/postRelatedAtmasTab";
 import Footer from "../components/Footer";
 import ListTag from "../components/tag/ListTag";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { accessToken } from "../atoms/loginTest";
 import {
@@ -28,10 +29,8 @@ import {
   postImageState,
 } from "../atoms/postInfo";
 
-//이미지 테스트
-import ImageTest from "../components/ImageTest";
-
 export default function PostPage() {
+  const navigatge = useNavigate();
   const tagList = {
     한식: 1,
     중식: 2,
@@ -69,34 +68,28 @@ export default function PostPage() {
   const categoryList = { 식당: 1, 볼거리: 2, 숙소: 3 };
 
   const TOKEN = useRecoilValue(accessToken);
-  let postTrainStation = useRecoilValue(postTrainStationState);
-  let postionState = useRecoilValue(postpostionState);
-  let postAdress = useRecoilValue(postAdressState);
-  let postTitle = useRecoilValue(postTitleState);
-  let postCategory = useRecoilValue(postCategoryState);
-  let postRelated = useRecoilValue(postRelatedState);
-  let postRelatedAtmas = useRecoilValue(postRelatedAtmasState);
-  let postRelatedPrice = useRecoilValue(postRelatedPriceState);
-  let postStar = useRecoilValue(postStarState);
-  let postComment = useRecoilValue(postCommentState);
-  let postImageList = useRecoilValue(postImageState);
-  let atmasTagId = [postRelatedAtmas].map((el) => tagList[el]);
+  const [postTrainStation, setPostTrainStation] = useRecoilState(
+    postTrainStationState
+  );
+  const postionState = useRecoilValue(postpostionState);
+  const [postAdress, setPostAdress] = useRecoilState(postAdressState);
+  const [postTitle, setPostTitle] = useRecoilState(postTitleState);
+  const [postCategory, setPostCategory] = useRecoilState(postCategoryState);
+  const [postRelated, setPostRelated] = useRecoilState(postRelatedState);
+  const [postRelatedAtmas, setPostRelatedAtmas] = useRecoilState(
+    postRelatedAtmasState
+  );
+  const [postRelatedPrice, setPostRelatedPrice] = useRecoilState(
+    postRelatedPriceState
+  );
+  const [postStar, setPostStar] = useRecoilState(postStarState);
+  const [postComment, setPostComment] = useRecoilState(postCommentState);
+  const [postImageList, setPostImageList] = useRecoilState(postImageState);
+  let atmasTagId = [...postRelatedAtmas].map((el) => tagList[el]);
 
-  let finalUpLoadJson = {
-    title: postTitle,
-    review: postComment,
-    star: postStar,
-    latitude: postionState.lat,
-    longitude: postionState.lng,
-    stationId: postTrainStation,
-    categoryId: categoryList[postCategory],
-    address: postAdress,
-    tags: [tagList[postRelated], ...atmasTagId, tagList[postRelatedPrice]],
-  };
+  const [uploadFormData, setUpLoadFormData] = useState(""); //form데이터 파일
 
-  const [uploadFormData, setUpLoadFormData] = useState(); //form데이터 파일
-
-  const onSubmit = (e) => {
+  const onSubmit = () => {
     let finalUpLoadJson = {
       title: postTitle,
       review: postComment,
@@ -122,27 +115,41 @@ export default function PostPage() {
       })
     );
     setUpLoadFormData(formData); // 폼데이터 useState로 저장
-    e.preventDefault();
-    const config = {
-      headers: {
-        Authorization: TOKEN,
-        "content-type": "multipart/form-data",
-      },
-    };
-    axios
-      .post(
-        `http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/boards/`,
-        uploadFormData,
-        config
-      )
-      .then(function (response) {
-        // -- 이 200일 경우
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   };
+
+  useEffect(() => {
+    if (uploadFormData !== "") {
+      const config = {
+        headers: {
+          Authorization: TOKEN,
+          "content-type": "multipart/form-data",
+        },
+      };
+      axios
+        .post(
+          `http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/boards/`,
+          uploadFormData,
+          config
+        )
+        .then(function (response) {
+          // -- 이 200일 경우
+          console.log(response);
+          setPostAdress("");
+          setPostTitle("");
+          setPostCategory("");
+          setPostRelated("");
+          setPostRelatedAtmas("");
+          setPostRelatedPrice("");
+          setPostStar("");
+          setPostComment("");
+          setPostImageList("");
+          navigatge(`/main/${postTrainStation}`);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  }, [uploadFormData]);
 
   return (
     <>
@@ -174,7 +181,7 @@ export default function PostPage() {
       <div className="flex justify-center">
         <button
           className="bg-gray-400 w-fit m-auto text-white py-3 px-5 rounded-lg hover:bg-[rgb(83,199,240)] my-32"
-          onClick={(e) => onSubmit(e)}
+          onClick={onSubmit}
         >
           작성완료
         </button>

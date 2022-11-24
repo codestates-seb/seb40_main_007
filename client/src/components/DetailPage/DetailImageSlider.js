@@ -3,6 +3,8 @@ import { Navigation } from "swiper";
 /* eslint-disable */
 import "swiper/css";
 import "swiper/css/navigation";
+import { useRecoilValue } from "recoil";
+import { detailData } from "../../atoms/detailPageData";
 
 const DetailImageSlider = () => {
   const info = {

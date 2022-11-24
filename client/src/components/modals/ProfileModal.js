@@ -8,7 +8,7 @@ export default function ProfileModal() {
   const [showModal, setShowModal] = useState(false);
   const name = useRecoilValue(userName);
   const avatar = useRecoilValue(userAvatar);
-  console.log(avatar);
+
   return (
     <div className="relative">
       <button className="flex items-center" onClick={() => setShowModal(true)}>
