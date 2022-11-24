@@ -1,40 +1,47 @@
+/*eslint-disable*/
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import axios from "axios";
+
 import Header from "../components/Header";
 import CategoryTabs from "../components/MainPage/CategoryTab";
 import MainMap from "../components/MainPage/MainMap";
-// import PostList from "../components/MainPage/Posts/PostList";
 import RelatedTab from "../components/MainPage/RelatedTab";
 import MainHeader from "../components/MainPage/MainHeader";
 import WriteModal from "../components/modals/WriteModal";
-import TestPostList from "../components/MainPage/Posts/TestPostList";
-import { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
 import { mapImgClickEvent } from "../atoms/mapImage";
-import { postDummyState } from "../atoms/dummyData";
-import { mainPostData } from "../atoms/mainPageData";
+import { mainPostData, mainPageInfo } from "../atoms/mainPageData";
 import { useParams } from "react-router-dom";
 import { accessToken } from "../atoms/loginTest";
-import axios from "axios";
+
+// 테스트용 입니다. 테스트 완료하면 합칠예정..!
+// import PostList from "../components/MainPage/Posts/PostList";
+// import DummyPostList from "../components/MainPage/Posts/dummyPostList";
+import TestPostList from "../components/MainPage/Posts/TestPostList";
 
 const MainPage = () => {
   // 더미 데이터 통신 될 경우 변경
-  const [...posts] = useRecoilValue(postDummyState);
   const [TOKEN] = useRecoilState(accessToken);
   const { id } = useParams();
+  // Main 게시글 데이터
   const [, setPostList] = useRecoilState(mainPostData);
+  // Main 인피니티 스크롤 관련 정보
+  const [, setPageInfo] = useRecoilState(mainPageInfo);
+
+  // 메인페이지 데이터 통신
   useEffect(() => {
-    axios({
-      method: "get",
-      url: `${process.env.REACT_APP_URL}/${id}/1/default/?page=1&size=9`,
-      headers: TOKEN
-        ? {
-            Authorization: TOKEN,
-          }
-        : {},
-    })
+    const config = {
+      headers: { Authorization: TOKEN },
+    };
+    axios
+      .get(`${process.env.REACT_APP_URL}/${id}/1/default/?page=1&size=12`, {
+        config,
+      })
       .then(function (response) {
         //handle success
-        console.log("메인 페이지 게시글", response.data.items);
+        console.log("메인 페이지 게시글", response.data.pageInfo);
         setPostList(response.data.items);
+        setPageInfo(response.data.pageInfo);
       })
       .catch(function (response) {
         //handle error
@@ -56,13 +63,12 @@ const MainPage = () => {
           <div>
             <MainHeader />
             <div className="mt-14">
-              <MainMap posts={posts} stationId={id} />
+              <MainMap stationId={id} />
             </div>
           </div>
           <div>
             <CategoryTabs />
             <RelatedTab />
-            {/* <PostList /> */}
             <TestPostList />
           </div>
         </div>

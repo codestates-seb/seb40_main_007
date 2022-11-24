@@ -21,6 +21,7 @@ const MapItemDetail = ({ thumbnail, detailData }) => {
     setMapImgHoverId(null);
   };
   console.log("Detail", detailData);
+
   return (
     <>
       <div className="bg-gray-800 w-40 rounded-xl border-4 border-gray-800 cursor-pointer relative bg-no-repeat shadow-black shadow-md">

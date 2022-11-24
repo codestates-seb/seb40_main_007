@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useEffect } from "react";
 import { Map, CustomOverlayMap } from "react-kakao-maps-sdk";
@@ -10,24 +9,20 @@ import {
   postImgHoverEvent,
 } from "../../atoms/mapImage";
 import { mainPostData } from "../../atoms/mainPageData";
-import { dummyDataState } from "../../atoms/dummyData";
 import { trainInfo } from "../../atoms/trainInfo";
 
-const MainMap = ({ posts, stationId }) => {
-  // Map Data 관련
-  const [postList] = useRecoilState(mainPostData);
+const MainMap = ({ stationId }) => {
+  // Main Map Data 관련
+  const postList = useRecoilValue(mainPostData);
   const trainStationInfo = useRecoilValue(trainInfo);
   const stationCoordinate = trainStationInfo[stationId - 1].position;
 
-  // Map Event 관련 정보
+  // Main Map Event 관련 정보
   const [mapImgClickId] = useRecoilState(mapImgClickEvent);
   const [mapImgHoverId, setMapImgHoverId] = useRecoilState(mapImgHoverEvent);
   const [, setPostImgHoverId] = useRecoilState(postImgHoverEvent);
   const [...mapCenter] = useRecoilValue(mapCenterMoveEvent);
-
-  const [dummyData] = useRecoilState(dummyDataState);
-  const dummy = dummyData.length === 0 ? posts.slice(0, 15) : dummyData;
-  console.log(postList);
+  console.log("현재 맵에 표시되는 데이터", postList);
 
   useEffect(() => {
     setPostImgHoverId(null);

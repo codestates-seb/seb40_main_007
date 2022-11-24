@@ -24,7 +24,7 @@ const SortDropdown = () => {
         </button>
         {showModal ? (
           <div>
-            <ul className="absolute z-50 bg-white rounded-md w-14 m-1 p-1">
+            <ul className="absolute z-50 bg-white rounded-md w-16 m-1 p-1 border-2">
               <li className="text-sm text-[rgb(83,199,240)] text-center p-1">
                 <button
                   type="button"
