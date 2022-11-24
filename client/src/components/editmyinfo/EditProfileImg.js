@@ -1,31 +1,48 @@
 import { TiPencil } from "react-icons/ti";
-import { useRecoilState } from "recoil";
-import { userInfo, accessToken } from "../../atoms/loginTest";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { userAvatar, accessToken } from "../../atoms/loginTest";
 import axios from "axios";
 
 const EditProfileImg = () => {
-  const [avatar, setAvatar] = useRecoilState(userInfo);
-  const [TOKEN] = useRecoilState(accessToken);
+  const [avatar, setAvatar] = useRecoilState(userAvatar);
+  const TOKEN = useRecoilValue(accessToken);
 
   // 이미지 업로드 함수
   function upload(formData) {
-    console.log(formData);
-    axios({
-      method: "post",
-      url: "http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/members/avatar",
-      file: formData,
-      headers: {
-        Authorization: TOKEN,
-        "Content-Type": "multipart/form-data",
-      },
-    })
+    // console.log("formData", formData);
+    // axios({
+    //   method: "post",
+    //   url: `http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/members/avatar`,
+    //   file: formData,
+    //   headers: {
+    //     Authorization: TOKEN,
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    // })
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (response) {
+    //     console.log(response);
+    //   });
+
+    const config = {
+      headers: { Authorization: TOKEN, "Content-Type": "multipart/form-data" },
+    };
+    axios
+      .post(
+        `http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/members/avatar`,
+        {
+          file: formData,
+        },
+        config
+      )
       .then(function (response) {
-        //handle success
+        // -- 이 200일 경우
         console.log(response);
       })
-      .catch(function (response) {
-        //handle error
-        console.log(response);
+      .catch(function (error) {
+        console.log(error);
       });
   }
 
@@ -40,6 +57,7 @@ const EditProfileImg = () => {
     }
     reader.onloadend = () => {
       const preveiwUrl = reader.result;
+      preveiwUrl.replace(/"/g, "");
       setAvatar(preveiwUrl);
     };
     upload(fileImage); // 이미지 업로드

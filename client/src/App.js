@@ -14,6 +14,7 @@ import EditPage from "./Routes/editPage";
 import PostPage from "./Routes/postPage";
 import DetailPage from "./Routes/detailPage";
 import NotFoundPage from "./Routes/notFound";
+import Callback from "./Routes/callback";
 // myPages
 import MyProfilePage from "./Routes/myPages/myProfilePage";
 import EditMyInfoPage from "./Routes/myPages/editMyInfoPage";
@@ -55,6 +56,7 @@ function App() {
             <Route path="/mypage/mypost" element={<MyPostPage />} />
             <Route path="/mypage/mycomment" element={<MyCommentPage />} />
             <Route path="/mypage/mytravel" element={<MyTravelPage />} />
+            <Route path="/callback" element={<Callback />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
