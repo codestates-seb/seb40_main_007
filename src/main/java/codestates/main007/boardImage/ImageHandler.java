@@ -148,17 +148,15 @@ public class ImageHandler {
         String newFileName = "avatar_of_" + member.getMemberId() + originalFileExtension;
 
         // 저장된 파일로 변경하여 이를 보여주기
-        file = new File(absolutePath + path + "/" + "avatar_of_" + member.getMemberId()+"_origin" + originalFileExtension);
+        file = new File(absolutePath + path + "/" + newFileName);
         image.transferTo(file);
 
-        File file2 = new File(absolutePath + path + "/" + newFileName);
-        Thumbnails.of(file).size(100, 100).outputFormat("png").toFile(file2);
+        Thumbnails.of(file).size(100, 100).outputFormat("png").toFile(file);
 
-        FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(file2.toPath()), false, file2.getName(), (int) file2.length(), file2.getParentFile());
-        fileItem.getOutputStream();
+        FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(file.toPath()), false, file.getName(), (int) file.length(), file.getParentFile());
 
         try {
-            InputStream input = new FileInputStream(file2);
+            InputStream input = new FileInputStream(file);
             OutputStream os = fileItem.getOutputStream();
             IOUtils.copy(input, os);
             // Or faster..
@@ -189,7 +187,6 @@ public class ImageHandler {
 
         // s3에 업로드 후 ec2 파일은 제거
         file.delete();
-        file2.delete();
 
         return "https://pre-032-bucket.s3.ap-northeast-2.amazonaws.com/" + avatarName;
     }

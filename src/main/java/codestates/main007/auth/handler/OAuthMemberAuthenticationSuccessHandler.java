@@ -125,7 +125,7 @@ public class OAuthMemberAuthenticationSuccessHandler extends SimpleUrlAuthentica
                 .host("localhost")
                 //todo : 테스트시 3000 배포시 ec2주소
                 .port(3000)
-                .path("/receive-token.html")
+                .path("callback/receive-token.html")
                 .queryParams(queryParams)
                 .build()
                 .toUri();
