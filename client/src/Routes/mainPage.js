@@ -27,7 +27,6 @@ const MainPage = () => {
   const [, setPostList] = useRecoilState(mainPostData);
   // Main 인피니티 스크롤 관련 정보
   const [, setPageInfo] = useRecoilState(mainPageInfo);
-
   // 메인페이지 데이터 통신
   useEffect(() => {
     const config = {
@@ -43,9 +42,9 @@ const MainPage = () => {
         setPostList(response.data.items);
         setPageInfo(response.data.pageInfo);
       })
-      .catch(function (response) {
+      .catch(function (error) {
         //handle error
-        console.log(response);
+        console.log(error);
       });
   }, [id]);
 
@@ -69,7 +68,7 @@ const MainPage = () => {
           <div>
             <CategoryTabs />
             <RelatedTab />
-            <TestPostList />
+            <TestPostList stationId={id} />
           </div>
         </div>
       </div>
