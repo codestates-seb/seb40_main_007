@@ -22,7 +22,6 @@ const MainMap = ({ stationId }) => {
   const [mapImgHoverId, setMapImgHoverId] = useRecoilState(mapImgHoverEvent);
   const [, setPostImgHoverId] = useRecoilState(postImgHoverEvent);
   const [...mapCenter] = useRecoilValue(mapCenterMoveEvent);
-  console.log("현재 맵에 표시되는 데이터", postList);
 
   useEffect(() => {
     setPostImgHoverId(null);
