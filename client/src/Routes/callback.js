@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   accessToken,
   refereshToken,
@@ -9,20 +9,25 @@ import {
   userId,
 } from "../atoms/loginTest";
 import axios from "axios";
+import NotFoundW from "../components/notfound/NotFoundW";
+import Header from "../components/Header";
 
 export default function Callback() {
   const navigate = useNavigate();
-  const tokenPath = window.location.pathname;
+  const location = useLocation();
+  const tokenPath = location.search;
   const tokenInfo = tokenPath.split("%20");
-  console.log(tokenPath);
+  const accessTokenInfo = tokenInfo[1].split("&");
+
   const [, setAccessToken] = useRecoilState(accessToken);
   const [, setRefreshToken] = useRecoilState(refereshToken);
   const [, setUserName] = useRecoilState(userName);
   const [, setUserAvatar] = useRecoilState(userAvatar);
   const [, setUserId] = useRecoilState(userId);
-
+  // console.log("tokenPath", tokenPath);
+  // console.log("tokenInfo1", accessTokenInfo);
   useEffect(() => {
-    const TOKEN = tokenInfo[1];
+    const TOKEN = accessTokenInfo[0];
     const REFRESH_TOKEN = tokenInfo[2];
     setAccessToken(TOKEN);
     setRefreshToken(REFRESH_TOKEN);
@@ -31,7 +36,7 @@ export default function Callback() {
     };
     axios
       .get(
-        "http://pre-032-bucket.s3-website.ap-northeast-2.amazonaws.com/users/myPage",
+        "http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/members/header",
         config
       )
       .then((response) => {
@@ -44,7 +49,14 @@ export default function Callback() {
       })
       .catch(() => {
         alert("로그인 실패");
-        navigate("/");
+        navigate("initial");
       });
   }, []);
+
+  return (
+    <>
+      <Header />
+      <NotFoundW />
+    </>
+  );
 }

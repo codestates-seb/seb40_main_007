@@ -103,6 +103,7 @@ export default function PostPage() {
 
   const insertImg = (e) => {
     let fileImage = e.target.files[0];
+    console.log("e.target.files[0]", fileImage);
     let reader = new FileReader(); // 파일 읽기
     if (fileImage) {
       reader.readAsDataURL(fileImage);
@@ -112,7 +113,7 @@ export default function PostPage() {
     };
 
     const data = new FormData();
-    // data.append("files", "https://ifh.cc/g/jBqBFy.png");
+    data.append("files", fileImage);
     data.append(
       "data",
       new Blob([
@@ -132,30 +133,20 @@ export default function PostPage() {
         type: "application/json",
       }
     ); // { contentType: "application/json" }
-    setFile(data); // 폼데이터 useState로 저장
-
     for (var value of data.values()) {
       console.log(value);
     }
+    setFile(data); // 폼데이터 useState로 저장
   };
 
-  console.log(preveiwUrl);
-  const data = new Blob([
-    JSON.stringify({
-      title: "배고파서",
-      review: "몽쉘하나먹음",
-      star: 3.5,
-      latitude: 37.55345694428185,
-      longitude: 126.97383501554378,
-      stationId: 3,
-      categoryId: 1,
-      address: "우리",
-      tags: [2, 24, 41, 43, 44, 45],
-      image: ["https://ifh.cc/g/jBqBFy.png"],
-    }),
-  ]);
+  // console.log("여기가보내는곳확인하는곳", file);
+  // for (var key of file.keys()) {
+  //   console.log("key확인", key);
+  // }
 
-  //  contentType: "multipart/form-data",
+  // for (var value of file.values()) {
+  //   console.log("value확인", value);
+  // }
 
   const onPostSubmitTWO = (e) => {
     e.preventDefault();
@@ -168,7 +159,7 @@ export default function PostPage() {
     axios
       .post(
         `http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/boards/`,
-        data,
+        file,
         config
       )
       .then(function (response) {
