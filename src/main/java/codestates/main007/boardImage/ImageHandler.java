@@ -335,7 +335,7 @@ public class ImageHandler {
 
     public void deleteImage(String fileName){
         try {
-            amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
+            amazonS3.deleteObject(bucket, "/"+fileName);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
         }
@@ -343,7 +343,7 @@ public class ImageHandler {
 
     public void deleteThumbnail(String thumbNailName){
         try {
-            amazonS3.deleteObject(new DeleteObjectRequest(bucket, thumbNailName));
+            amazonS3.deleteObject(bucket, "/"+thumbNailName);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
         }

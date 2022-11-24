@@ -114,9 +114,6 @@ public class BoardService {
     }
 
     public void delete(String accessToken, long boardId) {
-        Member writer = find(boardId).getWriter();
-        Member member = memberService.findByAccessToken(accessToken);
-
         // s3에 이미지 삭제
         Board board = find(boardId);
         List<BoardImage> boardImages =  boardImageRepository.findAllByBoard(board);
