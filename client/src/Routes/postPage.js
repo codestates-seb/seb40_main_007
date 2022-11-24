@@ -25,40 +25,13 @@ import {
   postRelatedPriceState,
   postStarState,
   postCommentState,
+  postImageState,
 } from "../atoms/postInfo";
 
 //이미지 테스트
 import ImageTest from "../components/ImageTest";
 
 export default function PostPage() {
-  const postTrainStation = useRecoilValue(postTrainStationState);
-  const postionState = useRecoilValue(postpostionState);
-  const postAdress = useRecoilValue(postAdressState);
-  const postTitle = useRecoilValue(postTitleState);
-  const postCategory = useRecoilValue(postCategoryState);
-  const postRelated = useRecoilValue(postRelatedState);
-  const postRelatedAtmas = useRecoilValue(postRelatedAtmasState);
-  const postRelatedPrice = useRecoilValue(postRelatedPriceState);
-  const postStar = useRecoilValue(postStarState);
-  const postComment = useRecoilValue(postCommentState);
-  const TOKEN = useRecoilValue(accessToken);
-
-  const atmasTagId = postRelatedAtmas.map((el) => tagList[el]);
-  console.log(atmasTagId);
-  const finalUpLoadJson = {
-    //application/json
-    title: postTitle,
-    review: postComment,
-    star: postStar,
-    latitude: postionState.lat,
-    longitude: postionState.lng,
-    stationId: postTrainStation,
-    categoryId: categoryList[postCategory],
-    address: postAdress,
-    tags: [tagList[postRelated], ...atmasTagId, tagList[postRelatedPrice]],
-  };
-
-  const categoryList = { 식당: 1, 볼거리: 2, 숙소: 3 };
   const tagList = {
     한식: 1,
     중식: 2,
@@ -93,63 +66,73 @@ export default function PostPage() {
     깔끔한: 44,
     "뷰가 좋은": 45,
   };
+  const categoryList = { 식당: 1, 볼거리: 2, 숙소: 3 };
 
-  const [preveiwUrl, setPreviewUrl] = useState(); //미리보기 이미지
-  const jsonData = {
-    title: "배고파서",
-    review: "몽쉘하나먹음",
-    star: 3.5,
-    latitude: 37.55345694428185,
-    longitude: 126.97383501554378,
-    stationId: 3,
-    categoryId: 1,
-    address: "우리",
-    tags: [2, 24, 41, 43, 44, 45],
+  const TOKEN = useRecoilValue(accessToken);
+  let postTrainStation = useRecoilValue(postTrainStationState);
+  let postionState = useRecoilValue(postpostionState);
+  let postAdress = useRecoilValue(postAdressState);
+  let postTitle = useRecoilValue(postTitleState);
+  let postCategory = useRecoilValue(postCategoryState);
+  let postRelated = useRecoilValue(postRelatedState);
+  let postRelatedAtmas = useRecoilValue(postRelatedAtmasState);
+  let postRelatedPrice = useRecoilValue(postRelatedPriceState);
+  let postStar = useRecoilValue(postStarState);
+  let postComment = useRecoilValue(postCommentState);
+  let postImageList = useRecoilValue(postImageState);
+  let atmasTagId = [postRelatedAtmas].map((el) => tagList[el]);
+
+  let finalUpLoadJson = {
+    title: postTitle,
+    review: postComment,
+    star: postStar,
+    latitude: postionState.lat,
+    longitude: postionState.lng,
+    stationId: postTrainStation,
+    categoryId: categoryList[postCategory],
+    address: postAdress,
+    tags: [tagList[postRelated], ...atmasTagId, tagList[postRelatedPrice]],
   };
 
-  const [file, setFile] = useState(); //form데이터 파일
+  const [uploadFormData, setUpLoadFormData] = useState(); //form데이터 파일
 
-  const insertImg = (e) => {
-    let fileImage = e.target.files[0];
-    console.log("e.target.files[0]", fileImage);
-    let reader = new FileReader(); // 파일 읽기
-    if (fileImage) {
-      reader.readAsDataURL(fileImage);
-    }
-    reader.onloadend = () => {
-      setPreviewUrl(reader.result);
+  const onSubmit = (e) => {
+    let finalUpLoadJson = {
+      title: postTitle,
+      review: postComment,
+      star: postStar,
+      latitude: postionState.lat,
+      longitude: postionState.lng,
+      stationId: postTrainStation,
+      categoryId: categoryList[postCategory],
+      address: postAdress,
+      tags: [tagList[postRelated], ...atmasTagId, tagList[postRelatedPrice]],
     };
+    console.log(finalUpLoadJson);
 
-    const data = new FormData();
-    data.append("files", fileImage);
-    data.append("files", fileImage);
-    data.append("files", fileImage);
-    data.append("files", fileImage);
+    const formData = new FormData();
+    for (const file of postImageList) {
+      formData.append("files", file);
+    }
 
-    data.append(
+    formData.append(
       "data",
-      new Blob([JSON.stringify(jsonData)], {
+      new Blob([JSON.stringify(finalUpLoadJson)], {
         type: "application/json",
       })
-    ); // { contentType: "application/json" }
-    for (var value of data.values()) {
-      console.log(value);
-    }
-    setFile(data); // 폼데이터 useState로 저장
-  };
-
-  const onPostSubmitTWO = (e) => {
+    );
+    setUpLoadFormData(formData); // 폼데이터 useState로 저장
     e.preventDefault();
     const config = {
       headers: {
         Authorization: TOKEN,
-        // "content-type": "multipart/form-data",
+        "content-type": "multipart/form-data",
       },
     };
     axios
       .post(
         `http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/boards/`,
-        file,
+        uploadFormData,
         config
       )
       .then(function (response) {
@@ -169,22 +152,6 @@ export default function PostPage() {
         <PostMap />
 
         <ImageUpload />
-        {/* 이미지 테스트 */}
-        <div className="mb-10">
-          단일테스트용
-          <form>
-            <label htmlFor="file">이미지업로드</label>
-            <input
-              type="file"
-              id="file"
-              accept="image/jpg, image/png, image/jpeg, image/png, image/heif, image/heic"
-              onChange={(e) => insertImg(e)}
-            />
-          </form>
-          {preveiwUrl && <img src={preveiwUrl} alt="img" />}
-        </div>
-        <div>여러개 테스트용</div>
-        <ImageTest />
 
         <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 pt-2 text-18 text-[rgb(83,199,240)] mt-16">
           별점
@@ -207,7 +174,7 @@ export default function PostPage() {
       <div className="flex justify-center">
         <button
           className="bg-gray-400 w-fit m-auto text-white py-3 px-5 rounded-lg hover:bg-[rgb(83,199,240)] my-32"
-          onClick={(e) => onPostSubmitTWO(e)}
+          onClick={(e) => onSubmit(e)}
         >
           작성완료
         </button>

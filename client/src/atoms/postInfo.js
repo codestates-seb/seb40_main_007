@@ -24,7 +24,7 @@ export const postTitleState = atom({
 
 export const postImageState = atom({
   key: `postImage/${v1()}`,
-  default: "",
+  default: [],
 });
 
 export const postCategoryState = atom({
