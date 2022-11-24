@@ -117,6 +117,12 @@ public class BoardService {
         Member writer = find(boardId).getWriter();
         Member member = memberService.findByAccessToken(accessToken);
 
+        // s3에 이미지 삭제
+        List<BoardImage> boardImages =  boardImageRepository.findAllByBoard(boardRepository.findById(boardId).get());
+        for (BoardImage boardImage : boardImages){
+            imageHandler.deleteImage(boardImage.getOriginalFileName());
+
+        }
         boardRepository.deleteById(boardId);
     }
 
