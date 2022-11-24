@@ -56,7 +56,7 @@ function App() {
             <Route path="/mypage/mypost" element={<MyPostPage />} />
             <Route path="/mypage/mycomment" element={<MyCommentPage />} />
             <Route path="/mypage/mytravel" element={<MyTravelPage />} />
-            <Route path="/callback" element={<Callback />} />
+            <Route path="/callback/*" element={<Callback />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
