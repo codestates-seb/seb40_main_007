@@ -202,6 +202,7 @@ public class ImageHandler {
             MultipartFile image = multipartFiles.get(i);
 
             String fileName = "board_images/" + board.getBoardId() + "board_" + i;
+            String thumbnailName = "board_thumbnail/" + System.nanoTime() + "thumbnail_of_" + board.getBoardId();
 
             //파일 형식 구하기
             if (!image.isEmpty()) {
@@ -247,6 +248,7 @@ public class ImageHandler {
                             .board(board)
                             .originalFileName(fileName)
                             .storedFilePath(amazonS3.getUrl(bucket, fileName).toString())
+                            .thumbnailName(thumbnailName)
                             .fileSize(image.getSize())
                             .build();
 
@@ -284,7 +286,7 @@ public class ImageHandler {
 
                         MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
 
-                        String thumbnailName = "board_thumbnail/" + System.nanoTime() + "thumbnail_of_" + board.getBoardId();
+//                        String thumbnailName = "board_thumbnail/" + System.nanoTime() + "thumbnail_of_" + board.getBoardId();
 
                         try {
                             ObjectMetadata metadata = new ObjectMetadata();
@@ -332,9 +334,10 @@ public class ImageHandler {
         return  imagessss;
     }
 
-    public void deleteImage(String fileName){
+    public void deleteImage(BoardImage boardImage){
         try {
-            amazonS3.deleteObject(bucket, fileName);
+            amazonS3.deleteObject(bucket, boardImage.getOriginalFileName());
+            amazonS3.deleteObject(bucket, boardImage.getThumbnailName());
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
         }

@@ -29,5 +29,12 @@ public class BoardImage {
     private String storedFilePath;
 
     @Column
+    private String thumbnailName;
+
+    @Column
     private long fileSize;
+
+    public void setThumbnailName(String thumbnailName){
+        this.thumbnailName = thumbnailName;
+    }
 }

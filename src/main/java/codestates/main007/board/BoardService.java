@@ -120,7 +120,7 @@ public class BoardService {
         // s3에 이미지 삭제
         List<BoardImage> boardImages =  boardImageRepository.findAllByBoard(boardRepository.findById(boardId).get());
         for (BoardImage boardImage : boardImages){
-            imageHandler.deleteImage(boardImage.getOriginalFileName());
+            imageHandler.deleteImage(boardImage);
 
         }
         boardRepository.deleteById(boardId);
