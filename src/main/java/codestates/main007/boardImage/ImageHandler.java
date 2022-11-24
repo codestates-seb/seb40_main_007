@@ -334,7 +334,7 @@ public class ImageHandler {
 
     public void deleteImage(String fileName){
         try {
-            amazonS3.deleteObject(bucket, (fileName).replace(File.separatorChar, '/'));
+            amazonS3.deleteObject(bucket, fileName);
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
         }
