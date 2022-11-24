@@ -39,14 +39,14 @@ export default function ImageTest() {
           type="file"
           id="file"
           multiple
-          accept="image/jpg, image/jpeg, image/png, image/heif, image/heic"
+          accept="image/jpg, image/jpeg, image/png, image/heif, image/heic, image/png"
           onChange={(e) => insertImg(e)}
         />
         <label htmlFor="file">이미지업로드</label>
         <input
           type="file"
           id="file"
-          accept="image/jpg, image/jpeg, image/png, image/heif, image/heic"
+          accept="image/jpg, image/jpeg, image/png, image/heif, image/heic, image/png"
           onChange={(e) => insertImg(e)}
         />
         <label htmlFor="file">이미지업로드</label>

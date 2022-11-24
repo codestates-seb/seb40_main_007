@@ -4,13 +4,22 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { accessToken, userInfo, refereshToken } from "../atoms/loginTest";
+import {
+  accessToken,
+  refereshToken,
+  userName,
+  userAvatar,
+  userId,
+} from "../atoms/loginTest";
+import { useEffect } from "react";
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const [, setLoginState] = useRecoilState(userInfo);
-  const [, setAccessToken] = useRecoilState(accessToken);
+  const [TOKEN, setAccessToken] = useRecoilState(accessToken);
   const [, setRefreshToken] = useRecoilState(refereshToken);
+  const [, setUserName] = useRecoilState(userName);
+  const [, setUserAvatar] = useRecoilState(userAvatar);
+  const [, setUserId] = useRecoilState(userId);
 
   const {
     register,
@@ -31,26 +40,38 @@ export default function LoginPage() {
   //로그인 테스트
   function userLogin(email, password) {
     axios
-      .post(
-        `http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/login`,
-        {
-          email: email,
-          password: password,
-        }
-      )
+      .post(`${process.env.REACT_APP_URL}/login`, {
+        email: email,
+        password: password,
+      })
       .then((response) => {
-        alert("로그인 완료");
-        console.log(response.headers);
-        setLoginState(response.headers.avatar); // 일단 유저정보는 아바타만 들어있다
         setAccessToken(response.headers.authorization);
         setRefreshToken(response.headers.refresh);
-        // setToken(response.headers.authorization);
-        navigate("/");
       })
       .catch((error) => {
         alert("로그인 실패");
       });
   }
+
+  useEffect(() => {
+    const config = {
+      headers: { Authorization: TOKEN },
+    };
+    if (TOKEN !== "") {
+      axios
+        .get(`${process.env.REACT_APP_URL}/members/header`, config)
+        .then((response) => {
+          setUserName(response.data.name);
+          setUserAvatar(response.data.avatar);
+          setUserId(response.data.memberId);
+          alert("로그인 완료");
+          navigate("/");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [TOKEN]);
 
   return (
     <>
@@ -92,11 +113,6 @@ export default function LoginPage() {
             <div className="font-normal text-[rgb(83,199,240)] ml-2">
               password
             </div>
-            <button>
-              <a href="http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google">
-                dddd
-              </a>
-            </button>
             {/* password 란 라벨이 붙은 input 생성 */}
             <input
               id="password"
