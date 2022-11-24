@@ -248,7 +248,6 @@ public class ImageHandler {
                             .board(board)
                             .originalFileName(fileName)
                             .storedFilePath(amazonS3.getUrl(bucket, fileName).toString())
-                            .thumbnailName(thumbnailName)
                             .fileSize(image.getSize())
                             .build();
 
@@ -334,10 +333,17 @@ public class ImageHandler {
         return  imagessss;
     }
 
-    public void deleteImage(BoardImage boardImage){
+    public void deleteImage(String fileName){
         try {
-            amazonS3.deleteObject(bucket, boardImage.getOriginalFileName());
-            amazonS3.deleteObject(bucket, boardImage.getThumbnailName());
+            amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
+        } catch (AmazonServiceException e) {
+            System.err.println(e.getErrorMessage());
+        }
+    }
+
+    public void deleteThumbnail(String thumbNailName){
+        try {
+            amazonS3.deleteObject(new DeleteObjectRequest(bucket, thumbNailName));
         } catch (AmazonServiceException e) {
             System.err.println(e.getErrorMessage());
         }
