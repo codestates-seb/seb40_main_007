@@ -3,8 +3,7 @@ import MyPageTab from "../../components/MyPageTab";
 import PostList from "../../components/MainPage/Posts/PostList";
 import MyPostTab from "../../components/MyPostTab";
 import { useState, useEffect } from "react";
-// import MainMap from "../components/MainPage/MainMap";
-import MainMapTest from "../../components/MainPage/TestMainMap";
+import MainMap from "../../components/MainPage/MainMap";
 import { mapImgClickEvent } from "../../atoms/mapImage";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { postDummyState } from "../../atoms/dummyData";
@@ -43,12 +42,11 @@ const MyPostPage = () => {
         </div>
         {index === "작성한게시글" ? (
           <div className="w-full max-w-5xl flex flex-col sm:flex-row justify-end gap-2 relative">
-            <MainMapTest posts={posts} />
+            <MainMap posts={posts} />
             <PostList />
           </div>
         ) : (
           <div className="w-full  max-w-2xl h-full flex flex-col justify-center">
-            {/* <MainMap /> */}
             <PostList />
           </div>
         )}

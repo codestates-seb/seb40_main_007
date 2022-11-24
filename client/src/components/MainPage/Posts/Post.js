@@ -47,7 +47,7 @@ function Post({ data }) {
         <button onClick={handleMapClick}>
           {onLink ? (
             // 테스트용 링크
-            <Link to="/detail">
+            <Link to={`/detail/${data.boardId}`}>
               <img
                 src={data.thumbnail}
                 alt="alt"

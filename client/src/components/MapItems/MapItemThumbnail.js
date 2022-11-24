@@ -18,7 +18,7 @@ const MapItemThumbnail = ({ thumbnail, boardId, coordinate }) => {
   const hoverImg = "hover:scale-125";
   return (
     <button
-      className={`border-2 border-white shadow-black shadow-md w-10 h-10 ${hoverImg} cursor-pointer ${
+      className={`border-2 border-white bg-white shadow-black shadow-md w-10 h-10 ${hoverImg} cursor-pointer ${
         mapImgHoverId === boardId ? "scale-125" : "scale-100"
       }`}
       onClick={handleMapEvent}

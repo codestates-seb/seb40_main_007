@@ -45,4 +45,7 @@
     border-radius: 14px;
     border: 2px solid white;
   }
+  * {
+    font-family: "Roboto", sans-serif;
+  }
 }
