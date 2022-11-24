@@ -31,7 +31,7 @@ const EditProfileImg = () => {
     };
     axios
       .post(
-        `http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/members/avatar`,
+        `${process.env.REACT_APP_URL}/members/avatar`,
         {
           file: formData,
         },

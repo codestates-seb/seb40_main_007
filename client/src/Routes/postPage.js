@@ -11,7 +11,7 @@ import PostRelatedAtmasTab from "../components/PostPage/postRelatedAtmasTab";
 import Footer from "../components/Footer";
 import ListTag from "../components/tag/ListTag";
 import { useRecoilValue } from "recoil";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { accessToken } from "../atoms/loginTest";
 import {
@@ -41,11 +41,25 @@ export default function PostPage() {
   const postRelatedPrice = useRecoilValue(postRelatedPriceState);
   const postStar = useRecoilValue(postStarState);
   const postComment = useRecoilValue(postCommentState);
-  //액세스토큰
   const TOKEN = useRecoilValue(accessToken);
 
+  const atmasTagId = postRelatedAtmas.map((el) => tagList[el]);
+  console.log(atmasTagId);
+  const finalUpLoadJson = {
+    //application/json
+    title: postTitle,
+    review: postComment,
+    star: postStar,
+    latitude: postionState.lat,
+    longitude: postionState.lng,
+    stationId: postTrainStation,
+    categoryId: categoryList[postCategory],
+    address: postAdress,
+    tags: [tagList[postRelated], ...atmasTagId, tagList[postRelatedPrice]],
+  };
+
   const categoryList = { 식당: 1, 볼거리: 2, 숙소: 3 };
-  const detailTagList = {
+  const tagList = {
     한식: 1,
     중식: 2,
     양식: 3,
@@ -62,8 +76,6 @@ export default function PostPage() {
     유적: 14,
     공연: 15,
     놀거리: 16,
-  };
-  const priceTagList = {
     무료: 21,
     "만원 이하": 22,
     "2만원 이하": 23,
@@ -75,16 +87,12 @@ export default function PostPage() {
     "15만원 이하": 33,
     "20만원 이하": 34,
     "20만원 초과": 35,
-  };
-  const moodeTagList = {
     아늑한: 41,
     활기찬: 42,
     정겨운: 43,
     깔끔한: 44,
     "뷰가 좋은": 45,
   };
-
-  // 단일 이미지 업로드
 
   const [preveiwUrl, setPreviewUrl] = useState(); //미리보기 이미지
   const jsonData = {
@@ -114,39 +122,21 @@ export default function PostPage() {
 
     const data = new FormData();
     data.append("files", fileImage);
+    data.append("files", fileImage);
+    data.append("files", fileImage);
+    data.append("files", fileImage);
+
     data.append(
       "data",
-      new Blob([
-        JSON.stringify({
-          title: "배고파서",
-          review: "몽쉘하나먹음",
-          star: 3.5,
-          latitude: 37.55345694428185,
-          longitude: 126.97383501554378,
-          stationId: 3,
-          categoryId: 1,
-          address: "우리",
-          tags: [2, 24, 41, 43, 44, 45],
-        }),
-      ]),
-      {
+      new Blob([JSON.stringify(jsonData)], {
         type: "application/json",
-      }
+      })
     ); // { contentType: "application/json" }
     for (var value of data.values()) {
       console.log(value);
     }
     setFile(data); // 폼데이터 useState로 저장
   };
-
-  // console.log("여기가보내는곳확인하는곳", file);
-  // for (var key of file.keys()) {
-  //   console.log("key확인", key);
-  // }
-
-  // for (var value of file.values()) {
-  //   console.log("value확인", value);
-  // }
 
   const onPostSubmitTWO = (e) => {
     e.preventDefault();
@@ -170,25 +160,6 @@ export default function PostPage() {
         console.log(error);
       });
   };
-
-  // const onPostSubmit = (e) => {
-  //   e.preventDefault();
-  //   axios({
-  //     method: "post",
-  //     url: `http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/boards/`,
-  //     file,
-  //     headers: {
-  //       contentType: "multipart/form-data", //<- files: "이미지들"
-  //       Authorization: TOKEN,
-  //     },
-  //   })
-  //     .then(function (response) {
-  //       console.log(response);
-  //     })
-  //     .catch(function (err) {
-  //       console.log(err);
-  //     });
-  // };
 
   return (
     <>
