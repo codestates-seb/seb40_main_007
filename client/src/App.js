@@ -46,7 +46,7 @@ function App() {
             <Route path="/signout" element={<SignoutPage />} />
             <Route path="/initial" element={<InitialPage />} />
             <Route path="/main/:id" element={<MainPage />} />
-            <Route path="/detail" element={<DetailPage />} />
+            <Route path="/detail/:id" element={<DetailPage />} />
             <Route path="/post/:id" element={<PostPage />} />
             <Route path="/edit" element={<EditPage />} />
             <Route path="/image" element={<ImageUpload />} />
