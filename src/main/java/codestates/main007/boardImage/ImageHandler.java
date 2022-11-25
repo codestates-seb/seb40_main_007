@@ -420,15 +420,15 @@ public class ImageHandler {
                             bucket,
                             fileName
                     );
+                    boardImageRepository.delete(boardImage);
+                    boardImageRepository.save(BoardImage.builder()
+                            .board(board)
+                            .originalFileName(fileName)
+                            .storedFilePath(amazonS3.getUrl(bucket, fileName).toString())
+                            .fileSize(boardImage.getFileSize())
+                            .build());
                 }
 
-                boardImageRepository.delete(boardImage);
-                boardImageRepository.save(BoardImage.builder()
-                        .board(board)
-                        .originalFileName(fileName)
-                        .storedFilePath(amazonS3.getUrl(bucket, fileName).toString())
-                        .fileSize(boardImage.getFileSize())
-                        .build());
 
                 boardImages.add(boardImage);
 
