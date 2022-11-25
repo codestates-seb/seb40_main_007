@@ -9,29 +9,12 @@ const EditProfileImg = () => {
 
   // 이미지 업로드 함수
   function upload(formData) {
-    // console.log("formData", formData);
-    // axios({
-    //   method: "post",
-    //   url: `http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/members/avatar`,
-    //   file: formData,
-    //   headers: {
-    //     Authorization: TOKEN,
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    // })
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (response) {
-    //     console.log(response);
-    //   });
-
     const config = {
       headers: { Authorization: TOKEN, "Content-Type": "multipart/form-data" },
     };
     axios
       .post(
-        `http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/members/avatar`,
+        `${process.env.REACT_APP_URL}/members/avatar`,
         {
           file: formData,
         },
@@ -86,7 +69,7 @@ const EditProfileImg = () => {
                   accept="image/jpg, image/jpeg, image/png, image/heif, image/heic"
                   onChange={(e) => insertImg(e)}
                   className="hidden"
-                />{" "}
+                />
               </form>
             </div>
             {avatar !== "" ? (

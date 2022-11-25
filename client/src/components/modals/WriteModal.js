@@ -6,14 +6,13 @@ import { postTrainStationState, postCategoryState } from "../../atoms/postInfo";
 
 const WriteModal = () => {
   const [showModal, setShowModal] = useState(false);
-  const [trainStation, setTrainStation] = useRecoilState(postTrainStationState);
-  const [categories, setCategories] = useRecoilState(postCategoryState);
+  const [, setTrainStation] = useRecoilState(postTrainStationState);
+  const [, setCategories] = useRecoilState(postCategoryState);
 
   const { id } = useParams();
   useEffect(() => {
     setTrainStation(id);
   }, []);
-  console.log(trainStation, categories);
   return (
     <>
       <button

@@ -9,9 +9,7 @@ import {
   userId,
 } from "../atoms/loginTest";
 import axios from "axios";
-import NotFoundW from "../components/notfound/NotFoundW";
 import Header from "../components/Header";
-
 export default function Callback() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -56,7 +54,7 @@ export default function Callback() {
   return (
     <>
       <Header />
-      <NotFoundW />
+      <div className="w-full h-screen flex justify-center items-center bg-[rgb(83,199,240)]"></div>
     </>
   );
 }

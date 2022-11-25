@@ -1,45 +1,46 @@
 import { useState } from "react";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { detailData } from "../../atoms/detailPageData";
+import { accessToken, userName, userAvatar } from "../../atoms/loginTest";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const CommentEditor = () => {
+  const { id } = useParams();
   const [commentText, setCommentText] = useState("");
   const [char, setChar] = useState(0);
+  const [detailInfo, setDetailInfo] = useRecoilState(detailData);
+
+  const TOKEN = useRecoilValue(accessToken);
+  const userNameInfo = useRecoilValue(userName);
+  const userAvatarInfo = useRecoilValue(userAvatar);
 
   const handleTextChange = (e) => {
     setCommentText(e.target.value);
     setChar(e.target.value.length);
-    console.log(e.target.value);
   };
 
-  const info = {
-    boardId: 2,
-    title: "돼지국밥",
-    review: "뉴진스 만큼 멋진 곳",
-    star: 3.5,
-    thumbnail: "https://i.ytimg.com/vi/lgfXrQUx4go/maxresdefault.jpg",
-    stationId: 2,
-    categoryId: 1,
-    address: "교동짬뽕",
-    timeFromStation: 627,
-    dibs: false,
-    upScore: 0,
-    downScore: 0,
-    scoreStatus: 0,
-    createdAt: "2022-11-16T22:11:43.34156",
-    writer: {
-      memberId: 1,
-      name: "민트 비빔면 1",
-      avatar:
-        "https://pre-032-bucket.s3.ap-northeast-2.amazonaws.com/profile_red.png",
-    },
-    imageUrls: [
-      "https://magazine.cheil.com/wp-content/uploads/2022/09/%EC%BD%98%ED%85%90%EC%B8%A0B_960_600_7-1.jpg",
-      "https://i.ytimg.com/vi/CPuJ6xPRYXQ/maxresdefault.jpg",
-    ],
-    tags: {
-      detailTag: "한식",
-      moodTag: ["아늑한", "정겨운", "깔끔한", "뷰가 좋은"],
-      priceTag: "만원 초과 2만원 이하",
-    },
+  const handleSubmit = () => {
+    const config = {
+      headers: { Authorization: TOKEN },
+    };
+    axios
+      .post(
+        `${process.env.REACT_APP_URL}/boards/${detailInfo.boardId}/comments`,
+        {
+          comment: commentText,
+        },
+        config
+      )
+      .then(function () {
+        axios
+          .get(`${process.env.REACT_APP_URL}/boards/${id}`)
+          .then((response) => {
+            setDetailInfo(response.data);
+            setCommentText("");
+          });
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -48,13 +49,13 @@ const CommentEditor = () => {
         <div className="flex flex-row items-center space-x-2">
           <div className="w-6 h-6">
             <img
-              src={info.writer.avatar}
+              src={userAvatarInfo}
               alt="userImg"
               className="object-fit block rounded-full"
             />
           </div>
           <div>
-            <span className="text-xs">{info.writer.name}</span>
+            <span className="text-xs">{userNameInfo}</span>
           </div>
         </div>
         <textarea
@@ -72,7 +73,7 @@ const CommentEditor = () => {
         </div>
       </div>
       <div className="mt-2 flex justify-end">
-        <button type="submit" className="btn">
+        <button type="submit" className="btn" onClick={handleSubmit}>
           등록
         </button>
       </div>

@@ -1,26 +1,11 @@
+/*eslint-disable*/
 import Comment from "./Comment";
+import { useRecoilState } from "recoil";
+import { detailData } from "../../../atoms/detailPageData";
 
 const CommentList = () => {
-  const comments = [
-    {
-      id: 1,
-    },
-    {
-      id: 2,
-    },
-    {
-      id: 3,
-    },
-    {
-      id: 4,
-    },
-    {
-      id: 5,
-    },
-    {
-      id: 6,
-    },
-  ];
+  const [detailInfo] = useRecoilState(detailData);
+
   return (
     <>
       <div className="mt-10 mb-5">
@@ -29,9 +14,11 @@ const CommentList = () => {
         </span>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2">
-        {comments.map((comment) => {
-          return <Comment key={comment.id} />;
-        })}
+        {detailInfo?.comments !== undefined
+          ? detailInfo?.comments.map((comment) => (
+              <Comment key={comment.commentId} props={comment} />
+            ))
+          : null}
       </div>
     </>
   );

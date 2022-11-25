@@ -33,12 +33,12 @@ const Header = () => {
               </div>
               <>
                 <Link to="/initial">
-                  <div className="btn font-medium hidden text-center mt-2  sm:block">
+                  <div className="btn font-medium hidden text-center pt-1  sm:block">
                     LOGIN
                   </div>
                 </Link>
                 <Link to="/signup">
-                  <div className="btn-white hidden text-center mt-2 font-medium sm:block">
+                  <div className="btn-white hidden text-center pt-1 font-medium sm:block">
                     SIGN UP
                   </div>
                 </Link>
