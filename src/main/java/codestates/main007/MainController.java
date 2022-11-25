@@ -25,12 +25,13 @@ public class MainController {
                                       @PathVariable String sort,
                                       @RequestParam int page,
                                       @RequestParam int size) {
+        Sort defaultSort = Sort.by(sort).descending();
         if (sort.equals("default")) {
-            sort = "boardId";
+            defaultSort = Sort.by("boardId").descending();
         } else if (sort.equals("date")) {
-            sort = "createdAt";
+            defaultSort = Sort.by("createdAt").ascending();
         }
-        Page<Board> boardPage = boardService.findBoardPage(stationId, categoryId, page - 1, size, Sort.by(sort).descending());
+        Page<Board> boardPage = boardService.findBoardPage(stationId, categoryId, page - 1, size, defaultSort);
         List<Board> boards = boardPage.getContent();
         List<BoardDto.boardsResponse> responses = boardMapper.boardsToBoardsResponse(boards);
 
@@ -51,7 +52,9 @@ public class MainController {
                                  @RequestParam int size,
                                  @RequestParam("tag") long tagId) {
         Sort defaultSort = Sort.by(sort).descending();
-        if (sort.equals("date")) {
+        if (sort.equals("default")) {
+            defaultSort = Sort.by("boardId").descending();
+        } else if (sort.equals("date")) {
             defaultSort = Sort.by("createdAt").ascending();
         }
         Page<Board> boardPage = boardService.findBoardPageByTag(stationId, categoryId, page - 1, size, defaultSort, tagId);
