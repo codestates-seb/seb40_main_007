@@ -383,6 +383,7 @@ public class ImageHandler {
                                 .fileSize(image.getSize())
                                 .build();
 
+                        boardImageRepository.save(boardImage);
                         boardImages.add(boardImage);
 
                         if (i == 0) {
