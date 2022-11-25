@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { detailData } from "../../atoms/detailPageData";
 import { trainInfo } from "../../atoms/trainInfo";
-import { kategorieInfoList } from "../../atoms/tagsInfo";
+import { categoryInfoList } from "../../atoms/tagsInfo";
 const KakaoShareButton = () => {
   const detailInfo = useRecoilValue(detailData);
   const trainStationInfo = useRecoilValue(trainInfo);
-  const kategorieInfo = useRecoilValue(kategorieInfoList);
+  const categoryInfo = useRecoilValue(categoryInfoList);
 
   useEffect(() => {
     createKakaoButton();
@@ -27,7 +27,7 @@ const KakaoShareButton = () => {
           title: "역이요",
           description: `#${
             trainStationInfo[detailInfo?.stationId - 1]?.train
-          } #${kategorieInfo[detailInfo?.categoryId]} #${detailInfo?.title}`,
+          } #${categoryInfo[detailInfo?.categoryId]} #${detailInfo?.title}`,
           imageUrl: "IMAGE_URL", // i.e. process.env.FETCH_URL + '/logo.png'
           link: {
             mobileWebUrl: window.location.href,

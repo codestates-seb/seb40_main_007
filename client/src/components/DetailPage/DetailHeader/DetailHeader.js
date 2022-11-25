@@ -5,7 +5,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import Heart from "../../Heart";
 import { useRecoilValue } from "recoil";
 import { trainInfo } from "../../../atoms/trainInfo";
-import { kategorieInfoList, tagsInfoList } from "../../../atoms/tagsInfo";
+import { categoryInfoList, tagsInfoList } from "../../../atoms/tagsInfo";
 import { userId, accessToken } from "../../../atoms/loginTest";
 import { detailData } from "../../../atoms/detailPageData";
 import { useNavigate } from "react-router-dom";
@@ -17,13 +17,13 @@ const DetailHeader = () => {
   const navigate = useNavigate();
 
   const trainInformation = useRecoilValue(trainInfo);
-  const kategorieInfo = useRecoilValue(kategorieInfoList);
+  const categoryInfo = useRecoilValue(categoryInfoList);
   const tagsInfo = useRecoilValue(tagsInfoList);
   const detailInfo = useRecoilValue(detailData);
 
   const moodTags = [detailInfo?.tags?.moodTag?.map((el) => tagsInfo[el])];
   const allTags = [
-    kategorieInfo[detailInfo?.categoryId],
+    categoryInfo[detailInfo?.categoryId],
     tagsInfo[detailInfo?.tags?.detailTag],
     ...moodTags,
     tagsInfo[detailInfo?.tags?.priceTag],
