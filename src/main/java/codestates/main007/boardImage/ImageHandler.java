@@ -420,7 +420,6 @@ public class ImageHandler {
                             bucket,
                             fileName
                     );
-                    amazonS3.deleteObject(bucket, boardImage.getOriginalFileName());
                 }
 
                 boardImageRepository.delete(boardImage);
