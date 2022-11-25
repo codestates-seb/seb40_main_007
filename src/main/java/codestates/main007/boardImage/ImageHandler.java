@@ -270,8 +270,8 @@ public class ImageHandler {
 
                         file = new File(absolutePath + path + "/" + newFileName);
                         image.transferTo(file);
-
-                        makeThumbnail(file, board, contentType, thumbnailName);
+                        File thumbFile = new File(absolutePath + path + "/" + "temp");
+                        makeThumbnail(file, thumbFile, board, contentType, thumbnailName);
                     }
                 }
             }
@@ -279,13 +279,13 @@ public class ImageHandler {
         return images;
     }
 
-    public void makeThumbnail(File file, Board board, String contentType, String thumbnailName) throws IOException {
-        Thumbnails.of(file).size(300, 300).outputFormat("png").toFile(file);
+    public void makeThumbnail(File file, File thumbFile, Board board, String contentType, String thumbnailName) throws IOException {
+        Thumbnails.of(file).size(300, 300).outputFormat("png").toFile(thumbFile);
 
-        FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(file.toPath()), false, file.getName(), (int) file.length(), file.getParentFile());
+        FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(thumbFile.toPath()), false, thumbFile.getName(), (int) thumbFile.length(), thumbFile.getParentFile());
 
         try {
-            InputStream input = new FileInputStream(file);
+            InputStream input = new FileInputStream(thumbFile);
             OutputStream os = fileItem.getOutputStream();
             IOUtils.copy(input, os);
             // Or faster..
@@ -318,6 +318,7 @@ public class ImageHandler {
         boardRepository.save(board);
         // s3에 업로드 후 ec2 파일은 제거
         file.delete();
+        thumbFile.delete();
     }
 
     public List<BoardImage> updateImages(Board board, List<String> priority, List<MultipartFile> multipartFiles, List<String> urls) throws IOException {
@@ -329,7 +330,7 @@ public class ImageHandler {
 
         for (int i = 0; i < priority.size(); i++) {
             String next = priority.get(i);
-            String fileName = "board_images/" + board.getBoardId() + "board_" +  System.nanoTime();
+            String fileName = "board_images/" + board.getBoardId() + "board_" + System.nanoTime();
             String thumbnailName = "board_thumbnail/" + System.nanoTime() + "thumbnail_of_" + board.getBoardId();
             // 이미지 처리
             if (next.equals("i")) {
@@ -402,8 +403,8 @@ public class ImageHandler {
 
                             file = new File(absolutePath + path + "/" + newFileName);
                             image.transferTo(file);
-
-                            makeThumbnail(file, board, contentType, thumbnailName);
+                            File thumbFile = new File(absolutePath + path + "/" + "temp");
+                            makeThumbnail(file, thumbFile, board, contentType, thumbnailName);
                         }
                     }
                 }
@@ -443,14 +444,14 @@ public class ImageHandler {
                     Files.write(paths, bytes);
 
                     File savedImage = new File(absolutePath + path + "/" + "temp.jpg");
-
-                    makeThumbnail(savedImage, board, "image/jpg", thumbnailName);
+                    File thumbFile = new File(absolutePath + path + "/" + "temp");
+                    makeThumbnail(savedImage, thumbFile, board, "image/jpg", thumbnailName);
                 }
             }
         }
 
-        for (BoardImage boardImage : originBoardImages){
-            if (!boardImages.contains(boardImage)){
+        for (BoardImage boardImage : originBoardImages) {
+            if (!boardImages.contains(boardImage)) {
                 boardImageRepository.delete(boardImage);
             }
         }
