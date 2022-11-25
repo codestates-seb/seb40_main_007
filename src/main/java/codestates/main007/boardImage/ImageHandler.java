@@ -413,12 +413,14 @@ public class ImageHandler {
 
                 BoardImage boardImage = boardImageRepository.findByStoredFilePath(imageUrl);
 
-                amazonS3.copyObject(
-                        bucket,
-                        boardImage.getOriginalFileName(),
-                        bucket,
-                        fileName
-                );
+                if (!boardImage.getOriginalFileName().equals(fileName)){
+                    amazonS3.copyObject(
+                            bucket,
+                            boardImage.getOriginalFileName(),
+                            bucket,
+                            fileName
+                    );
+                }
                 amazonS3.deleteObject(bucket, boardImage.getOriginalFileName());
 
                 boardImageRepository.delete(boardImage);
