@@ -2,7 +2,7 @@
 import DetailStarScore from "./DetailStarScore";
 import { TiPencil } from "react-icons/ti";
 import { FaRegTrashAlt } from "react-icons/fa";
-import Heart from "../../Heart";
+import DetailHeart from "./detailHeart";
 import { useRecoilValue } from "recoil";
 import { trainInfo } from "../../../atoms/trainInfo";
 import { categoryInfoList, tagsInfoList } from "../../../atoms/tagsInfo";
@@ -67,18 +67,26 @@ const DetailHeader = () => {
             >
               <FaRegTrashAlt size={"20"} color={"#fff"} />
             </button>
-            <Heart />
+            <DetailHeart
+              boardId={detailInfo?.boardId}
+              heartState={detailInfo?.dibs}
+            />
           </div>
         ) : (
           <div className="flex flex-row space-x-1 place-items-end">
-            <Heart />
+            {TOKEN !== "" ? (
+              <DetailHeart
+                boardId={detailInfo?.boardId}
+                heartState={detailInfo?.dibs}
+              />
+            ) : null}
           </div>
         )}
       </div>
       <div className="flex flex-row">
         <div className="flex space-x-2">
           <span className="text-2xl font-bold">{detailInfo?.title}</span>
-          <DetailStarScore />
+          <DetailStarScore props={detailInfo.star} />
           <span className="flex justify-center items-end text-xs text-gray-500">
             {DateTime?.toLocaleString("ko-KR")}
           </span>
