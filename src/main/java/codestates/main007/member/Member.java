@@ -36,6 +36,9 @@ public class Member {
     @Column
     private String avatar;
 
+    @Column
+    private String refreshToken;
+
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
