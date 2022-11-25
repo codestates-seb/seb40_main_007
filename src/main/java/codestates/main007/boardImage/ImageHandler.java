@@ -448,6 +448,13 @@ public class ImageHandler {
                 }
             }
         }
+
+        for (BoardImage boardImage : originBoardImages){
+            if (!boardImages.contains(boardImage)){
+                boardImageRepository.delete(boardImage);
+            }
+        }
+
         return boardImages;
     }
 
