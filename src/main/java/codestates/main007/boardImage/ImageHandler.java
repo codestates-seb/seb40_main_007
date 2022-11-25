@@ -424,7 +424,7 @@ public class ImageHandler {
                 }
 
                 boardImageRepository.delete(boardImage);
-                boardImageRepository.save(BoardImage.builder()
+                boardImage = boardImageRepository.save(BoardImage.builder()
                         .board(board)
                         .originalFileName(fileName)
                         .storedFilePath(amazonS3.getUrl(bucket, fileName).toString())
