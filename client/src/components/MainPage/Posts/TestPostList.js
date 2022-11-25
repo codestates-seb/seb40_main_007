@@ -3,16 +3,20 @@ import axios from "axios";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import InfiniteScroll from "react-infinite-scroll-component";
+import { mainPageInfo, mainPostData } from "../../../atoms/mainPageData";
 import {
-  mainPageInfo,
-  mainPostData,
+  mainSortEvent,
+  mainSortToEngData,
   selectCategoryEvent,
-} from "../../../atoms/mainPageData";
+  selectTagEvent,
+} from "../../../atoms/mainFilter";
+
 import Loading from "../../Loading";
 import { accessToken } from "../../../atoms/loginTest";
 import Post from "./Post";
 import SortDropdown from "./SortDropdown";
 import { Link } from "react-router-dom";
+import { tagsInfoToNumList } from "../../../atoms/tagsInfo";
 
 function TestPostList({ stationId }) {
   const [TOKEN] = useRecoilState(accessToken);
@@ -20,12 +24,13 @@ function TestPostList({ stationId }) {
   const [hasMore, setHasMore] = useState(true);
 
   const pageInfo = useRecoilValue(mainPageInfo);
-
+  // 필터 && 태그 정보
   const selectCategory = useRecoilValue(selectCategoryEvent);
+  const selectTag = useRecoilValue(selectTagEvent);
+  const tagsInfoToNum = useRecoilValue(tagsInfoToNumList);
+  const mainSort = useRecoilValue(mainSortEvent);
+  const mainSortToEng = useRecoilValue(mainSortToEngData);
   const [pageCnt, setPageCnt] = useState(2);
-
-  // Main Map Data 관련
-  console.log("PostList", postList, pageInfo);
 
   // 스크롤 바닥에 도달시 동작하는 함수
   const fetchMoreData = () => {
@@ -41,11 +46,13 @@ function TestPostList({ stationId }) {
     const config = {
       headers: { Authorization: TOKEN },
     };
+    const URL =
+      tagsInfoToNum[selectTag] !== 0
+        ? `${process.env.REACT_APP_URL}/${stationId}/${selectCategory}/${mainSortToEng[mainSort]}/search/?page=1&size=12&tag=${tagsInfoToNum[selectTag]}`
+        : `${process.env.REACT_APP_URL}/${stationId}/${selectCategory}/${mainSortToEng[mainSort]}/?page=1&size=12`;
     if (TOKEN === "") {
       axios
-        .get(
-          `${process.env.REACT_APP_URL}/${stationId}/${selectCategory}/default/?page=${pageCnt}&size=12`
-        )
+        .get(URL)
         .then(function (response) {
           //handle success
           console.log("인피니티 스크롤 페이지", response);
@@ -59,10 +66,7 @@ function TestPostList({ stationId }) {
         });
     } else {
       axios
-        .get(
-          `${process.env.REACT_APP_URL}/${stationId}/${selectCategory}/default/?page=${pageCnt}&size=12`,
-          config
-        )
+        .get(URL, config)
         .then(function (response) {
           //handle success
           console.log("인피니티 스크롤 페이지", response);
@@ -82,7 +86,7 @@ function TestPostList({ stationId }) {
         <SortDropdown />
       </div>
       {postList.length !== 0 ? (
-        <div className="mx-auto px-4">
+        <div className="mx-auto px-4 ">
           <InfiniteScroll
             className="scrollbar-hide"
             // dataLength : 현재데이터의 길이
@@ -112,7 +116,7 @@ function TestPostList({ stationId }) {
             <h1>게시글이 비었습니다.</h1>
             <p className="text-sm ">게시글을 작성해보세요!</p>
 
-            <Link to={TOKEN === "" ? "/login" : `/post/${stationId}`}>
+            <Link to={TOKEN === "" ? "/initial" : `/post/${stationId}`}>
               <div className="bg-[rgb(83,199,240)] hover:bg-[rgba(83,199,240,0.8)] active:scale-90 mt-4 p-2 rounded-2xl w-[170px] border-2 flex flex-col justify-center items-center">
                 {TOKEN === "" ? (
                   <div className="text-center">

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
-import { selectCategoryEvent, selectTagEvent } from "../../atoms/mainPageData";
+import { selectCategoryEvent, selectTagEvent } from "../../atoms/mainFilter";
 
 const TagTab = () => {
   const [selectTag, setSelectTag] = useRecoilState(selectTagEvent);

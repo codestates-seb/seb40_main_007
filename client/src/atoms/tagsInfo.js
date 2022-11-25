@@ -22,6 +22,7 @@ export const categoryInfoList = atom({
 export const tagsInfoList = atom({
   key: "tagsInfo",
   default: {
+    // 필터용 전체
     0: "전체",
     // 1~20 detail_tag
     1: "한식",
@@ -88,6 +89,9 @@ export const tagsInfoList = atom({
 export const categoryInfoToNumList = atom({
   key: "categoryInfoToNum",
   default: {
+    // 필터용 전체
+    전체: 0,
+    // 카테고리
     식당: 1,
     볼거리: 2,
     숙소: 3,
@@ -99,6 +103,7 @@ export const categoryInfoToNumList = atom({
 export const tagsInfoToNumList = atom({
   key: "tagsInfoToNum",
   default: {
+    // 필터용 전체
     전체: 0,
     // 1~20 detail_tag
     한식: 1,
