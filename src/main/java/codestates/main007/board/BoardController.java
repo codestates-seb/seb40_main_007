@@ -36,10 +36,9 @@ public class BoardController {
     public void patchBoard(@RequestHeader(name = "Authorization") String accessToken,
                            @PathVariable("board-id") long boardId,
                            @RequestPart("files") List<MultipartFile> images,
-                           @RequestPart("urls") List<BoardDto.Url> urls,
                            @RequestPart("data") BoardDto.Patch patchDto) throws IOException {
 
-        boardService.update(accessToken, boardId, patchDto, images, urls);
+        boardService.update(accessToken, boardId, patchDto, images);
     }
 
     @DeleteMapping("/{board-id}")

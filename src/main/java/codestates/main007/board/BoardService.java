@@ -76,7 +76,7 @@ public class BoardService {
 
     }
 
-    public void update(String accessToken, long boardId, BoardDto.Patch patch, List<MultipartFile> images, List<BoardDto.Url> urls) throws IOException {
+    public void update(String accessToken, long boardId, BoardDto.Patch patch, List<MultipartFile> images) throws IOException {
         Board updatedBoard = find(boardId);
 
         updatedBoard.patchBoard(patch.getTitle(),
@@ -102,7 +102,7 @@ public class BoardService {
 
         updatedBoard.setTags(tagService.findAll(tagIds));
 
-        List<BoardImage> list = imageHandler.updateImages(updatedBoard,patch.getPriority(), images, urls);
+        List<BoardImage> list = imageHandler.updateImages(updatedBoard,patch.getPriority(), images, patch.getUrls());
 
         List<BoardImage> boardImages = new ArrayList<>();
         for (BoardImage tempImage : list) {

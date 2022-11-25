@@ -320,7 +320,7 @@ public class ImageHandler {
         file.delete();
     }
 
-    public List<BoardImage> updateImages(Board board, List<String> priority, List<MultipartFile> multipartFiles, List<BoardDto.Url> urls) throws IOException {
+    public List<BoardImage> updateImages(Board board, List<String> priority, List<MultipartFile> multipartFiles, List<String> urls) throws IOException {
         log.info("# Run updateImages");
 
         List<BoardImage> boardImages = new ArrayList<>();
@@ -409,7 +409,7 @@ public class ImageHandler {
                 //  url 처리
             } else {
                 log.info("# Run 'u' access");
-                String imageUrl = urls.remove(0).getUrl();
+                String imageUrl = urls.remove(0);
 
                 BoardImage boardImage = boardImageRepository.findByStoredFilePath(imageUrl);
 
