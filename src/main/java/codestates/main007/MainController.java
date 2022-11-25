@@ -50,12 +50,11 @@ public class MainController {
                                  @RequestParam int page,
                                  @RequestParam int size,
                                  @RequestParam("tag") long tagId) {
-        if (sort.equals("default")) {
-            sort = "boardId";
-        } else if (sort.equals("date")) {
-            sort = "createdAt";
+        Sort defaultSort = Sort.by(sort).descending();
+        if (sort.equals("date")) {
+            defaultSort = Sort.by("createdAt").ascending();
         }
-        Page<Board> boardPage = boardService.findBoardPageByTag(stationId, categoryId, page - 1, size, Sort.by(sort).descending(), tagId);
+        Page<Board> boardPage = boardService.findBoardPageByTag(stationId, categoryId, page - 1, size, defaultSort, tagId);
         List<Board> boards = boardPage.getContent();
         List<BoardDto.boardsResponse> responses = boardMapper.boardsToBoardsResponse(boards);
 
