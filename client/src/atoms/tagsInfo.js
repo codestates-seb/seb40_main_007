@@ -6,9 +6,9 @@ import { atom } from "recoil";
 
 // 카테고리 아이디 정보
 // --- 임시정보
-// const kategorieInfo = useRecoilValue(kategorieInfoList);
-export const kategorieInfoList = atom({
-  key: "kategorieInfo",
+// const categoryInfo = useRecoilValue(categoryInfoList);
+export const categoryInfoList = atom({
+  key: "categoryInfo",
   default: {
     1: "식당",
     2: "볼거리",
@@ -22,6 +22,7 @@ export const kategorieInfoList = atom({
 export const tagsInfoList = atom({
   key: "tagsInfo",
   default: {
+    0: "전체",
     // 1~20 detail_tag
     1: "한식",
     2: "중식",
@@ -33,7 +34,7 @@ export const tagsInfoList = atom({
     8: "모텔",
     9: "펜션",
     10: "캠핑",
-    11: "게스트하우스",
+    11: "게하",
     12: "자연",
     13: "문화",
     14: "유적",
@@ -83,9 +84,9 @@ export const tagsInfoList = atom({
 // ---------------------------------
 
 // 카테고리 아이디 정보
-// const kategorieInfoToNum = useRecoilValue(kategorieInfoToNumList);
-export const kategorieInfoToNumList = atom({
-  key: "kategorieInfoToNum",
+// const categoryInfoToNum = useRecoilValue(categoryInfoToNumList);
+export const categoryInfoToNumList = atom({
+  key: "categoryInfoToNum",
   default: {
     식당: 1,
     볼거리: 2,
@@ -98,6 +99,7 @@ export const kategorieInfoToNumList = atom({
 export const tagsInfoToNumList = atom({
   key: "tagsInfoToNum",
   default: {
+    전체: 0,
     // 1~20 detail_tag
     한식: 1,
     중식: 2,
@@ -109,7 +111,7 @@ export const tagsInfoToNumList = atom({
     모텔: 8,
     펜션: 9,
     캠핑: 10,
-    게스트하우스: 11,
+    게하: 11,
     자연: 12,
     문화: 13,
     유적: 14,

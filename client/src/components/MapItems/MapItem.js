@@ -8,7 +8,11 @@ const MapItem = ({ thumbnail, detailData, boardId, coordinate }) => {
   return (
     <>
       {mapImgClickId === boardId ? (
-        <MapItemDetail thumbnail={thumbnail} detailData={detailData} />
+        <MapItemDetail
+          thumbnail={thumbnail}
+          detailData={detailData}
+          boardId={boardId}
+        />
       ) : (
         <MapItemThumbnail
           thumbnail={thumbnail}

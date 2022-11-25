@@ -1,31 +1,40 @@
-import { useState } from "react";
+/*eslint-disable*/
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
-export default function Heart() {
-  const [isWishAdd, setIsWishAdd] = useState(false);
-  const [wishCount, setWishCount] = useState(0);
-  const [isOnClick, setIsOnClick] = useState(false);
+import { accessToken } from "../atoms/loginTest";
 
-  const wishAddHandler = () => {
-    setIsWishAdd(!isWishAdd);
-  };
+export default function Heart({ boardId, heartState }) {
+  const TOKEN = useRecoilValue(accessToken);
+  const [bounce, setBounce] = useState(false);
+  const [isCheck, setIsCheck] = useState(heartState ? true : false);
+
   const wishCountHandler = () => {
-    setIsOnClick(!isOnClick);
-    wishAddHandler();
-    if (!isWishAdd) {
-      setWishCount(wishCount + 1);
-      //나중에 post
-    } else if (isWishAdd) {
-      setWishCount(wishCount - 1);
-      //나중에 post
-    }
+    setIsCheck(!isCheck);
+    setBounce(!bounce);
+
+    const config = {
+      headers: { Authorization: TOKEN },
+    };
+    const data = {};
+    axios
+      .post(`${process.env.REACT_APP_URL}/boards/${boardId}/dibs`, data, config)
+      .then(function () {
+        // console.log("응답 도착", response.data);
+      })
+      .catch(function (error) {
+        //handle error
+        console.log(error);
+      });
   };
 
   // console.log(wishCount);
   //콘솔 찍으면 0인지 1인지 나옵니다 0은 빈하트 1은 채워진 하트
   return (
-    <div className={`${isOnClick ? "animate-oneBounce" : ""}`}>
-      {isWishAdd ? (
+    <div className={`${bounce ? "animate-oneBounce" : ""}`}>
+      {isCheck ? (
         <AiFillHeart
           size={30}
           className="text-[#EC1258] cursor-pointer active:scale-90"

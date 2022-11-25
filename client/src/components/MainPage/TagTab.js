@@ -1,43 +1,49 @@
-import { useRecoilState, useRecoilValue } from "recoil";
-import { mainCategoryState, mainRelatedState } from "../../atoms/filter";
+import { useEffect } from "react";
+import { useRecoilState, useResetRecoilState } from "recoil";
+import { selectCategoryEvent, selectTagEvent } from "../../atoms/mainPageData";
 
-const RelatedTab = () => {
-  const [related, setRelated] = useRecoilState(mainRelatedState);
-  const category = useRecoilValue(mainCategoryState);
+const TagTab = () => {
+  const [selectTag, setSelectTag] = useRecoilState(selectTagEvent);
+  const resetSelectTag = useResetRecoilState(selectTagEvent);
 
-  const restarant = ["전체", "한식", "중식", "양식", "일식", "술집"];
+  const [selectCategory] = useRecoilState(selectCategoryEvent);
+  useEffect(() => {
+    resetSelectTag();
+  }, [selectCategory]);
+  // const category = useRecoilValue(mainCategoryState);
+  // 좀더 구조 건들여보는걸로...
+  const restarant = ["전체", "한식", "중식", "양식", "일식", "분식", "디저트"];
   const sight = ["전체", "자연", "문화", "유적", "공연", "놀거리"];
-  const stay = ["전체", "호텔", "모텔", "게하", "펜션", "캠핑"];
-
+  const stay = ["전체", "호텔", "모텔", "펜션", "캠핑", "게하"];
   return (
     <div className="flex flex-row justify-center space-x-2 mt-4 mb-1">
-      {category === "식당"
+      {selectCategory === 1
         ? restarant.map((el) => (
             <button
               key={el}
               className={
-                related === el
+                selectTag === el
                   ? "text-sm w-16 border-2 border-[rgb(83,199,240)] bg-[rgb(83,199,240)] rounded-2xl text-white"
                   : "text-sm w-16 border-2 border-[rgb(83,199,240)] rounded-2xl text-[rgb(83,199,240)]"
               }
               onClick={() => {
-                setRelated(el);
+                setSelectTag(el);
               }}
             >
               {el}
             </button>
           ))
-        : category === "볼거리"
+        : selectCategory === 2
         ? sight.map((el) => (
             <button
               key={el}
               className={
-                related === el
+                selectTag === el
                   ? "text-sm w-16 border-2 border-[rgb(83,199,240)] bg-[rgb(83,199,240)] rounded-2xl text-white"
                   : "text-sm w-16 border-2 border-[rgb(83,199,240)] rounded-2xl text-[rgb(83,199,240)]"
               }
               onClick={() => {
-                setRelated(el);
+                setSelectTag(el);
               }}
             >
               {el}
@@ -47,12 +53,12 @@ const RelatedTab = () => {
             <button
               key={el}
               className={
-                related === el
+                selectTag === el
                   ? "text-sm w-16 border-2 border-[rgb(83,199,240)] bg-[rgb(83,199,240)] rounded-2xl text-white"
                   : "text-sm w-16 border-2 border-[rgb(83,199,240)] rounded-2xl text-[rgb(83,199,240)]"
               }
               onClick={() => {
-                setRelated(el);
+                setSelectTag(el);
               }}
             >
               {el}
@@ -62,4 +68,4 @@ const RelatedTab = () => {
   );
 };
 
-export default RelatedTab;
+export default TagTab;

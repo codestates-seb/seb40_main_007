@@ -55,5 +55,6 @@
     -moz-user-select: none;
     -o-user-select: none;
     user-select: none;
+    -webkit-user-drag: none;
   }
 }
