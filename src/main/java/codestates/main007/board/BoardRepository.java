@@ -25,6 +25,8 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     List<MemberStation> findStationIdByWriter(Member member);
 
+    Page<Board> findByStationId(long stationId, Pageable pageable);
+
     Page<Board> findByStationIdAndCategoryId(long stationId, long categoryId, Pageable pageable);
 
     Page<Board> findByStationIdAndCategoryIdAndTags(long stationId, long categoryId, Tag tag, Pageable pageable);

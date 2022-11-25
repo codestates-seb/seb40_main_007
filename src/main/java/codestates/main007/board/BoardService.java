@@ -132,8 +132,13 @@ public class BoardService {
     }
 
     public Page<Board> findBoardPage(long stationId, long categoryId, int page, int size, Sort sort) {
-        return boardRepository.findByStationIdAndCategoryId(stationId, categoryId,
-                PageRequest.of(page, size, sort));
+        // 전체 리스트 조회
+        if (categoryId == 0) {
+            return boardRepository.findByStationId(stationId, PageRequest.of(page, size, sort));
+        }else {
+            return boardRepository.findByStationIdAndCategoryId(stationId, categoryId,
+                    PageRequest.of(page, size, sort));
+        }
     }
 
     public Page<Board> findBoardPageByTag(long stationId, long categoryId, int page, int size, Sort sort, long tagId) {
