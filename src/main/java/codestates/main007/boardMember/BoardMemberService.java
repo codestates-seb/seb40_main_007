@@ -65,7 +65,7 @@ public class BoardMemberService {
             board.changeScore(0, 1);
         } else if (boardMember.getScoreStatus() == -1) {
             boardMember.changeScoreStatus(0);
-            board.changeScore(-1, 1);
+            board.changeScore(-1, 0);
         }
 
         boardRepository.save(board);
@@ -85,7 +85,7 @@ public class BoardMemberService {
             board.changeScore(0, -1);
         } else if (boardMember.getScoreStatus() == 1) {
             boardMember.changeScoreStatus(0);
-            board.changeScore(1, -1);
+            board.changeScore(1, 0);
         }
 
         boardRepository.save(board);

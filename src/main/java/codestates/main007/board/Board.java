@@ -139,13 +139,13 @@ public class Board {
     }
     // 해당 게시글의 추천 수 변경 메서드 (총 추천합, 추천 수, 비추천 수 )
     public void changeScore(int fromStatus, int status) {
-        if (fromStatus == -1 & status == 1) {
+        if (fromStatus == -1 & status == 0) {
             this.downScore--;
             this.score++;
         } else if (fromStatus == 0 & status == 1) {
             this.upScore++;
             this.score++;
-        } else if (fromStatus == 1 & status == -1) {
+        } else if (fromStatus == 1 & status == 0) {
             this.upScore--;
             this.score--;
         } else if (fromStatus == 0 & status == -1) {
