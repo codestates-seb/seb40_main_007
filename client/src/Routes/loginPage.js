@@ -61,10 +61,10 @@ export default function LoginPage() {
       axios
         .get(`${process.env.REACT_APP_URL}/members/header`, config)
         .then((response) => {
+          alert("로그인 완료");
           setUserName(response.data.name);
           setUserAvatar(response.data.avatar);
           setUserId(response.data.memberId);
-          alert("로그인 완료");
           navigate("/");
         })
         .catch((error) => {

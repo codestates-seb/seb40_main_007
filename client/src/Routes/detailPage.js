@@ -12,8 +12,77 @@ import Footer from "../components/Footer";
 import KakaoShareButton from "../components/DetailPage/KakaoShareButton";
 import EveryShareButton from "../components/DetailPage/EveryShareButton";
 import { AiOutlineShareAlt } from "react-icons/ai";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { detailData } from "../atoms/detailPageData"; // detailCommentData
+import { accessToken } from "../atoms/loginTest";
+import axios from "axios";
 
 const DetailPage = () => {
+  const { id } = useParams();
+  const [detailInfo, setDetailInfo] = useRecoilState(detailData);
+  const TOKEN = useRecoilValue(accessToken);
+
+  useEffect(() => {
+    if (TOKEN === "") {
+      axios
+        .get(`${process.env.REACT_APP_URL}/boards/${id}`)
+        .then((response) => {
+          setDetailInfo(response.data);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      const config = {
+        headers: { Authorization: TOKEN },
+      };
+      axios
+        .get(`${process.env.REACT_APP_URL}/boards/${id}`, config)
+        .then((response) => {
+          setDetailInfo(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
+
+  const [like, setLike] = useState(detailInfo?.upScore);
+  const [dislike, setDislike] = useState(detailInfo?.downScore);
+  const handleLikeClicked = () => {
+    const config = {
+      headers: { Authorization: TOKEN },
+    };
+    axios
+      .post(
+        `${process.env.REACT_APP_URL}/boards/${detailInfo.boardId}/up-vote`,
+        {},
+        config
+      )
+      .then(function (response) {
+        setLike(response.data.scoreStatus);
+      })
+      .catch((error) => console.log(error));
+  };
+  const handleDislikeClicked = () => {
+    const config = {
+      headers: { Authorization: TOKEN },
+    };
+    axios
+      .post(
+        `${process.env.REACT_APP_URL}/boards/${detailInfo.boardId}/up-vote`,
+        {},
+        config
+      )
+      .then(function (response) {
+        setDislike(response.data.scoreStatus);
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <>
       <Header />
@@ -30,10 +99,14 @@ const DetailPage = () => {
             <EveryShareButton />
           </div>
           <div className="flex flex-row mt-10 justify-end">
-            <Like />
-            <Dislike />
+            <button type="button" onClick={handleLikeClicked}>
+              <Like props={like} />
+            </button>
+            <button type="button" onClick={handleDislikeClicked}>
+              <Dislike props={dislike} />
+            </button>
           </div>
-          <OneLineComment review={"뉴진스 만큼 멋진 곳"} />
+          <OneLineComment review={detailInfo.review} />
           <CommentList />
           <CommentEditor />
         </div>

@@ -1,11 +1,3 @@
-// // import {Animator, ScrollContainer, ScrollPage, batch, Fade, FadeIn, FadeOut, Move, MoveIn, MoveOut, Sticky, StickyIn, StickyOut, Zoom, ZoomIn, ZoomOut}
-// import {
-//   Animator,
-//   ScrollContainer,
-//   ScrollPage,
-//   Fade,
-//   MoveIn,
-// } from "react-scroll-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
 /* eslint-disable */
@@ -24,7 +16,7 @@ export default function HomeIntroduce() {
       >
         {/* 첫번째 소개 페이지 */}
         <SwiperSlide>
-          <div className="w-full h-screen bg-[rgb(83,199,240)] pt-20 overflow-y: hidden; border-2">
+          <div className="w-full lg:h-screen h-1/4 bg-[rgb(83,199,240)] pt-20 overflow-y: hidden; border-2">
             <div className="max-w-[1400px] h-full flex justify-between font-bold m-auto items-center">
               <div className="text-white ml-10">
                 <div className="text-[rgb(83,199,240)] text-lg font-normal mb-5">
@@ -39,11 +31,11 @@ export default function HomeIntroduce() {
                   </span>
                 </div>
 
-                <div className="text-7xl font-light">
+                <div className="lg:text-7xl font-light">
                   <div>대한민국 기차역</div>
                   <div>주변 정보가 역이요</div>
                 </div>
-                <div className="mt-10 font-light text-xl">
+                <div className="mt-10 font-light lg:text-xl text-xs">
                   <div>기차역 주변의 식당부터 숙소,볼거리까지</div>
                   <div> 당신의 즐거운 여행을 도와줄게요</div>
                 </div>
@@ -52,7 +44,7 @@ export default function HomeIntroduce() {
               <img
                 src="/images/역이요소개/phone.png"
                 alt="phone"
-                className="mr-24 w-72"
+                className="lg:mr-24 lg:w-72 mr-1 w-10"
               />
             </div>
           </div>

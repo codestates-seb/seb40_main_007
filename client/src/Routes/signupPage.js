@@ -23,10 +23,13 @@ export default function SignupPage() {
 
   function userSignup(email, password) {
     return axios
-      .post(`${REACT_APP_URL}/members/signup`, {
-        email: email,
-        password: password,
-      })
+      .post(
+        "http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/members/signup",
+        {
+          email: email,
+          password: password,
+        }
+      )
       .then((response) => {
         alert("회원가입 완료");
         console.log(response);

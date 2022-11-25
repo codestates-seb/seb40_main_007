@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 import MapItemDetail from "../MapItems/MapItemDetail";
+import { useRecoilValue } from "recoil";
+import { detailData } from "../../atoms/detailPageData";
 
 const DetailMap = () => {
+  const detailInfo = useRecoilValue(detailData);
+  console.log("좌표로받아야해요성웅님..", detailInfo);
   const trainInfo = {
     id: 14,
     train: "부산역",

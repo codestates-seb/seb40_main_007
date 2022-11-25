@@ -3,6 +3,7 @@ import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useEffect, useState } from "react";
 import { BsFillPencilFill } from "react-icons/bs";
 import { useRecoilState } from "recoil";
+import { v1 } from "uuid";
 import {
   postTrainStationState,
   postAdressState,
@@ -361,7 +362,7 @@ export default function PostMap() {
           ) : (
             markers.map((marker) => (
               <MapMarker
-                key={`marker-${marker.place_name}`}
+                key={`marker-${marker.position.lat}-${marker.position.lng}`}
                 position={marker.position}
                 onClick={() => {
                   oneMarkerSelect(marker);
@@ -401,7 +402,7 @@ export default function PostMap() {
                     setAdressState(marker.adress); // 주소값
                     setTitleState(marker.place_name);
                   }}
-                  key={`marker-${marker.place_name}`}
+                  key={`marker-${marker.position.lat}-${marker.position.lng}`}
                 >
                   <div className="text-base font-semibold text-[rgb(73,177,214)]">
                     <img
