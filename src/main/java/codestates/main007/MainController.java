@@ -29,13 +29,15 @@ public class MainController {
         if (sort.equals("default")) {
             defaultSort = Sort.by("boardId").descending();
         } else if (sort.equals("date")) {
-            defaultSort = Sort.by("createdAt").ascending();
+            defaultSort = Sort.by("createdAt").descending();
+        } else if (sort.equals("time")) {
+            defaultSort = Sort.by("timeFromStation").ascending();
         }
         Page<Board> boardPage = boardService.findBoardPage(stationId, categoryId, page - 1, size, defaultSort);
         List<Board> boards = boardPage.getContent();
         List<BoardDto.boardsResponse> responses = boardMapper.boardsToBoardsResponse(boards);
 
-        if (accessToken!=null){
+        if (accessToken != null) {
             responses = boardService.listCheckDibs(accessToken, responses);
         }
 
@@ -55,13 +57,15 @@ public class MainController {
         if (sort.equals("default")) {
             defaultSort = Sort.by("boardId").descending();
         } else if (sort.equals("date")) {
-            defaultSort = Sort.by("createdAt").ascending();
+            defaultSort = Sort.by("createdAt").descending();
+        } else if (sort.equals("time")) {
+            defaultSort = Sort.by("timeFromStation").ascending();
         }
         Page<Board> boardPage = boardService.findBoardPageByTag(stationId, categoryId, page - 1, size, defaultSort, tagId);
         List<Board> boards = boardPage.getContent();
         List<BoardDto.boardsResponse> responses = boardMapper.boardsToBoardsResponse(boards);
 
-        if (accessToken!=null){
+        if (accessToken != null) {
             responses = boardService.listCheckDibs(accessToken, responses);
         }
 
