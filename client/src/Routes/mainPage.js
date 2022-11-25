@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -28,6 +28,8 @@ import { tagsInfoToNumList } from "../atoms/tagsInfo";
 // import DummyPostList from "../components/MainPage/Posts/dummyPostList";
 
 const MainPage = () => {
+  // 데이터 왔는지 확인 데이터
+  const [isPostOk, setIsPostOk] = useState(false);
   // 더미 데이터 통신 될 경우 변경
   const [TOKEN] = useRecoilState(accessToken);
   const { id } = useParams();
@@ -62,11 +64,13 @@ const MainPage = () => {
         .get(URL)
         .then(function (response) {
           //handle success
-          // console.log("메인페이지", response);
+          console.log("메인페이지", response);
           setPostList(response.data.items);
           setPageInfo(response.data.pageInfo);
           setMapCenter([trainStationInfo[id - 1].position]);
           resetMapImgClickid();
+          // 데이터 도착 확인
+          setIsPostOk(true);
         })
         .catch(function (error) {
           //handle error
@@ -82,6 +86,8 @@ const MainPage = () => {
           setPageInfo(response.data.pageInfo);
           setMapCenter([trainStationInfo[id - 1].position]);
           resetMapImgClickid();
+          // 데이터 도착 확인
+          setIsPostOk(true);
         })
         .catch(function (error) {
           //handle error
@@ -113,7 +119,7 @@ const MainPage = () => {
           <div>
             <CategoryTabs />
             <RelatedTab />
-            <TestPostList stationId={id} />
+            <TestPostList stationId={id} isPostOk={isPostOk} />
           </div>
         </div>
       </div>

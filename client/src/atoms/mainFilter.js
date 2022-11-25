@@ -39,6 +39,6 @@ export const mainSortToEngData = atom({
   default: {
     최신순: "date",
     추천순: "score",
-    거리순: "timeFromStation",
+    거리순: "time",
   },
 });

@@ -9,8 +9,7 @@ const CategoryTabs = () => {
   const categoryInfoToNum = useRecoilValue(categoryInfoToNumList);
 
   useEffect(() => {
-    const categoryNum = categoryInfoToNum[category];
-    setSelectCategory(categoryNum);
+    setSelectCategory(categoryInfoToNum[category]);
   }, [category]);
 
   return (
