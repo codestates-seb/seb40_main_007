@@ -1,7 +1,6 @@
 package codestates.main007.boardImage;
 
 import codestates.main007.board.Board;
-import codestates.main007.board.BoardDto;
 import codestates.main007.board.BoardRepository;
 import codestates.main007.member.Member;
 import com.amazonaws.AmazonServiceException;
@@ -203,7 +202,7 @@ public class ImageHandler {
         for (int i = 0; i < multipartFiles.size(); i++) {
             MultipartFile image = multipartFiles.get(i);
 
-            String fileName = "board_images/" + board.getBoardId() + "board_" + i;
+            String fileName = "board_images/" + board.getBoardId() + "board_" + System.nanoTime() ;
             String thumbnailName = "board_thumbnail/" + System.nanoTime() + "thumbnail_of_" + board.getBoardId();
 
             //파일 형식 구하기
@@ -270,8 +269,8 @@ public class ImageHandler {
 
                         file = new File(absolutePath + path + "/" + newFileName);
                         image.transferTo(file);
-                        File thumbFile = new File(absolutePath + path + "/" + "temp");
-                        makeThumbnail(file, thumbFile, board, contentType, thumbnailName);
+
+                        makeThumbnail(file, board, contentType, thumbnailName);
                     }
                 }
             }
@@ -279,13 +278,13 @@ public class ImageHandler {
         return images;
     }
 
-    public void makeThumbnail(File file, File thumbFile, Board board, String contentType, String thumbnailName) throws IOException {
-        Thumbnails.of(file).size(300, 300).outputFormat("png").toFile(thumbFile);
+    public void makeThumbnail(File file, Board board, String contentType, String thumbnailName) throws IOException {
+        Thumbnails.of(file).size(300, 300).outputFormat("png").toFile(file);
 
-        FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(thumbFile.toPath()), false, thumbFile.getName(), (int) thumbFile.length(), thumbFile.getParentFile());
+        FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(file.toPath()), false, file.getName(), (int) file.length(), file.getParentFile());
 
         try {
-            InputStream input = new FileInputStream(thumbFile);
+            InputStream input = new FileInputStream(file);
             OutputStream os = fileItem.getOutputStream();
             IOUtils.copy(input, os);
             // Or faster..
@@ -295,8 +294,6 @@ public class ImageHandler {
         }
 
         MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
-
-//                        String thumbnailName = "board_thumbnail/" + System.nanoTime() + "thumbnail_of_" + board.getBoardId();
 
         try {
             ObjectMetadata metadata = new ObjectMetadata();
@@ -318,7 +315,6 @@ public class ImageHandler {
         boardRepository.save(board);
         // s3에 업로드 후 ec2 파일은 제거
         file.delete();
-        thumbFile.delete();
     }
 
     public List<BoardImage> updateImages(Board board, List<String> priority, List<MultipartFile> multipartFiles, List<String> urls) throws IOException {
@@ -403,8 +399,8 @@ public class ImageHandler {
 
                             file = new File(absolutePath + path + "/" + newFileName);
                             image.transferTo(file);
-                            File thumbFile = new File(absolutePath + path + "/" + "temp");
-                            makeThumbnail(file, thumbFile, board, contentType, thumbnailName);
+
+                            makeThumbnail(file, board, contentType, thumbnailName);
                         }
                     }
                 }
@@ -444,8 +440,8 @@ public class ImageHandler {
                     Files.write(paths, bytes);
 
                     File savedImage = new File(absolutePath + path + "/" + "temp.jpg");
-                    File thumbFile = new File(absolutePath + path + "/" + "temp");
-                    makeThumbnail(savedImage, thumbFile, board, "image/jpg", thumbnailName);
+
+                    makeThumbnail(savedImage, board, "image/jpg", thumbnailName);
                 }
             }
         }
