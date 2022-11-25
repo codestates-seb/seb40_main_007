@@ -2,7 +2,7 @@ import LoginHeader from "../components/LoginHeader";
 
 // 로그인 테스트용입니다.
 import { useRecoilState } from "recoil";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   accessToken,
   refereshToken,
@@ -26,7 +26,7 @@ export default function LogoutPage() {
     setUserAvatar("");
     setUserId("");
     setUserName("");
-    navigate("/initial");
+    navigate("/");
   };
 
   return (
@@ -58,16 +58,15 @@ export default function LogoutPage() {
           </div> */}
 
           {/* 로그인 테스트용입니다. */}
-          <Link to="/">
-            <div className="w-fit m-auto">
-              <button
-                className="text-white font-semibold w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-4 px-6 rounded-md"
-                onClick={() => userLogout(false)}
-              >
-                Logout
-              </button>
-            </div>
-          </Link>
+
+          <div className="w-fit m-auto">
+            <button
+              className="text-white font-semibold w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-4 px-6 rounded-md"
+              onClick={() => userLogout(false)}
+            >
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     </>

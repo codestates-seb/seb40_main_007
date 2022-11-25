@@ -22,8 +22,8 @@ import axios from "axios";
 const DetailPage = () => {
   const { id } = useParams();
   const [detailInfo, setDetailInfo] = useRecoilState(detailData);
+  // const [, setDetailCommentData] = useRecoilState(detailCommentData);
   const TOKEN = useRecoilValue(accessToken);
-
   useEffect(() => {
     if (TOKEN === "") {
       axios
@@ -43,6 +43,7 @@ const DetailPage = () => {
         .get(`${process.env.REACT_APP_URL}/boards/${id}`, config)
         .then((response) => {
           setDetailInfo(response.data);
+          // setDetailCommentData(response.data.comments);
         })
         .catch((error) => {
           console.log(error);
