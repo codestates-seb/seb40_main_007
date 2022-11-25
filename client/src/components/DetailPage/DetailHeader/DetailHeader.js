@@ -6,22 +6,49 @@ import Heart from "../../Heart";
 import { useRecoilValue } from "recoil";
 import { trainInfo } from "../../../atoms/trainInfo";
 import { kategorieInfoList, tagsInfoList } from "../../../atoms/tagsInfo";
+import { userId, accessToken } from "../../../atoms/loginTest";
 import { detailData } from "../../../atoms/detailPageData";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const DetailHeader = () => {
+  const memberId = useRecoilValue(userId);
+  const TOKEN = useRecoilValue(accessToken);
+  const navigate = useNavigate();
+
   const trainInformation = useRecoilValue(trainInfo);
   const kategorieInfo = useRecoilValue(kategorieInfoList);
   const tagsInfo = useRecoilValue(tagsInfoList);
   const detailInfo = useRecoilValue(detailData);
-  const moodTags = [detailInfo?.tags?.moodTag?.map((el) => tagsInfo[el])];
 
+  const moodTags = [detailInfo?.tags?.moodTag?.map((el) => tagsInfo[el])];
   const allTags = [
     kategorieInfo[detailInfo?.categoryId],
     tagsInfo[detailInfo?.tags?.detailTag],
     ...moodTags,
     tagsInfo[detailInfo?.tags?.priceTag],
   ];
+
   const DateTime = new Date(detailInfo.createdAt);
+
+  const handleDelete = () => {
+    const config = {
+      headers: { Authorization: TOKEN },
+    };
+    axios
+      .delete(
+        `${process.env.REACT_APP_URL}/boards/${detailInfo.boardId}`,
+        config
+      )
+      .then((response) => {
+        console.log(response);
+        alert("삭제 되었습니다.");
+        navigate(`/main/${detailInfo.stationId}`);
+      })
+      .catch((error) => {
+        alert("게시글 삭제 실패");
+      });
+  };
 
   return (
     <div className="flex flex-col mt-20">
@@ -29,15 +56,24 @@ const DetailHeader = () => {
         <span className="font-semibold text-lg text-[rgb(83,199,240)] border-b-2 border-b-[rgb(83,199,240)] px-3 py-2">
           {trainInformation[detailInfo?.stationId - 1]?.train}
         </span>
-        <div className="flex flex-row space-x-1 place-items-end">
-          <button className="w-[30px] h-[30px] bg-white border-2 border-[rgb(83,199,240)] rounded-3xl p-0.5 flex justify-center items-center">
-            <TiPencil size={"30"} color={"#52C7F1"} />
-          </button>
-          <button className="w-[30px] h-[30px] bg-[rgb(83,199,240)] rounded-3xl p-0.5 flex justify-center items-center">
-            <FaRegTrashAlt size={"20"} color={"#fff"} />
-          </button>
-          <Heart />
-        </div>
+        {memberId === detailInfo?.writer?.memberId ? (
+          <div className="flex flex-row space-x-1 place-items-end">
+            <button className="w-[30px] h-[30px] bg-white border-2 border-[rgb(83,199,240)] rounded-3xl p-0.5 flex justify-center items-center">
+              <TiPencil size={"30"} color={"#52C7F1"} />
+            </button>
+            <button
+              className="w-[30px] h-[30px] bg-[rgb(83,199,240)] rounded-3xl p-0.5 flex justify-center items-center"
+              onClick={handleDelete}
+            >
+              <FaRegTrashAlt size={"20"} color={"#fff"} />
+            </button>
+            <Heart />
+          </div>
+        ) : (
+          <div className="flex flex-row space-x-1 place-items-end">
+            <Heart />
+          </div>
+        )}
       </div>
       <div className="flex flex-row">
         <div className="flex space-x-2">
@@ -49,16 +85,26 @@ const DetailHeader = () => {
         </div>
       </div>
       <div className="flex space-x-2 mt-2">
-        {allTags.map((el) => {
-          return (
+        {/* 배열안의 배열을 찾을때,, 갓희찬 */}
+        {allTags.map((el, idx) =>
+          Array.isArray(el) ? (
+            el.map((element, idx) => (
+              <span
+                key={idx}
+                className="text-xs font-semibold text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)] rounded-full py-0.5 px-2"
+              >
+                {element}
+              </span>
+            ))
+          ) : (
             <span
-              key={el}
+              key={idx}
               className="text-xs font-semibold text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)] rounded-full py-0.5 px-2"
             >
               {el}
             </span>
-          );
-        })}
+          )
+        )}
       </div>
       <div className="flex flex-row items-center space-x-2">
         <div className="w-6 h-6 my-3">

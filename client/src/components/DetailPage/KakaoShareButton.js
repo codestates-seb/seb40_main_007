@@ -1,10 +1,17 @@
 import { useEffect } from "react";
+import { useRecoilValue } from "recoil";
+import { detailData } from "../../atoms/detailPageData";
+import { trainInfo } from "../../atoms/trainInfo";
+import { kategorieInfoList } from "../../atoms/tagsInfo";
 const KakaoShareButton = () => {
+  const detailInfo = useRecoilValue(detailData);
+  const trainStationInfo = useRecoilValue(trainInfo);
+  const kategorieInfo = useRecoilValue(kategorieInfoList);
+
   useEffect(() => {
     createKakaoButton();
   }, []);
   const createKakaoButton = () => {
-    // kakao sdk script이 정상적으로 불러와졌으면 window.Kakao로 접근이 가능합니다
     if (window.Kakao) {
       const kakao = window.Kakao;
       // 중복 initialization 방지
@@ -17,8 +24,10 @@ const KakaoShareButton = () => {
         container: "#kakao-link-btn",
         objectType: "feed",
         content: {
-          title: "타이틀",
-          description: "#리액트 #카카오 #공유버튼",
+          title: "역이요",
+          description: `#${
+            trainStationInfo[detailInfo?.stationId - 1]?.train
+          } #${kategorieInfo[detailInfo?.categoryId]} #${detailInfo?.title}`,
           imageUrl: "IMAGE_URL", // i.e. process.env.FETCH_URL + '/logo.png'
           link: {
             mobileWebUrl: window.location.href,

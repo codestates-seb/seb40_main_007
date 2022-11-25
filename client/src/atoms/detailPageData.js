@@ -4,5 +4,10 @@ import { atom } from "recoil";
 // const [detailInfo, setDetailInfo] = useRecoilState(detailData);
 export const detailData = atom({
   key: "detailData",
-  default: "",
+  default: [],
+});
+
+export const detailCommentData = atom({
+  key: "commentData",
+  default: [],
 });

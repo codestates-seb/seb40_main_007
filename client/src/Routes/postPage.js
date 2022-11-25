@@ -190,16 +190,3 @@ export default function PostPage() {
     </>
   );
 }
-// data: {
-//   title: postTitle,
-//   review: postComment,
-//   star: postStar,
-//   latitude: postionState.lat,
-//   longitude: postionState.lng,
-//   stationId: 1,
-//   // 위 번호로 줘야 함..
-//   categoryId: 2,
-//   tags: tagsList,
-//   //카테고리 아이디도 번호로 줘야함
-//   address: postAdress,
-// },
