@@ -329,7 +329,7 @@ public class ImageHandler {
 
         for (int i = 0; i < priority.size(); i++) {
             String next = priority.get(i);
-            String fileName = "board_images/" + board.getBoardId() + "board_new_" + i;
+            String fileName = "board_images/" + board.getBoardId() + "board_" +  System.nanoTime();
             String thumbnailName = "board_thumbnail/" + System.nanoTime() + "thumbnail_of_" + board.getBoardId();
             // 이미지 처리
             if (next.equals("i")) {
@@ -414,23 +414,13 @@ public class ImageHandler {
 
                 BoardImage boardImage = boardImageRepository.findByStoredFilePath(imageUrl);
 
-                if (!boardImage.getOriginalFileName().equals(fileName)){
-                    amazonS3.copyObject(
-                            bucket,
-                            boardImage.getOriginalFileName(),
-                            bucket,
-                            fileName
-                    );
-                }
-
-                boardImageRepository.delete(boardImage);
-                boardImage = boardImageRepository.save(BoardImage.builder()
-                        .board(board)
-                        .originalFileName(fileName)
-                        .storedFilePath(amazonS3.getUrl(bucket, fileName).toString())
-                        .fileSize(boardImage.getFileSize())
-                        .build());
-
+//                boardImageRepository.delete(boardImage);
+//                boardImage = boardImageRepository.save(BoardImage.builder()
+//                        .board(board)
+//                        .originalFileName(fileName)
+//                        .storedFilePath(amazonS3.getUrl(bucket, fileName).toString())
+//                        .fileSize(boardImage.getFileSize())
+//                        .build());
                 boardImages.add(boardImage);
 
                 if (i == 0) {
