@@ -28,6 +28,8 @@ public interface BoardMapper {
                         .stationId(board.getStationId())
                         .categoryId(board.getCategoryId())
                         .address(board.getAddress())
+                        .latitude(board.getLatitude())
+                        .longitude(board.getLongitude())
                         .timeFromStation(board.getTimeFromStation())
                         .dibs(isDibs)
                         .upScore(board.getUpScore())

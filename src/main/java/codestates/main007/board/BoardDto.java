@@ -55,6 +55,8 @@ public class BoardDto {
         private long stationId;
         private long categoryId;
         private String address;
+        private Double latitude;
+        private Double longitude;
         private int timeFromStation;
         private boolean dibs;
         private int upScore;
