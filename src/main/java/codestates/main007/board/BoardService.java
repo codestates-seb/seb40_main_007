@@ -76,7 +76,7 @@ public class BoardService {
 
     }
 
-    public void update(String accessToken, long boardId, BoardDto.Patch patch) {
+    public void update(String accessToken, long boardId, BoardDto.Patch patch, List<MultipartFile> images, List<BoardDto.Url> urls) throws IOException {
         Board updatedBoard = find(boardId);
 
         updatedBoard.patchBoard(patch.getTitle(),
@@ -102,7 +102,7 @@ public class BoardService {
 
         updatedBoard.setTags(tagService.findAll(tagIds));
 
-        List<BoardImage> list = imageHandler.updateImages(updatedBoard, patch.getImages());
+        List<BoardImage> list = imageHandler.updateImages(updatedBoard,patch.getPriority(), images, urls);
 
         List<BoardImage> boardImages = new ArrayList<>();
         for (BoardImage tempImage : list) {
@@ -116,11 +116,11 @@ public class BoardService {
     public void delete(String accessToken, long boardId) {
         // s3에 이미지 삭제
         Board board = find(boardId);
-        List<BoardImage> boardImages =  boardImageRepository.findAllByBoard(board);
+        List<BoardImage> boardImages = boardImageRepository.findAllByBoard(board);
         // 섬네일 삭제
         imageHandler.deleteThumbnail(board.getThumbnail().substring("https://pre-032-bucket.s3.ap-northeast-2.amazonaws.com/board_thumbnail/".length()));
         // 이미지 삭제
-        for (BoardImage boardImage : boardImages){
+        for (BoardImage boardImage : boardImages) {
             imageHandler.deleteImage(boardImage.getOriginalFileName());
         }
         boardRepository.deleteById(boardId);

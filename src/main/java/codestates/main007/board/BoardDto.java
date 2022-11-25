@@ -41,7 +41,7 @@ public class BoardDto {
         private Long categoryId;
         private String address;
         private List<Long> tags;
-        private List<String> images;
+        private List<String> priority;
     }
 
     @Getter
@@ -110,5 +110,11 @@ public class BoardDto {
         private double star;
         private int timeFromStation;
         private boolean dibs;
+    }
+
+    @Getter
+    @Builder
+    public static class Url{
+        private String url;
     }
 }

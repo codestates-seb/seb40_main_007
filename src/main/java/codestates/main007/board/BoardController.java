@@ -35,9 +35,11 @@ public class BoardController {
     @ResponseStatus(HttpStatus.OK)
     public void patchBoard(@RequestHeader(name = "Authorization") String accessToken,
                            @PathVariable("board-id") long boardId,
-                           @RequestBody BoardDto.Patch patchDto) {
+                           @RequestPart("files") List<MultipartFile> images,
+                           @RequestPart("urls") List<BoardDto.Url> urls,
+                           @RequestPart("data") BoardDto.Patch patchDto) throws IOException {
 
-        boardService.update(accessToken, boardId, patchDto);
+        boardService.update(accessToken, boardId, patchDto, images, urls);
     }
 
     @DeleteMapping("/{board-id}")
@@ -70,7 +72,7 @@ public class BoardController {
                 booleans.add(false);
             }
             // 로그인 시에만 바뀌는 정보
-            if (accessToken!=null){
+            if (accessToken != null) {
                 // 해당글 찜 여부
                 isDibs = boardService.checkDibs(accessToken, boardId);
                 // 해당글 추천 여부
@@ -101,7 +103,7 @@ public class BoardController {
             }
 
             // 로그인 시에만 바뀌는 정보
-            if (accessToken!=null){
+            if (accessToken != null) {
                 // 해당글 찜 여부
                 isDibs = boardService.checkDibs(accessToken, boardId);
                 Member member = memberService.findByAccessToken(accessToken);
