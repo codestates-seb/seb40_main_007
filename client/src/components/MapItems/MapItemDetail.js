@@ -6,7 +6,7 @@ import MapItemTag from "./MapItemTag";
 import OneStarScore from "../OneStarScore";
 import { tagsInfoList } from "../../atoms/tagsInfo";
 
-const MapItemDetail = ({ thumbnail, detailData }) => {
+const MapItemDetail = ({ thumbnail, detailData, boardId }) => {
   const [, setMapImgClickId] = useRecoilState(mapImgClickEvent);
   const [, setMapImgHoverId] = useRecoilState(mapImgHoverEvent);
   const tagsInfo = useRecoilValue(tagsInfoList);
@@ -33,6 +33,7 @@ const MapItemDetail = ({ thumbnail, detailData }) => {
             <AiOutlineCloseCircle size={18} onClick={handleMapNormal} />
           </button>
         </div>
+        {/* <Link to={`/detail/${boardId}`}> */}
         <div className="rounded-lg">
           <img
             className="p-0.5 w-40 h-24 rounded-xl"
@@ -40,6 +41,8 @@ const MapItemDetail = ({ thumbnail, detailData }) => {
             alt="post img"
           ></img>
         </div>
+        {/* </Link> */}
+
         <div className=" text-white p-1 flex flex-col">
           <div className="border-b-2 pb-1 pr-2 mb-1 flex flex-row justify-between items-center">
             <p className="text-sm font-medium">{detailData.title}</p>

@@ -1,8 +1,18 @@
-import { useRecoilState } from "recoil";
+import { useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { mainCategoryState } from "../../atoms/filter";
+import { selectCategoryEvent } from "../../atoms/mainPageData";
+import { categoryInfoToNumList } from "../../atoms/tagsInfo";
 
 const CategoryTabs = () => {
   const [category, setCategory] = useRecoilState(mainCategoryState);
+  const [, setSelectCategory] = useRecoilState(selectCategoryEvent);
+  const categoryInfoToNum = useRecoilValue(categoryInfoToNumList);
+
+  useEffect(() => {
+    const categoryNum = categoryInfoToNum[category];
+    setSelectCategory(categoryNum);
+  }, [category]);
 
   return (
     <>

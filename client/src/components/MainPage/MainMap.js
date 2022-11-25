@@ -9,20 +9,17 @@ import {
   postImgHoverEvent,
 } from "../../atoms/mapImage";
 import { mainPostData } from "../../atoms/mainPageData";
-import { trainInfo } from "../../atoms/trainInfo";
 
-const MainMap = ({ stationId }) => {
+const MainMap = () => {
   // Main Map Data 관련
   const postList = useRecoilValue(mainPostData);
-  const trainStationInfo = useRecoilValue(trainInfo);
-  const stationCoordinate = trainStationInfo[stationId - 1].position;
 
   // Main Map Event 관련 정보
   const [mapImgClickId] = useRecoilState(mapImgClickEvent);
   const [mapImgHoverId, setMapImgHoverId] = useRecoilState(mapImgHoverEvent);
   const [, setPostImgHoverId] = useRecoilState(postImgHoverEvent);
-  const [...mapCenter] = useRecoilValue(mapCenterMoveEvent);
-
+  // const [mapCenter] = useRecoilState(mapCenterMoveEvent);
+  const [mapCenter, setMapCenter] = useRecoilState(mapCenterMoveEvent);
   useEffect(() => {
     setPostImgHoverId(null);
   }, [mapImgClickId]);
@@ -34,20 +31,21 @@ const MainMap = ({ stationId }) => {
     }
     return -1;
   };
-  return (
-    <div className="w-full flex justify-center">
+  return mapCenter.length !== 0 ? (
+    <div className="w-full h-60 sm:h-[600px] flex justify-center">
       <Map // 지도를 표시할 Container
-        center={
-          mapCenter.length !== 0
-            ? { lat: mapCenter[0].lat, lng: mapCenter[0].lng }
-            : stationCoordinate
-        }
+        center={{ lat: mapCenter[0].lat, lng: mapCenter[0].lng }}
         style={{
           // 지도의 크기
           width: "100%",
-          height: "600px",
+          height: "100%",
         }}
         level={5} // 지도의 확대 레벨
+        onCenterChanged={(map) =>
+          setMapCenter([
+            { lat: map.getCenter().getLat(), lng: map.getCenter().getLng() },
+          ])
+        }
       >
         {postList.map((data, index) => {
           const detailData = {
@@ -83,6 +81,8 @@ const MainMap = ({ stationId }) => {
         })}
       </Map>
     </div>
+  ) : (
+    <div className="w-full flex justify-center"></div>
   );
 };
 
