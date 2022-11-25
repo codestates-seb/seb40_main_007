@@ -6,8 +6,3 @@ export const detailData = atom({
   key: "detailData",
   default: [],
 });
-
-export const detailCommentData = atom({
-  key: "commentData",
-  default: [],
-});

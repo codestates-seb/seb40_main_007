@@ -1,14 +1,38 @@
 import { TiPencil } from "react-icons/ti";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { userId } from "../../../atoms/loginTest";
-import { useRecoilValue } from "recoil";
+import { userId, accessToken } from "../../../atoms/loginTest";
+import { detailData } from "../../../atoms/detailPageData";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const Comment = ({ props }) => {
+  const { id } = useParams();
   const memberId = useRecoilValue(userId);
+  const TOKEN = useRecoilValue(accessToken);
+  const [, setDetailInfo] = useRecoilState(detailData);
 
   const commentInfo = props;
-  console.log(props);
-  console.log(memberId, commentInfo.commentId);
+  const handleDelete = () => {
+    const config = {
+      headers: { Authorization: TOKEN },
+    };
+    axios
+      .delete(
+        `${process.env.REACT_APP_URL}/comments/${commentInfo.commentId}`,
+        config
+      )
+      .then(function (response) {
+        console.log(response);
+        axios
+          .get(`${process.env.REACT_APP_URL}/boards/${id}`)
+          .then((response) => {
+            setDetailInfo(response.data);
+          });
+      })
+      .catch((error) => console.log(error));
+  };
+  console.log(commentInfo.commentId);
   return (
     <>
       <li className="flex flex-row items-center space-x-3">
@@ -23,7 +47,7 @@ const Comment = ({ props }) => {
                 <button>
                   <TiPencil size={"12"} color={"#52C7F1"} />
                 </button>
-                <button>
+                <button onClick={handleDelete}>
                   <FaRegTrashAlt size={"10"} color={"#52C7F1"} />
                 </button>
               </>
