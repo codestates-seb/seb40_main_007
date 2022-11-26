@@ -95,6 +95,8 @@ const MainPage = () => {
         });
     }
   }, [id, selectCategory, selectTag, mainSort]);
+
+  // 필터(최신,거리,추천) 초기화
   useEffect(() => {
     resetSort();
   }, [id, selectCategory, selectTag]);
