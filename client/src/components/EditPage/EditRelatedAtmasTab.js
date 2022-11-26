@@ -4,7 +4,7 @@ import { editRelatedAtmasState } from "../../atoms/editPageData";
 import { tagsInfoList } from "../../atoms/tagsInfo";
 
 const EditRelatedAtmasTab = ({ initialAtmas }) => {
-  const [relatedAtmas, setRelatedAtmas] = useRecoilState(editRelatedAtmasState);
+  const [, setRelatedAtmas] = useRecoilState(editRelatedAtmasState);
   const tagsInfo = useRecoilValue(tagsInfoList);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const EditRelatedAtmasTab = ({ initialAtmas }) => {
       setMyAtmas(atmasTagList);
     }
   }, [initialAtmas]);
-  console.log("relatedAtmas", relatedAtmas);
+
   const atmas = ["아늑한", "활기찬", "정겨운", "깔끔한", "뷰가 좋은"];
   const [myAtmas, setMyAtmas] = useState([]);
 

@@ -127,11 +127,7 @@ export default function PostPage() {
         },
       };
       axios
-        .post(
-          `http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/boards/`,
-          uploadFormData,
-          config
-        )
+        .post(`${process.env.REACT_APP_URL}/boards/`, uploadFormData, config)
         .then(() => {
           // -- 이 200일 경우
           swal("Thank you", "작성 완료되었습니다", "success");

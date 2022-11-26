@@ -8,7 +8,7 @@ import {
 import { categoryInfoList } from "../../atoms/tagsInfo";
 export default function EditCategoryTabs() {
   const [category, setCategory] = useRecoilState(editCategoryState);
-  const [re, setRelatedState] = useRecoilState(editRelatedState);
+  const [, setRelatedState] = useRecoilState(editRelatedState);
   const [, setRelatedPriceState] = useRecoilState(editRelatedPriceState);
   const categoryInfo = useRecoilValue(categoryInfoList);
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function EditCategoryTabs() {
     setRelatedState("");
     setRelatedPriceState("");
   };
-  console.log(re);
+
   return (
     <>
       <div className="flex flex-row items-center font-bold">

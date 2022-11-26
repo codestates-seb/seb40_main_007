@@ -26,16 +26,6 @@ export const editImageState = atom({
   default: [],
 });
 
-// export const editUrlState = atom({
-//   key: `editUrl/${v1()}`,
-//   default: [],
-// });
-
-export const editPriorityState = atom({
-  key: `editPriority/${v1()}`,
-  default: "",
-});
-
 export const editCategoryState = atom({
   key: `editCategory/${v1()}`,
   default: "",

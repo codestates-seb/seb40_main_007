@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { accessToken } from "../atoms/loginTest";
+import swal from "sweetalert";
 import {
   editTrainStationState,
   editpositionState,
@@ -85,10 +86,15 @@ export default function EditPage() {
   );
   const [editStar, setEditStar] = useRecoilState(editStarState);
   const [editComment, setEditComment] = useRecoilState(editCommentState); //한줄평
+
+  const editUrl = []; // s3 url
+  const editPriority = []; // priority
+
   const [uploadFormData, setUpLoadFormData] = useState(""); //form데이터 파일
   const [center, setCenter] = useState(""); //맵 초기 위치
   const [initialImage, setInitialImage] = useState(""); // 초기 이미지
-  const [initialAtmas, setInitialAtmas] = useState([]); // 초기 이미지
+  const [initialAtmas, setInitialAtmas] = useState([]); // 초기 분위기
+
   let atmasTagId = [...editRelatedAtmas].map((el) => tagList[el]);
 
   useEffect(() => {
@@ -127,6 +133,19 @@ export default function EditPage() {
   }, []);
 
   const onSubmit = () => {
+    const formData = new FormData();
+    for (const file of editImageList) {
+      if (file.slice(0, 5) === "https") {
+        console.log("https부분입니다.");
+        editUrl.push(file);
+        editPriority.push("u");
+      } else {
+        console.log("새 업로드 부분입니다.");
+        formData.append("files", file);
+        editPriority.push("i");
+      }
+    }
+
     let finalUpLoadJson = {
       title: editTitle,
       review: editComment,
@@ -137,13 +156,10 @@ export default function EditPage() {
       categoryId: categoryList[editCategory],
       address: editAdress,
       tags: [tagList[editRelated], ...atmasTagId, tagList[editRelatedPrice]],
+      priority: editPriority,
+      urls: editUrl,
     };
     console.log(finalUpLoadJson);
-
-    const formData = new FormData();
-    for (const file of editImageList) {
-      formData.append("files", file);
-    }
 
     formData.append(
       "data",
@@ -152,6 +168,7 @@ export default function EditPage() {
       })
     );
     setUpLoadFormData(formData); // 폼데이터 useState로 저장
+    console.log(finalUpLoadJson);
   };
 
   useEffect(() => {
@@ -163,14 +180,15 @@ export default function EditPage() {
         },
       };
       axios
-        .post(
-          `http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/boards/`,
+        .patch(
+          `${process.env.REACT_APP_URL}/boards/${id}`,
           uploadFormData,
           config
         )
         .then(function (response) {
           // -- 이 200일 경우
           console.log(response);
+          swal("Thank you", "수정 완료되었습니다", "success");
           setEditTitle("");
           setEditAdress("");
           setEditCategory("");
@@ -218,7 +236,6 @@ export default function EditPage() {
           <EditRelatedAtmasTab initialAtmas={initialAtmas} />
           <EditListTag />
         </div>
-
         <OnlineInput />
       </div>
       <div className="flex justify-center">
