@@ -23,7 +23,7 @@ const WriteModal = () => {
       </button>
       {showModal ? (
         <>
-          <div className="fixed bottom-20 right-5 z-40">
+          <div className="fixed bottom-20 right-5 z-40 shadow-lg border rounded-xl py-2">
             <div className="flex flex-col justify-center items-center w-[150px] bg-white rounded-lg">
               <Link to={`/post/${id}`}>
                 <button

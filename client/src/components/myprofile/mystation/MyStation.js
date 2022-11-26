@@ -21,7 +21,7 @@ const MyStation = () => {
   return (
     <div>
       <div className="mb-3 flex justify-start">
-        <p className="ml-2 pr-7 border-b-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)]">
+        <p className="ml-2 mb-3 px-3 border-b-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)]">
           내 역이요
         </p>
       </div>

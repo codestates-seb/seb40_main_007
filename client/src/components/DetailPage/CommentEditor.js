@@ -3,7 +3,7 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { detailData } from "../../atoms/detailPageData";
 import { accessToken, userName, userAvatar } from "../../atoms/loginTest";
 import { Link, useParams } from "react-router-dom";
-
+import swal from "sweetalert";
 import axios from "axios";
 
 const CommentEditor = () => {
@@ -25,23 +25,27 @@ const CommentEditor = () => {
     const config = {
       headers: { Authorization: TOKEN },
     };
-    axios
-      .post(
-        `${process.env.REACT_APP_URL}/boards/${detailInfo.boardId}/comments`,
-        {
-          comment: commentText,
-        },
-        config
-      )
-      .then(function () {
-        axios
-          .get(`${process.env.REACT_APP_URL}/boards/${id}`)
-          .then((response) => {
-            setDetailInfo(response.data);
-            setCommentText("");
-          });
-      })
-      .catch((error) => console.log(error));
+    if (commentText === "") {
+      swal("댓글은 한 글자 이상 작성해주세요");
+    } else {
+      axios
+        .post(
+          `${process.env.REACT_APP_URL}/boards/${detailInfo.boardId}/comments`,
+          {
+            comment: commentText,
+          },
+          config
+        )
+        .then(function () {
+          axios
+            .get(`${process.env.REACT_APP_URL}/boards/${id}`)
+            .then((response) => {
+              setDetailInfo(response.data);
+              setCommentText("");
+            });
+        })
+        .catch((error) => console.log(error));
+    }
   };
 
   return (
@@ -82,7 +86,7 @@ const CommentEditor = () => {
               placeholder="댓글을 작성해보세요."
               cols="72"
               rows="4"
-              maxLength="100"
+              maxLength="99"
               className="text-sm first-letter:text-xs w-full outline-none mt-1 break-normal resize-none"
               onChange={handleTextChange}
             />

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { useNavigate, useLocation } from "react-router-dom";
+import swal from "sweetalert";
 import {
   accessToken,
   refereshToken,
@@ -44,6 +45,7 @@ export default function Callback() {
       })
       .then(() => {
         navigate("/");
+        swal("Hello!", "로그인 되었습니다");
       })
       .catch(() => {
         alert("로그인 실패");

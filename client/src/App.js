@@ -48,7 +48,7 @@ function App() {
             <Route path="/main/:id" element={<MainPage />} />
             <Route path="/detail/:id" element={<DetailPage />} />
             <Route path="/post/:id" element={<PostPage />} />
-            <Route path="/edit" element={<EditPage />} />
+            <Route path="/edit/:id" element={<EditPage />} />
             <Route path="/image" element={<ImageUpload />} />
             <Route path="/mypage" element={<MyProfilePage />} />
             <Route path="/mypage/editmyinfo" element={<EditMyInfoPage />} />

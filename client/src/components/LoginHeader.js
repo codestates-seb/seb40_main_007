@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const LoginHeader = () => {
   return (
     <>
-      <header className="w-full border-b-[2px] border-b-[rgb(83,199,240)] fixed z-20 top-0 bg-white">
+      <header className="w-full border-b-[1px] border-b-[rgb(83,199,240)] fixed z-20 top-0 bg-white shadow-md">
         <div className="max-w-[1400px] mx-auto flex h-[50px] justify-between items-center">
           <Link to="/" className="no-underline">
             <div className="flex items-center">

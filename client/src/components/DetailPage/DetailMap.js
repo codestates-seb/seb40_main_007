@@ -5,6 +5,7 @@ import { detailData } from "../../atoms/detailPageData";
 const DetailMap = () => {
   const detailInfo = useRecoilValue(detailData);
   const potition = { lat: detailInfo.latitude, lng: detailInfo.longitude };
+  console.log(detailInfo?.address);
   return (
     <>
       {detailInfo.latitude !== undefined &&
@@ -22,11 +23,13 @@ const DetailMap = () => {
                 size: { width: 60, height: 70 },
               }}
             />
-            <div className="absolute w-1/2 top-10 left-1 z-10 bg-[rgba(256,256,256,0.7)] px-5 py-1 border-l-4 border-[rgb(83,199,240)]">
-              <span className="text-[rgb(83,199,240)] font-bold">
-                {detailInfo?.address}
-              </span>
-            </div>
+            {detailInfo?.address === "" ? null : (
+              <div className="absolute w-1/2 top-10 left-1 z-10 bg-[rgba(256,256,256,0.7)] px-5 py-1 border-l-4 border-[rgb(83,199,240)]">
+                <span className="text-[rgb(83,199,240)] font-bold">
+                  {detailInfo?.address}
+                </span>
+              </div>
+            )}
           </Map>
         </div>
       ) : null}

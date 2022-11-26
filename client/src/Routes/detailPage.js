@@ -13,7 +13,7 @@ import KakaoShareButton from "../components/DetailPage/KakaoShareButton";
 import EveryShareButton from "../components/DetailPage/EveryShareButton";
 import { AiOutlineShareAlt } from "react-icons/ai";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { detailData } from "../atoms/detailPageData"; // detailCommentData
 import { accessToken } from "../atoms/loginTest";
@@ -22,8 +22,8 @@ import axios from "axios";
 const DetailPage = () => {
   const { id } = useParams();
   const [detailInfo, setDetailInfo] = useRecoilState(detailData);
-  // const [, setDetailCommentData] = useRecoilState(detailCommentData);
   const TOKEN = useRecoilValue(accessToken);
+  console.log(detailInfo);
   useEffect(() => {
     if (TOKEN === "") {
       axios
@@ -43,7 +43,6 @@ const DetailPage = () => {
         .get(`${process.env.REACT_APP_URL}/boards/${id}`, config)
         .then((response) => {
           setDetailInfo(response.data);
-          // setDetailCommentData(response.data.comments);
         })
         .catch((error) => {
           console.log(error);
@@ -51,8 +50,6 @@ const DetailPage = () => {
     }
   }, []);
 
-  const [like, setLike] = useState(detailInfo?.upScore);
-  const [dislike, setDislike] = useState(detailInfo?.downScore);
   const handleLikeClicked = () => {
     const config = {
       headers: { Authorization: TOKEN },
@@ -63,8 +60,19 @@ const DetailPage = () => {
         {},
         config
       )
-      .then(function (response) {
-        setLike(response.data.scoreStatus);
+      .then(() => {
+        const config = {
+          headers: { Authorization: TOKEN },
+        };
+        axios
+          .get(`${process.env.REACT_APP_URL}/boards/${id}`, config)
+          .then((response) => {
+            setDetailInfo(response.data);
+            // setDetailCommentData(response.data.comments);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => console.log(error));
   };
@@ -74,12 +82,23 @@ const DetailPage = () => {
     };
     axios
       .post(
-        `${process.env.REACT_APP_URL}/boards/${detailInfo.boardId}/up-vote`,
+        `${process.env.REACT_APP_URL}/boards/${detailInfo.boardId}/down-vote`,
         {},
         config
       )
-      .then(function (response) {
-        setDislike(response.data.scoreStatus);
+      .then(() => {
+        const config = {
+          headers: { Authorization: TOKEN },
+        };
+        axios
+          .get(`${process.env.REACT_APP_URL}/boards/${id}`, config)
+          .then((response) => {
+            setDetailInfo(response.data);
+            // setDetailCommentData(response.data.comments);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => console.log(error));
   };
@@ -99,14 +118,16 @@ const DetailPage = () => {
             <KakaoShareButton />
             <EveryShareButton />
           </div>
-          <div className="flex flex-row mt-10 justify-end">
-            <button type="button" onClick={handleLikeClicked}>
-              <Like props={like} />
-            </button>
-            <button type="button" onClick={handleDislikeClicked}>
-              <Dislike props={dislike} />
-            </button>
-          </div>
+          {TOKEN === "" ? null : (
+            <div className="flex flex-row mt-10 justify-end">
+              <button type="button" onClick={handleLikeClicked}>
+                <Like props={detailInfo?.upScore} />
+              </button>
+              <button type="button" onClick={handleDislikeClicked}>
+                <Dislike props={detailInfo?.downScore} />
+              </button>
+            </div>
+          )}
           <OneLineComment review={detailInfo.review} />
           <CommentList />
           <CommentEditor />

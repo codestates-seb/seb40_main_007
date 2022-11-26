@@ -10,7 +10,7 @@ export default function TrainStationCard() {
         {trainStationInfo.map((el) => {
           return (
             <Link to={`/main/${el.id}`} key={el.id}>
-              <div className="relative flex justify-center items-center text-white text-3xl  hover:ring hover:ring-[rgb(83,199,240)] hover:text-[rgb(83,199,240)] hover:text-4xl">
+              <div className="relative flex justify-center items-center text-white text-3xl rounded-xl hover:ring hover:ring-[rgb(83,199,240)] hover:text-[rgb(83,199,240)] hover:text-4xl">
                 <img
                   src={`images/기차역사진/${el.train}사진.png`}
                   alt={el.train}

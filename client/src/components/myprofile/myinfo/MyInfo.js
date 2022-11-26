@@ -1,4 +1,28 @@
-const MyInfo = ({ nickName }) => {
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { accessToken } from "../../../atoms/loginTest";
+import { useRecoilValue } from "recoil";
+const MyInfo = ({ nickName, userAvatar }) => {
+  const [totalBoard, setTotalBoard] = useState("");
+  const [totalComment, setTotalComment] = useState("");
+  const [score, setScore] = useState("");
+  const TOKEN = useRecoilValue(accessToken);
+  useEffect(() => {
+    const config = {
+      headers: { Authorization: TOKEN },
+    };
+    axios
+      .get(`${process.env.REACT_APP_URL}/members/info`, config)
+      .then((response) => {
+        setTotalBoard(response.data.totalBoard);
+        setTotalComment(response.data.totalComment);
+        setScore(response.data.score);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <div className="w-full p-2 mb-4 flex flex-row items-center justify-evenly">
       {/* nickName */}
@@ -11,21 +35,21 @@ const MyInfo = ({ nickName }) => {
       <img
         className="w-28 h-28 rounded-full p-0 m-0 static"
         alt="ProfileImg"
-        src="../images/profile.png"
+        src={userAvatar}
       />
 
       {/* 게시글,댓글,추천 */}
       <div className="w-2/6 flex justify-between text-xs text-[rgb(83,199,240)]">
         <div className="flex flex-col items-center">
-          <p>2</p>
+          <p>{totalBoard}</p>
           <p>게시글</p>
         </div>
         <div className="flex flex-col items-center">
-          <p>10</p>
+          <p>{totalComment}</p>
           <p>댓글</p>
         </div>
         <div className="flex flex-col items-center">
-          <p>1200000</p>
+          <p>{score}</p>
           <p>추천</p>
         </div>
       </div>
