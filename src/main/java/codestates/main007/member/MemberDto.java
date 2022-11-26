@@ -102,6 +102,7 @@ public class MemberDto {
         private long memberId;
         private String name;
         private String avatar;
+        private String email;
     }
 
     @Getter

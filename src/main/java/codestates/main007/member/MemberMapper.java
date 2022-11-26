@@ -32,6 +32,7 @@ public interface MemberMapper {
                 .memberId(member.getMemberId())
                 .avatar(member.getAvatar())
                 .name(member.getName())
+                .email(member.getEmail())
                 .build();
     }
 
