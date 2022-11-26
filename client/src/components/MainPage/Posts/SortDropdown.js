@@ -3,13 +3,15 @@ import { MdSort } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { mainSortEvent, selectCategoryEvent } from "../../../atoms/mainFilter";
+import { useParams } from "react-router-dom";
 const SortDropdown = () => {
+  const { id } = useParams();
   const [showModal, setShowModal] = useState(false);
   const [mainSort, setMainSort] = useRecoilState(mainSortEvent);
   const selectCategory = useRecoilValue(selectCategoryEvent);
   useEffect(() => {
     setShowModal(false);
-  }, [selectCategory]);
+  }, [selectCategory, id]);
 
   const liStyle =
     "w-full  border-2 border-[rgb(83,199,240)] -ml-[2px] text-sm text-[rgb(83,199,240)] flex justify-center align-middle";

@@ -5,21 +5,23 @@ import MapItem from "../MapItems/MapItem";
 import {
   mapImgClickEvent,
   mapImgHoverEvent,
-  // mapCenterMoveEvent,
+  mapCenterMoveEvent,
   postImgHoverEvent,
 } from "../../atoms/mapImage";
 import { myPostData } from "../../atoms/mypage/myPostData";
+import { trainInfo } from "../../atoms/trainInfo";
 
-const MyPostMap = () => {
-  // Main Map Data 관련
+const MyPostMap = ({ station }) => {
+  // MyPost Map Data 관련
   const myPost = useRecoilValue(myPostData);
+  const trainStationInfo = useRecoilValue(trainInfo);
 
-  // Main Map Event 관련 정보
+  // MyPost Map Event 관련 정보
   const [mapImgClickId] = useRecoilState(mapImgClickEvent);
   const [mapImgHoverId, setMapImgHoverId] = useRecoilState(mapImgHoverEvent);
   const [, setPostImgHoverId] = useRecoilState(postImgHoverEvent);
-  // const [mapCenter] = useRecoilState(mapCenterMoveEvent);
-  // const [mapCenter, setMapCenter] = useRecoilState(mapCenterMoveEvent);
+  const [mapCenter, setMapCenter] = useRecoilState(mapCenterMoveEvent);
+
   useEffect(() => {
     setPostImgHoverId(null);
   }, [mapImgClickId]);
@@ -31,26 +33,27 @@ const MyPostMap = () => {
     }
     return -1;
   };
-  return (
+  return mapCenter.length !== 0 ? (
     <div className="w-full h-60 sm:h-[600px] flex justify-center">
       <Map // 지도를 표시할 Container
-        center={{ lat: 36.44705047088056, lng: 127.96763837805022 }}
+        // center={{ lat: 36.44705047088056, lng: 127.96763837805022 }}
+        center={{ lat: mapCenter[0].lat, lng: mapCenter[0].lng }}
         style={{
           // 지도의 크기
           width: "100%",
           height: "100%",
         }}
-        level={13} // 지도의 확대 레벨
-        // onCenterChanged={(map) =>
-        //   setMapCenter([
-        //     { lat: map.getCenter().getLat(), lng: map.getCenter().getLng() },
-        //   ])
-        // }
+        level={station === 0 ? 13 : 5} // 지도의 확대 레벨
+        onCenterChanged={(map) =>
+          setMapCenter([
+            { lat: map.getCenter().getLat(), lng: map.getCenter().getLng() },
+          ])
+        }
       >
-        <div className=" absolute max-w-2xl bg-white border-[rgb(83,199,240)] border-x-2 border-b-2 z-10">
-          경부선 전체
+        <div className="p-1 absolute max-w-2xl bg-white border-[rgb(83,199,240)] border-x-2 border-b-2 z-10">
+          {/* trainStation 정보 id 가 1부터 시작하므로 -1 */}
+          {station === 0 ? "경부선 전체" : trainStationInfo[station - 1].train}
         </div>
-
         {myPost.map((data, index) => {
           const detailData = {
             title: data.title,
@@ -85,6 +88,8 @@ const MyPostMap = () => {
         })}
       </Map>
     </div>
+  ) : (
+    <div className="w-full flex justify-center"></div>
   );
 };
 
