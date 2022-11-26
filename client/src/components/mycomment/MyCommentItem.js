@@ -4,14 +4,14 @@ import {
 } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-const Item = ({ imgUrl, title, content }) => {
+const Item = ({ thumbnail, title, comment, linkPostId }) => {
   return (
     <div className="w-full flex flex-row  ">
-      <img className="w-24 h-24 rounded-md" alt="post img" src={imgUrl} />
+      <img className="w-24 h-24 rounded-md" alt="post img" src={thumbnail} />
       <div className="w-4/6 pl-3 flex flex-col justify-center">
         <div className="w-full font-medium flex justify-between items-center">
           {title}
-          <Link to={"/detail"}>
+          <Link to={`/detail/${linkPostId}`}>
             <p className="text-xs  text-gray-400 flex flex-row">
               게시글 이동
               <MdKeyboardArrowRight size={15} />
@@ -26,7 +26,7 @@ const Item = ({ imgUrl, title, content }) => {
             />
           </div>
           <div className="w-48 h-7 flex items-center">
-            <p className="truncate text-xs">{content}</p>
+            <p className="truncate text-xs">{comment}</p>
           </div>
         </div>
       </div>
