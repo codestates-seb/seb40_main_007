@@ -23,8 +23,8 @@ export default function TrainStationSelect() {
         <div className="text-2xl flex items-center font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-3 py-2">
           {trainStation}
           <BiCaretDown
-            className="inline text-[rgb(83,199,240)] ml-2"
-            size={26}
+            className="active:scale-90 inline text-[rgb(83,199,240)] ml-2"
+            size={30}
           />
         </div>
       </button>
@@ -47,6 +47,7 @@ export default function TrainStationSelect() {
                     return (
                       <Link
                         to={`/main/${el.id}`}
+                        className="hover:scale-110 active:scale-100"
                         onClick={() => {
                           setShowModal(false);
                           setTrainStation(el.train);
