@@ -12,12 +12,11 @@ export default function footer() {
             <li className="text-base font-bold mb-3">INTRO</li>
             <li>
               <img
-                src="/images/footerlogo.png"
+                src="/images/notfound_icon_w.png"
                 alt="footerlogo"
                 className="w-10 inline my-3"
               />
             </li>
-            <li>역이요</li>
           </ul>
           <ul>
             <li className="text-base font-bold mb-3">POLICY</li>

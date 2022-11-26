@@ -1,10 +1,10 @@
 import { useRecoilState } from "recoil";
-import { postCommentState } from "../atoms/postInfo";
+import { editCommentState } from "../atoms/editPageData";
 
 export default function OneLineInput() {
-  const [commentState, setPostComment] = useRecoilState(postCommentState);
+  const [editComment, setEditComment] = useRecoilState(editCommentState);
   const handlePostCommemt = (e) => {
-    setPostComment(e.target.value);
+    setEditComment(e.target.value);
   };
   return (
     <div className="text-[rgb(83,199,240)] max-w-6xl">
@@ -16,7 +16,7 @@ export default function OneLineInput() {
         <div className="flex justify-center">
           <input
             type="text"
-            value={commentState}
+            value={editComment}
             onChange={handlePostCommemt}
             placeholder="당신의 한줄평을 입력해주세요"
             maxLength="40"

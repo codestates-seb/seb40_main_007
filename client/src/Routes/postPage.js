@@ -5,7 +5,7 @@ import StartRating from "../components/StarRating";
 import OnlineInput from "../components/OneLineInput";
 import PostMap from "../components/PostPage/PostMap";
 import ImageUpload from "../components/ImageUpload";
-import PostCategoryTabs from "../components/PostPage/PostCategoriTabs";
+import PostCategoryTabs from "../components/PostPage/PostCategoryTabs";
 import PostRelatedTab from "../components/PostPage/PostRelatedTab";
 import PostRelatedAtmasTab from "../components/PostPage/postRelatedAtmasTab";
 import Footer from "../components/Footer";
@@ -14,6 +14,7 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import swal from "sweetalert";
 import { accessToken } from "../atoms/loginTest";
 import {
   postTrainStationState,
@@ -126,14 +127,10 @@ export default function PostPage() {
         },
       };
       axios
-        .post(
-          `http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/boards/`,
-          uploadFormData,
-          config
-        )
-        .then(function (response) {
+        .post(`${process.env.REACT_APP_URL}/boards/`, uploadFormData, config)
+        .then(() => {
           // -- 이 200일 경우
-          console.log(response);
+          swal("Thank you", "작성 완료되었습니다", "success");
           setPostAdress("");
           setPostTitle("");
           setPostCategory("");

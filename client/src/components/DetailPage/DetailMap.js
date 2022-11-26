@@ -1,47 +1,39 @@
-import { useState } from "react";
-import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
-import MapItemDetail from "../MapItems/MapItemDetail";
+import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useRecoilValue } from "recoil";
 import { detailData } from "../../atoms/detailPageData";
 
 const DetailMap = () => {
   const detailInfo = useRecoilValue(detailData);
-  console.log("좌표로받아야해요성웅님..", detailInfo);
-  const trainInfo = {
-    id: 14,
-    train: "부산역",
-    position: { lat: 35.11519430741748, lng: 129.04043150413258 },
-    describe:
-      "행신역(Haengsin station)은 경기도 고양시 덕양구 행신동에 있는 경의선의 철도역이다. ",
-    adress: "경기도 고양시 덕양구 소원로 102",
-    phone: "000 - 0000",
-  };
-
-  const [isOpen, setIsOpen] = useState(false);
-
+  const potition = { lat: detailInfo.latitude, lng: detailInfo.longitude };
+  console.log(detailInfo?.address);
   return (
-    <div className="flex justify-center items-center">
-      <Map
-        level={5}
-        center={trainInfo.position}
-        style={{ width: "500px", height: "400px" }}
-        onClick={() => setIsOpen(false)}
-      >
-        <MapMarker
-          onClick={() => setIsOpen(true)}
-          position={trainInfo.position}
-          image={{
-            src: "/images/marker.png",
-            size: { width: 60, height: 70 },
-          }}
-        />
-        {isOpen && (
-          <CustomOverlayMap position={trainInfo.position}>
-            <MapItemDetail thumbnail="https://i.ytimg.com/vi/lgfXrQUx4go/maxresdefault.jpg" />
-          </CustomOverlayMap>
-        )}
-      </Map>
-    </div>
+    <>
+      {detailInfo.latitude !== undefined &&
+      detailInfo.longitude !== undefined ? (
+        <div className="flex justify-center items-center relative">
+          <Map
+            level={3}
+            center={potition}
+            style={{ width: "500px", height: "400px" }}
+          >
+            <MapMarker
+              position={potition}
+              image={{
+                src: "/images/marker.png",
+                size: { width: 60, height: 70 },
+              }}
+            />
+            {detailInfo?.address === "" ? null : (
+              <div className="absolute w-1/2 top-10 left-1 z-10 bg-[rgba(256,256,256,0.7)] px-5 py-1 border-l-4 border-[rgb(83,199,240)]">
+                <span className="text-[rgb(83,199,240)] font-bold">
+                  {detailInfo?.address}
+                </span>
+              </div>
+            )}
+          </Map>
+        </div>
+      ) : null}
+    </>
   );
 };
 

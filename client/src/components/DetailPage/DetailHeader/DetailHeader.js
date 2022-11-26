@@ -2,16 +2,19 @@
 import DetailStarScore from "./DetailStarScore";
 import { TiPencil } from "react-icons/ti";
 import { FaRegTrashAlt } from "react-icons/fa";
-import Heart from "../../Heart";
+import DetailHeart from "./detailHeart";
 import { useRecoilValue } from "recoil";
 import { trainInfo } from "../../../atoms/trainInfo";
 import { categoryInfoList, tagsInfoList } from "../../../atoms/tagsInfo";
 import { userId, accessToken } from "../../../atoms/loginTest";
 import { detailData } from "../../../atoms/detailPageData";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 import axios from "axios";
+import { useParams, Link } from "react-router-dom";
 
 const DetailHeader = () => {
+  const { id } = useParams();
   const memberId = useRecoilValue(userId);
   const TOKEN = useRecoilValue(accessToken);
   const navigate = useNavigate();
@@ -42,14 +45,14 @@ const DetailHeader = () => {
       )
       .then((response) => {
         console.log(response);
-        alert("삭제 되었습니다.");
+        swal("삭제되었습니다");
         navigate(`/main/${detailInfo.stationId}`);
       })
       .catch((error) => {
-        alert("게시글 삭제 실패");
+        swal("게시글 삭제 실패");
       });
   };
-
+  console.log(id);
   return (
     <div className="flex flex-col mt-20">
       <div className="mb-5 flex flex-row justify-between">
@@ -58,27 +61,37 @@ const DetailHeader = () => {
         </span>
         {memberId === detailInfo?.writer?.memberId ? (
           <div className="flex flex-row space-x-1 place-items-end">
-            <button className="w-[30px] h-[30px] bg-white border-2 border-[rgb(83,199,240)] rounded-3xl p-0.5 flex justify-center items-center">
-              <TiPencil size={"30"} color={"#52C7F1"} />
-            </button>
+            <Link to={`/edit/${id}`}>
+              <div className="w-[30px] h-[30px] bg-white border-2 border-[rgb(83,199,240)] rounded-3xl p-0.5 flex justify-center items-center">
+                <TiPencil size={"30"} color={"#52C7F1"} />
+              </div>
+            </Link>
             <button
               className="w-[30px] h-[30px] bg-[rgb(83,199,240)] rounded-3xl p-0.5 flex justify-center items-center"
               onClick={handleDelete}
             >
               <FaRegTrashAlt size={"20"} color={"#fff"} />
             </button>
-            <Heart />
+            <DetailHeart
+              boardId={detailInfo?.boardId}
+              heartState={detailInfo?.dibs}
+            />
           </div>
         ) : (
           <div className="flex flex-row space-x-1 place-items-end">
-            <Heart />
+            {TOKEN !== "" ? (
+              <DetailHeart
+                boardId={detailInfo?.boardId}
+                heartState={detailInfo?.dibs}
+              />
+            ) : null}
           </div>
         )}
       </div>
       <div className="flex flex-row">
         <div className="flex space-x-2">
           <span className="text-2xl font-bold">{detailInfo?.title}</span>
-          <DetailStarScore />
+          <DetailStarScore props={detailInfo.star} />
           <span className="flex justify-center items-end text-xs text-gray-500">
             {DateTime?.toLocaleString("ko-KR")}
           </span>

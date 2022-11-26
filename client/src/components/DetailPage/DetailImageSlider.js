@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper";
+import { Navigation, Pagination } from "swiper";
 /* eslint-disable */
 import "swiper/css";
 import "swiper/css/navigation";
@@ -11,7 +11,12 @@ const DetailImageSlider = () => {
 
   return (
     <div className="flex justify-center items-center">
-      <Swiper modules={[Navigation]} navigation={true}>
+      <Swiper
+        modules={[Navigation, Pagination]}
+        navigation={true}
+        pagination={true}
+        slidesPerView={1}
+      >
         {detailInfo?.imageUrls?.map((el) => {
           return (
             <SwiperSlide key={el}>

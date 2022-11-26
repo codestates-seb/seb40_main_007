@@ -32,15 +32,18 @@ export default function InitialPage() {
             />
           </div>
           <Link to="/login">
-            <div className="text-white font-semibold text-center m-auto bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-3 rounded-md hover:ring hover:ring-sky-300">
+            <div className="text-white font-semibold text-center m-auto  bg-[rgba(83,199,240,0.7)] py-2 mb-3 mt-5 rounded-md hover:ring hover:ring-sky-300">
               Login
             </div>
           </Link>
           <Link to="/signup">
-            <div className="text-white font-semibold m-auto text-center  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-2 rounded-md hover:ring hover:ring-sky-300">
+            <div className="text-white font-semibold m-auto text-center bg-[rgba(83,199,240,0.7)] py-2 mb-2 rounded-md hover:ring hover:ring-sky-300">
               SignUp
             </div>
           </Link>
+          <div className="text-center text-sm text-[rgb(49,124,151)] border-b border-[rgb(49,124,151)] w-fit m-auto pt-4">
+            forgot password?
+          </div>
         </div>
       </div>
     </>

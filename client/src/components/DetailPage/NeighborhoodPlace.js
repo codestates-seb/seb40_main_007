@@ -1,9 +1,10 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
-import Heart from "../../components/Heart";
+// import { Link } from "react-router-dom";
 import PostStarScore from "../MainPage/Posts/PostStarScore";
 import { useRecoilValue } from "recoil";
 import { detailData } from "../../atoms/detailPageData";
+import { useState } from "react";
 /* eslint-disable */
 import "swiper/css";
 import "swiper/css/pagination";
@@ -12,6 +13,8 @@ import "swiper/css/navigation";
 const NeighborhoodPlace = () => {
   const detailInfo = useRecoilValue(detailData);
   const places = detailInfo.around;
+  // console.log("places", places.boardId);
+  const [viewStyle, setViewStyle] = useState(3);
 
   return (
     <>
@@ -20,7 +23,7 @@ const NeighborhoodPlace = () => {
           <Swiper
             key="swiper"
             slidesPerView={3}
-            spaceBetween={30}
+            spaceBetween={10}
             slidesPerGroup={3}
             loop={false}
             loopFillGroupWithBlank={true}
@@ -29,35 +32,29 @@ const NeighborhoodPlace = () => {
             }}
             navigation={true}
             modules={[Pagination, Navigation]}
-            className="mySwiper"
+            className="w-[1024px]"
           >
             {places?.length !== 0 &&
-              places?.map((place) => {
-                return (
-                  <SwiperSlide key={place.boardId}>
-                    <div className="group border-2 h-[300px]">
-                      <div className="rounded-md group-hover:opacity-60 relative">
-                        <div className="absolute right-2">
-                          <Heart />
-                        </div>
+              places?.map((place) => (
+                <SwiperSlide key={place.boardId}>
+                  <div className="group border-2 h-[300px] w-fit">
+                    <a href={`/detail/${place.boardId}`}>
+                      <div className="rounded-md group-hover:opacity-60 relative w-fit">
                         <img
                           src={place.thumbnail}
                           alt="alt"
-                          className="object-fit static w-full h-[200px]"
+                          className="object-fit static h-[200px] w-[280px]"
                         />
-                        <div className=" bottom-0 right-0">
+                        <div className=" bottom-0 right-0 w-fit">
                           <PostStarScore score={place.star} />
                         </div>
                       </div>
-                      <div className="flex justify-between items-end">
-                        <div className="font-bold text-xl">{place.title}</div>
-                        <div className="font-light text-sm text-gray-500"></div>
-                      </div>
+                      <div className="font-bold text-xl">{place.title}</div>
                       <div className="text-base">{place.review}</div>
-                    </div>
-                  </SwiperSlide>
-                );
-              })}
+                    </a>
+                  </div>
+                </SwiperSlide>
+              ))}
           </Swiper>
         </div>
       </div>
