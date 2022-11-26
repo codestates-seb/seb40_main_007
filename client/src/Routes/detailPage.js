@@ -24,6 +24,7 @@ const DetailPage = () => {
   const [detailInfo, setDetailInfo] = useRecoilState(detailData);
   // const [, setDetailCommentData] = useRecoilState(detailCommentData);
   const TOKEN = useRecoilValue(accessToken);
+
   useEffect(() => {
     if (TOKEN === "") {
       axios

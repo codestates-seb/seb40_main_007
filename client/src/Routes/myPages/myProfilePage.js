@@ -4,7 +4,12 @@ import MyInfo from "../../components/myprofile/myinfo/MyInfo";
 import Header from "../../components/Header";
 import MyPageTab from "../../components/MyPageTab";
 // import Loading from "../../components/Loading";
+import { useRecoilValue } from "recoil";
+import { userName, userAvatar } from "../../atoms/loginTest";
+
 const MyProfilePage = () => {
+  const name = useRecoilValue(userName);
+  const avatar = useRecoilValue(userAvatar);
   return (
     <>
       <Header />
@@ -15,7 +20,7 @@ const MyProfilePage = () => {
           <div id="my__EditBtn" className="w-full flex justify-end">
             <InfoEditBtn />
           </div>
-          <MyInfo nickName={"Eugenius1st"} />
+          <MyInfo nickName={name} userAvatar={avatar} />
           <MyStation />
         </div>
       </div>
