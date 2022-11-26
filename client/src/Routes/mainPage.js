@@ -1,6 +1,6 @@
 /*eslint-disable*/
-import { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
@@ -12,12 +12,13 @@ import MainHeader from "../components/MainPage/MainHeader";
 import WriteModal from "../components/modals/WriteModal";
 import TestPostList from "../components/MainPage/Posts/TestPostList";
 import { mapCenterMoveEvent, mapImgClickEvent } from "../atoms/mapImage";
+import { mainPostData, mainPageInfo } from "../atoms/mainPageData";
 import {
-  mainPostData,
-  mainPageInfo,
+  mainSortEvent,
+  mainSortToEngData,
   selectCategoryEvent,
   selectTagEvent,
-} from "../atoms/mainPageData";
+} from "../atoms/mainFilter";
 import { trainInfo } from "../atoms/trainInfo";
 import { accessToken } from "../atoms/loginTest";
 import { tagsInfoToNumList } from "../atoms/tagsInfo";
@@ -27,6 +28,8 @@ import { tagsInfoToNumList } from "../atoms/tagsInfo";
 // import DummyPostList from "../components/MainPage/Posts/dummyPostList";
 
 const MainPage = () => {
+  // 데이터 왔는지 확인 데이터
+  const [isPostOk, setIsPostOk] = useState(false);
   // 더미 데이터 통신 될 경우 변경
   const [TOKEN] = useRecoilState(accessToken);
   const { id } = useParams();
@@ -34,16 +37,19 @@ const MainPage = () => {
   const selectCategory = useRecoilValue(selectCategoryEvent);
   const selectTag = useRecoilValue(selectTagEvent);
   const tagsInfoToNum = useRecoilValue(tagsInfoToNumList);
+  const mainSort = useRecoilValue(mainSortEvent);
+  const mainSortToEng = useRecoilValue(mainSortToEngData);
+  const resetSort = useResetRecoilState(mainSortEvent);
 
   // Main Map Event 관련 정보
-  const [, setMapImgClickid] = useRecoilState(mapImgClickEvent);
+  const resetMapImgClickid = useResetRecoilState(mapImgClickEvent);
   const trainStationInfo = useRecoilValue(trainInfo);
   // Main 게시글 데이터
   const [, setPostList] = useRecoilState(mainPostData);
   // Main 인피니티 스크롤 관련 정보
   const [, setPageInfo] = useRecoilState(mainPageInfo);
   const [, setMapCenter] = useRecoilState(mapCenterMoveEvent);
-  console.log("selectTag", tagsInfoToNum[selectTag]);
+
   // 메인페이지 데이터 통신
   useEffect(() => {
     const config = {
@@ -51,18 +57,20 @@ const MainPage = () => {
     };
     const URL =
       tagsInfoToNum[selectTag] !== 0
-        ? `${process.env.REACT_APP_URL}/${id}/${selectCategory}/date/search/?page=1&size=12&tag=${tagsInfoToNum[selectTag]}`
-        : `${process.env.REACT_APP_URL}/${id}/${selectCategory}/default/?page=1&size=12`;
+        ? `${process.env.REACT_APP_URL}/${id}/${selectCategory}/${mainSortToEng[mainSort]}/search/?page=1&size=12&tag=${tagsInfoToNum[selectTag]}`
+        : `${process.env.REACT_APP_URL}/${id}/${selectCategory}/${mainSortToEng[mainSort]}/?page=1&size=12`;
     if (TOKEN === "") {
       axios
         .get(URL)
         .then(function (response) {
           //handle success
-          // console.log("메인페이지", response);
+          console.log("메인페이지", response);
           setPostList(response.data.items);
           setPageInfo(response.data.pageInfo);
           setMapCenter([trainStationInfo[id - 1].position]);
-          setMapImgClickid(null);
+          resetMapImgClickid();
+          // 데이터 도착 확인
+          setIsPostOk(true);
         })
         .catch(function (error) {
           //handle error
@@ -77,13 +85,18 @@ const MainPage = () => {
           setPostList(response.data.items);
           setPageInfo(response.data.pageInfo);
           setMapCenter([trainStationInfo[id - 1].position]);
-          setMapImgClickid(null);
+          resetMapImgClickid();
+          // 데이터 도착 확인
+          setIsPostOk(true);
         })
         .catch(function (error) {
           //handle error
           console.log(error);
         });
     }
+  }, [id, selectCategory, selectTag, mainSort]);
+  useEffect(() => {
+    resetSort();
   }, [id, selectCategory, selectTag]);
 
   // 지도에서 게시글 정보 보이는 기능 초기화
@@ -106,7 +119,7 @@ const MainPage = () => {
           <div>
             <CategoryTabs />
             <RelatedTab />
-            <TestPostList stationId={id} />
+            <TestPostList stationId={id} isPostOk={isPostOk} />
           </div>
         </div>
       </div>

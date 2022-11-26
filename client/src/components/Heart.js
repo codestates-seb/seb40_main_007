@@ -13,7 +13,7 @@ export default function Heart({ boardId, heartState }) {
 
   const wishCountHandler = () => {
     setIsCheck(!isCheck);
-    setBounce(!bounce);
+    !isCheck ? setBounce(true) : setBounce(false);
 
     const config = {
       headers: { Authorization: TOKEN },
@@ -39,6 +39,7 @@ export default function Heart({ boardId, heartState }) {
           size={30}
           className="text-[#EC1258] cursor-pointer active:scale-90"
           onClick={wishCountHandler}
+          // onMouseUp={() => setBounce(true)}
         />
       ) : (
         <AiOutlineHeart
