@@ -13,8 +13,7 @@ import {
 
 import Loading from "../../Loading";
 import { accessToken } from "../../../atoms/loginTest";
-import Post from "./Post";
-import SortDropdown from "./SortDropdown";
+import Post from "./MyPost";
 import { Link } from "react-router-dom";
 import { tagsInfoToNumList } from "../../../atoms/tagsInfo";
 
@@ -34,8 +33,8 @@ function TestPostList({ stationId, isPostOk }) {
 
   useEffect(() => {
     setPageCnt(2);
+    window.screenTop;
   }, [selectTag, selectCategory, mainSort]);
-
   // 스크롤 바닥에 도달시 동작하는 함수
   const fetchMoreData = () => {
     // 마지막 데이터 불러왔을 경우 종료 함수
@@ -81,9 +80,6 @@ function TestPostList({ stationId, isPostOk }) {
   };
   return (
     <>
-      <div className="flex justify-end mr-4">
-        <SortDropdown />
-      </div>
       {postList.length !== 0 ? (
         <div className="mx-auto px-4">
           <InfiniteScroll

@@ -10,7 +10,12 @@ const MyCommentList = ({ data, page }) => {
             key={idx}
             className="border-2 border-[rgb(83,199,240)] rounded-tl-lg rounded-bl-lg"
           >
-            <Item imgUrl={el.imgUrl} title={el.title} content={el.content} />
+            <Item
+              thumbnail={el.thumbnail}
+              title={el.title}
+              comment={el.comment}
+              linkPostId={el.boardId}
+            />
           </div>
         ))}
       </div>

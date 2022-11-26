@@ -3,10 +3,15 @@ import { IoMdPin } from "react-icons/io";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useRecoilValue } from "recoil";
 import { trainInfo } from "../../atoms/trainInfo";
+import { makeActive, makeHover } from "../../utils/tailwindFunc";
 
-export default function TrainStationModal() {
+export default function TrainStationModal({ setStation }) {
   const [showModal, setShowModal] = useState(false);
   const trainStationInfo = useRecoilValue(trainInfo);
+  const hoverStr = "scale-110 rounded-lg";
+  const activeStr = "scale-95 rounded-lg";
+  const buttonHover = makeHover(hoverStr);
+  const buttonActive = makeActive(activeStr);
   return (
     <>
       <button
@@ -31,9 +36,25 @@ export default function TrainStationModal() {
                   </button>
                 </div>
                 <div className="px-3 pb-3 relative grid grid-cols-5 gap-4">
+                  <button
+                    className={`${buttonHover} ${buttonActive} text-sm`}
+                    onClick={() => {
+                      setStation(0);
+                      setShowModal(false);
+                    }}
+                  >
+                    전체 보기
+                  </button>
                   {trainStationInfo.map((el) => {
                     return (
-                      <div key={el.id}>
+                      <button
+                        className={`${buttonHover} ${buttonActive} `}
+                        key={el.id}
+                        onClick={() => {
+                          setStation(el.id);
+                          setShowModal(false);
+                        }}
+                      >
                         <img
                           src={`/images/기차역도장/${el.train}.png`}
                           alt={el.train}
@@ -41,7 +62,7 @@ export default function TrainStationModal() {
                         <div className="text-xs text-center pt-1 font-semibold">
                           {el.train}
                         </div>
-                      </div>
+                      </button>
                     );
                   })}
                 </div>

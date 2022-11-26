@@ -1,4 +1,4 @@
-const MyPostTab = ({ setIndex, index }) => {
+const MyPostTab = ({ setTabValue, tabValue }) => {
   const normalStyle =
     "w-[50%] h-full flex justify-center text-[rgb(83,199,240)] items-center border-[1px] border-[rgb(83,199,240)]";
   const activeStyle = "text-white bg-[rgb(83,199,240)]";
@@ -8,17 +8,17 @@ const MyPostTab = ({ setIndex, index }) => {
       <div className="w-4/5 h-10 flex flex-row">
         <button
           className={`${normalStyle} rounded-tl-2xl rounded-bl-2xl ${
-            index === "작성한게시글" ? activeStyle : ""
+            tabValue === "작성한게시글" ? activeStyle : ""
           }`}
-          onClick={() => setIndex("작성한게시글")}
+          onClick={() => setTabValue("작성한게시글")}
         >
           작성한 게시글
         </button>
         <button
           className={`${normalStyle} rounded-tr-2xl rounded-br-2xl ${
-            index === "내찜목록" ? activeStyle : ""
+            tabValue === "내찜목록" ? activeStyle : ""
           }`}
-          onClick={() => setIndex("내찜목록")}
+          onClick={() => setTabValue("내찜목록")}
         >
           내 찜 목록
         </button>

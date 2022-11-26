@@ -6,7 +6,7 @@ import {
 } from "react-icons/md";
 
 const MyCommentPagination = ({ postsCnt, page, handlePageChange }) => {
-  const numPage = Math.ceil(postsCnt / 10); // API로 전체 게시물 갯수 받아오면 이걸로 수정
+  const numPage = postsCnt; // API로 전체 게시물 갯수 받아오면 이걸로 수정
   let exceptNum = 3;
   if (numPage === 7 && page === 4) {
     exceptNum = 2;

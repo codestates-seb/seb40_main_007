@@ -47,7 +47,7 @@ export default function TrainStationSelect() {
                     return (
                       <Link
                         to={`/main/${el.id}`}
-                        className="hover:scale-110 active:scale-100"
+                        className="hover:scale-110 active:scale-95"
                         onClick={() => {
                           setShowModal(false);
                           setTrainStation(el.train);

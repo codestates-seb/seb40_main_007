@@ -3,22 +3,38 @@ import MyPageTab from "../../components/MyPageTab";
 import MyCommentList from "../../components/mycomment/MyCommentList";
 // import TestInfinitiScroll from "../../components/TestInfinitiScroll";
 import MyCommentPagination from "../../components/mycomment/MyCommentPagination";
-import { useState } from "react";
-
-const obj = {
-  title: "돼지 국밥",
-  imgUrl:
-    "https://d12zq4w4guyljn.cloudfront.net/20220215014519053_photo_79460f6e0b30.jpg",
-  content:
-    "부추 국밥입니다. 근데 이제 돼지를 곁들인 부추 국밥입니다. 근데 이제 돼지를 곁들인부추 국밥입니다.  부추 국밥입니다. 근데 이제 돼지를 곁들인부추 국밥입니다. 부추 국밥입니다. 근데 이제 돼지를 곁들인부추 국밥입니다. 부추 국밥입니다. 근데 이제 돼지를 곁들인부추 국밥입니다. ",
-};
-const dummy = Array(95).fill(obj);
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { accessToken } from "../../atoms/loginTest";
+import { useRecoilState } from "recoil";
 
 const MyCommentPage = () => {
   const [page, setPage] = useState(1);
+  const [pageInfo, setPageInfo] = useState();
+  const [data, setData] = useState([]);
+
+  const [TOKEN] = useRecoilState(accessToken);
+  console.log(pageInfo, data);
 
   //나중에 사용할 URL 형식
-  // let url = `${process.env.REACT_APP_URL}/questions?page=${page}&size=${15}`;
+  useEffect(() => {
+    const config = {
+      headers: { Authorization: TOKEN },
+    };
+    // let url = `${process.env.REACT_APP_URL}/questions?page=${page}&size=${15}`;
+    // const URL = `${process.env.REACT_APP_URL}//members/my-page/comments`;
+    const URL = `${process.env.REACT_APP_URL}/members/my-page/comments?page=${page}&size=10`;
+    axios
+      .get(URL, config)
+      .then((response) => {
+        console.log(response);
+        setData(response.data.items);
+        setPageInfo(response.data.pageInfo);
+      })
+      .catch((error) => {
+        console.log("mycomment error:", error);
+      });
+  }, [page]);
   const handlePageChange = (page) => {
     setPage(page);
   };
@@ -29,8 +45,7 @@ const MyCommentPage = () => {
       <div className="mypage-header-tab">
         <MyPageTab index={"내댓글"} />
         <div className="w-full max-w-2xl">
-          {/* <TestInfinitiScroll /> */}
-          <MyCommentList
+          {/* <MyCommentList
             data={dummy.slice((page - 1) * 10, page * 10)}
             page={page}
           />
@@ -38,7 +53,17 @@ const MyCommentPage = () => {
             postsCnt={dummy.length}
             page={page}
             handlePageChange={handlePageChange}
-          />
+          /> */}
+          {data.length !== 0 && pageInfo ? (
+            <>
+              <MyCommentList data={data} page={page} />
+              <MyCommentPagination
+                postsCnt={pageInfo.totalPages}
+                page={page}
+                handlePageChange={handlePageChange}
+              />
+            </>
+          ) : null}
         </div>
       </div>
     </div>
