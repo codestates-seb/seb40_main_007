@@ -77,9 +77,9 @@ public class MemberController {
     @GetMapping("/my-page/{station-id}")
     @ResponseStatus(HttpStatus.OK)
     public List<MemberDto.MyPage> getMyPageByStation(@RequestHeader(name = "Authorization") String accessToken,
-                             @PathVariable("station-id") long stationId) {
+                                                     @PathVariable("station-id") long stationId) {
         Member member = memberService.findByAccessToken(accessToken);
-        List<Board> boards = boardRepository.findByWriterAndStationId(member,stationId);
+        List<Board> boards = boardRepository.findByWriterAndStationId(member, stationId);
 
         List<MemberDto.MyPage> memberDtos = memberMapper.boardsToMyPages(boards);
         return memberService.setIsDibsToMyPage(accessToken, memberDtos);
@@ -98,25 +98,21 @@ public class MemberController {
 
     @GetMapping("/my-page/dibs")
     @ResponseStatus(HttpStatus.OK)
-    public PageDto getMyDibs(@RequestHeader(name = "Authorization") String accessToken,
-                             @RequestParam int page,
-                             @RequestParam int size) {
-        Page<Board> boardPage = memberService.findMyDibs(accessToken, page - 1, size, Sort.by("boardId").descending());
-        List<Board> boards = boardPage.getContent();
+    public List<MemberDto.MyPage> getMyDibs(@RequestHeader(name = "Authorization") String accessToken) {
+        List<Board> boards = memberService.findMyDibs(accessToken);
 
-        return new PageDto(memberMapper.boardsToMyPages(boards), boardPage);
+        List<MemberDto.MyPage> memberDtos = memberMapper.boardsToMyPages(boards);
+        return memberService.setIsDibsToMyPage(accessToken, memberDtos);
     }
 
     @GetMapping("/my-page/dibs/{station-id}")
     @ResponseStatus(HttpStatus.OK)
-    public PageDto getMyDibsByStation(@RequestHeader(name = "Authorization") String accessToken,
-                                      @PathVariable("station-id") long stationId,
-                                      @RequestParam int page,
-                                      @RequestParam int size) {
-        Page<Board> boardPage = memberService.findMyDibsByStation(accessToken, stationId, page - 1, size, Sort.by("boardId").descending());
-        List<Board> boards = boardPage.getContent();
+    public List<MemberDto.MyPage> getMyDibsByStation(@RequestHeader(name = "Authorization") String accessToken,
+                                                     @PathVariable("station-id") long stationId) {
+        List<Board> boards = memberService.findMyDibsByStation(accessToken, stationId);
 
-        return new PageDto(memberMapper.boardsToMyPages(boards), boardPage);
+        List<MemberDto.MyPage> memberDtos = memberMapper.boardsToMyPages(boards);
+        return memberService.setIsDibsToMyPage(accessToken, memberDtos);
     }
 
     @GetMapping("/info")
@@ -175,15 +171,15 @@ public class MemberController {
     @PostMapping("/avatar")
     @ResponseStatus(HttpStatus.OK)
     public void patchMyAvatar(@RequestHeader(name = "Authorization") String accessToken,
-                            @RequestPart("file") MultipartFile image) throws IOException {
+                              @RequestPart("file") MultipartFile image) throws IOException {
 
-        memberService.updateAvatar(accessToken,image);
+        memberService.updateAvatar(accessToken, image);
     }
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void withdrawal(@RequestHeader(name = "Authorization") String accessToken,
-                            @RequestBody MemberDto.Password passwordDto) {
+                           @RequestBody MemberDto.Password passwordDto) {
 
         memberService.deleteMember(accessToken, passwordDto.getPassword());
     }

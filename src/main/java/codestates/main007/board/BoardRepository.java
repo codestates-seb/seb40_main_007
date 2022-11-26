@@ -31,7 +31,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     Page<Board> findByStationIdAndCategoryIdAndTags(long stationId, long categoryId, Tag tag, Pageable pageable);
 
-    Page<Board> findAllByBoardIdIn(List<Long> boardIds, Pageable pageable);
+    List<Board> findAllByBoardIdIn(List<Long> boardIds);
 
     //삭제예정
 //    Page<Board> findByWriter(Member member, Pageable pageable);

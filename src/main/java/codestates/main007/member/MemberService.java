@@ -164,7 +164,7 @@ public class MemberService {
         return myStations;
     }
 
-    public Page<Board> findMyDibsByStation(String accessToken, long stationId, int page, int size, Sort sort) {
+    public List<Board> findMyDibsByStation(String accessToken, long stationId) {
         Member member = findByAccessToken(accessToken);
         List<BoardMember> boardMembers = boardMemberRepository.findByMemberAndDibsTrue(member);
         List<Long> boardIds = new ArrayList<>();
@@ -176,11 +176,10 @@ public class MemberService {
             }
         }
 
-        return boardRepository.findAllByBoardIdIn(boardIds,
-                PageRequest.of(page, size, sort));
+        return boardRepository.findAllByBoardIdIn(boardIds);
     }
 
-    public Page<Board> findMyDibs(String accessToken, int page, int size, Sort sort) {
+    public List<Board> findMyDibs(String accessToken) {
         Member member = findByAccessToken(accessToken);
         List<BoardMember> boardMembers = boardMemberRepository.findByMemberAndDibsTrue(member);
         List<Long> boardIds = new ArrayList<>();
@@ -190,8 +189,7 @@ public class MemberService {
             boardIds.add(board.getBoardId());
         }
 
-        return boardRepository.findAllByBoardIdIn(boardIds,
-                PageRequest.of(page, size, sort));
+        return boardRepository.findAllByBoardIdIn(boardIds);
     }
 
     public List<MemberDto.MyPage> setIsDibsToMyPage(String accessToken, List<MemberDto.MyPage> memberDtos) {
