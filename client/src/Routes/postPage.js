@@ -5,7 +5,7 @@ import StartRating from "../components/StarRating";
 import OnlineInput from "../components/OneLineInput";
 import PostMap from "../components/PostPage/PostMap";
 import ImageUpload from "../components/ImageUpload";
-import PostCategoryTabs from "../components/PostPage/PostCategoriTabs";
+import PostCategoryTabs from "../components/PostPage/PostCategoryTabs";
 import PostRelatedTab from "../components/PostPage/PostRelatedTab";
 import PostRelatedAtmasTab from "../components/PostPage/postRelatedAtmasTab";
 import Footer from "../components/Footer";

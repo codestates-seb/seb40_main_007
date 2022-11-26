@@ -86,7 +86,7 @@ const CommentEditor = () => {
               placeholder="댓글을 작성해보세요."
               cols="72"
               rows="4"
-              maxLength="100"
+              maxLength="99"
               className="text-sm first-letter:text-xs w-full outline-none mt-1 break-normal resize-none"
               onChange={handleTextChange}
             />

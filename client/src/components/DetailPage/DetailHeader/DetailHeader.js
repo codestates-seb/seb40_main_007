@@ -11,8 +11,10 @@ import { detailData } from "../../../atoms/detailPageData";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import axios from "axios";
+import { useParams, Link } from "react-router-dom";
 
 const DetailHeader = () => {
+  const { id } = useParams();
   const memberId = useRecoilValue(userId);
   const TOKEN = useRecoilValue(accessToken);
   const navigate = useNavigate();
@@ -50,7 +52,7 @@ const DetailHeader = () => {
         swal("게시글 삭제 실패");
       });
   };
-
+  console.log(id);
   return (
     <div className="flex flex-col mt-20">
       <div className="mb-5 flex flex-row justify-between">
@@ -59,9 +61,11 @@ const DetailHeader = () => {
         </span>
         {memberId === detailInfo?.writer?.memberId ? (
           <div className="flex flex-row space-x-1 place-items-end">
-            <button className="w-[30px] h-[30px] bg-white border-2 border-[rgb(83,199,240)] rounded-3xl p-0.5 flex justify-center items-center">
-              <TiPencil size={"30"} color={"#52C7F1"} />
-            </button>
+            <Link to={`/edit/${id}`}>
+              <div className="w-[30px] h-[30px] bg-white border-2 border-[rgb(83,199,240)] rounded-3xl p-0.5 flex justify-center items-center">
+                <TiPencil size={"30"} color={"#52C7F1"} />
+              </div>
+            </Link>
             <button
               className="w-[30px] h-[30px] bg-[rgb(83,199,240)] rounded-3xl p-0.5 flex justify-center items-center"
               onClick={handleDelete}

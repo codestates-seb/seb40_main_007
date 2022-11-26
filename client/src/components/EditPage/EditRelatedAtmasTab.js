@@ -1,10 +1,20 @@
-import { useState } from "react";
-import { useRecoilState } from "recoil";
-import { postRelatedAtmasState } from "../../atoms/postInfo";
+import { useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { editRelatedAtmasState } from "../../atoms/editPageData";
+import { tagsInfoList } from "../../atoms/tagsInfo";
 
-const EditRelatedAtmasTab = () => {
-  const [, setRelated] = useRecoilState(postRelatedAtmasState);
+const EditRelatedAtmasTab = ({ initialAtmas }) => {
+  const [relatedAtmas, setRelatedAtmas] = useRecoilState(editRelatedAtmasState);
+  const tagsInfo = useRecoilValue(tagsInfoList);
 
+  useEffect(() => {
+    if (initialAtmas.length !== 0) {
+      let atmasTagList = initialAtmas.map((el) => tagsInfo[el]);
+      setRelatedAtmas(atmasTagList);
+      setMyAtmas(atmasTagList);
+    }
+  }, [initialAtmas]);
+  console.log("relatedAtmas", relatedAtmas);
   const atmas = ["아늑한", "활기찬", "정겨운", "깔끔한", "뷰가 좋은"];
   const [myAtmas, setMyAtmas] = useState([]);
 
@@ -16,13 +26,13 @@ const EditRelatedAtmasTab = () => {
 
   const addMyAtmas = (props) => {
     setMyAtmas([...myAtmas, props]);
-    setRelated([...myAtmas, props]);
+    setRelatedAtmas([...myAtmas, props]);
   };
   const deleteMyAtmas = (props) => {
     let copyMyAtmas = myAtmas.slice();
     copyMyAtmas = copyMyAtmas.filter((el) => el !== props);
     setMyAtmas(copyMyAtmas);
-    setRelated(copyMyAtmas);
+    setRelatedAtmas(copyMyAtmas);
   };
 
   return (

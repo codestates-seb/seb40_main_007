@@ -328,10 +328,6 @@ export default function PostMap() {
                 lat: mouseEvent.latLng.getLat(),
                 lng: mouseEvent.latLng.getLng(),
               });
-              setPositionState({
-                lat: mouseEvent.latLng.getLat(),
-                lng: mouseEvent.latLng.getLng(),
-              }); //위도경도
               setAdressState(markers.adress); // 주소값
             }
           }}

@@ -5,18 +5,14 @@ import { BsFillPencilFill } from "react-icons/bs";
 import { useRecoilState } from "recoil";
 import { v1 } from "uuid";
 import {
-  postTrainStationState,
-  postAdressState,
-  postTitleState,
-  postpostionState,
-} from "../../atoms/postInfo";
-import { useParams } from "react-router-dom";
+  editTrainStationState,
+  editAdressState,
+  editTitleState,
+  editpositionState,
+} from "../../atoms/editPageData";
 
-export default function EditMap() {
-  // useParams로 초기값 적용 후 상태 변경 될 때마다 Recoil 값 갱신 후 사용
+export default function EditMap({ trainId, position, center, address, title }) {
   const { kakao } = window;
-  const { id } = useParams();
-  // 기차역 list
   const trainStationInfo = [
     { id: 0 },
     {
@@ -174,52 +170,41 @@ export default function EditMap() {
   ];
 
   // 기차역 id, 위도경도, 주소값, 제목명 Recoil, 기차역이름
-  const [trainStation, setTrainStation] = useRecoilState(postTrainStationState);
-  const [, setPositionState] = useRecoilState(postpostionState);
-  const [, setAdressState] = useRecoilState(postAdressState);
-  const [titleState, setTitleState] = useRecoilState(postTitleState);
-  const [trainName, setTrainName] = useState(trainStationInfo[id].train);
-  //키워드, 맵과 마커중심 (기차역 상태가 변경될 때마다 검색창 키워드가 변경된다)
-  const [keyword, setKeyword] = useState(trainStationInfo[id].train);
-  const [center, setCenter] = useState(trainStationInfo[id].position);
-  // 초기값 Recoil에 저장, 키워드 검색 렌더링
+  const [, setPositionState] = useRecoilState(editpositionState);
+  const [, setAdressState] = useRecoilState(editAdressState);
+  const [, setTitleState] = useRecoilState(editTitleState);
+  const [keyword, setKeyword] = useState(""); //trainStationInfo[trainStation].train
+  const [markers, setMarkers] = useState([]);
   useEffect(() => {
-    setTrainStation(id); // 기차역id
-    setPositionState(trainStationInfo[id].position); //위도경도
-    setAdressState(trainStationInfo[id].adress); // 주소값
-    setTitleState(trainStationInfo[id].train); // 제목명
-    setTrainName(trainStationInfo[id].train); // 기차역이름
-    setKeyword(trainStationInfo[id].train);
-    setCenter(trainStationInfo[id].position);
-    // 초기 마커 배열값
-    setMarkers([
-      {
-        id: trainStationInfo[id].id,
-        phone: trainStationInfo[id].phone,
-        place_name: trainStationInfo[id].train,
-        adress: trainStationInfo[id].adress,
-      },
-    ]);
-    setOneMarker(trainStationInfo[id].position);
-    onKeywordSubmit; //초기화면 렌더링
-  }, [trainStation]);
-
-  // console.log("id",trainStation, "postion",  positionState, adressState, "title", titleState);
-
-  //마커 상태 변경
-  const [markers, setMarkers] = useState(
-    [
-      {
-        // 초기 마커 배열값
-        id: trainStationInfo[id].id,
-        phone: trainStationInfo[id].phone,
-        place_name: trainStationInfo[id].train,
-        adress: trainStationInfo[id].adress,
-      },
-    ],
-    []
-  );
-  const [oneMarker, setOneMarker] = useState(trainStationInfo[id].position);
+    //초기화면 렌더링
+    if (address !== "") {
+      setKeyword(address);
+      setMarkers([
+        {
+          id: 0,
+          place_name: title,
+          adress: address,
+        },
+      ]);
+      onKeywordSubmit;
+    }
+  }, [title]);
+  useEffect(() => {
+    //초기화면 렌더링
+    if (center !== "") {
+      setTitleState(title);
+      setPositionState(position);
+      setMarkers([
+        {
+          id: 0,
+          place_name: title,
+          adress: address,
+        },
+      ]);
+      onKeywordSubmit;
+    }
+  }, [center]);
+  const [oneMarker, setOneMarker] = useState(""); //trainStationInfo[id].position
   const oneMarkerSelect = (props) => {
     setOneMarker(props.position);
     setPositionState(props.position); //위도경도 초기화
@@ -250,7 +235,6 @@ export default function EditMap() {
       window.removeEventListener("resize", windowResize);
     };
   }, []);
-
   //키워드 input
   const onKeywordChange = (e) => {
     setKeyword(e.target.value);
@@ -301,7 +285,7 @@ export default function EditMap() {
         <div className="border-2 border-[rgb(83,199,240)] rounded-2xl py-1 px-2 bg-[rgba(256,256,256,0.6)] w-fit absolute z-10 top-2 left-2">
           <input
             type="text"
-            value={keyword}
+            value={keyword !== "" ? keyword : ""}
             onChange={onKeywordChange}
             className="border-2 text-[rgb(83,199,240)] font-bold px-2 bg-white"
           />
@@ -313,112 +297,110 @@ export default function EditMap() {
             검색
           </button>
         </div>
-        <Map // 맵 표시할 Container
-          center={center}
-          style={style}
-          level={3}
-          onCreate={setMap}
-          onClick={(_t, mouseEvent) => {
-            if (markers.length === 1) {
-              setOneMarker({
-                lat: mouseEvent.latLng.getLat(),
-                lng: mouseEvent.latLng.getLng(),
-              });
-              setPositionState({
-                lat: mouseEvent.latLng.getLat(),
-                lng: mouseEvent.latLng.getLng(),
-              });
-              setPositionState({
-                lat: mouseEvent.latLng.getLat(),
-                lng: mouseEvent.latLng.getLng(),
-              }); //위도경도
-              setAdressState(markers.adress); // 주소값
-            }
-          }}
-        >
-          {/* 마커들의 정보, 마커가 1개일 경우와 여러개일 경우로 나뉜다 */}
-          {markers.length === 1 ? (
-            <MapMarker
-              position={oneMarker}
-              image={{
-                src: "/images/marker.png",
-                size: markerSize,
-              }}
-              draggable={true}
-              onDragStart={() => {
-                setMarkerSize({
-                  width: 110,
-                  height: 120,
+        {center === "" ? null : (
+          <Map // 맵 표시할 Container
+            center={center}
+            style={style}
+            level={3}
+            onCreate={setMap}
+            onClick={(_t, mouseEvent) => {
+              if (markers.length === 1) {
+                setOneMarker({
+                  lat: mouseEvent.latLng.getLat(),
+                  lng: mouseEvent.latLng.getLng(),
                 });
-              }}
-              onDragEnd={(marker) => {
-                setMarkerSize({
-                  width: 60,
-                  height: 70,
+                setPositionState({
+                  lat: mouseEvent.latLng.getLat(),
+                  lng: mouseEvent.latLng.getLng(),
                 });
-                onDragEndHandler(marker.getPosition());
-              }}
-            />
-          ) : (
-            markers.map((marker) => (
+                setAdressState(markers?.adress); // 주소값
+              }
+            }}
+          >
+            {/* 마커들의 정보, 마커가 1개일 경우와 여러개일 경우로 나뉜다 */}
+            {markers.length === 1 ? (
               <MapMarker
-                key={`marker-${marker.position.lat}-${marker.position.lng}`}
-                position={marker.position}
-                onClick={() => {
-                  oneMarkerSelect(marker);
-                  setMarkers([marker]);
-                  setTitleState(marker.place_name);
+                position={oneMarker === "" ? position : oneMarker}
+                image={{
+                  src: "/images/marker.png",
+                  size: markerSize,
                 }}
                 draggable={true}
-              ></MapMarker>
-            ))
-          )}
-
-          {/* 지도 위에 띄우는 마커 정보들 */}
-          <div className=" text-white bg-[rgba(0,0,0,0.2)] text-right">
-            Lat:{oneMarker.lat}/ Lng:{oneMarker.lng}
-          </div>
-          <div className="absolute top-16 left-6 z-10 bg-[rgba(256,256,256,0.7)] w-1/4 h-[200px] lg:h-[400px] overflow-scroll p-2">
-            {markers.length === 1 ? (
-              <div className="border-2 p-2 border-[rgb(83,199,240)] w-full rounded-md mb-1">
-                <div className="text-base font-semibold text-[rgb(73,177,214)]">
-                  <img
-                    src="/images/bluelogo.png"
-                    alt="marker"
-                    className="w-5 h-5 inline mr-1"
-                  />
-                  {markers[0].place_name}
-                </div>
-                <div className="text-xs ml-5">{markers[0].adress}</div>
-                <div className="text-xs ml-5">{markers[0].phone}</div>
-              </div>
+                onDragStart={() => {
+                  setMarkerSize({
+                    width: 110,
+                    height: 120,
+                  });
+                }}
+                onDragEnd={(marker) => {
+                  setMarkerSize({
+                    width: 60,
+                    height: 70,
+                  });
+                  onDragEndHandler(marker.getPosition());
+                }}
+              />
             ) : (
               markers.map((marker) => (
-                <div
-                  className="border-2 p-2 border-[rgb(83,199,240)] w-full rounded-md mb-1"
+                <MapMarker
+                  key={`marker-${marker.position.lat}-${marker.position.lng}`}
+                  position={marker.position}
                   onClick={() => {
+                    oneMarkerSelect(marker);
                     setMarkers([marker]);
-                    setPositionState(marker.position); //위도경도
-                    setAdressState(marker.adress); // 주소값
                     setTitleState(marker.place_name);
                   }}
-                  key={`marker-${marker.position.lat}-${marker.position.lng}`}
-                >
+                  draggable={true}
+                ></MapMarker>
+              ))
+            )}
+
+            {/* 지도 위에 띄우는 마커 정보들 */}
+            <div className=" text-white bg-[rgba(0,0,0,0.2)] text-right">
+              Lat:{oneMarker.lat}/ Lng:{oneMarker.lng}
+            </div>
+            <div className="absolute top-16 left-6 z-10 bg-[rgba(256,256,256,0.7)] w-1/4 h-[200px] lg:h-[400px] overflow-scroll p-2">
+              {markers.length === 1 ? (
+                <div className="border-2 p-2 border-[rgb(83,199,240)] w-full rounded-md mb-1">
                   <div className="text-base font-semibold text-[rgb(73,177,214)]">
                     <img
                       src="/images/bluelogo.png"
                       alt="marker"
                       className="w-5 h-5 inline mr-1"
                     />
-                    {marker.place_name}
+                    {markers[0].place_name}
                   </div>
-                  <div className="text-xs ml-5">{marker.adress}</div>
-                  <div className="text-xs ml-5">{marker.phone}</div>
+                  <div className="text-xs ml-5">{markers[0].adress}</div>
+                  <div className="text-xs ml-5">{markers[0].phone}</div>
                 </div>
-              ))
-            )}
-          </div>
-        </Map>
+              ) : (
+                markers.map((marker) => (
+                  <div
+                    className="border-2 p-2 border-[rgb(83,199,240)] w-full rounded-md mb-1"
+                    onClick={() => {
+                      setMarkers([marker]);
+                      setPositionState(marker.position); //위도경도
+                      setAdressState(marker.adress); // 주소값
+                      setTitleState(marker.place_name);
+                    }}
+                    key={`marker-${marker.position.lat}-${marker.position.lng}`}
+                  >
+                    <div className="text-base font-semibold text-[rgb(73,177,214)]">
+                      <img
+                        src="/images/bluelogo.png"
+                        alt="marker"
+                        className="w-5 h-5 inline mr-1"
+                      />
+                      {marker.place_name}
+                    </div>
+                    <div className="text-xs ml-5">{marker.adress}</div>
+                    <div className="text-xs ml-5">{marker.phone}</div>
+                  </div>
+                ))
+              )}
+            </div>
+          </Map>
+        )}
       </div>
 
       <div className="text-xs font-semibold text-gray-400 mt-5 mb-1 text-right">
@@ -437,7 +419,8 @@ export default function EditMap() {
         장소명
       </div>
       <div className="text-xs text-gray-500  mt-5">
-        근방의 기차역이 {trainName} 맞나요? 아니라면 "역 선택"을 다시해 주세요
+        근방의 기차역이 {trainStationInfo[trainId]?.train} 맞나요? 아니라면 "역
+        선택"을 다시해 주세요
       </div>
       <div className="mt-1 w-full text-2xl font-semibold text-[rgb(83,199,240)] flex items-center relative">
         <img
@@ -448,7 +431,7 @@ export default function EditMap() {
         {/* 장소명 상세 작성 */}
         <input
           className="w-full p-2 z-10 bg-[rgba(0,0,0,0)]"
-          value={titleState}
+          value={title}
           onChange={handleTitleChange}
         />
         <div className="z-0 absolute right-3 top-0">

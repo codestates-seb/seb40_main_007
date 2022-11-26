@@ -3,27 +3,37 @@ import { v1 } from "uuid";
 
 export const editTrainStationState = atom({
   key: `editTrainStation/${v1()}`,
-  default: "기차역",
+  default: "",
 });
 
 export const editAdressState = atom({
   key: `editAdress/${v1()}`,
-  default: "주소",
+  default: "",
 });
 
-export const editpostionState = atom({
+export const editpositionState = atom({
   key: `editPosition/${v1()}`,
-  default: "위도",
+  default: "",
 });
 
 export const editTitleState = atom({
   key: `editTitle/${v1()}`,
-  default: "제목",
+  default: "",
 });
 
 export const editImageState = atom({
   key: `editImage/${v1()}`,
   default: [],
+});
+
+// export const editUrlState = atom({
+//   key: `editUrl/${v1()}`,
+//   default: [],
+// });
+
+export const editPriorityState = atom({
+  key: `editPriority/${v1()}`,
+  default: "",
 });
 
 export const editCategoryState = atom({
@@ -33,17 +43,17 @@ export const editCategoryState = atom({
 
 export const editRelatedState = atom({
   key: `editRelated/${v1()}`,
-  default: "관련태그기본",
+  default: "",
 });
 
 export const editRelatedAtmasState = atom({
   key: `editAtmos/${v1()}`,
-  default: "분위기기본",
+  default: [],
 });
 
 export const editRelatedPriceState = atom({
   key: `editPrice/${v1()}`,
-  default: "가격기본",
+  default: "",
 });
 
 export const editStarState = atom({

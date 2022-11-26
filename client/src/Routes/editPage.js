@@ -1,36 +1,37 @@
 /* eslint-disable */
 import Header from "../components/Header";
-import PostTrainStationSelect from "../components/PostPage/PostTrainStationSelect";
-import StartRating from "../components/StarRating";
+import EditTrainStationSelect from "../components/EditPage/EditTrainStationSelect";
+import EditStarRating from "../components/EditPage/EditStarRating";
 import OnlineInput from "../components/OneLineInput";
-import PostMap from "../components/PostPage/PostMap";
-import ImageUpload from "../components/ImageUpload";
-import PostCategoryTabs from "../components/PostPage/PostCategoriTabs";
-import PostRelatedTab from "../components/PostPage/PostRelatedTab";
-import PostRelatedAtmasTab from "../components/PostPage/postRelatedAtmasTab";
+import EditMap from "../components/EditPage/EditMap";
+import EditImageUpload from "../components/EditPage/EditImageUpload";
+import EditCategoryTabs from "../components/EditPage/EditCategoryTabs";
+import EditRelatedTab from "../components/EditPage/EditRelatedTab";
+import EditRelatedAtmasTab from "../components/EditPage/EditRelatedAtmasTab";
 import Footer from "../components/Footer";
-import ListTag from "../components/tag/ListTag";
+import EditListTag from "../components/EditPage/EditListTag";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { accessToken } from "../atoms/loginTest";
 import {
-  postTrainStationState,
-  postpostionState,
-  postAdressState,
-  postTitleState,
-  postCategoryState,
-  postRelatedState,
-  postRelatedAtmasState,
-  postRelatedPriceState,
-  postStarState,
-  postCommentState,
-  postImageState,
-} from "../atoms/postInfo";
+  editTrainStationState,
+  editpositionState,
+  editAdressState,
+  editTitleState,
+  editImageState,
+  editCategoryState,
+  editRelatedState,
+  editRelatedAtmasState,
+  editRelatedPriceState,
+  editStarState,
+  editCommentState,
+} from "../atoms/editPageData";
 
 export default function EditPage() {
   const navigatge = useNavigate();
+  const { id } = useParams();
   const tagList = {
     한식: 1,
     중식: 2,
@@ -66,45 +67,81 @@ export default function EditPage() {
     "뷰가 좋은": 45,
   };
   const categoryList = { 식당: 1, 볼거리: 2, 숙소: 3 };
-
   const TOKEN = useRecoilValue(accessToken);
-  const [postTrainStation, setPostTrainStation] = useRecoilState(
-    postTrainStationState
+  const [editTrainStation, setEditTrainStation] = useRecoilState(
+    editTrainStationState
   );
-  const postionState = useRecoilValue(postpostionState);
-  const [postAdress, setPostAdress] = useRecoilState(postAdressState);
-  const [postTitle, setPostTitle] = useRecoilState(postTitleState);
-  const [postCategory, setPostCategory] = useRecoilState(postCategoryState);
-  const [postRelated, setPostRelated] = useRecoilState(postRelatedState);
-  const [postRelatedAtmas, setPostRelatedAtmas] = useRecoilState(
-    postRelatedAtmasState
+  const [postionState, setPositionState] = useRecoilState(editpositionState);
+  const [editAdress, setEditAdress] = useRecoilState(editAdressState);
+  const [editTitle, setEditTitle] = useRecoilState(editTitleState);
+  const [editImageList, setEditImageList] = useRecoilState(editImageState);
+  const [editCategory, setEditCategory] = useRecoilState(editCategoryState);
+  const [editRelated, setEditRelated] = useRecoilState(editRelatedState);
+  const [editRelatedAtmas, setEditRelatedAtmas] = useRecoilState(
+    editRelatedAtmasState
   );
-  const [postRelatedPrice, setPostRelatedPrice] = useRecoilState(
-    postRelatedPriceState
+  const [editRelatedPrice, setEditRelatedPrice] = useRecoilState(
+    editRelatedPriceState
   );
-  const [postStar, setPostStar] = useRecoilState(postStarState);
-  const [postComment, setPostComment] = useRecoilState(postCommentState);
-  const [postImageList, setPostImageList] = useRecoilState(postImageState);
-  let atmasTagId = [...postRelatedAtmas].map((el) => tagList[el]);
-
+  const [editStar, setEditStar] = useRecoilState(editStarState);
+  const [editComment, setEditComment] = useRecoilState(editCommentState); //한줄평
   const [uploadFormData, setUpLoadFormData] = useState(""); //form데이터 파일
+  const [center, setCenter] = useState(""); //맵 초기 위치
+  const [initialImage, setInitialImage] = useState(""); // 초기 이미지
+  const [initialAtmas, setInitialAtmas] = useState([]); // 초기 이미지
+  let atmasTagId = [...editRelatedAtmas].map((el) => tagList[el]);
+
+  useEffect(() => {
+    const config = {
+      headers: { Authorization: TOKEN },
+    };
+    axios
+      .get(`${process.env.REACT_APP_URL}/boards/${id}`, config)
+      .then((response) => {
+        console.log(response.data);
+        setEditTitle(response.data.title);
+        setEditComment(response.data.review);
+        setEditStar(response.data.star);
+        setPositionState({
+          lat: response.data.latitude,
+          lng: response.data.longitude,
+        });
+        setCenter({
+          lat: response.data.latitude,
+          lng: response.data.longitude,
+        });
+        setEditTrainStation(response.data.stationId);
+        setEditCategory(response.data.categoryId);
+        setEditRelated(response.data.tags.detailTag);
+        setEditRelatedAtmas(response.data.tags.moodTag);
+        setInitialAtmas(response.data.tags.moodTag);
+        setEditRelatedPrice(response.data.tags.priceTag);
+        setEditAdress(response.data.address);
+        setEditImageList(response.data.imageUrls);
+        setInitialImage(response.data.imageUrls);
+        console.log("edit첫 응답", response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const onSubmit = () => {
     let finalUpLoadJson = {
-      title: postTitle,
-      review: postComment,
-      star: postStar,
+      title: editTitle,
+      review: editComment,
+      star: editStar,
       latitude: postionState.lat,
       longitude: postionState.lng,
-      stationId: postTrainStation,
-      categoryId: categoryList[postCategory],
-      address: postAdress,
-      tags: [tagList[postRelated], ...atmasTagId, tagList[postRelatedPrice]],
+      stationId: editTrainStation,
+      categoryId: categoryList[editCategory],
+      address: editAdress,
+      tags: [tagList[editRelated], ...atmasTagId, tagList[editRelatedPrice]],
     };
     console.log(finalUpLoadJson);
 
     const formData = new FormData();
-    for (const file of postImageList) {
+    for (const file of editImageList) {
       formData.append("files", file);
     }
 
@@ -134,16 +171,16 @@ export default function EditPage() {
         .then(function (response) {
           // -- 이 200일 경우
           console.log(response);
-          setPostAdress("");
-          setPostTitle("");
-          setPostCategory("");
-          setPostRelated("");
-          setPostRelatedAtmas("");
-          setPostRelatedPrice("");
-          setPostStar("");
-          setPostComment("");
-          setPostImageList("");
-          navigatge(`/main/${postTrainStation}`);
+          setEditTitle("");
+          setEditAdress("");
+          setEditCategory("");
+          setEditRelated("");
+          setEditRelatedAtmas("");
+          setEditRelatedPrice("");
+          setEditStar("");
+          setEditComment("");
+          setEditImageList("");
+          navigatge(`/main/${editTrainStation}`);
         })
         .catch(function (error) {
           console.log(error);
@@ -155,25 +192,31 @@ export default function EditPage() {
     <>
       <Header />
       <div className="pb-30 max-w-5xl m-auto">
-        <PostTrainStationSelect />
-        <PostMap />
+        <EditTrainStationSelect />
+        <EditMap
+          trainId={editTrainStation}
+          position={postionState}
+          center={center}
+          address={editAdress}
+          title={editTitle}
+        />
 
-        <ImageUpload />
+        <EditImageUpload initialImage={initialImage} />
 
         <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 pt-2 text-18 text-[rgb(83,199,240)] mt-16">
           별점
         </div>
         <div className="flex justify-center m-auto">
-          <StartRating />
+          <EditStarRating />
         </div>
         <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 my-16 text-18 text-[rgb(83,199,240)] ">
           관련태그
         </div>
         <div className="mb-5 w-fit m-auto sm:ml-56">
-          <PostCategoryTabs />
-          <PostRelatedTab />
-          <PostRelatedAtmasTab />
-          <ListTag />
+          <EditCategoryTabs />
+          <EditRelatedTab />
+          <EditRelatedAtmasTab initialAtmas={initialAtmas} />
+          <EditListTag />
         </div>
 
         <OnlineInput />

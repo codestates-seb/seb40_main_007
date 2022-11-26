@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BiCaretDown } from "react-icons/bi";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import { Link, useParams } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { postTrainStationState } from "../../atoms/postInfo";
+import {
+  editTrainStationState,
+  editTitleState,
+  editAdressState,
+} from "../../atoms/editPageData";
 import { trainInfo } from "../../atoms/trainInfo";
 
 export default function EditTrainStationSelect() {
@@ -27,16 +30,12 @@ export default function EditTrainStationSelect() {
     16: "신경주역",
     17: "포항역",
   };
-  const { id } = useParams();
-  useEffect(() => {
-    setTrainStation(id);
-  }, []);
 
   const trainStationInfo = useRecoilValue(trainInfo);
-  const [, setTrainStation] = useRecoilState(postTrainStationState);
-  const [trainName, setTrainName] = useState(trainId[id]);
+  const [trainStation, setTrainStation] = useRecoilState(editTrainStationState);
   const [showModal, setShowModal] = useState(false);
-
+  const [, setTitleState] = useRecoilState(editTitleState);
+  const [, setAdressState] = useRecoilState(editAdressState);
   return (
     <>
       <div className="pt-20 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 pb-2 mb-5  text-18 text-[rgb(83,199,240)]">
@@ -48,7 +47,7 @@ export default function EditTrainStationSelect() {
         onClick={() => setShowModal(true)}
       >
         <div className="text-2xl flex items-center font-semibold border-[rgb(83,199,240)] w-fit px-3 py-2">
-          {trainName}
+          {trainId[trainStation]}
           <BiCaretDown
             className="inline text-[rgb(83,199,240)] ml-2"
             size={26}
@@ -72,25 +71,23 @@ export default function EditTrainStationSelect() {
                 <div className="px-3 pb-3 relative grid grid-cols-5 gap-4">
                   {trainStationInfo.map((el) => {
                     return (
-                      <Link
-                        to={`/post/${el.id}`}
+                      <button
+                        key={el.id}
                         onClick={() => {
                           setTrainStation(el.id);
-                          setTrainName(trainId[el.id]);
                           setShowModal(false);
+                          setTitleState(trainId[el.id]);
+                          setAdressState(trainStationInfo[el.id - 1].adress);
                         }}
-                        key={el.id}
                       >
-                        <div>
-                          <img
-                            src={`/images/기차역도장/${el.train}.png`}
-                            alt={el.train}
-                          />
-                          <div className="text-[10px] text-center pt-1 font-semibold">
-                            {el.train}
-                          </div>
+                        <img
+                          src={`/images/기차역도장/${el.train}.png`}
+                          alt={el.train}
+                        />
+                        <div className="text-[10px] text-center pt-1 font-semibold">
+                          {el.train}
                         </div>
-                      </Link>
+                      </button>
                     );
                   })}
                 </div>
