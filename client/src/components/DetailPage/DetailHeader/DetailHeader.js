@@ -9,6 +9,7 @@ import { categoryInfoList, tagsInfoList } from "../../../atoms/tagsInfo";
 import { userId, accessToken } from "../../../atoms/loginTest";
 import { detailData } from "../../../atoms/detailPageData";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 import axios from "axios";
 
 const DetailHeader = () => {
@@ -42,11 +43,11 @@ const DetailHeader = () => {
       )
       .then((response) => {
         console.log(response);
-        alert("삭제 되었습니다.");
+        swal("삭제되었습니다");
         navigate(`/main/${detailInfo.stationId}`);
       })
       .catch((error) => {
-        alert("게시글 삭제 실패");
+        swal("게시글 삭제 실패");
       });
   };
 

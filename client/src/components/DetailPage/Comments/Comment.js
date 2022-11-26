@@ -4,6 +4,7 @@ import { userId, accessToken } from "../../../atoms/loginTest";
 import { detailData } from "../../../atoms/detailPageData";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { useParams } from "react-router-dom";
+import swal from "sweetalert";
 import axios from "axios";
 
 const Comment = ({ props }) => {
@@ -28,6 +29,7 @@ const Comment = ({ props }) => {
           .get(`${process.env.REACT_APP_URL}/boards/${id}`)
           .then((response) => {
             setDetailInfo(response.data);
+            swal("삭제 되었습니다");
           });
       })
       .catch((error) => console.log(error));
@@ -35,12 +37,16 @@ const Comment = ({ props }) => {
   console.log(commentInfo.commentId);
   return (
     <>
-      <li className="flex flex-row items-center space-x-3">
+      <li className="flex flex-row items-center justify-start space-x-3 mb-2">
         <div className="w-12 h-12">
-          <img src={commentInfo?.writer?.avatar} alt="profile" />
+          <img
+            src={commentInfo?.writer?.avatar}
+            alt="profile"
+            className="w-12 h-12"
+          />
         </div>
-        <div>
-          <div className="flex flex-row items-center py-2 space-x-1">
+        <div className="w-5/6">
+          <div className="flex flex-row items-center py-2 space-x-1 ">
             <span className="text-sm">{commentInfo?.writer?.name}</span>
             {memberId === commentInfo?.writer?.memberId ? (
               <>

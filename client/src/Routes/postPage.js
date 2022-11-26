@@ -14,6 +14,7 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import swal from "sweetalert";
 import { accessToken } from "../atoms/loginTest";
 import {
   postTrainStationState,
@@ -131,9 +132,9 @@ export default function PostPage() {
           uploadFormData,
           config
         )
-        .then(function (response) {
+        .then(() => {
           // -- 이 200일 경우
-          console.log(response);
+          swal("Thank you", "작성 완료되었습니다", "success");
           setPostAdress("");
           setPostTitle("");
           setPostCategory("");

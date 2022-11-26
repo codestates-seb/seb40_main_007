@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
+import swal from "sweetalert";
 import {
   accessToken,
   refereshToken,
@@ -61,7 +62,7 @@ export default function LoginPage() {
       axios
         .get(`${process.env.REACT_APP_URL}/members/header`, config)
         .then((response) => {
-          alert("로그인 완료");
+          swal("Hello!", "로그인 되었습니다");
           setUserName(response.data.name);
           setUserAvatar(response.data.avatar);
           setUserId(response.data.memberId);
