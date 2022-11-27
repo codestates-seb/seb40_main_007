@@ -25,11 +25,13 @@ export default function InitialPage() {
               alt="kakao"
               className="w-8 h-8 inline rounded-md"
             />
-            <img
-              src="images/naver.png"
-              alt="naver"
-              className="w-8 h-8 inline rounded-md m-1"
-            />
+            <a href="http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/naver">
+              <img
+                src="images/naver.png"
+                alt="naver"
+                className="w-8 h-8 inline rounded-md m-1"
+              />
+            </a>
           </div>
           <Link to="/login">
             <div className="text-white font-semibold text-center m-auto  bg-[rgba(83,199,240,0.7)] py-2 mb-3 mt-5 rounded-md hover:ring hover:ring-sky-300">

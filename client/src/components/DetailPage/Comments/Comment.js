@@ -6,14 +6,47 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { useParams } from "react-router-dom";
 import swal from "sweetalert";
 import axios from "axios";
+import { useState } from "react";
 
 const Comment = ({ props }) => {
   const { id } = useParams();
   const memberId = useRecoilValue(userId);
   const TOKEN = useRecoilValue(accessToken);
   const [, setDetailInfo] = useRecoilState(detailData);
+  const [disable, setDisable] = useState(true);
+  const [commentText, setCommentText] = useState("");
+  const [char, setChar] = useState(0);
 
   const commentInfo = props;
+  const handleTextChange = (e) => {
+    setCommentText(e.target.value);
+    setChar(e.target.value.length);
+  };
+
+  const handleModify = () => {
+    const config = {
+      headers: { Authorization: TOKEN },
+    };
+    axios
+      .patch(
+        `${process.env.REACT_APP_URL}/comments/${commentInfo.commentId}`,
+        {
+          comment: commentText,
+        },
+        config
+      )
+      .then(function (response) {
+        console.log(response);
+        axios
+          .get(`${process.env.REACT_APP_URL}/boards/${id}`)
+          .then((response) => {
+            setDisable(true);
+            setDetailInfo(response.data);
+            swal("수정 되었습니다");
+          });
+      })
+      .catch((error) => console.log(error));
+  };
   const handleDelete = () => {
     const config = {
       headers: { Authorization: TOKEN },
@@ -34,10 +67,10 @@ const Comment = ({ props }) => {
       })
       .catch((error) => console.log(error));
   };
-  console.log(commentInfo.commentId);
+
   return (
     <>
-      <li className="flex flex-row items-center justify-start space-x-3 mb-2">
+      <li className="flex flex-row items-center justify-start space-x-3 mb-4">
         <div className="w-12 h-12">
           <img
             src={commentInfo?.writer?.avatar}
@@ -50,7 +83,13 @@ const Comment = ({ props }) => {
             <span className="text-sm">{commentInfo?.writer?.name}</span>
             {memberId === commentInfo?.writer?.memberId ? (
               <>
-                <button>
+                <button
+                  onClick={() => {
+                    setDisable(false);
+                    setCommentText(commentInfo?.comment);
+                    setChar(commentInfo?.comment.length);
+                  }}
+                >
                   <TiPencil size={"12"} color={"#52C7F1"} />
                 </button>
                 <button onClick={handleDelete}>
@@ -59,7 +98,38 @@ const Comment = ({ props }) => {
               </>
             ) : null}
           </div>
-          <p className="text-xs text-gray-500 py-2">{commentInfo?.comment}</p>
+          {disable ? (
+            <div className="text-xs text-gray-500 py-2">
+              {commentInfo?.comment}
+            </div>
+          ) : (
+            <>
+              <div className="border">
+                <textarea
+                  disabled={disable}
+                  type="textarea"
+                  value={commentText}
+                  placeholder="댓글을 수정해보세요."
+                  cols="72"
+                  rows="2"
+                  maxLength="99"
+                  className="text-sm first-letter:text-xs w-full outline-none mt-1 break-normal resize-none p-1"
+                  onChange={handleTextChange}
+                />
+                <div className="text-gray-300 group-focus-within:text-[rgb(83,199,240)] text-xs relative p-1">
+                  {`${char} / 100`}
+                </div>
+              </div>
+              <div className="text-end">
+                <button
+                  onClick={handleModify}
+                  className="text-end font-bold mt-2 rounded-lg px-7 py-1 bg-[rgb(83,199,240)] text-white"
+                >
+                  수정
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </li>
     </>

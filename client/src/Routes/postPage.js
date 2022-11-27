@@ -89,8 +89,10 @@ export default function PostPage() {
   let atmasTagId = [...postRelatedAtmas].map((el) => tagList[el]);
 
   const [uploadFormData, setUpLoadFormData] = useState(""); //form데이터 파일
+  const [disable, setDisable] = useState(false); //제출 버튼 비활성화
 
   const onSubmit = () => {
+    setDisable(true);
     let finalUpLoadJson = {
       title: postTitle,
       review: postComment,
@@ -141,6 +143,7 @@ export default function PostPage() {
           setPostComment("");
           setPostImageList("");
           navigatge(`/main/${postTrainStation}`);
+          setDisable(false);
         })
         .catch(function (error) {
           console.log(error);
@@ -154,7 +157,6 @@ export default function PostPage() {
       <div className="pb-30 max-w-5xl m-auto">
         <PostTrainStationSelect />
         <PostMap />
-
         <ImageUpload />
 
         <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 pt-2 text-18 text-[rgb(83,199,240)] mt-16">
@@ -177,8 +179,9 @@ export default function PostPage() {
       </div>
       <div className="flex justify-center">
         <button
+          disabled={disable}
           className="bg-gray-400 w-fit m-auto text-white py-3 px-5 rounded-lg hover:bg-[rgb(83,199,240)] my-32"
-          onClick={onSubmit}
+          onClick={(e) => onSubmit(e)}
         >
           작성완료
         </button>

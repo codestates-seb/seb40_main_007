@@ -52,7 +52,7 @@ const DetailHeader = () => {
         swal("게시글 삭제 실패");
       });
   };
-  console.log(id);
+
   return (
     <div className="flex flex-col mt-20">
       <div className="mb-5 flex flex-row justify-between">

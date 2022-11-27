@@ -5,7 +5,7 @@ import { detailData } from "../../atoms/detailPageData";
 const DetailMap = () => {
   const detailInfo = useRecoilValue(detailData);
   const potition = { lat: detailInfo.latitude, lng: detailInfo.longitude };
-  console.log(detailInfo?.address);
+
   return (
     <>
       {detailInfo.latitude !== undefined &&

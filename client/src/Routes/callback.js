@@ -8,6 +8,8 @@ import {
   userName,
   userAvatar,
   userId,
+  userEmail,
+  isSocial,
 } from "../atoms/loginTest";
 import axios from "axios";
 import Header from "../components/Header";
@@ -23,8 +25,9 @@ export default function Callback() {
   const [, setUserName] = useRecoilState(userName);
   const [, setUserAvatar] = useRecoilState(userAvatar);
   const [, setUserId] = useRecoilState(userId);
-  // console.log("tokenPath", tokenPath);
-  // console.log("tokenInfo1", accessTokenInfo);
+  const [, setUserEmail] = useRecoilState(userEmail);
+  const [, setIsSocial] = useRecoilState(isSocial);
+
   useEffect(() => {
     const TOKEN = accessTokenInfo[0];
     const REFRESH_TOKEN = tokenInfo[2];
@@ -42,6 +45,8 @@ export default function Callback() {
         setUserName(response.data.name);
         setUserAvatar(response.data.avatar);
         setUserId(response.data.memberId);
+        setUserEmail(response.data.email);
+        setIsSocial(true);
       })
       .then(() => {
         navigate("/");

@@ -365,7 +365,6 @@ export default function PostMap() {
                   setMarkers([marker]);
                   setTitleState(marker.place_name);
                 }}
-                draggable={true}
               ></MapMarker>
             ))
           )}

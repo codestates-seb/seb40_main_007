@@ -1,28 +1,4 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { accessToken } from "../../../atoms/loginTest";
-import { useRecoilValue } from "recoil";
-const MyInfo = ({ nickName, userAvatar }) => {
-  const [totalBoard, setTotalBoard] = useState("");
-  const [totalComment, setTotalComment] = useState("");
-  const [score, setScore] = useState("");
-  const TOKEN = useRecoilValue(accessToken);
-  useEffect(() => {
-    const config = {
-      headers: { Authorization: TOKEN },
-    };
-    axios
-      .get(`${process.env.REACT_APP_URL}/members/info`, config)
-      .then((response) => {
-        setTotalBoard(response.data.totalBoard);
-        setTotalComment(response.data.totalComment);
-        setScore(response.data.score);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
+const MyInfo = ({ nickName, userAvatar, totalBoard, totalComment, score }) => {
   return (
     <div className="w-full p-2 mb-4 flex flex-row items-center justify-evenly">
       {/* nickName */}
