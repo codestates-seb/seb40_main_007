@@ -418,6 +418,7 @@ public class ImageHandler {
 //                        .storedFilePath(amazonS3.getUrl(bucket, fileName).toString())
 //                        .fileSize(boardImage.getFileSize())
 //                        .build());
+                boardImageRepository.save(boardImage);
                 boardImages.add(boardImage);
 
                 if (i == 0) {
