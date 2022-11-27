@@ -28,7 +28,7 @@ public class PlannerService {
     private final PlannerMapper plannerMapper;
     private final BoardMapper boardMapper;
 
-    public void save(String accessToken, PlannerDto.Input inputDto) throws IOException {
+    public List<PlannerDto.MyPlannersResponse> save(String accessToken, PlannerDto.Input inputDto) throws IOException {
         String plannerName = plannerMapper.inputDtoToentity(inputDto).getPlannerName();
         if(plannerRepository.findByPlannerName(plannerName).isEmpty()){
             Planner createdPlanner = Planner.builder()
@@ -36,16 +36,19 @@ public class PlannerService {
                     .member(memberService.findByAccessToken(accessToken))
                     .build();
             plannerRepository.save(createdPlanner);
+
+            return getMyPlanners(accessToken);
         }
         else throw new BusinessLogicException(ExceptionCode.PLANNER_EXISTS);
 
     }
 
-    public void update(String accessToken, long plannerId, PlannerDto.Input patchDto) {
+    public List<PlannerDto.MyPlannersResponse> update(String accessToken, long plannerId, PlannerDto.Input patchDto) {
         if (memberService.findByAccessToken(accessToken).equals(find(plannerId).getMember())) {
             Planner updatedPlanner = find(plannerId);
             updatedPlanner.patchPlanner(patchDto.getPlannerName());
             plannerRepository.save(updatedPlanner);
+            return getMyPlanners(accessToken);
         } else throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
     }
 
@@ -83,9 +86,10 @@ public class PlannerService {
         return plannerMapper.entityListToResponseDtoList(planners);
     }
 
-    public void deletePlanner(String accessToken, long plannerId) throws IOException {
+    public List<PlannerDto.MyPlannersResponse> delete(String accessToken, long plannerId) {
         Planner planner = find(plannerId);
         plannerRepository.delete(planner);
+        return getMyPlanners(accessToken);
     }
 
     public Planner find(long plannerId) {
