@@ -66,6 +66,9 @@ public class Member {
     public void patchAvatar(String avatarUrl){
         this.avatar = avatarUrl;
     }
+    public void patchRefreshToken(String refreshToken){
+        this.refreshToken = refreshToken;
+    }
 
     public void setUserDetails(long memberId, String email, String password, String avatar, String name){
         this.memberId = memberId;

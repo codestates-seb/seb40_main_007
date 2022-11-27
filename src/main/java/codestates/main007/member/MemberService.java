@@ -62,7 +62,7 @@ public class MemberService {
         return memberRepository.save(createdMember);
     }
 
-    public void saveOAuthMember(String name, String email, String avatar){
+    public void saveOAuthMember(String name, String email, String avatar) {
         Member oAuthMember = Member.builder()
                 .name(name)
                 .email(email)
@@ -78,12 +78,24 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public void updateAvatar(String accessToken,MultipartFile image) throws IOException {
+    public void updateAvatar(String accessToken, MultipartFile image) throws IOException {
         Member member = findByAccessToken(accessToken);
         String avatarUrl = imageHandler.updateAvatar(image, member);
 
         member.patchAvatar(avatarUrl);
 
+        memberRepository.save(member);
+    }
+
+    public void saveRefreshToken(long memberId, String refreshToken) {
+        Member member = find(memberId);
+        member.patchRefreshToken(refreshToken);
+        memberRepository.save(member);
+    }
+
+    public void deleteRefreshToken(long memberId){
+        Member member = find(memberId);
+        member.patchRefreshToken(null);
         memberRepository.save(member);
     }
 
@@ -198,7 +210,7 @@ public class MemberService {
             Board board = boardRepository.findById(myPage.getBoardId()).get();
             boolean isDibs = false;
             Optional<BoardMember> boardMember = boardMemberRepository.findByMemberAndBoard(member, board);
-            if (boardMember.isPresent()){
+            if (boardMember.isPresent()) {
                 isDibs = boardMember.get().isDibs();
             }
             myPage.setDibs(isDibs);
@@ -226,7 +238,7 @@ public class MemberService {
 //                PageRequest.of(page, size, sort));
 //    }
 
-    public void deleteMember(String accessToken, String password){
+    public void deleteMember(String accessToken, String password) {
         verifyPassword(accessToken, password);
         Member member = findByAccessToken(accessToken);
 
