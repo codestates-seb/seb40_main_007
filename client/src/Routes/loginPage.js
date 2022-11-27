@@ -11,6 +11,7 @@ import {
   userName,
   userAvatar,
   userId,
+  userEmail,
 } from "../atoms/loginTest";
 import { useEffect } from "react";
 
@@ -21,6 +22,7 @@ export default function LoginPage() {
   const [, setUserName] = useRecoilState(userName);
   const [, setUserAvatar] = useRecoilState(userAvatar);
   const [, setUserId] = useRecoilState(userId);
+  const [, setUserEmail] = useRecoilState(userEmail);
 
   const {
     register,
@@ -66,6 +68,7 @@ export default function LoginPage() {
           setUserName(response.data.name);
           setUserAvatar(response.data.avatar);
           setUserId(response.data.memberId);
+          setUserEmail(response.data.email);
           navigate("/");
         })
         .catch((error) => {

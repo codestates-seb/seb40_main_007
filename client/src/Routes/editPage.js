@@ -29,6 +29,7 @@ import {
   editStarState,
   editCommentState,
 } from "../atoms/editPageData";
+// import fs from "fs";
 
 export default function EditPage() {
   const navigatge = useNavigate();
@@ -87,9 +88,6 @@ export default function EditPage() {
   const [editStar, setEditStar] = useRecoilState(editStarState);
   const [editComment, setEditComment] = useRecoilState(editCommentState); //한줄평
 
-  const editUrl = []; // s3 url
-  const editPriority = []; // priority
-
   const [uploadFormData, setUpLoadFormData] = useState(""); //form데이터 파일
   const [center, setCenter] = useState(""); //맵 초기 위치
   const [initialImage, setInitialImage] = useState(""); // 초기 이미지
@@ -125,26 +123,33 @@ export default function EditPage() {
         setEditAdress(response.data.address);
         setEditImageList(response.data.imageUrls);
         setInitialImage(response.data.imageUrls);
-        console.log("edit첫 응답", response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
-
+  console.log("editImageList", editImageList);
   const onSubmit = () => {
+    const editUrl = []; // s3 url
+    const editPriority = []; // priority
     const formData = new FormData();
     for (const file of editImageList) {
       if (file.slice(0, 5) === "https") {
-        console.log("https부분입니다.");
         editUrl.push(file);
         editPriority.push("u");
       } else {
         console.log("새 업로드 부분입니다.");
         formData.append("files", file);
+        console.log(file);
         editPriority.push("i");
       }
+      console.log(editUrl, editPriority);
     }
+
+    if (!editPriority.includes("i")) {
+      formData.append("files", new Blob([JSON.stringify({})]));
+    }
+    console.log("!editPriority.includes", !editPriority.includes("i"));
 
     let finalUpLoadJson = {
       title: editTitle,
@@ -159,8 +164,6 @@ export default function EditPage() {
       priority: editPriority,
       urls: editUrl,
     };
-    console.log(finalUpLoadJson);
-
     formData.append(
       "data",
       new Blob([JSON.stringify(finalUpLoadJson)], {
@@ -168,7 +171,7 @@ export default function EditPage() {
       })
     );
     setUpLoadFormData(formData); // 폼데이터 useState로 저장
-    console.log(finalUpLoadJson);
+    console.log("finalUpLoad!!!!!!!!!!!!", finalUpLoadJson);
   };
 
   useEffect(() => {
@@ -176,7 +179,7 @@ export default function EditPage() {
       const config = {
         headers: {
           Authorization: TOKEN,
-          "content-type": "multipart/form-data",
+          contentType: "multipart/form-data",
         },
       };
       axios
@@ -220,7 +223,6 @@ export default function EditPage() {
         />
 
         <EditImageUpload initialImage={initialImage} />
-
         <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 pt-2 text-18 text-[rgb(83,199,240)] mt-16">
           별점
         </div>

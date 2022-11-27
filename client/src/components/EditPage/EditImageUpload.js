@@ -48,6 +48,7 @@ export default function EditImageUpload({ initialImage }) {
     setImage([...selectImg, ...copyImg]);
     setPreviewImage([...selectUrl, ...copyUrl]);
   };
+
   return (
     <>
       <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 text-18 text-[rgb(83,199,240)] mt-20 mb-16">
@@ -86,7 +87,10 @@ export default function EditImageUpload({ initialImage }) {
                 <span className="text-xs px-2 top-1 left-1 bg-[rgb(83,199,240)] text-white p-1 rounded-xl absolute">
                   대표
                 </span>
-                <button className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full">
+                <button
+                  type="button"
+                  className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full"
+                >
                   <FiTrash2 onClick={(e) => handleDelete(e, 0)} />
                 </button>
               </div>
@@ -99,7 +103,10 @@ export default function EditImageUpload({ initialImage }) {
               <label htmlFor="file" className="z-10">
                 <div className=" flex m-3 text-[rgb(83,199,240)]">
                   <div className="bg-[#D9D9D9] rounded-lg sm:p-8 p-2">
-                    <BsPlusLg className="sm:w-20 sm:h-20 w-16 h-16" />
+                    <BsPlusLg
+                      type="button"
+                      className="sm:w-20 sm:h-20 w-16 h-16"
+                    />
                   </div>
                 </div>
               </label>
@@ -121,7 +128,10 @@ export default function EditImageUpload({ initialImage }) {
                   onClick={() => selectThumnail(1)}
                   className="max-w-36 max-h-36"
                 />
-                <button className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full">
+                <button
+                  type="button"
+                  className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full"
+                >
                   <FiTrash2 onClick={(e) => handleDelete(e, 1)} />
                 </button>
               </div>
@@ -156,7 +166,10 @@ export default function EditImageUpload({ initialImage }) {
                   onClick={() => selectThumnail(2)}
                   className="max-w-36 max-h-36"
                 />
-                <button className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full">
+                <button
+                  type="button"
+                  className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full"
+                >
                   <FiTrash2 onClick={(e) => handleDelete(e, 2)} />
                 </button>
               </div>
@@ -191,7 +204,10 @@ export default function EditImageUpload({ initialImage }) {
                   onClick={() => selectThumnail(3)}
                   className="max-w-36 max-h-36"
                 />
-                <button className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full">
+                <button
+                  type="button"
+                  className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full"
+                >
                   <FiTrash2 onClick={(e) => handleDelete(e, 3)} />
                 </button>
               </div>

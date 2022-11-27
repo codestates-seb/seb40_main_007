@@ -9,6 +9,8 @@ import {
   userAvatar,
   userId,
   userName,
+  userEmail,
+  isSocial,
 } from "../atoms/loginTest";
 
 export default function LogoutPage() {
@@ -18,6 +20,8 @@ export default function LogoutPage() {
   const [, setUserAvatar] = useRecoilState(userAvatar);
   const [, setUserId] = useRecoilState(userId);
   const [, setUserName] = useRecoilState(userName);
+  const [, setUserEmail] = useRecoilState(userEmail);
+  const [, setIsSocial] = useRecoilState(isSocial);
 
   const userLogout = () => {
     swal("Good Bye!", "로그아웃 되었습니다");
@@ -26,7 +30,9 @@ export default function LogoutPage() {
     setUserAvatar("");
     setUserId("");
     setUserName("");
+    setUserEmail("");
     navigate("/");
+    setIsSocial(false);
   };
 
   return (

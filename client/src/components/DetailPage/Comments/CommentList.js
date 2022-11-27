@@ -13,7 +13,7 @@ const CommentList = () => {
           댓글
         </span>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2">
+      <div className="grid grid-cols-1 lg:grid-cols-1">
         {detailInfo?.comments !== undefined
           ? detailInfo?.comments.map((comment) => (
               <Comment key={comment.commentId} props={comment} />
