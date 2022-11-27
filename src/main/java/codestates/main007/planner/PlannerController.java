@@ -15,26 +15,27 @@ public class PlannerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void postPlanner(
+    public MultiResponseDto<PlannerDto.MyPlannersResponse> postPlanner(
             @RequestHeader(name = "Authorization") String accessToken,
             @RequestBody PlannerDto.Input inputDto) throws IOException {
 
-        plannerService.save(accessToken, inputDto);
+        return MultiResponseDto.of(plannerService.save(accessToken, inputDto));
     }
 
-    @PatchMapping("/{planner-id}")//일단 이름만 바꿀 수 있음.
+    @PatchMapping("/{planner-id}")
     @ResponseStatus(HttpStatus.OK)
-    public void patchPlanner(@RequestHeader(name = "Authorization") String accessToken,
-                             @PathVariable("planner-id") long plannerId,
-                             @RequestBody PlannerDto.Input patchDto) {
+    public MultiResponseDto<PlannerDto.MyPlannersResponse> patchPlanner(@RequestHeader(name = "Authorization") String accessToken,
+                                                                        @PathVariable("planner-id") long plannerId,
+                                                                        @RequestBody PlannerDto.Input patchDto) {
 
-        plannerService.update(accessToken, plannerId, patchDto);
+        return MultiResponseDto.of(plannerService.update(accessToken, plannerId, patchDto));
     }
 
     @GetMapping("/{planner-id}")
     @ResponseStatus(HttpStatus.OK)
     public PlannerDto.MyPlannerResponse getMyPlannerPage(@RequestHeader(name = "Authorization") String accessToken,
-                                                         @PathVariable("planner-id") long plannerId) throws InterruptedException {
+                                                         @PathVariable("planner-id") long plannerId)
+            throws InterruptedException {
 
         return plannerService.getMyPlannerPage(accessToken, plannerId);
     }
@@ -48,10 +49,10 @@ public class PlannerController {
     }
 
     @DeleteMapping("/{planner-id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePlanner(@RequestHeader(name = "Authorization") String accessToken,
-                              @PathVariable("planner-id") long plannerId) throws IOException {
+    @ResponseStatus(HttpStatus.OK)
+    public MultiResponseDto<PlannerDto.MyPlannersResponse> deletePlanner(@RequestHeader(name = "Authorization") String accessToken,
+                                                                         @PathVariable("planner-id") long plannerId) {
 
-        plannerService.deletePlanner(accessToken, plannerId);
+        return MultiResponseDto.of(plannerService.delete(accessToken, plannerId));
     }
 }
