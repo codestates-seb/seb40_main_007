@@ -64,7 +64,7 @@ public class MemberService {
         return memberRepository.save(createdMember);
     }
 
-    public void saveOAuthMember(String name, String email, String avatar){
+    public void saveOAuthMember(String name, String email, String avatar) {
         Member oAuthMember = Member.builder()
                 .name(name)
                 .email(email)
@@ -75,12 +75,14 @@ public class MemberService {
 
     public void update(String accessToken, MemberDto.Patch patchDto) {
         Member member = findByAccessToken(accessToken);
-
+        if (memberRepository.countByName(patchDto.getName()) != 0) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+        }
         member.patchMember(patchDto.getName(), patchDto.getPassword(), passwordEncoder());
         memberRepository.save(member);
     }
 
-    public void updateAvatar(String accessToken,MultipartFile image) throws IOException {
+    public void updateAvatar(String accessToken, MultipartFile image) throws IOException {
         Member member = findByAccessToken(accessToken);
         String avatarUrl = imageHandler.updateAvatar(image, member);
 
@@ -91,15 +93,19 @@ public class MemberService {
 
     public Member find(long memberId) {
         return memberRepository.findById(memberId)
-                .orElseThrow(() -> new NullPointerException("해당 멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 
     public Member findByEmail(String email) {
         return memberRepository.findByEmail(email)
-                .orElseThrow(() -> new NullPointerException("해당 멤버가 존재하지 않습니다."));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 
-    public int countByEmail(String email){
+    public int countByName(String name) {
+        return memberRepository.countByName(name);
+    }
+
+    public int countByEmail(String email) {
         return memberRepository.countByEmail(email);
     }
 
@@ -131,7 +137,7 @@ public class MemberService {
         Member member = findByAccessToken(accessToken);
 
         if (!passwordEncoder().matches(password, member.getPassword())) {
-            throw new Exception("비밀번호가 다릅니다.");
+            throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
         }
     }
 
@@ -198,7 +204,7 @@ public class MemberService {
             Board board = boardRepository.findById(myPage.getBoardId()).get();
             boolean isDibs = false;
             Optional<BoardMember> boardMember = boardMemberRepository.findByMemberAndBoard(member, board);
-            if (boardMember.isPresent()){
+            if (boardMember.isPresent()) {
                 isDibs = boardMember.get().isDibs();
             }
             myPage.setDibs(isDibs);
@@ -226,7 +232,7 @@ public class MemberService {
 //                PageRequest.of(page, size, sort));
 //    }
 
-    public void deleteMember(String accessToken, String password){
+    public void deleteMember(String accessToken, String password) {
         verifyPassword(accessToken, password);
         Member member = findByAccessToken(accessToken);
 

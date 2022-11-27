@@ -37,30 +37,30 @@ public class OAuthMemberAuthenticationSuccessHandler extends SimpleUrlAuthentica
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException {
 
-        var oAuth2User = (OAuth2User)authentication.getPrincipal();
+        var oAuth2User = (OAuth2User) authentication.getPrincipal();
         String name;
         String email;
         String avatar;
         List<String> authorities;
         //Google
-        if(String.valueOf(oAuth2User.getAttributes()).startsWith("{s")){
+        if (String.valueOf(oAuth2User.getAttributes()).startsWith("{s")) {
             name = String.valueOf(oAuth2User.getAttributes().get("name"));
             email = String.valueOf(oAuth2User.getAttributes().get("email"));
             avatar = String.valueOf(oAuth2User.getAttributes().get("picture"));
             authorities = authorityUtils.createRoles(email);
         }
         //Naver
-        else if(String.valueOf(oAuth2User.getAttributes()).startsWith("{r")){
-            Map<String,Object> map=(Map<String,Object>)oAuth2User.getAttributes().get("response");
+        else if (String.valueOf(oAuth2User.getAttributes()).startsWith("{r")) {
+            Map<String, Object> map = (Map<String, Object>) oAuth2User.getAttributes().get("response");
             name = String.valueOf(map.get("nickname"));
             email = String.valueOf(map.get("email"));
             avatar = String.valueOf(map.get("profile_image"));
             authorities = authorityUtils.createRoles(email);
         }
         //Kakao
-        else{
-            Map<String,Object> map=(Map<String,Object>)oAuth2User.getAttributes().get("properties");
-            Map<String,Object> emailMap=(Map<String,Object>)oAuth2User.getAttributes().get("kakao_account");
+        else {
+            Map<String, Object> map = (Map<String, Object>) oAuth2User.getAttributes().get("properties");
+            Map<String, Object> emailMap = (Map<String, Object>) oAuth2User.getAttributes().get("kakao_account");
             name = String.valueOf(map.get("nickname"));
             email = String.valueOf(emailMap.get("email"));
             avatar = String.valueOf(map.get("profile_image"));
@@ -69,6 +69,10 @@ public class OAuthMemberAuthenticationSuccessHandler extends SimpleUrlAuthentica
 
         // 이메일 등록 여부 체크
         if (memberService.countByEmail(email) == 0) {
+            int i = 1;
+            while (memberService.countByName(name) != 0) {
+                name += i++;
+            }
             saveMember(name, email, avatar);
         }
 
@@ -76,7 +80,7 @@ public class OAuthMemberAuthenticationSuccessHandler extends SimpleUrlAuthentica
         log.info("# Authenticated successfully!");
     }
 
-    private void saveMember(String name,String email, String avatar) {
+    private void saveMember(String name, String email, String avatar) {
         memberService.saveOAuthMember(name, email, avatar);
     }
 
