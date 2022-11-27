@@ -411,7 +411,7 @@ public class ImageHandler {
 
                 BoardImage boardImage = boardImageRepository.findByStoredFilePath(imageUrl);
 
-//                boardImageRepository.delete(boardImage);
+                boardImageRepository.delete(boardImage);
 //                boardImage = boardImageRepository.save(BoardImage.builder()
 //                        .board(board)
 //                        .originalFileName(fileName)
