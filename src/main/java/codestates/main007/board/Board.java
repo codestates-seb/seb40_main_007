@@ -134,7 +134,7 @@ public class Board {
             this.address = address;
         }
     }
-    public void updateTimeFromStation(int TimeFromStation){
+    public void updateTimeFromStation(int timeFromStation){
         this.timeFromStation = timeFromStation;
     }
     // 해당 게시글의 추천 수 변경 메서드 (총 추천합, 추천 수, 비추천 수 )

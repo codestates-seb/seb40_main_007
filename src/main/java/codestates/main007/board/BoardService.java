@@ -90,15 +90,15 @@ public class BoardService {
                 patch.getCategoryId(),
                 patch.getAddress());
 
+        if (patch.getLatitude() != null || patch.getLongitude() != null || patch.getStationId() != null) {
+            Station station = new Station(patch.getStationId().intValue());
+            double startLat = station.getLatitude();
+            double startLong = station.getLongitude();
+            double endLat = updatedBoard.getLatitude();
+            double endLong = updatedBoard.getLongitude();
 
-        Station station = new Station(patch.getStationId().intValue());
-        double startLat = station.getLatitude();
-        double startLong = station.getLongitude();
-        double endLat = updatedBoard.getLatitude();
-        double endLong = updatedBoard.getLongitude();
-
-        updatedBoard.updateTimeFromStation(distanceService.getTime(startLat, startLong, endLat, endLong));
-
+            updatedBoard.updateTimeFromStation(distanceService.getTime(startLat, startLong, endLat, endLong));
+        }
 
         List<Long> tagIds = patch.getTags();
 
