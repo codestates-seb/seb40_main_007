@@ -1,9 +1,51 @@
 import LoginHeader from "../components/LoginHeader";
-import ConfirmPasword from "../components/editpassword/ConfirmPassword";
-import { useState } from "react";
+import { useRecoilValue } from "recoil";
+import { accessToken } from "../atoms/loginTest";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import swal from "sweetalert";
 
 export default function SignoutPage() {
-  const [showModal, setShowModal] = useState(false);
+  const TOKEN = useRecoilValue(accessToken);
+  const navigate = useNavigate();
+  console.log(TOKEN);
+  const handleClick = () => {
+    swal({
+      title: "정말 탈퇴하시겠습니까?",
+      text: "앞으로 저희 역이요 만의 서비스를 이용하실 수 없게 됩니다.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        const config = {
+          headers: { Authorization: TOKEN },
+        };
+        axios
+          .delete(
+            `http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/members`,
+            {
+              data: {
+                password: "",
+              },
+            },
+            config
+          )
+          .then((response) => {
+            swal("탈퇴되었습니다.", {
+              icon: "success",
+            });
+            console.log(response);
+            navigate(`/`);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        swal("탈퇴를 취소하셨습니다");
+      }
+    });
+  };
   return (
     <>
       <LoginHeader />
@@ -31,11 +73,10 @@ export default function SignoutPage() {
           <div className="w-fit m-auto">
             <button
               className="text-white font-semibold w-fit  bg-gradient-to-tl from-white to-[rgb(83,199,240)] py-2 mb-4 px-6 rounded-md"
-              onClick={() => setShowModal(true)}
+              onClick={handleClick}
             >
               탈퇴
             </button>
-            {showModal ? <ConfirmPasword setShowModal={setShowModal} /> : null}
           </div>
         </div>
       </div>

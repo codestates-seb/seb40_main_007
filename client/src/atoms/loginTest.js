@@ -1,47 +1,46 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
-import { v1 } from "uuid";
 
 const { persistAtom } = recoilPersist();
 
 export const accessToken = atom({
-  key: `access/${v1}`,
+  key: `access`,
   default: "",
   effects_UNSTABLE: [persistAtom],
 });
 
 export const refereshToken = atom({
-  key: `referesh/${v1}`,
+  key: `referesh`,
   default: "",
   effects_UNSTABLE: [persistAtom],
 });
 
 export const userName = atom({
-  key: `name/${v1}`,
+  key: `name`,
   default: "",
   effects_UNSTABLE: [persistAtom],
 });
 
 export const userAvatar = atom({
-  key: `avatar/${v1}`,
+  key: `avatar`,
   default: "",
   effects_UNSTABLE: [persistAtom],
 });
 
 export const userId = atom({
-  key: `memberId/${v1}`,
+  key: `memberId`,
   default: "",
   effects_UNSTABLE: [persistAtom],
 });
 
 export const userEmail = atom({
-  key: `email/${v1}`,
+  key: `email`,
   default: "",
   effects_UNSTABLE: [persistAtom],
 });
 
 export const isSocial = atom({
-  key: "email",
+  key: "social",
   default: false,
   effects_UNSTABLE: [persistAtom],
 });

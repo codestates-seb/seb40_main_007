@@ -42,6 +42,7 @@ export default function Callback() {
         config
       )
       .then((response) => {
+        // console.log(response.data);
         setUserName(response.data.name);
         setUserAvatar(response.data.avatar);
         setUserId(response.data.memberId);

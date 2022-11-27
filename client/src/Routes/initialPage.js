@@ -17,17 +17,19 @@ export default function InitialPage() {
             />
           </div>
           <div className="text-center my-3">
-            <a href="http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google">
+            <a
+              href={`${process.env.REACT_APP_URL}/oauth2/authorization/google`}
+            >
               <FcGoogle className="w-8 h-8 inline m-1" />
             </a>
-            <a href="http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/kakao">
+            <a href={`${process.env.REACT_APP_URL}/oauth2/authorization/kakao`}>
               <img
                 src="images/kakao.png"
                 alt="kakao"
                 className="w-8 h-8 inline rounded-md"
               />
             </a>
-            <a href="http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/naver">
+            <a href={`${process.env.REACT_APP_URL}/oauth2/authorization/naver`}>
               <img
                 src="images/naver.png"
                 alt="naver"
@@ -45,9 +47,11 @@ export default function InitialPage() {
               SignUp
             </div>
           </Link>
-          <div className="text-center text-sm text-[rgb(49,124,151)] border-b border-[rgb(49,124,151)] w-fit m-auto pt-4">
-            forgot password?
-          </div>
+          <Link to="/forgotPassword">
+            <div className="text-center text-sm text-[rgb(49,124,151)] border-b border-[rgb(49,124,151)] w-fit m-auto pt-4">
+              forgot password?
+            </div>
+          </Link>
         </div>
       </div>
     </>

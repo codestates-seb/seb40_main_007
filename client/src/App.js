@@ -15,6 +15,7 @@ import PostPage from "./Routes/postPage";
 import DetailPage from "./Routes/detailPage";
 import NotFoundPage from "./Routes/notFound";
 import Callback from "./Routes/callback";
+import ForgotPassword from "./Routes/forgotPassword";
 // myPages
 import MyProfilePage from "./Routes/myPages/myProfilePage";
 import EditMyInfoPage from "./Routes/myPages/editMyInfoPage";
@@ -45,6 +46,7 @@ function App() {
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/signout" element={<SignoutPage />} />
             <Route path="/initial" element={<InitialPage />} />
+            <Route path="/forgotPassword" element={<ForgotPassword />} />
             <Route path="/main/:id" element={<MainPage />} />
             <Route path="/detail/:id" element={<DetailPage />} />
             <Route path="/post/:id" element={<PostPage />} />
