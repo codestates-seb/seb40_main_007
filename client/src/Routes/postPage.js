@@ -157,7 +157,6 @@ export default function PostPage() {
       <div className="pb-30 max-w-5xl m-auto">
         <PostTrainStationSelect />
         <PostMap />
-
         <ImageUpload />
 
         <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 pt-2 text-18 text-[rgb(83,199,240)] mt-16">
