@@ -411,15 +411,16 @@ public class ImageHandler {
 
                 BoardImage boardImage = boardImageRepository.findByStoredFilePath(imageUrl);
 
+                BoardImage newBoardImage = boardImageRepository.save(BoardImage.builder()
+                        .board(board)
+                        .originalFileName(boardImage.getOriginalFileName())
+                        .storedFilePath(boardImage.getStoredFilePath())
+                        .fileSize(boardImage.getFileSize())
+                        .build());
                 boardImageRepository.delete(boardImage);
-//                boardImage = boardImageRepository.save(BoardImage.builder()
-//                        .board(board)
-//                        .originalFileName(fileName)
-//                        .storedFilePath(amazonS3.getUrl(bucket, fileName).toString())
-//                        .fileSize(boardImage.getFileSize())
-//                        .build());
-                boardImageRepository.save(boardImage);
-                boardImages.add(boardImage);
+
+                boardImageRepository.save(newBoardImage);
+                boardImages.add(newBoardImage);
 
                 if (i == 0) {
                     log.info("# Run 'u' thumbnail access");
