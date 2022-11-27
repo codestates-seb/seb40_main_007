@@ -90,7 +90,7 @@ public class BoardService {
                 patch.getCategoryId(),
                 patch.getAddress());
 
-        if (patch.getLatitude() != null || patch.getLongitude() != null) {
+        if (patch.getLatitude() != null || patch.getLongitude() != null || patch.getStationId() != null) {
             Station station = new Station(patch.getStationId().intValue());
             double startLat = station.getLatitude();
             double startLong = station.getLongitude();
@@ -104,7 +104,7 @@ public class BoardService {
 
         updatedBoard.setTags(tagService.findAll(tagIds));
 
-        List<BoardImage> list = imageHandler.updateImages(updatedBoard,patch.getPriority(), images, patch.getUrls());
+        List<BoardImage> list = imageHandler.updateImages(updatedBoard, patch.getPriority(), images, patch.getUrls());
 
         List<BoardImage> boardImages = new ArrayList<>();
         for (BoardImage tempImage : list) {
@@ -137,7 +137,7 @@ public class BoardService {
         // 전체 리스트 조회
         if (categoryId == 0) {
             return boardRepository.findByStationId(stationId, PageRequest.of(page, size, sort));
-        }else {
+        } else {
             return boardRepository.findByStationIdAndCategoryId(stationId, categoryId,
                     PageRequest.of(page, size, sort));
         }
