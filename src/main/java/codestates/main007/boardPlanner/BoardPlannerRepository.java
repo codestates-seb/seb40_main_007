@@ -9,4 +9,5 @@ import java.util.List;
 public interface BoardPlannerRepository extends JpaRepository<BoardPlanner, Long> {
     BoardPlanner findBoardPlannerByBoardAndPlanner(Board board, Planner planner);
     List<BoardPlanner> findAllByPlanner(Planner planner);
+    List<BoardPlanner> findAllByBoardAndPlanner(Board board,Planner planner);
 }
