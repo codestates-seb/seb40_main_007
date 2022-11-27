@@ -37,7 +37,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
             request.setAttribute("exception", se);
         } catch (ExpiredJwtException ee) {
             //todo
-            request.setAttribute("exception", ee);
+            request.setAttribute("jwt_expired", ee);
         } catch (Exception e) {
             request.setAttribute("exception", e);
         }
