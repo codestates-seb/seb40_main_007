@@ -22,7 +22,7 @@ public class EmailService {
         message.addRecipients(MimeMessage.RecipientType.TO, address);
         message.setFrom(FROM_ADDRESS);
         message.setSubject("안녕하세요 역이요입니다");
-        message.setText("<div align='center' style='margin:100px; font-family: Malgun Gothic; background-image:url(https://pre-032-bucket.s3.ap-northeast-2.amazonaws.com/background.png); background-size: cover'>\n" +
+        message.setText("<div align='center' style='margin:100px; font-family: Malgun Gothic;>\n" +
                         "<div style='background-color:white; opacity:0.7; border-bottom-left-radius: 3em; border-bottom-right-radius: 3em;'>\n" +
                         "<br>" +
                         "<h1>안녕하세요<br>당신의 여행파트너! 역이요입니다</h1>\n" +
@@ -36,7 +36,7 @@ public class EmailService {
                         "<p>귀하의 임시 비밀번호는 <strong>"+password+"</strong> 입니다.</p>\n" +
                         "<p>반드시 비밀번호를 변경해주세요!</p>\n" +
                         "</div>\n" +
-                        "<p>홈페이지로 이동 : <a href='www.naver.com'>배포링크로 변경</a></p>"
+                        "<p>홈페이지로 이동 : <a href='http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080'>역이요 홈페이지 바로가기</a></p>"
                 ,"utf-8","html");
         //todo : 배포링크로 변경
         mailSender.send(message);
