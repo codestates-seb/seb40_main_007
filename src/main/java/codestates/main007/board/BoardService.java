@@ -91,7 +91,7 @@ public class BoardService {
                 patch.getAddress());
 
         if (patch.getLatitude() != null || patch.getLongitude() != null) {
-            Station station = new Station((int) updatedBoard.getStationId());
+            Station station = new Station(patch.getStationId().intValue());
             double startLat = station.getLatitude();
             double startLong = station.getLongitude();
             double endLat = updatedBoard.getLatitude();
