@@ -20,11 +20,13 @@ export default function InitialPage() {
             <a href="http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google">
               <FcGoogle className="w-8 h-8 inline m-1" />
             </a>
-            <img
-              src="images/kakao.png"
-              alt="kakao"
-              className="w-8 h-8 inline rounded-md"
-            />
+            <a href="http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/kakao">
+              <img
+                src="images/kakao.png"
+                alt="kakao"
+                className="w-8 h-8 inline rounded-md"
+              />
+            </a>
             <a href="http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/naver">
               <img
                 src="images/naver.png"
