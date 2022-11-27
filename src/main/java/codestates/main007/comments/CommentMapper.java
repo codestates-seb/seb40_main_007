@@ -32,6 +32,7 @@ public interface CommentMapper {
                     .builder()
                     .commentId(comment.getCommentId())
                     .comment(comment.getComment())
+                    .createdAt(comment.getCreatedAt())
                     .writer(writer)
                     .build();
 
