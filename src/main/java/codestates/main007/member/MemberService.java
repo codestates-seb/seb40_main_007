@@ -219,6 +219,10 @@ public class MemberService {
         memberRepository.delete(member);
     }
 
+    public List<Member> findAllMembers(){
+        return memberRepository.findAll();
+    }
+
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }

@@ -260,4 +260,8 @@ public class BoardService {
         }
         return booleans;
     }
+
+    public List<Board> findAllBoards(){
+        return boardRepository.findAll();
+    }
 }

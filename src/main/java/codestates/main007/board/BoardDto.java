@@ -114,4 +114,11 @@ public class BoardDto {
         private int timeFromStation;
         private boolean dibs;
     }
+
+    @Getter
+    @Builder
+    public static class Reported {
+        private long boardId;
+        private String title;
+    }
 }
