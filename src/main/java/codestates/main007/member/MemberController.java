@@ -1,5 +1,6 @@
 package codestates.main007.member;
 
+import codestates.main007.auth.filter.JwtAuthenticationFilter;
 import codestates.main007.board.Board;
 import codestates.main007.board.BoardRepository;
 import codestates.main007.comments.Comment;
@@ -10,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,6 +32,7 @@ public class MemberController {
     private final CommentRepository commentRepository;
     private final MemberMapper memberMapper;
     private final EmailService emailService;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
@@ -135,6 +139,18 @@ public class MemberController {
                             @RequestBody MemberDto.Patch patchDto) throws IOException {
 
         memberService.update(accessToken, patchDto);
+    }
+
+    @PostMapping("/refresh-token")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<String> validateRefreshToken(@RequestHeader(name = "RefreshToken") String refreshToken){
+
+        String reissuedToken = memberService.reissueAccessToken(refreshToken);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Authorization", reissuedToken);
+        return ResponseEntity.ok()
+                .headers(responseHeaders)
+                .body("AccessToken reissued!");
     }
 
     @PostMapping("/logout")

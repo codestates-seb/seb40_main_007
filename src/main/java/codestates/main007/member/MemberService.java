@@ -29,9 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -88,6 +86,8 @@ public class MemberService {
 
         memberRepository.save(member);
     }
+
+
 
     public void saveRefreshToken(long memberId, String refreshToken) {
         Member member = find(memberId);
@@ -214,6 +214,37 @@ public class MemberService {
             myPage.setDibs(isDibs);
         }
         return memberDtos;
+    }
+
+    public Member findVerifiedMember(String refreshToken) {
+        Optional<Member> optionalMember =
+                memberRepository.findByRefreshToken(refreshToken);
+        Member findMember =
+                optionalMember.orElseThrow(() ->
+                        new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        return findMember;
+    }
+
+    public String reissueAccessToken(String refreshToken){
+        Member member = findVerifiedMember(refreshToken);
+        String accessToken = delegateAccessToken(member);
+        return accessToken;
+    }
+
+    private String delegateAccessToken(Member member) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("email", member.getEmail());
+        claims.put("memberId", member.getMemberId());
+        claims.put("roles", member.getRoles());
+
+        String subject = member.getEmail();
+        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
+
+        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+
+        String accessToken = jwtTokenizer.generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
+
+        return accessToken;
     }
 
     //삭제예정
