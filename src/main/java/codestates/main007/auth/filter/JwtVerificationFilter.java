@@ -34,11 +34,9 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
             Map<String, Object> claims = verifyJws(request);
             setAuthenticationToContext(claims);
         } catch (SignatureException se) {
-            request.setAttribute("exception", se);
+            request.setAttribute("signature_exception", se);
         } catch (ExpiredJwtException ee) {
-            //todo
-            response.sendError(401,"TOKEN_EXPIRED");
-
+            request.setAttribute("EXPIRED_TOKEN", ee);
         } catch (Exception e) {
             request.setAttribute("exception", e);
         }
