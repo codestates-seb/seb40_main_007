@@ -37,7 +37,7 @@ public class BoardPlannerService {
                     .build();
             List<BoardPlanner> list = boardPlannerRepository.findAllByBoardAndPlanner(boardService.find(boardId),
                     plannerService.find(plannerId));
-            if(!list.isEmpty()){
+            if(list.isEmpty()){
                 boardPlannerRepository.save(boardPlanner);
             }
             else {
