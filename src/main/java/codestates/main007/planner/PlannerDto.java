@@ -39,7 +39,7 @@ public class PlannerDto {
         private long plannerId;
         private String plannerName;
         List<BoardDto.boardsResponse> boards;
-        private List<Integer> timeBetweenBoards;
+        private List<Time> timeBetweenBoards;
         private int wholeTime;
     }
 
@@ -68,5 +68,14 @@ public class PlannerDto {
         private int upScore;
         private int downScore;
         private TagDto.Response tags;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Time{
+        private String type;
+        private int time;
     }
 }

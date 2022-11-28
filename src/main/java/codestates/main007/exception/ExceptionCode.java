@@ -14,7 +14,7 @@ public enum ExceptionCode {
     PLANNER_NOT_FOUND(404,"Planner exists"),
     BOARDPLANNER_EXISTS(409,"Boardplanner exists"),
     BOARDPLANNER_NOT_FOUND(404,"Boardplanner not found"),
-    CAN_NOT_MEASUERING(404,"CAN_NOT_MEASUERING"),
+    CAN_NOT_MEASUERMENT(501,"can not measure distance"),
     EXPIRED_TOKEN(401,"Expired Token")
     ;
     private final int status;

@@ -31,7 +31,7 @@ public class PlannerService {
 
     public List<PlannerDto.MyPlannersResponse> save(String accessToken, PlannerDto.Input inputDto) throws IOException {
         String plannerName = plannerMapper.inputDtoToentity(inputDto).getPlannerName();
-        if(plannerRepository.findByPlannerName(plannerName).isEmpty()){
+        if (plannerRepository.findByPlannerName(plannerName).isEmpty()) {
             Planner createdPlanner = Planner.builder()
                     .plannerName(plannerName)
                     .member(memberService.findByAccessToken(accessToken))
@@ -39,8 +39,8 @@ public class PlannerService {
             plannerRepository.save(createdPlanner);
 
             return getMyPlanners(accessToken);
-        }
-        else throw new ResponseStatusException(ExceptionCode.PLANNER_EXISTS.getStatus(), ExceptionCode.PLANNER_EXISTS.getMessage(), new IllegalArgumentException());
+        } else
+            throw new ResponseStatusException(ExceptionCode.PLANNER_EXISTS.getStatus(), ExceptionCode.PLANNER_EXISTS.getMessage(), new IllegalArgumentException());
 
     }
 
@@ -50,28 +50,29 @@ public class PlannerService {
             updatedPlanner.patchPlanner(patchDto.getPlannerName());
             plannerRepository.save(updatedPlanner);
             return getMyPlanners(accessToken);
-        } else throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
+        } else
+            throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
     }
 
     public PlannerDto.MyPlannerResponse getMyPlannerPage(String accessToken, long plannerId) throws InterruptedException {
         Planner planner = find(plannerId);
         List<BoardPlanner> boardPlanners = find(plannerId).getBoardPlanners();
-        List<Integer> timeList = getTimeBetweenBoardsList(
+        List<PlannerDto.Time> timeList = getTimeBetweenBoardsList(
                 boardPlanners.stream()
                         .sorted(Comparator.comparing(BoardPlanner::getPriority))
                         .map(BoardPlanner::getBoard)
                         .collect(Collectors.toList()));
         if (memberService.findByAccessToken(accessToken).equals(planner.getMember())) {
             return getMyPlannerResponse(plannerId, planner, timeList, boardMapper);
-        } else throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
+        } else
+            throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
     }
 
-    public PlannerDto.MyPlannerResponse getMyPlannerResponse(long plannerId, Planner planner, List<Integer> timeList, BoardMapper boardMapper) {
+    public PlannerDto.MyPlannerResponse getMyPlannerResponse(long plannerId, Planner planner, List<PlannerDto.Time> timeList, BoardMapper boardMapper) {
         int wholeTme = 0;
-        for (int a : timeList){
-            if (a != 777777){
-                wholeTme+=a;
-            }
+        for (PlannerDto.Time time : timeList) {
+            wholeTme += time.getTime();
+
         }
         PlannerDto.MyPlannerResponse responseDto = PlannerDto.MyPlannerResponse.builder()
                 .plannerId(plannerId)
@@ -82,13 +83,12 @@ public class PlannerService {
                         .collect(Collectors.toList()))
                 )
                 .timeBetweenBoards(timeList)
-//                .wholeTime(timeList.stream().mapToInt(t -> t).sum())
                 .wholeTime(wholeTme)
                 .build();
         return responseDto;
     }
 
-    public List<PlannerDto.MyPlannersResponse> getMyPlanners(String accessToken){
+    public List<PlannerDto.MyPlannersResponse> getMyPlanners(String accessToken) {
         Member member = memberService.findByAccessToken(accessToken);
         List<Planner> planners = plannerRepository.findAllByMember(member);
         return plannerMapper.entityListToResponseDtoList(planners);
@@ -104,16 +104,19 @@ public class PlannerService {
         return plannerRepository.findById(plannerId)
                 .orElseThrow(() -> new ResponseStatusException(ExceptionCode.PLANNER_NOT_FOUND.getStatus(), ExceptionCode.PLANNER_NOT_FOUND.getMessage(), new IllegalArgumentException()));
     }
-    public List<Integer> getTimeBetweenBoardsList(List<Board> boards) throws InterruptedException {
-        List<Integer> timeList = new ArrayList<>();
-        for (int i = 0; i < boards.size()-1; i++) {
-            if (boards.get(i)!=boards.get(i+1)){
+
+    public List<PlannerDto.Time> getTimeBetweenBoardsList(List<Board> boards) throws InterruptedException {
+        List<PlannerDto.Time> timeList = new ArrayList<>();
+        for (int i = 0; i < boards.size() - 1; i++) {
+            if (boards.get(i) != boards.get(i + 1)) {
                 timeList.add(
-                  777777
+                        PlannerDto.Time.builder()
+                                .type("train")
+                                .build()
                 );
-            }else {
+            } else {
                 timeList.add(
-                        getTimeBetweenBoards(boards.get(i), boards.get(i+1))
+                        getTimeBetweenBoards(boards.get(i), boards.get(i + 1))
                 );
             }
 
@@ -122,8 +125,8 @@ public class PlannerService {
         return timeList;
     }
 
-    public int getTimeBetweenBoards(Board from, Board to) {
-        return distanceMeasuringService.getTime(from.getLatitude(),
+    public PlannerDto.Time getTimeBetweenBoards(Board from, Board to) throws InterruptedException {
+        return distanceMeasuringService.getPlannerTime(from.getLatitude(),
                 from.getLongitude(),
                 to.getLatitude(),
                 to.getLongitude());
