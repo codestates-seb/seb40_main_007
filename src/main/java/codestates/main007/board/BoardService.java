@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -132,7 +133,7 @@ public class BoardService {
 
     public Board find(long boardId) {
         return boardRepository.findById(boardId)
-                .orElseThrow(() -> new ResponseStatusException(ExceptionCode.BOARD_NOT_FOUND.getStatus(), ExceptionCode.BOARD_NOT_FOUND.getMessage(), new IllegalArgumentException()));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ExceptionCode.BOARD_NOT_FOUND.getMessage(), new IllegalArgumentException()));
     }
 
     public Page<Board> findBoardPage(long stationId, long categoryId, int page, int size, Sort sort) {
