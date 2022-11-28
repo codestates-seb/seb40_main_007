@@ -67,6 +67,12 @@ public class PlannerService {
     }
 
     public PlannerDto.MyPlannerResponse getMyPlannerResponse(long plannerId, Planner planner, List<Integer> timeList, BoardMapper boardMapper) {
+        int wholeTme = 0;
+        for (int a : timeList){
+            if (a != 777777){
+                wholeTme+=a;
+            }
+        }
         PlannerDto.MyPlannerResponse responseDto = PlannerDto.MyPlannerResponse.builder()
                 .plannerId(plannerId)
                 .plannerName(planner.getPlannerName())
@@ -76,7 +82,8 @@ public class PlannerService {
                         .collect(Collectors.toList()))
                 )
                 .timeBetweenBoards(timeList)
-                .wholeTime(timeList.stream().mapToInt(t -> t).sum())
+//                .wholeTime(timeList.stream().mapToInt(t -> t).sum())
+                .wholeTime(wholeTme)
                 .build();
         return responseDto;
     }
@@ -100,9 +107,16 @@ public class PlannerService {
     public List<Integer> getTimeBetweenBoardsList(List<Board> boards) throws InterruptedException {
         List<Integer> timeList = new ArrayList<>();
         for (int i = 0; i < boards.size()-1; i++) {
-            timeList.add(
-                    getTimeBetweenBoards(boards.get(i), boards.get(i+1))
-            );
+            if (boards.get(i)!=boards.get(i+1)){
+                timeList.add(
+                  777777
+                );
+            }else {
+                timeList.add(
+                        getTimeBetweenBoards(boards.get(i), boards.get(i+1))
+                );
+            }
+
             Thread.sleep(400);
         }
         return timeList;
