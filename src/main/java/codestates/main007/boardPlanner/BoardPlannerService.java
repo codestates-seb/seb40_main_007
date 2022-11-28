@@ -36,6 +36,7 @@ public class BoardPlannerService {
             BoardPlanner boardPlanner = BoardPlanner.builder()
                     .board(boardService.find(boardId))
                     .planner(plannerService.find(plannerId))
+                    .priority((int) boardId)
                     .build();
             if(list.isEmpty()){
                 boardPlannerRepository.save(boardPlanner);
