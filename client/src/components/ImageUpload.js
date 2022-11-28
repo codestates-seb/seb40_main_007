@@ -4,24 +4,50 @@ import { BsPlusLg } from "react-icons/bs";
 import { FiTrash2 } from "react-icons/fi";
 import { postImageState } from "../atoms/postInfo";
 import { useRecoilState } from "recoil";
+import swal from "sweetalert";
+import heic2any from "heic2any";
 
 export default function ImageUpload() {
   // 대표 사진 인덱스번호
   const [image, setImage] = useRecoilState(postImageState); // 이미지 배열
   const [previewImage, setPreviewImage] = useState([]); // 이미지 주소 배열
-  const FILE_SIZE_MAX_LIMIT = 8 * 1024 * 1024; // 8MB
+  const FILE_SIZE_MAX_LIMIT = 5 * 1024 * 1024; // 5MB 도 엄청큰데 8mb 맞나요!!!??
 
   // 사진파일, 미리보기파일 추가
   const handleFiles = (e) => {
     let currentImage = e.target.files[0];
     if (currentImage.size > FILE_SIZE_MAX_LIMIT) {
-      target.value = "";
-      alert("업로드 가능한 최대 용량은 5MB입니다. ");
+      currentImage = "";
+      swal(
+        "Can't Upload!",
+        "5MB 이상의 사진은 업로드 할 수 없습니다",
+        "warning"
+      );
       return;
     }
-    setImage([...image, currentImage]);
+    // heic to jpg
+    let checkType = currentImage.name.split(".");
+    if (
+      checkType[1] === "hiec" ||
+      checkType[1] === "hief" ||
+      checkType[1] === "HEIC" ||
+      checkType[1] === "HEIF"
+    ) {
+      //여기 로딩 보여줄 수 있으면 좋겠다..
+      heic2any({
+        blob: currentImage,
+        toType: "image/jpeg",
+      }).then((convertedBlob) => {
+        console.log(convertedBlob);
+        let url = URL.createObjectURL(convertedBlob);
+        setImage([...image, convertedBlob]);
+        setPreviewImage([...previewImage, url]);
+      });
+      return;
+    }
 
-    let reader = new FileReader();
+    setImage([...image, currentImage]); //현재 이미지 배열에 저장
+    let reader = new FileReader(); //현재 이미지 읽기 모드
     if (currentImage) {
       reader.readAsDataURL(currentImage);
     }
@@ -75,7 +101,7 @@ export default function ImageUpload() {
                 multiple
                 type="file"
                 id="file"
-                accept="image/*"
+                accept="image/* image/heic image/heif"
                 onChange={(e) => handleFiles(e)}
                 className="hidden"
               />
@@ -119,7 +145,7 @@ export default function ImageUpload() {
                 multiple
                 type="file"
                 id="file"
-                accept="image/*"
+                accept="image/* image/heic image/heif"
                 onChange={(e) => handleFiles(e)}
                 className="hidden"
               />
@@ -160,7 +186,7 @@ export default function ImageUpload() {
                 multiple
                 type="file"
                 id="file"
-                accept="image/*"
+                accept="image/* image/heic image/heif"
                 onChange={(e) => handleFiles(e)}
                 className="hidden"
               />
@@ -201,7 +227,7 @@ export default function ImageUpload() {
                 multiple
                 type="file"
                 id="file"
-                accept="image/*"
+                accept="image/* image/heic image/heif"
                 onChange={(e) => handleFiles(e)}
                 className="hidden"
               />

@@ -27,7 +27,7 @@ export default function ForgotPassword() {
       })
       .catch(function (error) {
         if (error.response.status === 404) {
-          swal("Can't Found!", "올바르지 않은 이메일 입니다", "warning");
+          swal("Can't Found!", "올바르지 않은 이메일 입니다", "error");
         } else console.log(error);
       });
   };

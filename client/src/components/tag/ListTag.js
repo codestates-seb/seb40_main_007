@@ -50,7 +50,7 @@ export default function ListTag() {
                   setSelectTag(idx);
                 }}
                 type="button"
-                className={`lg:py-2 py-1 px-2 -ml-[2px] my-2 lg:text-sm text-xs  text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)]
+                className={`lg:py-2 py-1 px-2 -ml-[2px] lg:my-2 my-1 lg:text-sm text-xs  text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)]
               ${idx === 0 ? "rounded-l-md" : "null"}
             ${idx === lastIndex ? "rounded-r-md" : "null"}
             ${
@@ -69,7 +69,7 @@ export default function ListTag() {
                   setSelectTag(idx);
                 }}
                 type="button"
-                className={`lg:py-2 py-1 px-2 -ml-[2px] my-2 lg:text-sm text-xs  text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)]
+                className={`lg:py-2 py-1 px-2 -ml-[2px] lg:my-2 my-1 lg:text-sm text-xs  text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)]
               ${idx === 0 ? "rounded-l-md" : "null"}
             ${idx === lastIndex ? "rounded-r-md" : "null"}
             ${
@@ -87,7 +87,7 @@ export default function ListTag() {
                   setSelectTag(idx);
                 }}
                 type="button"
-                className={`lg:py-2 py-1 lg:pt-1 px-2 lg:w-22 -ml-[2px] my-2 lg:text-sm text-xs  text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)]
+                className={`lg:py-2 py-1 lg:pt-1 px-2 lg:w-22 -ml-[2px] lg:my-2 my-1 lg:text-sm text-xs  text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)]
               ${idx === 0 ? "rounded-l-md" : "null"}
             ${idx === lastIndex ? "rounded-r-md" : "null"}
             ${

@@ -4,6 +4,8 @@ import { BsPlusLg } from "react-icons/bs";
 import { FiTrash2 } from "react-icons/fi";
 import { editImageState } from "../../atoms/editPageData";
 import { useRecoilState } from "recoil";
+import swal from "sweetalert";
+import heic2any from "heic2any";
 
 export default function EditImageUpload({ initialImage }) {
   // 대표 사진 인덱스번호
@@ -16,9 +18,37 @@ export default function EditImageUpload({ initialImage }) {
 
   const handleFiles = (e) => {
     let currentImage = e.target.files[0];
-    setImage([...image, currentImage]);
+    if (currentImage.size > FILE_SIZE_MAX_LIMIT) {
+      currentImage = "";
+      swal(
+        "Can't Upload!",
+        "5MB 이상의 사진은 업로드 할 수 없습니다",
+        "warning"
+      );
+      return;
+    }
+    // heic to jpg
+    let checkType = currentImage.name.split(".");
+    if (
+      checkType[1] === "hiec" ||
+      checkType[1] === "hief" ||
+      checkType[1] === "HEIC" ||
+      checkType[1] === "HEIF"
+    ) {
+      heic2any({
+        blob: currentImage,
+        toType: "image/jpeg",
+      }).then((convertedBlob) => {
+        console.log(convertedBlob);
+        let url = URL.createObjectURL(convertedBlob);
+        setImage([...image, convertedBlob]);
+        setPreviewImage([...previewImage, url]);
+      });
+      return;
+    }
 
-    let reader = new FileReader();
+    setImage([...image, currentImage]); //현재 이미지 배열에 저장
+    let reader = new FileReader(); //현재 이미지 읽기 모드
     if (currentImage) {
       reader.readAsDataURL(currentImage);
     }
