@@ -2,6 +2,7 @@ package codestates.main007.auth.filter;
 
 import codestates.main007.auth.jwt.JwtTokenizer;
 import codestates.main007.auth.util.CustomAuthorityUtils;
+import codestates.main007.exception.ExceptionCode;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,10 +34,10 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         try {
             Map<String, Object> claims = verifyJws(request);
             setAuthenticationToContext(claims);
-        } catch (SignatureException se) {
-            request.setAttribute("signature_exception", se);
-        } catch (ExpiredJwtException ee) {
-            request.setAttribute("EXPIRED_TOKEN", ee);
+        } catch (SignatureException e) {
+            request.setAttribute("signature_exception", e);
+        } catch (ExpiredJwtException e) {
+            request.setAttribute("EXPIRED_TOKEN", ExceptionCode.EXPIRED_TOKEN);
         } catch (Exception e) {
             request.setAttribute("exception", e);
         }
