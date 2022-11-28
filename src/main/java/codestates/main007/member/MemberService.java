@@ -97,7 +97,7 @@ public class MemberService {
 
     public void deleteRefreshToken(String accessToken){
         Member member = findByAccessToken(accessToken);
-        member.patchRefreshToken("");
+        member.patchRefreshToken(null);
         memberRepository.save(member);
     }
 
@@ -119,8 +119,8 @@ public class MemberService {
     }
 
     public Member findByAccessToken(String accessToken) {
-        long userId = jwtTokenizer.getUserId(accessToken);
-        return find(userId);
+        long memberId = jwtTokenizer.getUserId(accessToken);
+        return find(memberId);
     }
 
     public String findPassword(String email) {
