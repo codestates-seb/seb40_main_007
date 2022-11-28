@@ -1,7 +1,7 @@
 import { useRecoilState } from "recoil";
-import { editCommentState } from "../atoms/editPageData";
+import { editCommentState } from "../../atoms/editPageData";
 
-export default function OneLineInput() {
+export default function EditOneLineInput() {
   const [editComment, setEditComment] = useRecoilState(editCommentState);
   const handlePostCommemt = (e) => {
     setEditComment(e.target.value);

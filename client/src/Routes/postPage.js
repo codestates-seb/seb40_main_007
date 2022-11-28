@@ -2,7 +2,7 @@
 import Header from "../components/Header";
 import PostTrainStationSelect from "../components/PostPage/PostTrainStationSelect";
 import StartRating from "../components/StarRating";
-import OnlineInput from "../components/OneLineInput";
+import PostOneLineInput from "../components/PostPage/PostOneLineInput";
 import PostMap from "../components/PostPage/PostMap";
 import ImageUpload from "../components/ImageUpload";
 import PostCategoryTabs from "../components/PostPage/PostCategoryTabs";
@@ -175,7 +175,7 @@ export default function PostPage() {
           <ListTag />
         </div>
 
-        <OnlineInput />
+        <PostOneLineInput />
       </div>
       <div className="flex justify-center">
         <button

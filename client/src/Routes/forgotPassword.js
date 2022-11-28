@@ -3,25 +3,32 @@ import swal from "sweetalert";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+// import swal from "sweetalert";
 export default function ForgotPassword() {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState("");
   const handleChange = (e) => {
     setInputValue(e.target.value);
   };
+  console.log(inputValue);
   const handleClick = () => {
     axios
-      .post(`${process.env.REACT_APP_URL} /members/find-password`, {
-        email: inputValue,
+      .post(`${process.env.REACT_APP_URL}/members/find-password`, {
+        address: inputValue,
       })
       .then(() => {
         // -- 이 200일 경우
-        swal("Check!", "메일로 임시 비밀번호를 발급해드렸습니다", "success");
+        swal(
+          "Check Email!",
+          "메일로 임시 비밀번호를 발급해드렸습니다",
+          "success"
+        );
         navigate("/");
       })
       .catch(function (error) {
-        swal("Can't Found!", "올바르지 않은 이메일 입니다", "warning");
-        console.log(error);
+        if (error.response.status === 404) {
+          swal("Can't Found!", "올바르지 않은 이메일 입니다", "warning");
+        } else console.log(error);
       });
   };
 
@@ -43,12 +50,12 @@ export default function ForgotPassword() {
           <div className="font-semibold text-[rgb(83,199,240)] text-center my-5 lg:mx-0 mx-14">
             아이디를 입력하세요
           </div>
-          <div className="w-5/6 m-auto text-center">
+          <div className="m-auto text-center">
             <div className="w-full border rounded-lg">
               <input
                 value={inputValue}
                 onChange={(e) => handleChange(e)}
-                className="text-center p-2 w-full focus:outline-none focus:border focus:border-[rgb(83,199,240)] rounded-lg"
+                className="text-center p-2 w-full focus:outline-none focus:border focus:border-[rgb(83,199,240)] rounded-lg lg:text-base text-sm"
               />
             </div>
             <button

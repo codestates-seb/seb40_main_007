@@ -9,10 +9,16 @@ export default function ImageUpload() {
   // 대표 사진 인덱스번호
   const [image, setImage] = useRecoilState(postImageState); // 이미지 배열
   const [previewImage, setPreviewImage] = useState([]); // 이미지 주소 배열
+  const FILE_SIZE_MAX_LIMIT = 8 * 1024 * 1024; // 8MB
 
   // 사진파일, 미리보기파일 추가
   const handleFiles = (e) => {
     let currentImage = e.target.files[0];
+    if (currentImage.size > FILE_SIZE_MAX_LIMIT) {
+      target.value = "";
+      alert("업로드 가능한 최대 용량은 5MB입니다. ");
+      return;
+    }
     setImage([...image, currentImage]);
 
     let reader = new FileReader();
@@ -69,7 +75,7 @@ export default function ImageUpload() {
                 multiple
                 type="file"
                 id="file"
-                accept="image/jpg, image/jpeg, image/png, image/heif, image/heic"
+                accept="image/*"
                 onChange={(e) => handleFiles(e)}
                 className="hidden"
               />
@@ -86,7 +92,10 @@ export default function ImageUpload() {
                 <span className="lg:text-sm text-[8px] lg:px-2 px-1 top-1 left-1 bg-[rgb(83,199,240)] text-white p-1 lg:rounded-xl rounded-md absolute">
                   대표
                 </span>
-                <button className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full">
+                <button
+                  type="button"
+                  className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full"
+                >
                   <FiTrash2
                     onClick={(e) => handleDelete(e, 0)}
                     className="lg:w-5 lg:h-5 w-3 h-3"
@@ -110,7 +119,7 @@ export default function ImageUpload() {
                 multiple
                 type="file"
                 id="file"
-                accept="image/jpg, image/jpeg, image/png, image/heif, image/heic"
+                accept="image/*"
                 onChange={(e) => handleFiles(e)}
                 className="hidden"
               />
@@ -124,7 +133,10 @@ export default function ImageUpload() {
                   onClick={() => selectThumnail(1)}
                   className="rounded-lg max-w-full max-h-full"
                 />
-                <button className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full">
+                <button
+                  type="button"
+                  className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full"
+                >
                   <FiTrash2
                     onClick={(e) => handleDelete(e, 1)}
                     className="lg:w-5 lg:h-5 w-3 h-3"
@@ -148,7 +160,7 @@ export default function ImageUpload() {
                 multiple
                 type="file"
                 id="file"
-                accept="image/jpg, image/jpeg, image/png, image/heif, image/heic"
+                accept="image/*"
                 onChange={(e) => handleFiles(e)}
                 className="hidden"
               />
@@ -162,7 +174,10 @@ export default function ImageUpload() {
                   onClick={() => selectThumnail(2)}
                   className="rounded-lg max-w-full max-h-full"
                 />
-                <button className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full">
+                <button
+                  type="button"
+                  className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full"
+                >
                   <FiTrash2
                     onClick={(e) => handleDelete(e, 2)}
                     className="lg:w-5 lg:h-5 w-3 h-3"
@@ -186,7 +201,7 @@ export default function ImageUpload() {
                 multiple
                 type="file"
                 id="file"
-                accept="image/jpg, image/jpeg, image/png, image/heif, image/heic"
+                accept="image/*"
                 onChange={(e) => handleFiles(e)}
                 className="hidden"
               />
@@ -200,7 +215,10 @@ export default function ImageUpload() {
                   onClick={() => selectThumnail(3)}
                   className="rounded-lg max-w-full max-h-full"
                 />
-                <button className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full">
+                <button
+                  type="button"
+                  className="absolute right-1 top-1 bg-[rgb(83,199,240)] text-white p-1 rounded-full"
+                >
                   <FiTrash2
                     onClick={(e) => handleDelete(e, 3)}
                     className="lg:w-5 lg:h-5 w-3 h-3"
