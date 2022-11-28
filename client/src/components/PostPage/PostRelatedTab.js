@@ -11,12 +11,12 @@ const PostRelatedTab = () => {
 
   return (
     <div className="font-bold flex items-center flex-row space-x-2 mt-4 mb-1">
-      <span className="lg:mr-12 mr-5 lg:text-base text-sm">관련태그</span>
+      <span className="lg:mr-11 mr-1 lg:text-base text-sm">관련태그</span>
       {category === "식당"
         ? restarant.map((el) => (
             <button
               key={el}
-              className={`lg:text-base text-xs lg:w-16 border-2 lg:p-0 p-1 px-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] lg:rounded-full rounded-2xl m-1
+              className={`lg:text-base text-xs border-2 lg:px-3 p-1 px-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] lg:rounded-full rounded-2xl m-1
               ${
                 related === el ? "bg-[rgb(83,199,240)] text-white" : "bg-white"
               }`}
@@ -31,7 +31,7 @@ const PostRelatedTab = () => {
         ? sight.map((el) => (
             <button
               key={el}
-              className={`lg:text-base text-xs lg:w-16 border-2 lg:p-0 p-1 px-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] lg:rounded-full rounded-2xl m-1
+              className={`lg:text-base text-xs border-2 lg:px-3 p-1 px-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] lg:rounded-full rounded-2xl m-1
               ${
                 related === el ? "bg-[rgb(83,199,240)] text-white" : "bg-white"
               }`}
@@ -45,7 +45,7 @@ const PostRelatedTab = () => {
         : stay.map((el) => (
             <button
               key={el}
-              className={`lg:text-base text-xs lg:w-16 border-2 lg:p-0 p-1 px-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] lg:rounded-full rounded-2xl m-1
+              className={`lg:text-base text-xs lg:px-3 p-1 px-2 border-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] lg:rounded-full rounded-2xl m-1
               ${
                 related === el ? "bg-[rgb(83,199,240)] text-white" : "bg-white"
               }`}

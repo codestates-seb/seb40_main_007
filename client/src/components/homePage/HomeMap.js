@@ -71,7 +71,7 @@ export default function HomeMap() {
           </div>
         )}
       </div>
-      <Map level={13} center={isCenter} style={style} className="lg:m-0 m-auto">
+      <Map level={14} center={isCenter} style={style} className="lg:m-0 m-auto">
         <Polyline
           path={[
             [

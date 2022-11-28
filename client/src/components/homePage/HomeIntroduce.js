@@ -17,7 +17,7 @@ export default function HomeIntroduce() {
       >
         {/* 첫번째 소개 페이지 */}
         <SwiperSlide>
-          <div className="lg:w-full lg:h-screen h-[300px] bg-[rgb(83,199,240)] lg:pt-20 overflow-y: hidden; border-2 lg:text:base text-xs">
+          <div className="lg:w-full lg:h-screen h-[300px] bg-[rgb(83,199,240)] lg:pt-20 overflow-y: hidden; border-2 lg:text:base text-[8px]">
             <div className="lg:max-w-[1400px] h-full flex lg:justify-between justify-center font-bold m-auto items-center lg:mt-0 mt-5">
               <div className="text-white lg:ml-10 ml-2 lg:mr-0 mr-5">
                 <div className="text-[rgb(83,199,240)] lg:text-lg font-normal mb-5">
@@ -32,11 +32,11 @@ export default function HomeIntroduce() {
                   </span>
                 </div>
 
-                <div className="lg:text-7xl font-light">
+                <div className="lg:text-6xl ext-[8px] font-light">
                   <div>대한민국 기차역</div>
                   <div>주변 정보가 역이요</div>
                 </div>
-                <div className="lg:mt-10 mt-5 font-light lg:text-xl text-xs">
+                <div className="lg:mt-10 mt-5 font-light lg:text-xl text-[8px]">
                   <div>기차역 주변의 식당부터 숙소,볼거리까지</div>
                   <div> 당신의 즐거운 여행을 도와줄게요</div>
                 </div>
@@ -86,7 +86,7 @@ export default function HomeIntroduce() {
         </SwiperSlide>
         {/* 세번째 소개 페이지 */}
         <SwiperSlide>
-          <div className="w-full lg:h-screen h-[300px]  bg-gradient-to-br from-[rgb(83,199,240)] ">
+          <div className="w-full lg:h-screen h-[300px] lg:mt-0 mt-5 bg-gradient-to-br from-[rgb(83,199,240)] ">
             <div className="w-full lg:h-screen h-[300px] flex items-center justify-center font-bold m-auto">
               <img
                 src="/images/역이요소개/phone.png"
@@ -100,7 +100,7 @@ export default function HomeIntroduce() {
                 <div className="mt-1">위치기반 기차여행 커뮤니티</div>
               </div>
             </div>
-          </div>{" "}
+          </div>
         </SwiperSlide>
       </Swiper>
     </>

@@ -60,8 +60,8 @@ export default function ImageUpload() {
             <>
               <label htmlFor="file" className="z-10">
                 <div className="flex lg:m-3 m-[2px] text-[rgb(83,199,240)]">
-                  <div className="bg-[#D9D9D9] rounded-lg sm:p-8 p-2">
-                    <BsPlusLg className="sm:w-20 sm:h-20 w-16 h-16" />
+                  <div className="bg-[#D9D9D9] rounded-lg sm:p-8 p-4">
+                    <BsPlusLg className="sm:w-20 sm:h-20 w-12 h-12" />
                   </div>
                 </div>
               </label>
@@ -101,8 +101,8 @@ export default function ImageUpload() {
             <>
               <label htmlFor="file" className="z-10">
                 <div className=" flex lg:m-3 m-[2px] text-[rgb(83,199,240)]">
-                  <div className="bg-[#D9D9D9] rounded-lg sm:p-8 p-2">
-                    <BsPlusLg className="sm:w-20 sm:h-20 w-16 h-16" />
+                  <div className="bg-[#D9D9D9] rounded-lg sm:p-8 p-4">
+                    <BsPlusLg className="sm:w-20 sm:h-20 w-12 h-12" />
                   </div>
                 </div>
               </label>
@@ -139,8 +139,8 @@ export default function ImageUpload() {
             <>
               <label htmlFor="file" className="z-10">
                 <div className=" flex lg:m-3 m-[2px] text-[rgb(83,199,240)]">
-                  <div className="bg-[#D9D9D9] rounded-lg sm:p-8 p-2">
-                    <BsPlusLg className="sm:w-20 sm:h-20 w-16 h-16" />
+                  <div className="bg-[#D9D9D9] rounded-lg sm:p-8 p-4">
+                    <BsPlusLg className="sm:w-20 sm:h-20 w-12 h-12" />
                   </div>
                 </div>
               </label>
@@ -177,8 +177,8 @@ export default function ImageUpload() {
             <>
               <label htmlFor="file" className="z-10">
                 <div className=" flex lg:m-3 m-[2px] text-[rgb(83,199,240)]">
-                  <div className="bg-[#D9D9D9] rounded-lg sm:p-8 p-2">
-                    <BsPlusLg className="sm:w-20 sm:h-20 w-16 h-16" />
+                  <div className="bg-[#D9D9D9] rounded-lg sm:p-8 p-4">
+                    <BsPlusLg className="sm:w-20 sm:h-20 w-12 h-12" />
                   </div>
                 </div>
               </label>

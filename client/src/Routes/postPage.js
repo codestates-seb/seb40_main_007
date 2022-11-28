@@ -154,7 +154,7 @@ export default function PostPage() {
   return (
     <>
       <Header />
-      <div className="pb-30 lg:max-w-5xl lg:m-auto mx-2  border border-red-500">
+      <div className="pb-30 lg:max-w-5xl lg:m-auto mx-2">
         <PostTrainStationSelect />
         <PostMap />
         <ImageUpload />
@@ -180,7 +180,7 @@ export default function PostPage() {
       <div className="flex justify-center">
         <button
           disabled={disable}
-          className="bg-gray-400 w-fit m-auto text-white py-3 px-5 rounded-lg hover:bg-[rgb(83,199,240)] my-32"
+          className="bg-gray-400 w-fit m-auto text-white lg:py-3 lg:px-5 py-2 px-2 rounded-lg hover:bg-[rgb(83,199,240)] lg:my-32 my-16"
           onClick={(e) => onSubmit(e)}
         >
           작성완료
