@@ -33,9 +33,14 @@ public class BoardPlannerService {
             BoardPlanner boardPlanner = BoardPlanner.builder()
                     .board(boardService.find(boardId))
                     .planner(plannerService.find(plannerId))
-                    .priority((int)boardId)
+                    .priority((int) boardId)
                     .build();
-            boardPlannerRepository.save(boardPlanner);
+            List<BoardPlanner> list = boardPlannerRepository.findAllByBoardAndPlanner(boardService.find(boardId),
+                    plannerService.find(plannerId));
+            if(!list.isEmpty()){
+                boardPlannerRepository.save(boardPlanner);
+            }
+            else throw new BusinessLogicException(ExceptionCode.BOARDPLANNER_EXISTS);
         } else throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
     }
 
