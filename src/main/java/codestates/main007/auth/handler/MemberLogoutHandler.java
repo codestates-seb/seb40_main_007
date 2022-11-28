@@ -1,15 +1,16 @@
 package codestates.main007.auth.handler;
 
+import codestates.main007.member.Member;
 import codestates.main007.member.MemberService;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Service
-public class MemberLogoutHandler extends SecurityContextLogoutHandler {
+public class MemberLogoutHandler implements LogoutHandler {
     private final MemberService memberService;
 
     public MemberLogoutHandler(MemberService memberService) {
@@ -18,8 +19,8 @@ public class MemberLogoutHandler extends SecurityContextLogoutHandler {
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        String memberId= response.getHeader("MemberId");
+        Member member = (Member) authentication.getPrincipal();
+        memberService.deleteRefreshToken(member.getMemberId());
         //memberService.deleteRefreshToken(memberId);
-        super.logout(request, response, authentication);
     }
 }
