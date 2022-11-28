@@ -1,6 +1,5 @@
 package codestates.main007.member;
 
-import codestates.main007.auth.filter.JwtAuthenticationFilter;
 import codestates.main007.board.Board;
 import codestates.main007.board.BoardRepository;
 import codestates.main007.comments.Comment;
@@ -32,7 +31,6 @@ public class MemberController {
     private final CommentRepository commentRepository;
     private final MemberMapper memberMapper;
     private final EmailService emailService;
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)

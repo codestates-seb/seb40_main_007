@@ -228,7 +228,7 @@ public class MemberService {
     public String reissueAccessToken(String refreshToken){
         Member member = findVerifiedMember(refreshToken);
         String accessToken = delegateAccessToken(member);
-        return accessToken;
+        return "Bearer "+ accessToken;
     }
 
     private String delegateAccessToken(Member member) {
