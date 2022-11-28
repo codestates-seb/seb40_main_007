@@ -108,7 +108,7 @@ public class PlannerService {
     public List<PlannerDto.Time> getTimeBetweenBoardsList(List<Board> boards) throws InterruptedException {
         List<PlannerDto.Time> timeList = new ArrayList<>();
         for (int i = 0; i < boards.size() - 1; i++) {
-            if (boards.get(i) != boards.get(i + 1)) {
+            if (boards.get(i).getStationId() != boards.get(i + 1).getStationId()) {
                 timeList.add(
                         PlannerDto.Time.builder()
                                 .type("train")
