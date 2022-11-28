@@ -55,6 +55,7 @@ public class PlannerService {
     }
 
     public PlannerDto.MyPlannerResponse getMyPlannerPage(String accessToken, long plannerId) throws InterruptedException {
+        Member member = memberService.findByAccessToken(accessToken);
         Planner planner = find(plannerId);
         List<BoardPlanner> boardPlanners = find(plannerId).getBoardPlanners();
         List<PlannerDto.Time> timeList = getTimeBetweenBoardsList(
@@ -62,7 +63,7 @@ public class PlannerService {
                         .sorted(Comparator.comparing(BoardPlanner::getPriority))
                         .map(BoardPlanner::getBoard)
                         .collect(Collectors.toList()));
-        if (memberService.findByAccessToken(accessToken).equals(planner.getMember())) {
+        if (member.equals(planner.getMember())) {
             return getMyPlannerResponse(plannerId, planner, timeList, boardMapper);
         } else
             throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
