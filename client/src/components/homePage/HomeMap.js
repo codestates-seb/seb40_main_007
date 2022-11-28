@@ -21,11 +21,16 @@ export default function HomeMap() {
     if (window.innerWidth >= 1024) {
       setStyle({ width: "50%", height: "700px" });
     } else {
-      setStyle({ width: "90%", height: "300px" });
+      setStyle({ width: "100%", height: "300px" });
     }
   };
 
   useEffect(() => {
+    if (window.innerWidth >= 1024) {
+      setStyle({ width: "50%", height: "700px" });
+    } else {
+      setStyle({ width: "100%", height: "300px" });
+    }
     window.addEventListener("resize", windowResize);
     return () => {
       window.removeEventListener("resize", windowResize);
@@ -33,22 +38,22 @@ export default function HomeMap() {
   }, []);
 
   return (
-    <div className="flex justify-between">
-      <div className="w-1/2">
+    <div className="lg:flex lg:justify-between">
+      <div className="lg:w-1/2 w-2/3 lg:m-0 lg:mt-0 m-auto mt-5">
         {isMarker ? (
-          <div className="m-auto mt-20 text-center">
-            <div className="text-2xl font-semibold text-start ml-10">
+          <div className="m-auto lg:mt-20 text-center">
+            <div className="lg:text-2xl font-semibold text-start lg:ml-10 mb-2">
               {isMarker.train}
             </div>
-            <div className="mt-10">{isMarker.describe}</div>
+            <div className="lg:mt-10">{isMarker.describe}</div>
             <img
               src={`/images/기차역도장/${isMarker.train}.png`}
               alt="stamp"
-              className="w-80 h-80 m-auto mt-16"
+              className="lg:w-80 lg:h-80 m-auto mt-16 w-32 h-32"
             />
 
             <Link to={`/main/${isMarker.id}`}>
-              <button className="bg-gray-400 mt-10 p-3 font-bold text-white rounded-xl hover:bg-[rgb(83,199,240)]">
+              <button className="bg-gray-400 lg:mt-10 mt-5 lg:p-3 p-2 font-bold text-white rounded-xl hover:bg-[rgb(83,199,240)]">
                 이동하기
               </button>
             </Link>
@@ -58,7 +63,7 @@ export default function HomeMap() {
             <img
               src={`/images/logo.png`}
               alt="logo"
-              className="w-80 h-80 m-auto mt-24"
+              className="lg:w-80 lg:h-80 m-auto mt-16 w-32 h-32"
             />
             <div className="text-center mt-20 text-2xl font-semibold text-[rgb(83,199,240)]">
               지도에서 좌표를 클릭해보세요

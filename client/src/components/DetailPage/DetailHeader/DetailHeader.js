@@ -18,7 +18,6 @@ const DetailHeader = () => {
   const memberId = useRecoilValue(userId);
   const TOKEN = useRecoilValue(accessToken);
   const navigate = useNavigate();
-
   const trainInformation = useRecoilValue(trainInfo);
   const categoryInfo = useRecoilValue(categoryInfoList);
   const tagsInfo = useRecoilValue(tagsInfoList);
@@ -35,22 +34,33 @@ const DetailHeader = () => {
   const DateTime = new Date(detailInfo.createdAt);
 
   const handleDelete = () => {
-    const config = {
-      headers: { Authorization: TOKEN },
-    };
-    axios
-      .delete(
-        `${process.env.REACT_APP_URL}/boards/${detailInfo.boardId}`,
-        config
-      )
-      .then((response) => {
-        console.log(response);
-        swal("삭제되었습니다");
-        navigate(`/main/${detailInfo.stationId}`);
-      })
-      .catch((error) => {
-        swal("게시글 삭제 실패");
-      });
+    swal({
+      text: "삭제하시겠습니까?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        const config = {
+          headers: { Authorization: TOKEN },
+        };
+        axios
+          .delete(
+            `${process.env.REACT_APP_URL}/boards/${detailInfo.boardId}`,
+            config
+          )
+          .then((response) => {
+            console.log(response);
+            swal("삭제되었습니다");
+            navigate(`/main/${detailInfo.stationId}`);
+          })
+          .catch((error) => {
+            swal("게시글 삭제 실패");
+          });
+      } else {
+        swal("삭제를 취소하셨습니다");
+      }
+    });
   };
 
   return (
