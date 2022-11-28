@@ -82,7 +82,7 @@ public class BoardPlannerService {
     private PlannerDto.MyPlannerResponse getMyPlannerResponse(long plannerId, Planner planner, List<BoardPlanner> boardPlanners) throws InterruptedException {
         List<PlannerDto.Time> timeList = plannerService.getTimeBetweenBoardsList(
                 boardPlanners.stream()
-                        .sorted(Comparator.comparing(BoardPlanner::getPriority).reversed())
+                        .sorted(Comparator.comparing(BoardPlanner::getPriority))
                         .map(BoardPlanner::getBoard)
                         .collect(Collectors.toList()));
 
