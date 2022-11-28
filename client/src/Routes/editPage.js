@@ -29,7 +29,7 @@ import {
   editStarState,
   editCommentState,
 } from "../atoms/editPageData";
-// import fs from "fs";
+const [disable, setDisable] = useState(false); //제출 버튼 비활성화
 
 export default function EditPage() {
   const navigatge = useNavigate();
@@ -130,6 +130,7 @@ export default function EditPage() {
   }, []);
   console.log("editImageList", editImageList);
   const onSubmit = () => {
+    setDisable(true);
     const editUrl = []; // s3 url
     const editPriority = []; // priority
     const formData = new FormData();
@@ -201,6 +202,7 @@ export default function EditPage() {
           setEditStar("");
           setEditComment("");
           setEditImageList("");
+          setDisable(false);
           navigatge(`/main/${editTrainStation}`);
         })
         .catch(function (error) {
@@ -242,6 +244,7 @@ export default function EditPage() {
       </div>
       <div className="flex justify-center">
         <button
+          disabled={disable}
           className="bg-gray-400 w-fit m-auto text-white py-3 px-5 rounded-lg hover:bg-[rgb(83,199,240)] my-32"
           onClick={onSubmit}
         >

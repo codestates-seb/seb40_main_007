@@ -3,6 +3,18 @@ import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 
 export default function InitialPage() {
+  const googleLoginHandler = () => {
+    const GOOGLE_LOGIN_URL = `${process.env.REACT_APP_URL}/oauth2/authorization/google`;
+    window.location.href = GOOGLE_LOGIN_URL;
+  };
+  const kakaoLoginHandler = () => {
+    const KAKAO_LOGIN_URL = `${process.env.REACT_APP_URL}/oauth2/authorization/kakao`;
+    window.location.href = KAKAO_LOGIN_URL;
+  };
+  const naverLoginHandler = () => {
+    const NAVER_LOGIN_URL = `${process.env.REACT_APP_URL}/oauth2/authorization/naver`;
+    window.location.href = NAVER_LOGIN_URL;
+  };
   return (
     <>
       <Header />
@@ -17,25 +29,23 @@ export default function InitialPage() {
             />
           </div>
           <div className="text-center my-3">
-            <a
-              href={`${process.env.REACT_APP_URL}/oauth2/authorization/google`}
-            >
+            <button onClick={googleLoginHandler}>
               <FcGoogle className="w-8 h-8 inline m-1" />
-            </a>
-            <a href={`${process.env.REACT_APP_URL}/oauth2/authorization/kakao`}>
+            </button>
+            <button onClick={kakaoLoginHandler}>
               <img
                 src="images/kakao.png"
                 alt="kakao"
                 className="w-8 h-8 inline rounded-md"
               />
-            </a>
-            <a href={`${process.env.REACT_APP_URL}/oauth2/authorization/naver`}>
+            </button>
+            <button onClick={naverLoginHandler}>
               <img
                 src="images/naver.png"
                 alt="naver"
                 className="w-8 h-8 inline rounded-md m-1"
               />
-            </a>
+            </button>
           </div>
           <Link to="/login">
             <div className="text-white font-semibold text-center m-auto  bg-[rgba(83,199,240,0.7)] py-2 mb-3 mt-5 rounded-md hover:ring hover:ring-sky-300">

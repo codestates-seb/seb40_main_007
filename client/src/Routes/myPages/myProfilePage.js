@@ -39,6 +39,7 @@ const MyProfilePage = () => {
         console.log(error);
       });
   }, []);
+
   return (
     <>
       <Header />

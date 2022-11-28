@@ -21,25 +21,23 @@ export default function SignupPage() {
     userSignup(email, password);
   };
 
-  function userSignup(email, password) {
-    return axios
-      .post(
+  async function userSignup(email, password) {
+    try {
+      const response = await axios.post(
         "http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/members/signup",
         {
           email: email,
           password: password,
         }
-      )
-      .then((response) => {
-        alert("회원가입 완료");
-        console.log(response);
-        navigate("/login");
-      })
-      .catch((error) => {
-        alert("회원가입 실패");
-        console.log(error);
-        navigate("/signup");
-      });
+      );
+      alert("회원가입 완료");
+      console.log(response);
+      navigate("/login");
+    } catch (error) {
+      alert("회원가입 실패");
+      console.log(error);
+      navigate("/signup");
+    }
   }
 
   const onError = (error) => {
@@ -50,15 +48,15 @@ export default function SignupPage() {
     <>
       <Header />
 
-      <div className="lg:w-full w-full h-screen align-baseline flex justify-center items-center">
-        <div className="max-w-md p-2 px-10 m-auto border border-[rgba(83,198,240,0.4)] rounded-xl text-[rgb(83,199,240)]">
+      <div className="lg:w-full w-full h-screen align-baseline flex justify-center items-center bg-[rgba(235,235,235,0.34)]">
+        <div className="max-w-lg p-2 px-10 m-auto border rounded-xl text-[rgb(83,199,240)] bg-white shadow-lg">
           <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2">
             SignUp
           </div>
           <div className="relative flex justify-center items-center">
-            <img src="images/gradation.png" alt="gradation" className="w-60" />
+            <img src="/images/gradation.png" alt="gradation" className="w-60" />
             <img
-              src="images/notfound_icon_w.png"
+              src="/images/notfound_icon_w.png"
               alt="train"
               className="absolute w-16"
             />
@@ -81,7 +79,6 @@ export default function SignupPage() {
               className="border border-[rgb(83,199,240)] rounded-md  bg-transparent; focus:outline focus:outline-blue-500 w-80 p-2 mt-1 "
             />
             <p className="w-80 text-red-500 mb-4 ml-2">
-              {" "}
               {errors.email?.type === "required" && "아이디를 입력하세요"}
               {errors.email?.type === "pattern" && errors.email.message}
             </p>

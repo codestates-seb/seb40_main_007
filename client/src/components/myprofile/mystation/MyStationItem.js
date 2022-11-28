@@ -7,7 +7,7 @@ const MyStationItem = ({ trainId }) => {
   return (
     <div className="">
       <img
-        className="m-4 w-20 h-20 rounded-md hover:scale-150" //hover-img
+        className="m-4 w-20 h-20 rounded-md hover:scale-150 transition delay-100 duration-150 ease-in-out" //hover-img
         alt="postImg"
         src={`/images/기차역도장/${trainInfoList[trainId - 1].train}.png`}
       />

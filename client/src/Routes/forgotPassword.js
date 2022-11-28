@@ -35,14 +35,9 @@ export default function ForgotPassword() {
           </div>
           <div className="relative flex justify-center items-center">
             <img
-              src="images/gradation.png"
+              src="/images/logo.png"
               alt="gradation"
-              className="w-60 mx-7"
-            />
-            <img
-              src="images/notfound_icon_w.png"
-              alt="train"
-              className="absolute w-16"
+              className="w-40 mx-14 my-7"
             />
           </div>
           <div className="font-semibold text-[rgb(83,199,240)] text-center my-5 ">
