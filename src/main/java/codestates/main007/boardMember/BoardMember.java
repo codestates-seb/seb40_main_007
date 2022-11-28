@@ -31,6 +31,10 @@ public class BoardMember {
     @Column
     private int scoreStatus;
 
+    // 신고 상태 (0: 신고 안함 그외: 신고 번호)
+    @Column
+    private long report;
+
     public void changeDibs() {
         if (this.dibs == true) {
             this.dibs = false;
@@ -42,5 +46,9 @@ public class BoardMember {
     // 추천상태 변경을 위한 메서드
     public void changeScoreStatus(int status) {
         this.scoreStatus = status;
+    }
+
+    public void setReport(long report){
+        this.report = report;
     }
 }

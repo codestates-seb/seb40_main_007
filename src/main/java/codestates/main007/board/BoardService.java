@@ -194,6 +194,12 @@ public class BoardService {
         return boardMemberService.changeDibs(member, board);
     }
 
+    public void report(String accessToken, long boardId, long reportId){
+        Member member = memberService.findByAccessToken(accessToken);
+        Board board = find(boardId);
+
+        boardMemberService.report(member, board, reportId);
+    }
     public Integer upVote(String accessToken, long boardId) {
         Board board = find(boardId);
         Member member = memberService.findByAccessToken(accessToken);

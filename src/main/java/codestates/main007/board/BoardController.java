@@ -145,4 +145,13 @@ public class BoardController {
         boolean isDibs = boardService.dibs(accessToken, boardId);
         return boardMapper.isDibsToDibsDto(isDibs);
     }
+
+    @PostMapping("{board-id}/report/{report-id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void report(@RequestHeader(name = "Authorization") String accessToken,
+                       @PathVariable("board-id") long boardId,
+                       @PathVariable("report-id") long reportId) {
+
+        boardService.report(accessToken, boardId, reportId);
+    }
 }

@@ -2,9 +2,11 @@ package codestates.main007.boardMember;
 
 import codestates.main007.board.Board;
 import codestates.main007.board.BoardRepository;
+import codestates.main007.exception.ExceptionCode;
 import codestates.main007.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
@@ -92,5 +94,27 @@ public class BoardMemberService {
         boardMemberRepository.save(boardMember);
 
         return boardMember.getScoreStatus();
+    }
+
+    public void report(Member member, Board board, long report) {
+        Optional<BoardMember> OptionalBoardMember = boardMemberRepository.findByMemberAndBoard(member, board);
+
+        if (OptionalBoardMember.isPresent()) {
+            BoardMember boardMember = OptionalBoardMember.get();
+            if (boardMember.getReport() == 0){
+                boardMember.setReport(report);
+                boardMemberRepository.save(boardMember);
+            }else{
+                throw new ResponseStatusException(ExceptionCode.ALREADY_REPORTED.getStatus(), ExceptionCode.ALREADY_REPORTED.getMessage(), new IllegalArgumentException());
+            }
+        } else {
+            BoardMember boardMember = BoardMember.builder()
+                    .member(member)
+                    .board(board)
+                    .build();
+            boardMember.setReport(report);
+            boardMemberRepository.save(boardMember);
+        }
+
     }
 }
