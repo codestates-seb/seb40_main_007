@@ -1,14 +1,18 @@
 package codestates.main007.auth.jwt;
 
+import codestates.main007.exception.ExceptionCode;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
@@ -17,6 +21,7 @@ import java.util.Date;
 import java.util.Map;
 
 @Component
+@Slf4j
 public class JwtTokenizer {
     @Getter
     @Value("${jwt.key.secret}")
@@ -83,12 +88,16 @@ public class JwtTokenizer {
     private Claims parseToken(String token) {
         Key key = getKeyFromBase64EncodedKey(encodeBase64SecretKey(this.secretKey));
         String jws = token.replace("Bearer ", "");
-
-        return Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(jws)
-                .getBody();
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(jws)
+                    .getBody();
+        } catch (ExpiredJwtException e){
+            log.info("# Expired JWT token");
+            throw new ResponseStatusException(ExceptionCode.EXPIRED_TOKEN.getStatus(), ExceptionCode.EXPIRED_TOKEN.getMessage(), new IllegalArgumentException());
+        }
     }
 
     public Long getUserId(String token) {
