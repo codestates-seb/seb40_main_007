@@ -22,6 +22,7 @@ import {
 import { trainInfo } from "../atoms/trainInfo";
 import { accessToken } from "../atoms/loginTest";
 import { tagsInfoToNumList } from "../atoms/tagsInfo";
+import { myTravelListData } from "../atoms/mypage/myTravelData";
 
 // 테스트용 입니다. 테스트 완료하면 합칠예정..!
 // import PostList from "../components/MainPage/Posts/PostList";
@@ -40,7 +41,6 @@ const MainPage = () => {
   const mainSort = useRecoilValue(mainSortEvent);
   const mainSortToEng = useRecoilValue(mainSortToEngData);
   const resetSort = useResetRecoilState(mainSortEvent);
-
   // Main Map Event 관련 정보
   const resetMapImgClickid = useResetRecoilState(mapImgClickEvent);
   const trainStationInfo = useRecoilValue(trainInfo);
@@ -49,6 +49,8 @@ const MainPage = () => {
   // Main 인피니티 스크롤 관련 정보
   const [, setPageInfo] = useRecoilState(mainPageInfo);
   const [, setMapCenter] = useRecoilState(mapCenterMoveEvent);
+  // MyTravel 데이터
+  const [, setMyTravelList] = useRecoilState(myTravelListData);
 
   // 메인페이지 데이터 통신
   useEffect(() => {
@@ -105,6 +107,21 @@ const MainPage = () => {
   const [, setMapImgClickId] = useRecoilState(mapImgClickEvent);
   useEffect(() => {
     setMapImgClickId(null);
+    const config = {
+      headers: { Authorization: TOKEN },
+    };
+    const URL = `${process.env.REACT_APP_URL}/planners`;
+    TOKEN !== ""
+      ? axios
+          .get(URL, config)
+          .then((response) => {
+            console.log("GET TravelList :", response.data.items);
+            setMyTravelList(response.data.items);
+          })
+          .catch((error) => {
+            console.log("GET TravelList Fail :", error);
+          })
+      : null;
   }, []);
 
   return (
