@@ -11,7 +11,9 @@ public enum ExceptionCode {
     MEMBER_UNAUTHORIZED(403, "Member unauthorized"),
     COMMENT_NOT_FOUND(404,"Comment not found"),
     PLANNER_EXISTS(409,"Planner exists"),
+    PLANNER_NOT_FOUND(404,"Planner exists"),
     BOARDPLANNER_EXISTS(409,"Boardplanner exists"),
+    BOARDPLANNER_NOT_FOUND(404,"Boardplanner not found"),
     ;
     private final int status;
     private final String message;

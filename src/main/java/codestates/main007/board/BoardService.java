@@ -5,6 +5,7 @@ import codestates.main007.boardImage.BoardImageRepository;
 import codestates.main007.boardImage.ImageHandler;
 import codestates.main007.boardMember.BoardMember;
 import codestates.main007.boardMember.BoardMemberService;
+import codestates.main007.exception.ExceptionCode;
 import codestates.main007.member.Member;
 import codestates.main007.member.MemberService;
 import codestates.main007.service.DistanceMeasuringService;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -130,7 +132,7 @@ public class BoardService {
 
     public Board find(long boardId) {
         return boardRepository.findById(boardId)
-                .orElseThrow(() -> new NullPointerException("해당 게시글이 존재하지 않습니다."));
+                .orElseThrow(() -> new ResponseStatusException(ExceptionCode.BOARD_NOT_FOUND.getStatus(), ExceptionCode.BOARD_NOT_FOUND.getMessage(), new IllegalArgumentException()));
     }
 
     public Page<Board> findBoardPage(long stationId, long categoryId, int page, int size, Sort sort) {

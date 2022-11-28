@@ -10,6 +10,7 @@ import codestates.main007.planner.PlannerDto;
 import codestates.main007.planner.PlannerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.Comparator;
@@ -41,10 +42,10 @@ public class BoardPlannerService {
                 boardPlannerRepository.save(boardPlanner);
             }
             else {
-                throw new BusinessLogicException(ExceptionCode.BOARDPLANNER_EXISTS);
+                throw new ResponseStatusException(ExceptionCode.BOARDPLANNER_EXISTS.getStatus(), ExceptionCode.BOARDPLANNER_EXISTS.getMessage(), new IllegalArgumentException());
             }
         } else {
-            throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
+            throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
         }
     }
 
@@ -75,7 +76,7 @@ public class BoardPlannerService {
             Planner planner = plannerService.find(plannerId);
             List<BoardPlanner> boardPlanners = boardPlannerRepository.findAllByPlanner(planner);
             return getMyPlannerResponse(plannerId, planner, boardPlanners);
-        } else throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
+        } else throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
     }
 
     private PlannerDto.MyPlannerResponse getMyPlannerResponse(long plannerId, Planner planner, List<BoardPlanner> boardPlanners) throws InterruptedException {
@@ -90,6 +91,6 @@ public class BoardPlannerService {
 
     public BoardPlanner find(long boardPlannerId) {
         return boardPlannerRepository.findById(boardPlannerId)
-                .orElseThrow(() -> new NullPointerException("해당 플래너가 존재하지 않습니다."));
+                .orElseThrow(() -> new ResponseStatusException(ExceptionCode.BOARDPLANNER_NOT_FOUND.getStatus(), ExceptionCode.BOARDPLANNER_NOT_FOUND.getMessage(), new IllegalArgumentException()));
     }
 }

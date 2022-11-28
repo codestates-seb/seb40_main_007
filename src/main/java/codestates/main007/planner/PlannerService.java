@@ -10,6 +10,7 @@ import codestates.main007.member.MemberService;
 import codestates.main007.service.DistanceMeasuringService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -39,7 +40,7 @@ public class PlannerService {
 
             return getMyPlanners(accessToken);
         }
-        else throw new BusinessLogicException(ExceptionCode.PLANNER_EXISTS);
+        else throw new ResponseStatusException(ExceptionCode.PLANNER_EXISTS.getStatus(), ExceptionCode.PLANNER_EXISTS.getMessage(), new IllegalArgumentException());
 
     }
 
@@ -49,7 +50,7 @@ public class PlannerService {
             updatedPlanner.patchPlanner(patchDto.getPlannerName());
             plannerRepository.save(updatedPlanner);
             return getMyPlanners(accessToken);
-        } else throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
+        } else throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
     }
 
     public PlannerDto.MyPlannerResponse getMyPlannerPage(String accessToken, long plannerId) throws InterruptedException {
@@ -62,7 +63,7 @@ public class PlannerService {
                         .collect(Collectors.toList()));
         if (memberService.findByAccessToken(accessToken).equals(planner.getMember())) {
             return getMyPlannerResponse(plannerId, planner, timeList, boardMapper);
-        } else throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
+        } else throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
     }
 
     public PlannerDto.MyPlannerResponse getMyPlannerResponse(long plannerId, Planner planner, List<Integer> timeList, BoardMapper boardMapper) {
@@ -94,7 +95,7 @@ public class PlannerService {
 
     public Planner find(long plannerId) {
         return plannerRepository.findById(plannerId)
-                .orElseThrow(() -> new NullPointerException("해당 플래너가 존재하지 않습니다."));
+                .orElseThrow(() -> new ResponseStatusException(ExceptionCode.PLANNER_NOT_FOUND.getStatus(), ExceptionCode.PLANNER_NOT_FOUND.getMessage(), new IllegalArgumentException()));
     }
     public List<Integer> getTimeBetweenBoardsList(List<Board> boards) throws InterruptedException {
         List<Integer> timeList = new ArrayList<>();

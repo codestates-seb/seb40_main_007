@@ -26,6 +26,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -76,7 +77,7 @@ public class MemberService {
     public void update(String accessToken, MemberDto.Patch patchDto) {
         Member member = findByAccessToken(accessToken);
         if (memberRepository.countByName(patchDto.getName()) != 0) {
-            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+            throw new ResponseStatusException(ExceptionCode.MEMBER_EXISTS.getStatus(), ExceptionCode.MEMBER_EXISTS.getMessage(), new IllegalArgumentException());
         }
         member.patchMember(patchDto.getName(), patchDto.getPassword(), passwordEncoder());
         memberRepository.save(member);
@@ -93,12 +94,12 @@ public class MemberService {
 
     public Member find(long memberId) {
         return memberRepository.findById(memberId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(ExceptionCode.MEMBER_NOT_FOUND.getStatus(), ExceptionCode.MEMBER_NOT_FOUND.getMessage(), new IllegalArgumentException()));
     }
 
     public Member findByEmail(String email) {
         return memberRepository.findByEmail(email)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(ExceptionCode.MEMBER_NOT_FOUND.getStatus(), ExceptionCode.MEMBER_NOT_FOUND.getMessage(), new IllegalArgumentException()));
     }
 
     public int countByName(String name) {
@@ -113,7 +114,7 @@ public class MemberService {
     private void verifyExistEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
         if (member.isPresent())
-            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+            throw new ResponseStatusException(ExceptionCode.MEMBER_EXISTS.getStatus(), ExceptionCode.MEMBER_EXISTS.getMessage(), new IllegalArgumentException());
     }
 
     public Member findByAccessToken(String accessToken) {
@@ -137,7 +138,7 @@ public class MemberService {
         Member member = findByAccessToken(accessToken);
 
         if (!passwordEncoder().matches(password, member.getPassword())) {
-            throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
+            throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
         }
     }
 
@@ -211,26 +212,6 @@ public class MemberService {
         }
         return memberDtos;
     }
-
-    //삭제예정
-//    public List<Board> findMyMap(String accessToken) {
-//        Member member = findByAccessToken(accessToken);
-//
-//        return boardRepository.findByWriter(member);
-//    }
-//
-//    public Page<Board> findMyPage(String accessToken, int page, int size, Sort sort) {
-//        Member member = findByAccessToken(accessToken);
-//
-//        return boardRepository.findByWriter(member,
-//                PageRequest.of(page, size, sort));
-//    }
-//    public Page<Board> findMyPageByStation(String accessToken, long stationId, int page, int size, Sort sort) {
-//        Member member = findByAccessToken(accessToken);
-//
-//        return boardRepository.findByStationIdAndWriter(stationId, member,
-//                PageRequest.of(page, size, sort));
-//    }
 
     public void deleteMember(String accessToken) {
         Member member = findByAccessToken(accessToken);
