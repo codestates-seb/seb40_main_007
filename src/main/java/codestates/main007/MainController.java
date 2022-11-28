@@ -81,6 +81,7 @@ public class MainController {
     @GetMapping("/admin")
     @ResponseStatus(HttpStatus.OK)
     public AdminDto getAdminPage(@RequestHeader(name = "Authorization") String accessToken) {
+        memberService.verifyAdmin(accessToken);
         List<Member> totalMembers = memberService.findAllMembers();
         List<Board> totalBoards = boardService.findAllBoards();
         int todayBoard = 0;

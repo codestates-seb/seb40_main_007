@@ -219,8 +219,15 @@ public class MemberService {
         memberRepository.delete(member);
     }
 
-    public List<Member> findAllMembers(){
+    public List<Member> findAllMembers() {
         return memberRepository.findAll();
+    }
+
+    public void verifyAdmin(String accessToken) {
+        Member member = findByAccessToken(accessToken);
+        if (member.getMemberId() != 1 && member.getMemberId() != 2 && member.getMemberId() != 3 && member.getMemberId() != 4 && member.getMemberId() != 5) {
+            throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
+        }
     }
 
     public PasswordEncoder passwordEncoder() {
