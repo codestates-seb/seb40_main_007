@@ -78,12 +78,7 @@ public class SecurityConfiguration {
                         //todo:계속 추가예정
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .successHandler(new OAuthMemberAuthenticationSuccessHandler(jwtTokenizer, authorityUtils, memberService)))
-                .logout()
-                .clearAuthentication(false)
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .clearAuthentication(true);
+                        .successHandler(new OAuthMemberAuthenticationSuccessHandler(jwtTokenizer, authorityUtils, memberService)));
         return http.build();
     }
 
