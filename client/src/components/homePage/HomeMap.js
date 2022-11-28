@@ -21,7 +21,7 @@ export default function HomeMap() {
     if (window.innerWidth >= 1024) {
       setStyle({ width: "50%", height: "700px" });
     } else {
-      setStyle({ width: "100%", height: "300px" });
+      setStyle({ width: "90%", height: "300px" });
     }
   };
 
@@ -29,7 +29,7 @@ export default function HomeMap() {
     if (window.innerWidth >= 1024) {
       setStyle({ width: "50%", height: "700px" });
     } else {
-      setStyle({ width: "100%", height: "300px" });
+      setStyle({ width: "90%", height: "300px" });
     }
     window.addEventListener("resize", windowResize);
     return () => {
@@ -65,13 +65,13 @@ export default function HomeMap() {
               alt="logo"
               className="lg:w-80 lg:h-80 m-auto mt-16 w-32 h-32"
             />
-            <div className="text-center mt-20 text-2xl font-semibold text-[rgb(83,199,240)]">
+            <div className="text-center lg:my-0 lg:mt-20 my-10 lg:text-2xl text-md font-semibold text-[rgb(83,199,240)]">
               지도에서 좌표를 클릭해보세요
             </div>
           </div>
         )}
       </div>
-      <Map level={13} center={isCenter} style={style}>
+      <Map level={13} center={isCenter} style={style} className="lg:m-0 m-auto">
         <Polyline
           path={[
             [

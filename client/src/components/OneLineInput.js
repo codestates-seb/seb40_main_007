@@ -7,11 +7,11 @@ export default function OneLineInput() {
     setEditComment(e.target.value);
   };
   return (
-    <div className="text-[rgb(83,199,240)] max-w-6xl">
+    <div className="text-[rgb(83,199,240)] lg:max-w-6xl">
       <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 my-16 text-18 text-[rgb(83,199,240)] ">
         한줄평
       </div>
-      <div className="max-w-4xl m-auto">
+      <div className="lg:max-w-4xl m-auto">
         <img src="/images/open_quote.png" alt="openQuote" />
         <div className="flex justify-center">
           <input

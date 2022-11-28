@@ -154,21 +154,21 @@ export default function PostPage() {
   return (
     <>
       <Header />
-      <div className="pb-30 max-w-5xl m-auto">
+      <div className="pb-30 lg:max-w-5xl lg:m-auto mx-2  border border-red-500">
         <PostTrainStationSelect />
         <PostMap />
         <ImageUpload />
 
-        <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 pt-2 text-18 text-[rgb(83,199,240)] mt-16">
+        <div className="lg:pt-20 pt-10 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit lg:px-5 px-3 pb-2 mb-5 lg:text-base text-sm text-[rgb(83,199,240)]">
           별점
         </div>
         <div className="flex justify-center m-auto">
           <StartRating />
         </div>
-        <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 my-16 text-18 text-[rgb(83,199,240)] ">
+        <div className="lg:pt-20 pt-10 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit lg:px-5 px-3 pb-2 mb-5 lg:text-base text-sm text-[rgb(83,199,240)]">
           관련태그
         </div>
-        <div className="mb-5 w-fit m-auto sm:ml-56">
+        <div className="mb-5 w-fit m-auto lg:ml-56">
           <PostCategoryTabs />
           <PostRelatedTab />
           <PostRelatedAtmasTab />

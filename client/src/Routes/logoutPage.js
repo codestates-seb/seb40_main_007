@@ -40,8 +40,8 @@ export default function LogoutPage() {
       <LoginHeader />
       <div className="lg:w-full w-full h-screen align-baseline flex justify-center items-center bg-[rgba(235,235,235,0.34)]">
         {/*  */}
-        <div className="max-w-md p-2 px-10 m-auto border rounded-xl text-[rgb(83,199,240)] bg-white shadow-lg">
-          <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2">
+        <div className="max-w-md p-2 lg:px-10 px:5 m-auto border rounded-xl text-[rgb(83,199,240)] bg-white shadow-lg">
+          <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 lg:text-base text-sm">
             Logout
           </div>
           <div className="relative flex justify-center items-center">
