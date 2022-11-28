@@ -22,8 +22,8 @@ public class MemberAuthenticationEntryPoint implements AuthenticationEntryPoint 
         Exception exception = (Exception) request.getAttribute("exception");
         String exceptionMessage = exception.getMessage();
         if (exceptionMessage.equals("EXPIRED_TOKEN")){
-//            setResponse(response, ExceptionCode.EXPIRED_TOKEN);
-            ErrorResponder.sendErrorResponse(response, HttpStatus.I_AM_A_TEAPOT);
+            setResponse(response, ExceptionCode.EXPIRED_TOKEN);
+            ErrorResponder.sendErrorResponse(response, HttpStatus.UNAUTHORIZED);
         } else {
             ErrorResponder.sendErrorResponse(response, HttpStatus.UNAUTHORIZED);
         }
