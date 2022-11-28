@@ -37,7 +37,8 @@ public class Comment {
     @JoinColumn(name = "board_id")
     private Board board;
 
-    public void patchComment(String comment) {
+    public void patchComment(String comment, String accessToken) {
+
         if (comment != null) {
             this.comment = comment;
         }

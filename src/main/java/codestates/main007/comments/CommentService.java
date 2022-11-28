@@ -28,9 +28,14 @@ public class CommentService {
     }
 
     public void update(String accessToken, CommentDto.Input patchDto, long commentId) {
-
+        Member member = memberService.findByAccessToken(accessToken);
         Comment comment = find(commentId);
-        comment.patchComment(patchDto.getComment());
+        Member writer = comment.getWriter();
+        if (member != writer) {
+            throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
+        }
+
+        comment.patchComment(patchDto.getComment(), accessToken);
         commentRepository.save(comment);
     }
 
@@ -40,6 +45,12 @@ public class CommentService {
     }
 
     public void delete(String accessToken, long commentId) {
+        Member member = memberService.findByAccessToken(accessToken);
+        Comment comment = find(commentId);
+        Member writer = comment.getWriter();
+        if (member != writer) {
+            throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
+        }
 
         commentRepository.deleteById(commentId);
     }

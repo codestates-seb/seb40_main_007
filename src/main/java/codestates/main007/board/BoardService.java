@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -82,7 +81,13 @@ public class BoardService {
     }
 
     public void update(String accessToken, long boardId, BoardDto.Patch patch, List<MultipartFile> images) throws IOException {
+        Member member = memberService.findByAccessToken(accessToken);
         Board updatedBoard = find(boardId);
+        Member writer = updatedBoard.getWriter();
+        if (member != writer) {
+            throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
+        }
+
 
         updatedBoard.patchBoard(patch.getTitle(),
                 patch.getReview(),
@@ -119,8 +124,15 @@ public class BoardService {
     }
 
     public void delete(String accessToken, long boardId) {
-        // s3에 이미지 삭제
+        Member member = memberService.findByAccessToken(accessToken);
         Board board = find(boardId);
+        Member writer = board.getWriter();
+        if (member != writer) {
+            throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
+        }
+
+        // s3에 이미지 삭제
+
         List<BoardImage> boardImages = boardImageRepository.findAllByBoard(board);
         // 섬네일 삭제
         imageHandler.deleteThumbnail(board.getThumbnail().substring("https://pre-032-bucket.s3.ap-northeast-2.amazonaws.com/board_thumbnail/".length()));
@@ -133,7 +145,7 @@ public class BoardService {
 
     public Board find(long boardId) {
         return boardRepository.findById(boardId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ExceptionCode.BOARD_NOT_FOUND.getMessage(), new IllegalArgumentException()));
+                .orElseThrow(() -> new ResponseStatusException(ExceptionCode.BOARD_NOT_FOUND.getStatus(), ExceptionCode.BOARD_NOT_FOUND.getMessage(), new IllegalArgumentException()));
     }
 
     public Page<Board> findBoardPage(long stationId, long categoryId, int page, int size, Sort sort) {
