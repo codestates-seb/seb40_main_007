@@ -2,6 +2,7 @@ package codestates.main007.board;
 
 import codestates.main007.boardImage.BoardImage;
 import codestates.main007.boardMember.BoardMember;
+import codestates.main007.boardPlanner.BoardPlanner;
 import codestates.main007.comments.Comment;
 import codestates.main007.member.Member;
 import codestates.main007.tag.Tag;
@@ -89,6 +90,9 @@ public class Board {
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private final List<BoardMember> boardMembers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+    private final List<BoardPlanner> boardPlanners = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "board_tag")
