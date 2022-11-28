@@ -232,8 +232,7 @@ public class MemberService {
 //                PageRequest.of(page, size, sort));
 //    }
 
-    public void deleteMember(String accessToken, String password) {
-        verifyPassword(accessToken, password);
+    public void deleteMember(String accessToken) {
         Member member = findByAccessToken(accessToken);
 
         memberRepository.delete(member);
