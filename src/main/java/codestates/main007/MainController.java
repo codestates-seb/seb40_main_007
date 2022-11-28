@@ -87,17 +87,17 @@ public class MainController {
         int todayBoard = 0;
         int monthBoard = 0;
         for (Board board : totalBoards) {
-            LocalDateTime dayDate1 = board.getCreatedAt().truncatedTo(ChronoUnit.DAYS);
-            LocalDateTime dayDate2 = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
+            LocalDateTime writeDay = board.getCreatedAt().truncatedTo(ChronoUnit.DAYS);
+            LocalDateTime today = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
 
-            int compareResultDay = dayDate1.compareTo(dayDate2);
+            int compareResultDay = today.compareTo(writeDay);
             if (compareResultDay == 0) {
                 todayBoard++;
             }
-            LocalDateTime dayMonth1 = board.getCreatedAt().truncatedTo(ChronoUnit.MONTHS);
-            LocalDateTime dayMonth2 = LocalDateTime.now().truncatedTo(ChronoUnit.MONTHS);
-            int compareResultMonth = dayMonth1.compareTo(dayMonth2);
-            if (compareResultMonth == 0) {
+            LocalDateTime monthAgo = LocalDateTime.now().minusMonths(1).truncatedTo(ChronoUnit.DAYS);
+
+            int compareResultMonth = monthAgo.compareTo(writeDay);
+            if (compareResultMonth == -1) {
                 monthBoard++;
             }
         }
