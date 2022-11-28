@@ -38,13 +38,11 @@ public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
     private final MemberService memberService;
-    private final MemberLogoutHandler logoutHandler;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils, MemberService memberService, MemberLogoutHandler logoutHandler) {
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils, MemberService memberService) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
         this.memberService = memberService;
-        this.logoutHandler = logoutHandler;
     }
 
     @Bean
@@ -84,9 +82,8 @@ public class SecurityConfiguration {
                 .logout()
                 .clearAuthentication(false)
                 .logoutUrl("/logout")
-                .addLogoutHandler(logoutHandler)
-                .deleteCookies("JSESSIONID", "remember-me")
-                ;
+                .logoutSuccessUrl("/")
+                .clearAuthentication(true);
         return http.build();
     }
 

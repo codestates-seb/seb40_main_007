@@ -4,7 +4,6 @@ import codestates.main007.board.Board;
 import codestates.main007.board.BoardRepository;
 import codestates.main007.comments.Comment;
 import codestates.main007.comments.CommentRepository;
-import codestates.main007.dto.MultiResponseDto;
 import codestates.main007.dto.PageDto;
 import codestates.main007.service.EmailService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import javax.mail.MessagingException;
 import java.io.IOException;
@@ -137,6 +135,13 @@ public class MemberController {
                             @RequestBody MemberDto.Patch patchDto) throws IOException {
 
         memberService.update(accessToken, patchDto);
+    }
+
+    @PostMapping("/logout")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void logout(@RequestHeader (name = "Authorization") String accessToken){
+
+        memberService.deleteRefreshToken(accessToken);
     }
 
     // 삭제된 메서드들
