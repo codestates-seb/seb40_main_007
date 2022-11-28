@@ -40,8 +40,12 @@ public class BoardPlannerService {
             if(!list.isEmpty()){
                 boardPlannerRepository.save(boardPlanner);
             }
-            else throw new BusinessLogicException(ExceptionCode.BOARDPLANNER_EXISTS);
-        } else throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
+            else {
+                throw new BusinessLogicException(ExceptionCode.BOARDPLANNER_EXISTS);
+            }
+        } else {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
+        }
     }
 
 
