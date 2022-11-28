@@ -31,13 +31,13 @@ public class BoardPlannerService {
 
     public void save(String accessToken, long boardId, long plannerId) {
         if (memberService.findByAccessToken(accessToken).equals(plannerService.find(plannerId).getMember())) {
+            List<BoardPlanner> list = boardPlannerRepository.findAllByBoardAndPlanner(boardService.find(boardId),
+                    plannerService.find(plannerId));
             BoardPlanner boardPlanner = BoardPlanner.builder()
                     .board(boardService.find(boardId))
                     .planner(plannerService.find(plannerId))
-                    .priority((int) boardId)
+                    .priority(list.size())
                     .build();
-            List<BoardPlanner> list = boardPlannerRepository.findAllByBoardAndPlanner(boardService.find(boardId),
-                    plannerService.find(plannerId));
             if(list.isEmpty()){
                 boardPlannerRepository.save(boardPlanner);
             }
@@ -82,7 +82,7 @@ public class BoardPlannerService {
     private PlannerDto.MyPlannerResponse getMyPlannerResponse(long plannerId, Planner planner, List<BoardPlanner> boardPlanners) throws InterruptedException {
         List<PlannerDto.Time> timeList = plannerService.getTimeBetweenBoardsList(
                 boardPlanners.stream()
-                        .sorted(Comparator.comparing(BoardPlanner::getPriority))
+                        .sorted(Comparator.comparing(BoardPlanner::getPriority).reversed())
                         .map(BoardPlanner::getBoard)
                         .collect(Collectors.toList()));
 
