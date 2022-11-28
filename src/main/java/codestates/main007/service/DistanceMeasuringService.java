@@ -1,10 +1,12 @@
 package codestates.main007.service;
 
+import codestates.main007.exception.ExceptionCode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -43,6 +45,10 @@ public class DistanceMeasuringService {
                 .build();
         ResponseEntity<String> response = restTemplate.exchange(req, String.class);
         String str = response.getBody();
+
+        if (str.equals("")||str==null){
+            throw new ResponseStatusException(ExceptionCode.CAN_NOT_MEASUERING.getStatus(), ExceptionCode.CAN_NOT_MEASUERING.getMessage(), new IllegalArgumentException());
+        }
 
         int startIdx = response.getBody().indexOf("totalTime");
         String subStr = str.substring(startIdx+11,startIdx+16);
