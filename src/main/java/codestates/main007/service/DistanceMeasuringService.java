@@ -46,6 +46,7 @@ public class DistanceMeasuringService {
         ResponseEntity<String> response = restTemplate.exchange(req, String.class);
         String str = response.getBody();
 
+        //todo :
         if (str.equals("")||str==null){
             throw new ResponseStatusException(ExceptionCode.CAN_NOT_MEASUERING.getStatus(), ExceptionCode.CAN_NOT_MEASUERING.getMessage(), new IllegalArgumentException());
         }
