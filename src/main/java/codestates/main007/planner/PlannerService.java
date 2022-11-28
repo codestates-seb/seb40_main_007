@@ -59,7 +59,7 @@ public class PlannerService {
         List<BoardPlanner> boardPlanners = find(plannerId).getBoardPlanners();
         List<PlannerDto.Time> timeList = getTimeBetweenBoardsList(
                 boardPlanners.stream()
-                        .sorted(Comparator.comparing(BoardPlanner::getPriority).reversed())
+                        .sorted(Comparator.comparing(BoardPlanner::getPriority))
                         .map(BoardPlanner::getBoard)
                         .collect(Collectors.toList()));
         if (memberService.findByAccessToken(accessToken).equals(planner.getMember())) {
