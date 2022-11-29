@@ -35,7 +35,7 @@ public class AdminController {
         int todayBoard = 0;
         int monthBoard = 0;
         List<Board> reportedBoards = new ArrayList<>();
-        ArrayList<Long>[] reportReason = new ArrayList[totalBoards.size()];
+        ArrayList<Long>[] reportReason = new ArrayList[totalBoards.size()+1];
 
         for (Board board : totalBoards) {
             LocalDateTime writeDay = board.getCreatedAt().truncatedTo(ChronoUnit.DAYS);
