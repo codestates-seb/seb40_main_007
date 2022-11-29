@@ -45,7 +45,7 @@ function Post({ data }) {
             <div className="absolute right-0 bg-[rgba(256,256,256,0.5)] flex p-[1px] m-1 rounded-lg z-10">
               {/* 모달 형태 수정해야함. */}
               {/* <MyTravelModal />  */}
-              <TestMyTravelModal></TestMyTravelModal>
+              <TestMyTravelModal boardId={data.boardId} />
               <Heart boardId={data.boardId} heartState={data.dibs} />
             </div>
           ) : null}

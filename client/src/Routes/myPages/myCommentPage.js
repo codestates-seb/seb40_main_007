@@ -21,13 +21,11 @@ const MyCommentPage = () => {
     const config = {
       headers: { Authorization: TOKEN },
     };
-    // let url = `${process.env.REACT_APP_URL}/questions?page=${page}&size=${15}`;
     // const URL = `${process.env.REACT_APP_URL}//members/my-page/comments`;
     const URL = `${process.env.REACT_APP_URL}/members/my-page/comments?page=${page}&size=10`;
     axios
       .get(URL, config)
       .then((response) => {
-        console.log(response);
         setData(response.data.items);
         setPageInfo(response.data.pageInfo);
       })

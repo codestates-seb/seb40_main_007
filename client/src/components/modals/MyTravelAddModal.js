@@ -1,14 +1,49 @@
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { accessToken } from "../../atoms/loginTest";
+import axios from "axios";
+import {
+  myTravelIdSelect,
+  myTravelListData,
+  myTravelNameSelect,
+} from "../../atoms/mypage/myTravelData";
 
 const MyTravelAddModal = ({ setShowModal }) => {
   const [inputText, setInputText] = useState("");
+  const [, setMyTravelList] = useRecoilState(myTravelListData);
+  const [, setMyTravelId] = useRecoilState(myTravelIdSelect);
+  const [, setMyTravelName] = useRecoilState(myTravelNameSelect);
+
+  const [TOKEN] = useRecoilState(accessToken);
+
+  const addPlan = () => {
+    const URL = `${process.env.REACT_APP_URL}/planners`;
+    const data = {
+      plannerName: inputText,
+    };
+    const config = {
+      headers: { Authorization: TOKEN },
+    };
+    axios
+      .post(URL, data, config)
+      .then((response) => {
+        const data = response.data.items;
+        console.log("list add 성공", data);
+        setShowModal(false);
+        setMyTravelList(data);
+        data.length === 1
+          ? (setMyTravelId(data[0].plannerId),
+            setMyTravelName(data[0].plannerName))
+          : null;
+      })
+      .catch((error) => {
+        console.log("Add TravelList Fail :", error);
+      });
+  };
   return (
     <>
-      <div
-        // onClick={() => setShowModal(false)}
-        className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-[#57545469]"
-      >
+      <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-[#57545469]">
         <div className="relative w-auto my-6 mx-auto max-w-sm">
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             <div className="text-right">
@@ -42,7 +77,7 @@ const MyTravelAddModal = ({ setShowModal }) => {
                 className={`${inputText.length >= 1 ? "py-5 mt-4" : "py-5"}`}
               >
                 <button
-                  onClick={() => setShowModal(false)}
+                  onClick={addPlan}
                   className={`btn hover:scale-110 active:scale-100 ${
                     inputText.length >= 1
                       ? ""

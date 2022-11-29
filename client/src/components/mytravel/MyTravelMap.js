@@ -1,30 +1,69 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
+import { TiPencil } from "react-icons/ti";
 import { Map, CustomOverlayMap, Polyline } from "react-kakao-maps-sdk";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { accessToken } from "../../atoms/loginTest";
+import {
+  myTravelIdSelect,
+  myTravelListData,
+  myTravelNameSelect,
+  traveMapCenterEvent,
+} from "../../atoms/mypage/myTravelData";
 // import TravelMapItem from "./MapItem/TravelMapItem";
 
 const MyTravelMap = ({ data }) => {
-  const [initCoordinate, setInitCoordinate] = useState({
-    lat: 36.58834236643186,
-    lng: 128.0072011230013,
-  });
-  const [initLevel, setInitLevel] = useState(14);
+  const [TOKEN] = useRecoilState(accessToken);
+  const [, setMyTravelName] = useRecoilState(myTravelNameSelect);
 
-  const coordinate = data.map((el) => ({
-    lat: el.latitude,
-    lng: el.longitude,
-  }));
+  const myTravelId = useRecoilValue(myTravelIdSelect);
+  const [, setMyTravelList] = useRecoilState(myTravelListData);
+
+  const myTravelName = useRecoilValue(myTravelNameSelect);
+  const [traveMapCenter, setTraveMapCenter] =
+    useRecoilState(traveMapCenterEvent);
+
+  const [inputText, setInputText] = useState(false);
+  const [inputValue, setInputValue] = useState(myTravelName);
+
+  const lineCoordinate = data
+    ? data.map((el) => ({
+        lat: el.latitude,
+        lng: el.longitude,
+      }))
+    : [];
+
+  const changeName = () => {
+    setInputText(false);
+    // /planners/{planner-id}
+    const URL = `${process.env.REACT_APP_URL}/planners/${myTravelId}`;
+
+    const config = {
+      headers: { Authorization: TOKEN },
+    };
+    const data = {
+      plannerName: inputValue,
+    };
+
+    axios
+      .patch(URL, data, config)
+      .then((response) => {
+        console.log("Change My Travel Name Success :", response);
+        setMyTravelList(response.data.items);
+        setMyTravelName(inputValue);
+      })
+      .catch((error) => {
+        console.log("Change My Travel Name Fail :", error);
+      });
+  };
 
   useEffect(() => {
-    data.length > 0
-      ? setInitCoordinate(
-          {
-            lat: data[0].latitude,
-            lng: data[0].longitude,
-          },
-          setInitLevel(6)
-        )
-      : (setInitCoordinate({ lat: 36.58834236643186, lng: 128.0072011230013 }),
-        setInitLevel(14));
+    data && data.length > 0
+      ? setTraveMapCenter({
+          lat: data[0].latitude,
+          lng: data[0].longitude,
+        })
+      : setTraveMapCenter({ lat: 36.58834236643186, lng: 128.0072011230013 });
   }, [data]);
 
   return (
@@ -32,45 +71,77 @@ const MyTravelMap = ({ data }) => {
       <div className="flex flex-row items-center mb-4">
         <img className="w-10 h-10 mr-2" alt="logo" src="/images/logo.png"></img>
         {/* 내 여행 계획 목록 제목 */}
-        <h2 className="text-lg font-semibold text-[rgb(83,199,240)]">
-          부산역 여행
-        </h2>
+        {inputText ? (
+          <>
+            <input
+              type="text"
+              className="h-7 pl-2 outline-none border-b-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] text-lg font-semibold z-20"
+              defaultValue={myTravelName}
+              onChange={(e) => setInputValue(e.target.value)}
+            ></input>
+            <button
+              className={`pl-2 text-[rgb(83,199,240)] border-b-2 border-[rgb(83,199,240)] z-20`}
+              onClick={changeName}
+            >
+              <TiPencil className="" size={"25"} />
+            </button>
+            <button
+              className="fixed inset-0 z-10 cursor-default"
+              type="button"
+              onClick={() => (setInputText(false), setInputValue(myTravelName))}
+            ></button>
+          </>
+        ) : (
+          <>
+            <h2 className="text-lg font-semibold text-[rgb(83,199,240)]">
+              {myTravelName}
+            </h2>
+            <button
+              className={`ml-2 text-[rgb(83,199,240)] border-b-2 border-[rgb(83,199,240)] `}
+              onClick={() => setInputText(!inputText)}
+            >
+              <TiPencil size={"25"} />
+            </button>
+          </>
+        )}
       </div>
-      <Map // 지도를 표시할 Container
-        center={initCoordinate}
-        style={{
-          // 지도의 크기
-          width: "100%",
-          height: "100%",
-        }}
-        level={initLevel} // 지도의 확대 레벨
-      >
-        <Polyline
-          path={[coordinate]}
-          strokeWeight={3} // 선의 두께 입니다
-          strokeColor={"rgb(83,199,240)"} // 선의 색깔입니다
-          strokeOpacity={1} // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-          strokeStyle={"line"} // 선의 스타일입니다
-        />
-        {data.length !== 0
-          ? data.map((data, index) => (
-              // 커스텀 오버레이를 표시할 Container
-              <CustomOverlayMap
-                key={index}
-                // 커스텀 오버레이가 표시될 위치입니다
-                position={{ lat: data.latitude, lng: data.longitude }}
-                // 커스텀 오버레이가에 대한 확장 옵션 x,y 좌표 이동.
-                xAnchor={0.5}
-                yAnchor={0.5}
-                zIndex={-index}
-              >
-                <div className="bg-[rgb(83,199,240)] rounded-full border-2 border-black w-7 h-auto text-center">
-                  {index + 1}
-                </div>
-              </CustomOverlayMap>
-            ))
-          : null}
-      </Map>
+      {data && (
+        <Map // 지도를 표시할 Container
+          center={traveMapCenter}
+          style={{
+            // 지도의 크기
+            width: "100%",
+            height: "100%",
+          }}
+          level={data && data.length === 0 ? 14 : 5} // 지도의 확대 레벨
+        >
+          <Polyline
+            path={[lineCoordinate]}
+            strokeWeight={3} // 선의 두께 입니다
+            strokeColor={"rgb(83,199,240)"} // 선의 색깔입니다
+            strokeOpacity={1} // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+            strokeStyle={"line"} // 선의 스타일입니다
+          />
+          {data.length !== 0
+            ? data.map((data, index) => (
+                // 커스텀 오버레이를 표시할 Container
+                <CustomOverlayMap
+                  key={index}
+                  // 커스텀 오버레이가 표시될 위치입니다
+                  position={{ lat: data.latitude, lng: data.longitude }}
+                  // 커스텀 오버레이가에 대한 확장 옵션 x,y 좌표 이동.
+                  xAnchor={0.5}
+                  yAnchor={0.5}
+                  zIndex={-index}
+                >
+                  <div className="bg-[rgb(83,199,240)] rounded-full border-2 border-black w-7 h-auto text-center">
+                    {index + 1}
+                  </div>
+                </CustomOverlayMap>
+              ))
+            : null}
+        </Map>
+      )}
     </div>
   );
 };

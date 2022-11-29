@@ -1,5 +1,8 @@
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 import { RiCloseFill } from "react-icons/ri";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { traveMapCenterEvent } from "../../../atoms/mypage/myTravelData";
+import { tagsInfoList } from "../../../atoms/tagsInfo";
 import PostStarScore from "../../MainPage/Posts/PostStarScore";
 import ViewTag from "../../tag/viewTags/ViewTag";
 const MyTravelPost = ({
@@ -11,32 +14,36 @@ const MyTravelPost = ({
   handleStackCnt,
   handelInitFrontStack,
 }) => {
+  const [, setTraveMapCenter] = useRecoilState(traveMapCenterEvent);
+  const tagsInfo = useRecoilValue(tagsInfoList);
+
+  // 게시물 한칸 위로 이동
   const handleUpBtn = () => {
     setSwapIndex({ state: "up", index });
-    // setStackCnt(stackCnt + 1);
     handleStackCnt();
     handelInitFrontStack();
   };
 
+  // 게시물 한칸 아래로 이동
   const handleDownBtn = () => {
     setSwapIndex({ state: "down", index });
-    // setStackCnt(stackCnt + 1);
     handleStackCnt();
     handelInitFrontStack();
   };
 
+  // 게시물 삭제
   const handleDeletBtn = () => {
     setDeleteIndex(index);
-    // setStackCnt(stackCnt + 1);
     handleStackCnt();
     handelInitFrontStack();
   };
-
-  const dummyTagList = [
+  // 테그 숫자 -> 문자로 변환
+  const tagList = [
     data.tags.detailTag,
     ...data.tags.moodTag,
     data.tags.priceTag,
-  ];
+  ].map((el) => tagsInfo[el]);
+
   return (
     <div className="mb-4 border-[1px] border-[rgb(83,199,240)] flex flex-row items-center">
       {/* 업,다운 */}
@@ -79,14 +86,24 @@ const MyTravelPost = ({
             {/* 타이틀 */}
             <div className="flex flex-row items-center justify-between">
               <div className="flex flex-row items-center">
-                <div className="bg-[rgb(83,199,240)] text-[rgba(0,0,0,0.8)] border-[1px] border-black font-medium text-xs rounded-full w-5 h-5 mr-1 flex justify-center items-center">
+                <button
+                  className="bg-[rgb(83,199,240)] text-[rgba(0,0,0,0.8)] border-[1px] border-black font-medium text-xs rounded-full w-5 h-5 mr-1 flex justify-center items-center"
+                  onClick={() =>
+                    setTraveMapCenter({
+                      lat: data.latitude,
+                      lng: data.longitude,
+                    })
+                  }
+                >
                   {index + 1}
-                </div>
-                <h2 className="text-sm mr-2 font-semibold">{data.title}</h2>
+                </button>
+                <h2 className="w-28 text-sm mr-2 font-semibold truncate">
+                  {data.title}
+                </h2>
                 <PostStarScore score={data.star} size={15} />
               </div>
-              {/* 삭제버튼 */}
-              <div>
+              <div className="text-end">
+                {/* 삭제버튼 */}
                 <button
                   onClick={handleDeletBtn}
                   className="hover:scale-125 active:scale-100"
@@ -96,8 +113,8 @@ const MyTravelPost = ({
               </div>
             </div>
             {/* 태그 */}
-            <div className="w-11/12 ">
-              <ViewTag tagList={dummyTagList} color={"blue"}></ViewTag>
+            <div className="w-11/12 h-9">
+              <ViewTag tagList={tagList} color={"blue"}></ViewTag>
             </div>
           </div>
         </div>

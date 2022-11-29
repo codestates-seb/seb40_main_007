@@ -29,7 +29,6 @@ import {
   editStarState,
   editCommentState,
 } from "../atoms/editPageData";
-const [disable, setDisable] = useState(false); //제출 버튼 비활성화
 
 export default function EditPage() {
   const navigatge = useNavigate();
@@ -92,6 +91,7 @@ export default function EditPage() {
   const [center, setCenter] = useState(""); //맵 초기 위치
   const [initialImage, setInitialImage] = useState(""); // 초기 이미지
   const [initialAtmas, setInitialAtmas] = useState([]); // 초기 분위기
+  const [disable, setDisable] = useState(false); //제출 버튼 비활성화
 
   let atmasTagId = [...editRelatedAtmas].map((el) => tagList[el]);
 
