@@ -58,7 +58,7 @@ function MyPost({ data, tabValue }) {
             <img
               src={data?.thumbnail}
               alt="alt"
-              className={`w-40 h-40 object-fit static mb-2 rounded-lg shadow-[0px_0px_2px_1px_rgba(0,0,0,0.3)]`}
+              className={`w-40 h-36 object-fit static mb-2 rounded-lg shadow-[0px_0px_2px_1px_rgba(0,0,0,0.3)]`}
             />
           </Link>
           <MyPostStarScore score={data?.star} />

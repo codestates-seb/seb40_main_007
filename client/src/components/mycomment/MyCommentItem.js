@@ -7,7 +7,11 @@ import { Link } from "react-router-dom";
 const Item = ({ thumbnail, title, comment, linkPostId }) => {
   return (
     <div className="w-full flex flex-row  ">
-      <img className="w-24 h-24 rounded-md" alt="post img" src={thumbnail} />
+      <img
+        className="w-24 h-24 shadow-[0px_0px_2px_1px_rgba(0,0,0,0.3)] rounded-lg m-0.5"
+        alt="post img"
+        src={thumbnail}
+      />
       <div className="w-4/6 pl-3 flex flex-col justify-center">
         <div className="w-full font-medium flex justify-between items-center">
           {title}
