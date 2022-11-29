@@ -8,7 +8,7 @@ import swal from "sweetalert";
 import axios from "axios";
 import { useState } from "react";
 
-const Comment = ({ props }) => {
+const Comment = ({ props, dateTime }) => {
   const { id } = useParams();
   const memberId = useRecoilValue(userId);
   const TOKEN = useRecoilValue(accessToken);
@@ -16,7 +16,7 @@ const Comment = ({ props }) => {
   const [disable, setDisable] = useState(true);
   const [commentText, setCommentText] = useState("");
   const [char, setChar] = useState(0);
-
+  console.log(dateTime);
   const commentInfo = props;
   const handleTextChange = (e) => {
     setCommentText(e.target.value);
@@ -70,7 +70,7 @@ const Comment = ({ props }) => {
 
   return (
     <>
-      <li className="flex flex-row items-center justify-start space-x-3 mb-4">
+      <li className="flex my-3 flex-row justify-start space-x-3">
         <div className="w-12 h-12">
           <img
             src={commentInfo?.writer?.avatar}
@@ -78,8 +78,8 @@ const Comment = ({ props }) => {
             className="w-12 h-12"
           />
         </div>
-        <div className="w-5/6">
-          <div className="flex flex-row items-center py-2 space-x-1 ">
+        <div className="w-5/6 border-b border-gray-100">
+          <div className="flex flex-row items-center space-x-1">
             <span className="text-sm">{commentInfo?.writer?.name}</span>
             {memberId === commentInfo?.writer?.memberId ? (
               <>
@@ -99,8 +99,13 @@ const Comment = ({ props }) => {
             ) : null}
           </div>
           {disable ? (
-            <div className="text-xs text-gray-500 py-2">
-              {commentInfo?.comment}
+            <div className="relative">
+              <div className="text-sm text-gray-500 py-2">
+                {commentInfo?.comment}
+              </div>
+              <span className="absolute right-0 bottom-1 text-end -mt-2 text-[5px] w-fit text-gray-400">
+                {dateTime}
+              </span>
             </div>
           ) : (
             <>

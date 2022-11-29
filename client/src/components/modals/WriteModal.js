@@ -64,7 +64,7 @@ const WriteModal = () => {
             className="fixed inset-0"
             type="button"
             onClick={() => {
-              setCategories(" ");
+              setCategories("");
               setShowModal(false);
             }}
           ></button>

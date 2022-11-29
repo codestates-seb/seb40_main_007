@@ -6,10 +6,10 @@ export default function PostCategoryTabs() {
   return (
     <>
       <div className="flex flex-row items-center font-bold">
-        <span className="mr-12">카테고리</span>
+        <span className="lg:mr-12 mr-2 lg:text-base text-sm">카테고리</span>
         <button
           onClick={() => setCategory("식당")}
-          className={`w-16 border-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] rounded-full m-1
+          className={`lg:text-base text-xs lg:w-16 border-2 p-1 px-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] lg:rounded-full rounded-2xl m-1
           ${
             category === "식당" ? "bg-[rgb(83,199,240)] text-white" : "bg-white"
           }`}
@@ -18,7 +18,7 @@ export default function PostCategoryTabs() {
         </button>
         <button
           onClick={() => setCategory("볼거리")}
-          className={`w-16 border-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] rounded-full m-1
+          className={`lg:text-base text-xs lg:w-18 border-2 p-1 px-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] lg:rounded-full rounded-2xl m-1
           ${
             category === "볼거리"
               ? "bg-[rgb(83,199,240)] text-white"
@@ -29,7 +29,7 @@ export default function PostCategoryTabs() {
         </button>
         <button
           onClick={() => setCategory("숙소")}
-          className={`w-16 border-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] rounded-full m-1
+          className={`lg:text-base text-xs lg:w-16 border-2 p-1 px-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] lg:rounded-full rounded-2xl m-1
           ${
             category === "숙소" ? "bg-[rgb(83,199,240)] text-white" : "bg-white"
           }`}

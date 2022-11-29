@@ -17,14 +17,11 @@ const MyStation = ({ visit }) => {
           </div>
         </div>
       ) : (
-        visit.map((trainId) => (
-          <div
-            key={trainId}
-            className="border-4 border-[rgb(83,199,240)] grid sm:grid-cols-5 grid-cols-3 rounded-3xl "
-          >
+        <div className="border-4 border-[rgb(83,199,240)] grid sm:grid-cols-5 grid-cols-3 rounded-3xl ">
+          {visit.map((trainId) => (
             <MyStationItem key={trainId} trainId={trainId} />
-          </div>
-        ))
+          ))}
+        </div>
       )}
     </div>
   );

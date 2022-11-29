@@ -220,9 +220,9 @@ export default function EditMap({ trainId, position, center, address, title }) {
   const windowResize = () => {
     // 맵 스타일 변경
     if (window.innerWidth >= 1024) {
-      setStyle({ width: "90%", height: "500px" });
+      setStyle({ width: "100%", height: "500px" });
     } else {
-      setStyle({ width: "90%", height: "300px" });
+      setStyle({ width: "100%", height: "250px" });
     }
   };
   const [markerSize, setMarkerSize] = useState({
@@ -230,6 +230,11 @@ export default function EditMap({ trainId, position, center, address, title }) {
     height: 70,
   });
   useEffect(() => {
+    if (window.innerWidth >= 1024) {
+      setStyle({ width: "100%", height: "500px" });
+    } else {
+      setStyle({ width: "100%", height: "250px" });
+    }
     window.addEventListener("resize", windowResize);
     return () => {
       window.removeEventListener("resize", windowResize);
@@ -278,21 +283,21 @@ export default function EditMap({ trainId, position, center, address, title }) {
 
   return (
     <>
-      <div className="mb-10 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 text-18 text-[rgb(83,199,240)] mt-10">
+      <div className="lg:pt-20 pt-10 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit lg:px-5 px-3 pb-2 mb-5 lg:text-base text-sm text-[rgb(83,199,240)]">
         위치 등록
       </div>
       <div className="relative">
-        <div className="border-2 border-[rgb(83,199,240)] rounded-2xl py-1 px-2 bg-[rgba(256,256,256,0.6)] w-fit absolute z-10 top-2 left-2">
+        <div className="lg:border-2 border border-[rgb(83,199,240)] lg:rounded-2xl rounded-lg py-1 lg:px-2 px-1 bg-[rgba(256,256,256,0.6)] w-fit absolute z-10 lg:top-2 top-0 lg:left-2 left-0">
           <input
             type="text"
             value={keyword !== "" ? keyword : ""}
             onChange={onKeywordChange}
-            className="border-2 text-[rgb(83,199,240)] font-bold px-2 bg-white"
+            className="lg:text-base text-sm border-2 text-[rgb(83,199,240)] font-bold lg:px-2 bg-white"
           />
           <button
             type="submit"
             onClick={onKeywordSubmit}
-            className="border-2 bg-[rgb(83,199,240)] rounded-lg px-2 text-white"
+            className="lg:text-base text-sm border-2 bg-[rgb(83,199,240)] rounded-lg px-2 text-white"
           >
             검색
           </button>
@@ -356,13 +361,13 @@ export default function EditMap({ trainId, position, center, address, title }) {
             )}
 
             {/* 지도 위에 띄우는 마커 정보들 */}
-            <div className=" text-white bg-[rgba(0,0,0,0.2)] text-right">
+            {/* <div className=" text-white bg-[rgba(0,0,0,0.2)] text-right">
               Lat:{oneMarker.lat}/ Lng:{oneMarker.lng}
-            </div>
-            <div className="absolute top-16 left-6 z-10 bg-[rgba(256,256,256,0.7)] w-1/4 h-[200px] lg:h-[400px] overflow-scroll p-2">
+            </div> */}
+            <div className="absolute lg:top-16 top-10 lg:left-4 left-0 z-10 bg-[rgba(256,256,256,0.7)] lg:w-1/4 w-2/5  h-[200px] lg:h-[400px] overflow-scroll lg:p-2 p-1">
               {markers.length === 1 ? (
-                <div className="border-2 p-2 border-[rgb(83,199,240)] w-full rounded-md mb-1">
-                  <div className="text-base font-semibold text-[rgb(73,177,214)]">
+                <div className="border-2 lg:p-2 p-1 border-[rgb(83,199,240)] w-full rounded-md mb-1">
+                  <div className="lg:text-base text-xs font-semibold text-[rgb(73,177,214)]">
                     <img
                       src="/images/bluelogo.png"
                       alt="marker"
@@ -370,8 +375,12 @@ export default function EditMap({ trainId, position, center, address, title }) {
                     />
                     {markers[0].place_name}
                   </div>
-                  <div className="text-xs ml-5">{markers[0].adress}</div>
-                  <div className="text-xs ml-5">{markers[0].phone}</div>
+                  <div className="lg:text-xs text-[10px] lg:ml-5">
+                    {markers[0].adress}
+                  </div>
+                  <div className="lg:text-xs text-[10px] lg:ml-5">
+                    {markers[0].phone}
+                  </div>
                 </div>
               ) : (
                 markers.map((marker) => (
@@ -385,7 +394,7 @@ export default function EditMap({ trainId, position, center, address, title }) {
                     }}
                     key={`marker-${marker.position.lat}-${marker.position.lng}`}
                   >
-                    <div className="text-base font-semibold text-[rgb(73,177,214)]">
+                    <div className="lg:text-base text-xs font-semibold text-[rgb(73,177,214)]">
                       <img
                         src="/images/bluelogo.png"
                         alt="marker"
@@ -393,8 +402,12 @@ export default function EditMap({ trainId, position, center, address, title }) {
                       />
                       {marker.place_name}
                     </div>
-                    <div className="text-xs ml-5">{marker.adress}</div>
-                    <div className="text-xs ml-5">{marker.phone}</div>
+                    <div className="lg:text-xs text-[10px] lg:ml-5">
+                      {marker.adress}
+                    </div>
+                    <div className="lg:text-xs text-[10px] lg:ml-5">
+                      {marker.phone}
+                    </div>
                   </div>
                 ))
               )}
@@ -403,42 +416,42 @@ export default function EditMap({ trainId, position, center, address, title }) {
         )}
       </div>
 
-      <div className="text-xs font-semibold text-gray-400 mt-5 mb-1 text-right">
+      <div className="lg:text-xs text-[8px] font-semibold text-gray-400 mt-5 mb-1 text-right">
         <div>
           <img
             src="/images/marker.png"
             alt="marker"
-            className="w-7 h-8 inline mr-1"
+            className="lg:w-7 w-5 lg:h-8 h-6 inline mr-1"
           />
           마커로 보다 정확한 위치를 표시해 보세요!
         </div>
       </div>
 
       {/* 장소명 */}
-      <div className="mb-2 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 text-18 text-[rgb(83,199,240)] mt-10">
+      <div className="lg:pt-20 pt-10 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit lg:px-5 px-3 pb-2 mb-5 lg:text-base text-sm text-[rgb(83,199,240)]">
         장소명
       </div>
-      <div className="text-xs text-gray-500  mt-5">
+      <div className="lg:text-xs text-[8px] text-gray-500  mt-5">
         근방의 기차역이 {trainStationInfo[trainId]?.train} 맞나요? 아니라면 "역
         선택"을 다시해 주세요
       </div>
-      <div className="mt-1 w-full text-2xl font-semibold text-[rgb(83,199,240)] flex items-center relative">
+      <div className="mt-1 w-full lg:text-2xl text-lg font-semibold text-[rgb(83,199,240)] flex items-center relative">
         <img
           src="/images/bluelogo.png"
           alt="marker"
-          className="w-10 h-10 inline mr-1"
+          className="lg:w-14 lg:h-14 w-8 h-8 inline lg:mr-1"
         />
         {/* 장소명 상세 작성 */}
         <input
-          className="w-full p-2 z-10 bg-[rgba(0,0,0,0)]"
+          className="lg:text-2xl text-sm w-full p-2 z-10 bg-[rgba(0,0,0,0)] focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 rounded-xl"
           value={title}
           onChange={handleTitleChange}
         />
         <div className="z-0 absolute right-3 top-0">
-          <div className="text-gray-400 text-sm inline font-light">
+          <div className="text-gray-400 lg:text-sm text-[8px] inline font-light ">
             장소 상세작성
           </div>
-          <BsFillPencilFill className="inline" />
+          <BsFillPencilFill className="inline lg:w-5 lg:h-5 w-3 h-3" />
         </div>
       </div>
     </>

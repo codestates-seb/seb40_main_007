@@ -5,7 +5,8 @@ import { detailData } from "../../../atoms/detailPageData";
 
 const CommentList = () => {
   const [detailInfo] = useRecoilState(detailData);
-
+  const detailTime = new Date(detailInfo.createdAt);
+  const dateTime = detailTime?.toLocaleString("ko-KR");
   return (
     <>
       <div className="mt-10 mb-10">
@@ -16,7 +17,11 @@ const CommentList = () => {
       <div className="grid grid-cols-1 ml-10">
         {detailInfo?.comments !== undefined
           ? detailInfo?.comments.map((comment) => (
-              <Comment key={comment.commentId} props={comment} />
+              <Comment
+                key={comment.commentId}
+                props={comment}
+                dateTime={dateTime}
+              />
             ))
           : null}
       </div>

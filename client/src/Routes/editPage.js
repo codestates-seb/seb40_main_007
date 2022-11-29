@@ -2,7 +2,7 @@
 import Header from "../components/Header";
 import EditTrainStationSelect from "../components/EditPage/EditTrainStationSelect";
 import EditStarRating from "../components/EditPage/EditStarRating";
-import OnlineInput from "../components/OneLineInput";
+import EditOneLineInput from "../components/EditPage/EditOneLineInput";
 import EditMap from "../components/EditPage/EditMap";
 import EditImageUpload from "../components/EditPage/EditImageUpload";
 import EditCategoryTabs from "../components/EditPage/EditCategoryTabs";
@@ -128,7 +128,7 @@ export default function EditPage() {
         console.log(error);
       });
   }, []);
-  console.log("editImageList", editImageList);
+
   const onSubmit = () => {
     setDisable(true);
     const editUrl = []; // s3 url
@@ -139,18 +139,14 @@ export default function EditPage() {
         editUrl.push(file);
         editPriority.push("u");
       } else {
-        console.log("새 업로드 부분입니다.");
         formData.append("files", file);
-        console.log(file);
         editPriority.push("i");
       }
-      console.log(editUrl, editPriority);
     }
 
     if (!editPriority.includes("i")) {
       formData.append("files", new Blob([JSON.stringify({})]));
     }
-    console.log("!editPriority.includes", !editPriority.includes("i"));
 
     let finalUpLoadJson = {
       title: editTitle,
@@ -171,8 +167,42 @@ export default function EditPage() {
         type: "application/json",
       })
     );
-    setUpLoadFormData(formData); // 폼데이터 useState로 저장
-    console.log("finalUpLoad!!!!!!!!!!!!", finalUpLoadJson);
+    if (editTrainStation === "") {
+      swal("Please Check!", "기차역을 선택해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (editAdress === "") {
+      swal("Please Check!", "주소를 선택해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (editTitle === "") {
+      swal("Please Check!", "제목 입력해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (editStar === 0) {
+      swal("Please Check!", "별점을 입력해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (editImageList.length === 0) {
+      swal("Please Check!", "사진을 업로드해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (editCategory === "") {
+      swal("Please Check!", "카테고리를 입력해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (editRelated === "") {
+      swal("Please Check!", "관련태그를 입력해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (editComment === "") {
+      swal("Please Check!", "한줄평을 입력해 주세요", "info");
+      setDisable(false);
+      return;
+    } else {
+      setUpLoadFormData(formData); // 폼데이터 useState로 저장
+      console.log("finalUpLoad!!!!!!!!!!!!", finalUpLoadJson);
+    }
   };
 
   useEffect(() => {
@@ -197,11 +227,11 @@ export default function EditPage() {
           setEditAdress("");
           setEditCategory("");
           setEditRelated("");
-          setEditRelatedAtmas("");
+          setEditRelatedAtmas([]);
           setEditRelatedPrice("");
           setEditStar("");
           setEditComment("");
-          setEditImageList("");
+          setEditImageList([]);
           setDisable(false);
           navigatge(`/main/${editTrainStation}`);
         })
@@ -214,7 +244,7 @@ export default function EditPage() {
   return (
     <>
       <Header />
-      <div className="pb-30 max-w-5xl m-auto">
+      <div className="pb-30 lg:max-w-5xl lg:m-auto mx-2">
         <EditTrainStationSelect />
         <EditMap
           trainId={editTrainStation}
@@ -225,13 +255,13 @@ export default function EditPage() {
         />
 
         <EditImageUpload initialImage={initialImage} />
-        <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 pt-2 text-18 text-[rgb(83,199,240)] mt-16">
+        <div className="lg:pt-20 pt-10 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit lg:px-5 px-3 pb-2 mb-5 lg:text-base text-sm text-[rgb(83,199,240)]">
           별점
         </div>
         <div className="flex justify-center m-auto">
           <EditStarRating />
         </div>
-        <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 my-16 text-18 text-[rgb(83,199,240)] ">
+        <div className="lg:pt-20 pt-10 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit lg:px-5 px-3 pb-2 mb-5 lg:text-base text-sm text-[rgb(83,199,240)]">
           관련태그
         </div>
         <div className="mb-5 w-fit m-auto sm:ml-56">
@@ -240,7 +270,7 @@ export default function EditPage() {
           <EditRelatedAtmasTab initialAtmas={initialAtmas} />
           <EditListTag />
         </div>
-        <OnlineInput />
+        <EditOneLineInput />
       </div>
       <div className="flex justify-center">
         <button

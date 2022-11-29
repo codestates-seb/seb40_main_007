@@ -3,6 +3,7 @@ import DetailStarScore from "./DetailStarScore";
 import { TiPencil } from "react-icons/ti";
 import { FaRegTrashAlt } from "react-icons/fa";
 import DetailHeart from "./detailHeart";
+import Complain from "../Complain";
 import { useRecoilValue } from "recoil";
 import { trainInfo } from "../../../atoms/trainInfo";
 import { categoryInfoList, tagsInfoList } from "../../../atoms/tagsInfo";
@@ -18,7 +19,6 @@ const DetailHeader = () => {
   const memberId = useRecoilValue(userId);
   const TOKEN = useRecoilValue(accessToken);
   const navigate = useNavigate();
-
   const trainInformation = useRecoilValue(trainInfo);
   const categoryInfo = useRecoilValue(categoryInfoList);
   const tagsInfo = useRecoilValue(tagsInfoList);
@@ -35,22 +35,33 @@ const DetailHeader = () => {
   const DateTime = new Date(detailInfo.createdAt);
 
   const handleDelete = () => {
-    const config = {
-      headers: { Authorization: TOKEN },
-    };
-    axios
-      .delete(
-        `${process.env.REACT_APP_URL}/boards/${detailInfo.boardId}`,
-        config
-      )
-      .then((response) => {
-        console.log(response);
-        swal("삭제되었습니다");
-        navigate(`/main/${detailInfo.stationId}`);
-      })
-      .catch((error) => {
-        swal("게시글 삭제 실패");
-      });
+    swal({
+      text: "삭제하시겠습니까?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        const config = {
+          headers: { Authorization: TOKEN },
+        };
+        axios
+          .delete(
+            `${process.env.REACT_APP_URL}/boards/${detailInfo.boardId}`,
+            config
+          )
+          .then((response) => {
+            console.log(response);
+            swal("삭제되었습니다");
+            navigate(`/main/${detailInfo.stationId}`);
+          })
+          .catch((error) => {
+            swal("게시글 삭제 실패");
+          });
+      } else {
+        swal("삭제를 취소하셨습니다");
+      }
+    });
   };
 
   return (
@@ -80,10 +91,13 @@ const DetailHeader = () => {
         ) : (
           <div className="flex flex-row space-x-1 place-items-end">
             {TOKEN !== "" ? (
-              <DetailHeart
-                boardId={detailInfo?.boardId}
-                heartState={detailInfo?.dibs}
-              />
+              <>
+                <Complain />
+                <DetailHeart
+                  boardId={detailInfo?.boardId}
+                  heartState={detailInfo?.dibs}
+                />
+              </>
             ) : null}
           </div>
         )}

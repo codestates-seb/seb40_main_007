@@ -2,7 +2,7 @@
 import Header from "../components/Header";
 import PostTrainStationSelect from "../components/PostPage/PostTrainStationSelect";
 import StartRating from "../components/StarRating";
-import OnlineInput from "../components/OneLineInput";
+import PostOneLineInput from "../components/PostPage/PostOneLineInput";
 import PostMap from "../components/PostPage/PostMap";
 import ImageUpload from "../components/ImageUpload";
 import PostCategoryTabs from "../components/PostPage/PostCategoryTabs";
@@ -104,7 +104,7 @@ export default function PostPage() {
       address: postAdress,
       tags: [tagList[postRelated], ...atmasTagId, tagList[postRelatedPrice]],
     };
-    console.log(finalUpLoadJson);
+    console.log("완료시점", finalUpLoadJson);
 
     const formData = new FormData();
     for (const file of postImageList) {
@@ -117,7 +117,42 @@ export default function PostPage() {
         type: "application/json",
       })
     );
-    setUpLoadFormData(formData); // 폼데이터 useState로 저장
+    if (postTrainStation === "") {
+      swal("Please Check!", "기차역을 선택해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (postAdress === "") {
+      swal("Please Check!", "주소를 선택해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (postTitle === "") {
+      swal("Please Check!", "제목 입력해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (postStar === 0) {
+      swal("Please Check!", "별점을 입력해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (postImageList.length === 0) {
+      swal("Please Check!", "사진을 업로드해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (postCategory === "") {
+      swal("Please Check!", "카테고리를 입력해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (postRelated === "") {
+      swal("Please Check!", "관련태그를 입력해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (postComment === "") {
+      swal("Please Check!", "한줄평을 입력해 주세요", "info");
+      setDisable(false);
+      return;
+    } else {
+      setUpLoadFormData(formData);
+    }
+    // 폼데이터 useState로 저장
   };
 
   useEffect(() => {
@@ -137,11 +172,11 @@ export default function PostPage() {
           setPostTitle("");
           setPostCategory("");
           setPostRelated("");
-          setPostRelatedAtmas("");
+          setPostRelatedAtmas([]);
           setPostRelatedPrice("");
           setPostStar("");
           setPostComment("");
-          setPostImageList("");
+          setPostImageList([]);
           navigatge(`/main/${postTrainStation}`);
           setDisable(false);
         })
@@ -154,34 +189,34 @@ export default function PostPage() {
   return (
     <>
       <Header />
-      <div className="pb-30 max-w-5xl m-auto">
+      <div className="pb-30 lg:max-w-5xl lg:m-auto mx-2">
         <PostTrainStationSelect />
         <PostMap />
         <ImageUpload />
 
-        <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 pt-2 text-18 text-[rgb(83,199,240)] mt-16">
+        <div className="lg:pt-20 pt-10 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit lg:px-5 px-3 pb-2 mb-5 lg:text-base text-sm text-[rgb(83,199,240)]">
           별점
         </div>
         <div className="flex justify-center m-auto">
           <StartRating />
         </div>
-        <div className="font-semibold border-b-2 border-[rgb(83,199,240)] w-fit px-5 py-2 my-16 text-18 text-[rgb(83,199,240)] ">
+        <div className="lg:pt-20 pt-10 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit lg:px-5 px-3 pb-2 mb-5 lg:text-base text-sm text-[rgb(83,199,240)]">
           관련태그
         </div>
-        <div className="mb-5 w-fit m-auto sm:ml-56">
+        <div className="mb-5 w-fit m-auto lg:ml-56">
           <PostCategoryTabs />
           <PostRelatedTab />
           <PostRelatedAtmasTab />
           <ListTag />
         </div>
 
-        <OnlineInput />
+        <PostOneLineInput />
       </div>
       <div className="flex justify-center">
         <button
           disabled={disable}
-          className="bg-gray-400 w-fit m-auto text-white py-3 px-5 rounded-lg hover:bg-[rgb(83,199,240)] my-32"
-          onClick={(e) => onSubmit(e)}
+          className="bg-gray-400 w-fit m-auto text-white lg:py-3 lg:px-5 py-2 px-2 rounded-lg hover:bg-[rgb(83,199,240)] lg:my-32 my-16"
+          onClick={onSubmit}
         >
           작성완료
         </button>

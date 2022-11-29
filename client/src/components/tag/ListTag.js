@@ -38,64 +38,66 @@ export default function ListTag() {
   });
 
   return (
-    <div className="font-bold flex items-center">
-      <span className="mr-14">가격대</span>
-      {category === "식당"
-        ? restarant.map((text, idx) => (
-            <button
-              key={idx}
-              onClick={() => {
-                setRelatedPrice(text);
-                setSelectTag(idx);
-              }}
-              type="button"
-              className={`py-1 w-20 -ml-[2px] my-2 text-sm text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)]
+    <div className="flex font-bold items-center">
+      <div className="lg:mr-10 mr-2 lg:text-base text-sm w-[80px]">가격대</div>
+      <div className="font-bold flex items-center flex-wrap">
+        {category === "식당"
+          ? restarant.map((text, idx) => (
+              <button
+                key={idx}
+                onClick={() => {
+                  setRelatedPrice(text);
+                  setSelectTag(idx);
+                }}
+                type="button"
+                className={`lg:py-2 py-1 px-2 -ml-[2px] lg:my-2 my-1 lg:text-sm text-xs  text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)]
               ${idx === 0 ? "rounded-l-md" : "null"}
             ${idx === lastIndex ? "rounded-r-md" : "null"}
             ${
               idx === selectTag ? "bg-[rgb(83,199,240)] text-white" : "bg-white"
             }`}
-            >
-              {text}
-            </button>
-          ))
-        : category === "볼거리"
-        ? sight.map((text, idx) => (
-            <button
-              key={idx}
-              onClick={() => {
-                setRelatedPrice(text);
-                setSelectTag(idx);
-              }}
-              type="button"
-              className={`py-1 w-20 -ml-[2px] my-2 text-sm text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)]
+              >
+                {text}
+              </button>
+            ))
+          : category === "볼거리"
+          ? sight.map((text, idx) => (
+              <button
+                key={idx}
+                onClick={() => {
+                  setRelatedPrice(text);
+                  setSelectTag(idx);
+                }}
+                type="button"
+                className={`lg:py-2 py-1 px-2 -ml-[2px] lg:my-2 my-1 lg:text-sm text-xs  text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)]
               ${idx === 0 ? "rounded-l-md" : "null"}
             ${idx === lastIndex ? "rounded-r-md" : "null"}
             ${
               idx === selectTag ? "bg-[rgb(83,199,240)] text-white" : "bg-white"
             }`}
-            >
-              {text}
-            </button>
-          ))
-        : stay.map((text, idx) => (
-            <button
-              key={idx}
-              onClick={() => {
-                setRelatedPrice(text);
-                setSelectTag(idx);
-              }}
-              type="button"
-              className={`py-1 px-1 -ml-[2px] my-2 text-sm text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)]
+              >
+                {text}
+              </button>
+            ))
+          : stay.map((text, idx) => (
+              <button
+                key={idx}
+                onClick={() => {
+                  setRelatedPrice(text);
+                  setSelectTag(idx);
+                }}
+                type="button"
+                className={`lg:py-2 py-1 lg:pt-1 px-2 lg:w-22 -ml-[2px] lg:my-2 my-1 lg:text-sm text-xs  text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)]
               ${idx === 0 ? "rounded-l-md" : "null"}
             ${idx === lastIndex ? "rounded-r-md" : "null"}
             ${
               idx === selectTag ? "bg-[rgb(83,199,240)] text-white" : "bg-white"
             }`}
-            >
-              {text}
-            </button>
-          ))}
+              >
+                {text}
+              </button>
+            ))}
+      </div>
     </div>
   );
 }
