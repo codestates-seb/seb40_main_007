@@ -3,6 +3,7 @@ import DetailStarScore from "./DetailStarScore";
 import { TiPencil } from "react-icons/ti";
 import { FaRegTrashAlt } from "react-icons/fa";
 import DetailHeart from "./detailHeart";
+import Complain from "../Complain";
 import { useRecoilValue } from "recoil";
 import { trainInfo } from "../../../atoms/trainInfo";
 import { categoryInfoList, tagsInfoList } from "../../../atoms/tagsInfo";
@@ -90,10 +91,13 @@ const DetailHeader = () => {
         ) : (
           <div className="flex flex-row space-x-1 place-items-end">
             {TOKEN !== "" ? (
-              <DetailHeart
-                boardId={detailInfo?.boardId}
-                heartState={detailInfo?.dibs}
-              />
+              <>
+                <Complain />
+                <DetailHeart
+                  boardId={detailInfo?.boardId}
+                  heartState={detailInfo?.dibs}
+                />
+              </>
             ) : null}
           </div>
         )}

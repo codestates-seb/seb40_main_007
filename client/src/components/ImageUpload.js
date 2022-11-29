@@ -11,7 +11,7 @@ export default function ImageUpload() {
   // 대표 사진 인덱스번호
   const [image, setImage] = useRecoilState(postImageState); // 이미지 배열
   const [previewImage, setPreviewImage] = useState([]); // 이미지 주소 배열
-  const FILE_SIZE_MAX_LIMIT = 5 * 1024 * 1024; // 5MB 도 엄청큰데 8mb 맞나요!!!??
+  const FILE_SIZE_MAX_LIMIT = 1 * 1024 * 1024; // 8MB 도 엄청큰데 8mb 맞나요!!!??
 
   // 사진파일, 미리보기파일 추가
   const handleFiles = (e) => {
@@ -20,7 +20,7 @@ export default function ImageUpload() {
       currentImage = "";
       swal(
         "Can't Upload!",
-        "5MB 이상의 사진은 업로드 할 수 없습니다",
+        "8MB 이상의 사진은 업로드 할 수 없습니다",
         "warning"
       );
       return;

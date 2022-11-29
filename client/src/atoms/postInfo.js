@@ -3,23 +3,23 @@ import { v1 } from "uuid";
 
 export const postTrainStationState = atom({
   key: `trainStation/${v1()}`,
-  default: "기차역",
+  default: "",
 });
 //  const [trainStation, setTrainStation] = useRecoilState(postTrainStationState);
 
 export const postAdressState = atom({
   key: `adress/${v1()}`,
-  default: "주소",
+  default: "",
 });
 
 export const postpostionState = atom({
   key: `position/${v1()}`,
-  default: "위도",
+  default: "",
 });
 
 export const postTitleState = atom({
   key: `title/${v1()}`,
-  default: "제목",
+  default: "",
 });
 
 export const postImageState = atom({
@@ -34,22 +34,22 @@ export const postCategoryState = atom({
 
 export const postRelatedState = atom({
   key: `postRelated/${v1()}`,
-  default: "관련태그기본",
+  default: "",
 });
 
 export const postRelatedAtmasState = atom({
   key: `postAtmos/${v1()}`,
-  default: "분위기기본",
+  default: [],
 });
 
 export const postRelatedPriceState = atom({
   key: `postPrice/${v1()}`,
-  default: "가격기본",
+  default: "",
 });
 
 export const postStarState = atom({
   key: `postStar/${v1()}`,
-  default: "0",
+  default: 0,
 });
 
 export const postCommentState = atom({

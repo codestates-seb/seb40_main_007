@@ -128,7 +128,7 @@ export default function EditPage() {
         console.log(error);
       });
   }, []);
-  console.log("editImageList", editImageList);
+
   const onSubmit = () => {
     setDisable(true);
     const editUrl = []; // s3 url
@@ -139,18 +139,14 @@ export default function EditPage() {
         editUrl.push(file);
         editPriority.push("u");
       } else {
-        console.log("새 업로드 부분입니다.");
         formData.append("files", file);
-        console.log(file);
         editPriority.push("i");
       }
-      console.log(editUrl, editPriority);
     }
 
     if (!editPriority.includes("i")) {
       formData.append("files", new Blob([JSON.stringify({})]));
     }
-    console.log("!editPriority.includes", !editPriority.includes("i"));
 
     let finalUpLoadJson = {
       title: editTitle,
@@ -171,8 +167,42 @@ export default function EditPage() {
         type: "application/json",
       })
     );
-    setUpLoadFormData(formData); // 폼데이터 useState로 저장
-    console.log("finalUpLoad!!!!!!!!!!!!", finalUpLoadJson);
+    if (editTrainStation === "") {
+      swal("Please Check!", "기차역을 선택해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (editAdress === "") {
+      swal("Please Check!", "주소를 선택해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (editTitle === "") {
+      swal("Please Check!", "제목 입력해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (editStar === 0) {
+      swal("Please Check!", "별점을 입력해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (editImageList.length === 0) {
+      swal("Please Check!", "사진을 업로드해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (editCategory === "") {
+      swal("Please Check!", "카테고리를 입력해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (editRelated === "") {
+      swal("Please Check!", "관련태그를 입력해 주세요", "info");
+      setDisable(false);
+      return;
+    } else if (editComment === "") {
+      swal("Please Check!", "한줄평을 입력해 주세요", "info");
+      setDisable(false);
+      return;
+    } else {
+      setUpLoadFormData(formData); // 폼데이터 useState로 저장
+      console.log("finalUpLoad!!!!!!!!!!!!", finalUpLoadJson);
+    }
   };
 
   useEffect(() => {
@@ -197,11 +227,11 @@ export default function EditPage() {
           setEditAdress("");
           setEditCategory("");
           setEditRelated("");
-          setEditRelatedAtmas("");
+          setEditRelatedAtmas([]);
           setEditRelatedPrice("");
           setEditStar("");
           setEditComment("");
-          setEditImageList("");
+          setEditImageList([]);
           setDisable(false);
           navigatge(`/main/${editTrainStation}`);
         })
