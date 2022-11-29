@@ -33,9 +33,5 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     List<Board> findAllByBoardIdIn(List<Long> boardIds);
 
-    //삭제예정
-//    Page<Board> findByWriter(Member member, Pageable pageable);
-//    Page<Board> findByStationIdAndWriter(long stationId, Member member, Pageable pageable);
-
-
+    Integer countByStationId(long stationId);
 }

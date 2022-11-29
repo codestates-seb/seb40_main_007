@@ -268,4 +268,8 @@ public class BoardService {
     public List<Board> findAllBoards(){
         return boardRepository.findAll();
     }
+
+    public Integer countByStationId(long stationId){
+        return boardRepository.countByStationId(stationId);
+    }
 }
