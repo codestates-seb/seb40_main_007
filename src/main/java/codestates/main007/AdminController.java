@@ -36,6 +36,7 @@ public class AdminController {
         int todayBoard = 0;
         int monthBoard = 0;
         Integer[] weekBoards = new Integer[7];
+        Arrays.fill(weekBoards,0);
         List<Board> reportedBoards = new ArrayList<>();
         ArrayList<Long>[] reportReason = new ArrayList[totalBoards.size()+1];
 
