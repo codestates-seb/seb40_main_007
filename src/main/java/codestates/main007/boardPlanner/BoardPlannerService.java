@@ -31,22 +31,22 @@ public class BoardPlannerService {
 
     public void save(String accessToken, long boardId, long plannerId) {
         if (memberService.findByAccessToken(accessToken).equals(plannerService.find(plannerId).getMember())) {
-            List<BoardPlanner> list = boardPlannerRepository.findAllByBoardAndPlanner(boardService.find(boardId),
-                    plannerService.find(plannerId));
-            BoardPlanner boardPlanner = BoardPlanner.builder()
-                    .board(boardService.find(boardId))
-                    .planner(plannerService.find(plannerId))
-                    .priority((int) boardId)
-                    .build();
-            if(list.isEmpty()){
-                boardPlannerRepository.save(boardPlanner);
+            Planner planner = plannerService.find(plannerId);
+            if (planner.getBoardPlanners().size() >= 10) {
+                throw new BusinessLogicException(ExceptionCode.PLANNER_SATURATED);
+            } else {
+                BoardPlanner boardPlanner = BoardPlanner.builder()
+                        .board(boardService.find(boardId))
+                        .planner(plannerService.find(plannerId))
+                        .priority((int) boardId)
+                        .build();
+                List<BoardPlanner> list = boardPlannerRepository.findAllByBoardAndPlanner(boardService.find(boardId),
+                        plannerService.find(plannerId));
+                if (list.isEmpty()) {
+                    boardPlannerRepository.save(boardPlanner);
+                } else throw new BusinessLogicException(ExceptionCode.BOARDPLANNER_EXISTS);
             }
-            else {
-                throw new ResponseStatusException(ExceptionCode.BOARDPLANNER_EXISTS.getStatus(), ExceptionCode.BOARDPLANNER_EXISTS.getMessage(), new IllegalArgumentException());
-            }
-        } else {
-            throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
-        }
+        } else throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
     }
 
 
