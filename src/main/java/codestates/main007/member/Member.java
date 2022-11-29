@@ -36,6 +36,9 @@ public class Member {
     @Column
     private String avatar;
 
+    @Column
+    private String refreshToken;
+
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
@@ -62,6 +65,9 @@ public class Member {
 
     public void patchAvatar(String avatarUrl){
         this.avatar = avatarUrl;
+    }
+    public void patchRefreshToken(String refreshToken){
+        this.refreshToken = refreshToken;
     }
 
     public void setUserDetails(long memberId, String email, String password, String avatar, String name){

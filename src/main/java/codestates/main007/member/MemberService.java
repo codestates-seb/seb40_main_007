@@ -30,9 +30,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -92,6 +90,20 @@ public class MemberService {
         memberRepository.save(member);
     }
 
+
+
+    public void saveRefreshToken(long memberId, String refreshToken) {
+        Member member = find(memberId);
+        member.patchRefreshToken(refreshToken);
+        memberRepository.save(member);
+    }
+
+    public void deleteRefreshToken(String accessToken){
+        Member member = findByAccessToken(accessToken);
+        member.patchRefreshToken(null);
+        memberRepository.save(member);
+    }
+
     public Member find(long memberId) {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new ResponseStatusException(ExceptionCode.MEMBER_NOT_FOUND.getStatus(), ExceptionCode.MEMBER_NOT_FOUND.getMessage(), new IllegalArgumentException()));
@@ -118,8 +130,8 @@ public class MemberService {
     }
 
     public Member findByAccessToken(String accessToken) {
-        long userId = jwtTokenizer.getUserId(accessToken);
-        return find(userId);
+        long memberId = jwtTokenizer.getUserId(accessToken);
+        return find(memberId);
     }
 
     public String findPassword(String email) {
@@ -232,5 +244,35 @@ public class MemberService {
 
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+    public Member findVerifiedMember(String refreshToken) {
+        Optional<Member> optionalMember =
+                memberRepository.findByRefreshToken(refreshToken);
+        Member findMember =
+                optionalMember.orElseThrow(() ->
+                        new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        return findMember;
+    }
+
+    public String reissueAccessToken(String refreshToken){
+        Member member = findVerifiedMember(refreshToken);
+        String accessToken = delegateAccessToken(member);
+        return "Bearer "+ accessToken;
+    }
+
+    private String delegateAccessToken(Member member) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("email", member.getEmail());
+        claims.put("memberId", member.getMemberId());
+        claims.put("roles", member.getRoles());
+
+        String subject = member.getEmail();
+        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
+
+        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+
+        String accessToken = jwtTokenizer.generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
+
+        return accessToken;
     }
 }
