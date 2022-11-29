@@ -34,4 +34,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findAllByBoardIdIn(List<Long> boardIds);
 
     Integer countByStationId(long stationId);
+
+    List<Board> findByScoreGreaterThan(int length);
+    List<Board> findByScoreLessThan(int length);
 }

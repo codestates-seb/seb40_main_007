@@ -15,4 +15,6 @@ public class AdminDto {
     private int totalMember;
     private List<BoardDto.Reported> reportedBoards;
     private List<Integer> stationCount;
+    private List<BoardDto.HighLowScoreResponse> highScoreBoards;
+    private List<BoardDto.HighLowScoreResponse> lowScoreBoards;
 }

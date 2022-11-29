@@ -136,4 +136,15 @@ public class BoardDto {
         private int reason4;
         private int reason5;
     }
+
+    @Getter
+    @Builder
+    public static class HighLowScoreResponse {
+        private long boardId;
+        private String title;
+        private String writer;
+        private long writerId;
+        private int upScore;
+        private int downScore;
+    }
 }

@@ -272,4 +272,12 @@ public class BoardService {
     public Integer countByStationId(long stationId){
         return boardRepository.countByStationId(stationId);
     }
+
+    public List<Board> findHighScoreBoard(int score){
+        return boardRepository.findByScoreGreaterThan(score);
+    }
+    public List<Board> findLowScoreBoard(int score){
+        return boardRepository.findByScoreLessThan(score);
+    }
+
 }

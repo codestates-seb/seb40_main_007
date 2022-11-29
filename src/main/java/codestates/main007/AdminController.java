@@ -113,6 +113,37 @@ public class AdminController {
             stationCount.add(boardService.countByStationId(i));
         }
 
+        List<Board> highScoreBoards = boardService.findHighScoreBoard(5);
+        List<Board> LowScoreBoards = boardService.findLowScoreBoard(-5);
+        List<BoardDto.HighLowScoreResponse> highScoreDto = new ArrayList<>();
+        List<BoardDto.HighLowScoreResponse> lowScoreDto = new ArrayList<>();
+        for (Board board : highScoreBoards){
+            BoardDto.HighLowScoreResponse highScoreBoard
+                    = BoardDto.HighLowScoreResponse.builder()
+                    .boardId(board.getBoardId())
+                    .title(board.getTitle())
+                    .writer(board.getWriter().getName())
+                    .writerId(board.getWriter().getMemberId())
+                    .upScore(board.getUpScore())
+                    .downScore(board.getDownScore())
+                    .build();
+
+            highScoreDto.add(highScoreBoard);
+        }
+        for (Board board : LowScoreBoards){
+            BoardDto.HighLowScoreResponse lowScoreBoard
+                    = BoardDto.HighLowScoreResponse.builder()
+                    .boardId(board.getBoardId())
+                    .title(board.getTitle())
+                    .writer(board.getWriter().getName())
+                    .writerId(board.getWriter().getMemberId())
+                    .upScore(board.getUpScore())
+                    .downScore(board.getDownScore())
+                    .build();
+
+            lowScoreDto.add(lowScoreBoard);
+        }
+
         return AdminDto.builder()
                 .totalBoard(totalBoards.size())
                 .todayBoard(todayBoard)
@@ -120,6 +151,8 @@ public class AdminController {
                 .totalMember(totalMembers.size())
                 .reportedBoards(reportedDtos)
                 .stationCount(stationCount)
+                .highScoreBoards(highScoreDto)
+                .lowScoreBoards(lowScoreDto)
                 .build();
     }
 }
