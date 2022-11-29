@@ -36,7 +36,7 @@ const MyProfilePage = () => {
         setVisit(response.data.visitedStations);
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response.status === 401) console.log("401!!!");
       });
   }, []);
 
