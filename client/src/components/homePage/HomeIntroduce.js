@@ -22,10 +22,10 @@ export default function HomeIntroduce() {
               <div className="text-white lg:ml-10 ml-2 lg:mr-0 mr-5">
                 <div className="text-[rgb(83,199,240)] lg:text-lg font-normal mb-5">
                   <span className="bg-white lg:px-5 lg:py-1 lg:rounded-2xl m-[2px] p-[2px] rounded-md">
-                    맛집
+                    식당
                   </span>
                   <span className="bg-white lg:px-5 lg:py-1 lg:rounded-2xl m-[2px] p-[2px] rounded-md">
-                    식당
+                    숙소
                   </span>
                   <span className="bg-white lg:px-5 lg:py-1 lg:rounded-2xl m-[2px] p-[2px] rounded-md">
                     볼거리
