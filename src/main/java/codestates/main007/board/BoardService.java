@@ -84,8 +84,10 @@ public class BoardService {
         Member member = memberService.findByAccessToken(accessToken);
         Board updatedBoard = find(boardId);
         Member writer = updatedBoard.getWriter();
-        if (member != writer) {
-            throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
+        if (member.getMemberId()>5){
+            if (member != writer) {
+                throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
+            }
         }
 
 
@@ -127,8 +129,10 @@ public class BoardService {
         Member member = memberService.findByAccessToken(accessToken);
         Board board = find(boardId);
         Member writer = board.getWriter();
-        if (member != writer) {
-            throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
+        if (member.getMemberId()>5){
+            if (member != writer) {
+                throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
+            }
         }
 
         // s3에 이미지 삭제

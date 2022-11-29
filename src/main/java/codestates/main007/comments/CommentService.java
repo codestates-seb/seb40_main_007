@@ -31,8 +31,10 @@ public class CommentService {
         Member member = memberService.findByAccessToken(accessToken);
         Comment comment = find(commentId);
         Member writer = comment.getWriter();
-        if (member != writer) {
-            throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
+        if (member.getMemberId()>5){
+            if (member != writer) {
+                throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
+            }
         }
 
         comment.patchComment(patchDto.getComment(), accessToken);
@@ -48,8 +50,10 @@ public class CommentService {
         Member member = memberService.findByAccessToken(accessToken);
         Comment comment = find(commentId);
         Member writer = comment.getWriter();
-        if (member != writer) {
-            throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
+        if (member.getMemberId()>5){
+            if (member != writer) {
+                throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
+            }
         }
 
         commentRepository.deleteById(commentId);
