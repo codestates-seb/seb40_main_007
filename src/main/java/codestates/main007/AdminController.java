@@ -26,7 +26,7 @@ public class AdminController {
 
     private final BoardMemberRepository boardMemberRepository;
 
-    @GetMapping("/admin")
+    @GetMapping("/adminPage")
     @ResponseStatus(HttpStatus.OK)
     public AdminDto getAdminPage(@RequestHeader(name = "Authorization") String accessToken) {
         memberService.verifyAdmin(accessToken);
