@@ -30,17 +30,21 @@ public class BoardPlannerService {
 
     public void save(String accessToken, long boardId, long plannerId) {
         if (memberService.findByAccessToken(accessToken).equals(plannerService.find(plannerId).getMember())) {
-            BoardPlanner boardPlanner = BoardPlanner.builder()
-                    .board(boardService.find(boardId))
-                    .planner(plannerService.find(plannerId))
-                    .priority((int) boardId)
-                    .build();
-            List<BoardPlanner> list = boardPlannerRepository.findAllByBoardAndPlanner(boardService.find(boardId),
-                    plannerService.find(plannerId));
-            if(!list.isEmpty()){
-                boardPlannerRepository.save(boardPlanner);
+            Planner planner = plannerService.find(plannerId);
+            if (planner.getBoardPlanners().size() >= 10) {
+                throw new BusinessLogicException(ExceptionCode.PLANNER_SATURATED);
+            } else {
+                BoardPlanner boardPlanner = BoardPlanner.builder()
+                        .board(boardService.find(boardId))
+                        .planner(plannerService.find(plannerId))
+                        .priority((int) boardId)
+                        .build();
+                List<BoardPlanner> list = boardPlannerRepository.findAllByBoardAndPlanner(boardService.find(boardId),
+                        plannerService.find(plannerId));
+                if (list.isEmpty()) {
+                    boardPlannerRepository.save(boardPlanner);
+                } else throw new BusinessLogicException(ExceptionCode.BOARDPLANNER_EXISTS);
             }
-            else throw new BusinessLogicException(ExceptionCode.BOARDPLANNER_EXISTS);
         } else throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
     }
 
