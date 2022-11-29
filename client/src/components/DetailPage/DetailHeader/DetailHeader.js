@@ -112,26 +112,26 @@ const DetailHeader = () => {
         </div>
       </div>
       <div className="flex space-x-2 mt-2">
-        {/* 배열안의 배열을 찾을때,, 갓희찬 */}
-        {allTags.map((el, idx) =>
-          Array.isArray(el) ? (
-            el.map((element, idx) => (
+        {allTags.length !== 0 &&
+          allTags.map((el, idx) =>
+            Array.isArray(el) ? (
+              el.map((element, idx) => (
+                <span
+                  key={idx}
+                  className="text-xs font-semibold text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)] rounded-full py-0.5 px-2"
+                >
+                  {element}
+                </span>
+              ))
+            ) : (
               <span
                 key={idx}
                 className="text-xs font-semibold text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)] rounded-full py-0.5 px-2"
               >
-                {element}
+                {el}
               </span>
-            ))
-          ) : (
-            <span
-              key={idx}
-              className="text-xs font-semibold text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)] rounded-full py-0.5 px-2"
-            >
-              {el}
-            </span>
-          )
-        )}
+            )
+          )}
       </div>
       <div className="flex flex-row items-center space-x-2">
         <div className="w-6 h-6 my-3">

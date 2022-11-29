@@ -3,13 +3,19 @@ import { useState } from "react";
 import ConfirmPasword from "../../components/editpassword/ConfirmPassword";
 import Header from "../../components/Header";
 import MyPageTab from "../../components/MyPageTab";
+import { accessToken } from "../../atoms/loginTest";
+import { useRecoilValue } from "recoil";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import swal from "sweetalert";
 
 const EditPasswordPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [samePasswrod, setSamePassword] = useState(true);
-
+  const TOKEN = useRecoilValue(accessToken);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
 
   const checkPaswword = () => {
     if (newPassword === confirmPassword) {
@@ -20,6 +26,32 @@ const EditPasswordPage = () => {
       setSamePassword(false);
     }
   };
+  console.log(newPassword);
+
+  const hadleSubmit = () => {
+    const config = {
+      headers: { Authorization: TOKEN },
+    };
+    if (newPassword === confirmPassword)
+      axios
+        .patch(
+          `${process.env.REACT_APP_URL}/members`,
+          {
+            password: confirmPassword,
+          },
+          config
+        )
+        .then(function (response) {
+          console.log(response);
+          swal("비밀번호가 변경되었습니다");
+          navigate("/mypage");
+        })
+
+        .catch(function (error) {
+          console.log(error);
+        });
+  };
+
   return (
     <>
       <Header />
@@ -27,7 +59,7 @@ const EditPasswordPage = () => {
         <MyPageTab index={"내역이요"} />
         <div className="w-full max-w-xl">
           <div className="mb-3 flex justify-start">
-            <p className="ml-2 pr-7 border-b-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)]">
+            <p className="lg:text-base text-sm ml-2 lg:pr-7 px-2 border-b-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)]">
               내 비밀번호 수정
             </p>
           </div>
@@ -44,7 +76,13 @@ const EditPasswordPage = () => {
               </div>
             </div>
             <div className="pt-20 gap-2 flex flex-col items-center">
-              <button className="btn btn-hover" onClick={checkPaswword}>
+              <button
+                className="btn btn-hover"
+                onClick={() => {
+                  checkPaswword;
+                  hadleSubmit;
+                }}
+              >
                 수정완료
               </button>
             </div>

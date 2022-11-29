@@ -60,7 +60,7 @@ function App() {
             setAccessToken(response.headers.authorization);
           })
           .then(() => {
-            setInterval(onSilentRefresh, 1200000); //1200000 면 20분 이다.
+            setInterval(onSilentRefresh, 600000); //1200000 면 20분 이다.
           })
           .catch((error) => {
             console.log(error);
