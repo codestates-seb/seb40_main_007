@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -34,6 +35,7 @@ public class AdminController {
         List<Board> totalBoards = boardService.findAllBoards();
         int todayBoard = 0;
         int monthBoard = 0;
+        Integer[] weekBoards = new Integer[7];
         List<Board> reportedBoards = new ArrayList<>();
         ArrayList<Long>[] reportReason = new ArrayList[totalBoards.size()+1];
 
@@ -51,6 +53,29 @@ public class AdminController {
             if (compareResultMonth == -1) {
                 monthBoard++;
             }
+
+            LocalDateTime dayMinus1 = LocalDateTime.now().minusDays(1).truncatedTo(ChronoUnit.DAYS);
+            LocalDateTime dayMinus2 = LocalDateTime.now().minusDays(2).truncatedTo(ChronoUnit.DAYS);
+            LocalDateTime dayMinus3 = LocalDateTime.now().minusDays(3).truncatedTo(ChronoUnit.DAYS);
+            LocalDateTime dayMinus4 = LocalDateTime.now().minusDays(4).truncatedTo(ChronoUnit.DAYS);
+            LocalDateTime dayMinus5 = LocalDateTime.now().minusDays(5).truncatedTo(ChronoUnit.DAYS);
+            LocalDateTime dayMinus6 = LocalDateTime.now().minusDays(6).truncatedTo(ChronoUnit.DAYS);
+            if (writeDay.isEqual(today)){
+                weekBoards[0]++;
+            }else if (writeDay.isEqual(dayMinus1)){
+                weekBoards[1]++;
+            }else if (writeDay.isEqual(dayMinus2)){
+                weekBoards[2]++;
+            }else if (writeDay.isEqual(dayMinus3)){
+                weekBoards[3]++;
+            }else if (writeDay.isEqual(dayMinus4)){
+                weekBoards[4]++;
+            }else if (writeDay.isEqual(dayMinus5)){
+                weekBoards[5]++;
+            }else if (writeDay.isEqual(dayMinus6)){
+                weekBoards[6]++;
+            }
+
 
             if (board.getReported()>=5){
                 if (!reportedBoards.contains(board)){
@@ -153,6 +178,7 @@ public class AdminController {
                 .stationCount(stationCount)
                 .highScoreBoards(highScoreDto)
                 .lowScoreBoards(lowScoreDto)
+                .BoardsOfThisWeek(Arrays.asList(weekBoards))
                 .build();
     }
 }
