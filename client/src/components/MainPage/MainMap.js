@@ -31,10 +31,11 @@ const MainMap = () => {
     }
     return -1;
   };
-  return mapCenter.length !== 0 ? (
+  return mapCenter?.length !== 0 ? (
     <div className="w-full h-60 sm:h-[600px] flex justify-center">
       <Map // 지도를 표시할 Container
-        center={{ lat: mapCenter[0].lat, lng: mapCenter[0].lng }}
+        className="border-2 border-[#59AEEC] rounded-xl "
+        center={{ lat: mapCenter[0]?.lat, lng: mapCenter[0]?.lng }}
         style={{
           // 지도의 크기
           width: "100%",
@@ -47,38 +48,42 @@ const MainMap = () => {
           ])
         }
       >
-        {postList.map((data, index) => {
-          const detailData = {
-            title: data.title,
-            star: data.star,
-            tags: data.tags,
-          };
-          return (
-            // 커스텀 오버레이를 표시할 Container
-            <CustomOverlayMap
-              key={index}
-              // 커스텀 오버레이가 표시될 위치입니다
-              position={{ lat: data.latitude, lng: data.longitude }}
-              // 커스텀 오버레이가에 대한 확장 옵션 x,y 좌표 이동.
-              xAnchor={mapImgClickId === data.boardId ? 0.05 : 0.1}
-              yAnchor={mapImgClickId === data.boardId ? 1.0 : 0.91}
-              // zIndex : z-index
-              zIndex={handelZIndex(data.boardId)}
-            >
-              <div
-                onMouseEnter={() => setMapImgHoverId(data.boardId)}
-                onMouseLeave={() => setMapImgHoverId(null)}
+        {postList?.length !== 0 ? (
+          postList?.map((data, index) => {
+            const detailData = {
+              title: data.title,
+              star: data.star,
+              tags: data.tags,
+            };
+            return (
+              // 커스텀 오버레이를 표시할 Container
+              <CustomOverlayMap
+                key={index}
+                // 커스텀 오버레이가 표시될 위치입니다
+                position={{ lat: data.latitude, lng: data.longitude }}
+                // 커스텀 오버레이가에 대한 확장 옵션 x,y 좌표 이동.
+                xAnchor={mapImgClickId === data.boardId ? 0.05 : 0.1}
+                yAnchor={mapImgClickId === data.boardId ? 1.0 : 0.91}
+                // zIndex : z-index
+                zIndex={handelZIndex(data.boardId)}
               >
-                <MapItem
-                  thumbnail={data.thumbnail}
-                  boardId={data.boardId}
-                  detailData={detailData}
-                  coordinate={{ lat: data.latitude, lng: data.longitude }}
-                />
-              </div>
-            </CustomOverlayMap>
-          );
-        })}
+                <div
+                  onMouseEnter={() => setMapImgHoverId(data.boardId)}
+                  onMouseLeave={() => setMapImgHoverId(null)}
+                >
+                  <MapItem
+                    thumbnail={data.thumbnail}
+                    boardId={data.boardId}
+                    detailData={detailData}
+                    coordinate={{ lat: data.latitude, lng: data.longitude }}
+                  />
+                </div>
+              </CustomOverlayMap>
+            );
+          })
+        ) : (
+          <></>
+        )}
       </Map>
     </div>
   ) : (

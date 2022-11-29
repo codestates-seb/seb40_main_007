@@ -84,16 +84,16 @@ function TestPostList({ stationId, isPostOk }) {
       <div className="flex justify-end mr-4">
         <SortDropdown />
       </div>
-      {postList.length !== 0 ? (
+      {postList?.length !== 0 ? (
         <div className="mx-auto px-4">
           <InfiniteScroll
-            className="border-t-4 border-[rgb(83,199,240)]" // scrollbar-hide => 스크롤 숨김옵션
+            className="border-t-2 mt-2 border-[rgb(83,199,240)]" // scrollbar-hide => 스크롤 숨김옵션
             // dataLength : 현재데이터의 길이
             dataLength={postList.length}
             next={fetchMoreData}
             // 저장된 데이터의 총 길이를 알면 그걸로 false 조건 줄 수 있음.
             hasMore={
-              postList.length >= pageInfo.totalElements ? false : hasMore
+              postList?.length >= pageInfo?.totalElements ? false : hasMore
             }
             height={600}
             loader={
@@ -102,7 +102,7 @@ function TestPostList({ stationId, isPostOk }) {
               </div>
             }
           >
-            <div className="p-2 grid grid-cols-2 sm:grid-cols-3 gap-x-4">
+            <div className="p-2 pt-3 grid grid-cols-2 sm:grid-cols-3 gap-x-4">
               {postList.map((post) => (
                 <Post key={post.boardId} data={post} />
               ))}
