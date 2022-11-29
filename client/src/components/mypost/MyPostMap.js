@@ -50,7 +50,7 @@ const MyPostMap = ({ station }) => {
           ])
         }
       >
-        <div className="p-1 absolute max-w-2xl bg-white border-[rgb(83,199,240)] border-x-2 border-b-2 z-10">
+        <div className="p-1 absolute max-w-2xl bg-[rgba(255,255,255,0.5)]  z-10">
           {/* trainStation 정보 id 가 1부터 시작하므로 -1 */}
           {station === 0 ? "경부선 전체" : trainStationInfo[station - 1].train}
         </div>

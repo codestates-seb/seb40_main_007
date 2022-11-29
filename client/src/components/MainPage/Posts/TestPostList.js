@@ -85,9 +85,11 @@ function TestPostList({ stationId, isPostOk }) {
         <SortDropdown />
       </div>
       {postList?.length !== 0 ? (
-        <div className="mx-auto px-4">
+        <div className="mx-auto px-4 ">
           <InfiniteScroll
-            className="border-t-2 mt-2 border-[rgb(83,199,240)]" // scrollbar-hide => 스크롤 숨김옵션
+            className={`border-t-2 mt-2 border-[rgb(83,199,240)] ${
+              postList?.length <= 6 ? "mr-[14px]" : ""
+            }`} // scrollbar-hide => 스크롤 숨김옵션
             // dataLength : 현재데이터의 길이
             dataLength={postList.length}
             next={fetchMoreData}
@@ -110,9 +112,9 @@ function TestPostList({ stationId, isPostOk }) {
           </InfiniteScroll>
         </div>
       ) : (
-        <div className="w-full sm:w-[560px] mb-12 mt-10 sm:mt-20 text-gray-400 text-lg flex flex-col justify-center items-center ">
+        <div className="w-full sm:w-[560px] mb-12 mt-10 sm:mt-20 text-gray-400 text-lg flex flex-col justify-center items-center mr-[14px]">
           {isPostOk ? (
-            <div className="p-5 rounded-2xl font-medium flex flex-col justify-center items-center border-2">
+            <div className="p-5 rounded-2xl font-medium flex flex-col justify-center items-center border-2 ">
               <h1>게시글이 비었습니다.</h1>
               <p className="text-sm ">게시글을 작성해보세요!</p>
               <Link to={TOKEN === "" ? "/initial" : `/post/${stationId}`}>
