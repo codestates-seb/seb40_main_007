@@ -6,9 +6,6 @@ const MyTravelHeader = () => {
   const [onListModal, setOnListModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
-  const handleOnModal = () => {
-    setOnListModal(!onListModal);
-  };
   return (
     <div className="w-full">
       <div className="w-4/5 flex flex-row items-center justify-between">
@@ -39,7 +36,7 @@ const MyTravelHeader = () => {
               size={30}
             />
           </button>
-          {onListModal ? <ListModal offModal={handleOnModal} /> : null}
+          {onListModal ? <ListModal setOnListModal={setOnListModal} /> : null}
         </div>
       </div>
     </div>

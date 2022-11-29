@@ -4,8 +4,19 @@ import { VscDebugRestart } from "react-icons/vsc";
 import { AiOutlineSave } from "react-icons/ai";
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 import { useEffect, useState } from "react";
+import { accessToken } from "../../atoms/loginTest";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  myTravelData,
+  myTravelIdSelect,
+} from "../../atoms/mypage/myTravelData";
+import axios from "axios";
 // import MyTravelDot from "../mytravel/MyTravelDot";
 const MyTravelList = ({ data, initData, setData }) => {
+  const [TOKEN] = useRecoilState(accessToken);
+  const myTravelId = useRecoilValue(myTravelIdSelect);
+  const [, setMyTravel] = useRecoilState(myTravelData);
+
   const [deleteIndex, setDeleteIndex] = useState();
   const [swapIndex, setSwapIndex] = useState();
 
@@ -35,6 +46,7 @@ const MyTravelList = ({ data, initData, setData }) => {
     setData(popData);
   };
 
+  // 스택 완전 초기화
   const handelStackInit = () => {
     setStackFront([]);
     setStackBack([]);
@@ -71,10 +83,52 @@ const MyTravelList = ({ data, initData, setData }) => {
 
   // 삭제 로직
   useEffect(() => {
-    setData(data.filter((_, index) => deleteIndex !== index));
+    data ? setData(data.filter((_, index) => deleteIndex !== index)) : null;
     setDeleteIndex();
   }, [deleteIndex]);
+  const isChangeCheck = (init, change) => {
+    // 데이터의 순서가 바뀌거나 변화가 있는지 체크
+    if (init.length === change.length) {
+      for (let i = 0; i < init.length; i++) {
+        if (init[i] !== change[i]) {
+          return true;
+        }
+      }
+    } else {
+      return true;
+    }
+    return false;
+  };
 
+  // 플랜 변경 요청
+  const savePlan = () => {
+    setStackFront([]);
+    setStackBack([]);
+    const changeDataIdList = data.map((el) => el.boardId);
+    const initDataIdList = initData.map((el) => el.boardId);
+    const isChange = isChangeCheck(initDataIdList, changeDataIdList);
+
+    const URL = `${process.env.REACT_APP_URL}/boardplanners/${myTravelId}`;
+
+    const config = {
+      headers: { Authorization: TOKEN },
+    };
+    const changeData = {
+      priorities: changeDataIdList,
+    };
+    console.log("changeData", changeData);
+    isChange
+      ? axios
+          .patch(URL, changeData, config)
+          .then((response) => {
+            console.log("Change My Travel Success :", response);
+            setMyTravel(response.data);
+          })
+          .catch((error) => {
+            console.log("Change My Travel Fail :", error);
+          })
+      : console.log("데이터가 바뀌지 않았습니다.");
+  };
   return (
     <div className="w-full h-64 sm:h-auto flex flex-col">
       <MyTravelHeader />
@@ -108,7 +162,11 @@ const MyTravelList = ({ data, initData, setData }) => {
             <VscDebugRestart size={16} />
           </button>
         </div>
-        <p className="mr-2 text-sm text-[rgb(83,199,240)]">{data.length} /10</p>
+        {data ? (
+          <p className="mr-2 text-sm text-[rgb(83,199,240)]">
+            {data.length} /10
+          </p>
+        ) : null}
       </div>
       <div className="relative">
         {/* <div className="top-0 right-[150px]">
@@ -116,7 +174,7 @@ const MyTravelList = ({ data, initData, setData }) => {
         </div> */}
         <div>
           <div className="w-4/6 h-[480px] pt-1 pl-1 overflow-y-scroll">
-            {data.length !== 0 ? (
+            {data && data.length !== 0 ? (
               data.map((item, index) => (
                 <MyTravelPost
                   key={index}
@@ -147,7 +205,10 @@ const MyTravelList = ({ data, initData, setData }) => {
                 되돌리기
               </div>
             </button>
-            <button className="btn hover:scale-105 active:scale-100 m-2 text-sm">
+            <button
+              className="btn hover:scale-105 active:scale-100 m-2 text-sm"
+              onClick={savePlan}
+            >
               <div className="flex flex-row w-full justify-center items-center">
                 <AiOutlineSave size={18} />
                 저장하기

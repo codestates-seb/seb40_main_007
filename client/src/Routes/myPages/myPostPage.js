@@ -66,7 +66,7 @@ const MyPostPage = () => {
       <Header />
       <div className="mypage-header-tab ">
         <MyPageTab index={"내게시글"} />
-        <div className="w-full max-w-2xl flex justify-center scrollbar-hide relative">
+        <div className="w-full max-w-2xl flex justify-center relative">
           <MyPostTab setTabValue={setTabValue} tabValue={tabValue} />
           <div
             className={
