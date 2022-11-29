@@ -113,6 +113,7 @@ const MyTravelMap = ({ data }) => {
       </div>
       {data ? (
         <Map // 지도를 표시할 Container
+          className="border-2 border-[#59AEEC] rounded-xl"
           center={traveMapCenter}
           style={{
             // 지도의 크기
@@ -148,7 +149,7 @@ const MyTravelMap = ({ data }) => {
             : null}
         </Map>
       ) : (
-        <div className="w-full h-full border-2"></div>
+        <div className="w-full h-full border-2 rounded-xl"></div>
       )}
     </div>
   );

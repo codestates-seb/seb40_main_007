@@ -1,7 +1,15 @@
-// 내 여행 계획 시간
+// 게시글, 내 여행 계획 이동 시간
 export const timeFunc = (time) => {
-  const result = Math.ceil(time / 60);
-  return `약 ${result}분 거리`;
+  let totalTime = {
+    min: Math.ceil(time / 60),
+    hour: Math.floor(time / 3600),
+  };
+  console.log(totalTime.hour, totalTime.min, time);
+  if (totalTime.min < 60) {
+    return `약 ${totalTime.min}분`;
+  } else {
+    return `약 ${totalTime.hour}시간 ${totalTime.min - 60 * totalTime.hour}분`;
+  }
 };
 
 // 디텡리 페이지 시간 조회

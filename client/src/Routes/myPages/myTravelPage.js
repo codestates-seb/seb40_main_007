@@ -102,10 +102,10 @@ const MyTravelPage = () => {
         console.log("list add 성공", data);
         setMyTravelList(data);
         data.length === 1
-          ? (setMyTravelId(data[0].plannerId),
-            setMyTravelName(data[0].plannerName),
-            setWholeTime(data[0].wholeTime),
-            setTimeBetweenBoards(data[0].timeBetweenBoards))
+          ? (setMyTravelId(data[0]?.plannerId),
+            setMyTravelName(data[0]?.plannerName),
+            setWholeTime(data[0]?.wholeTime),
+            setTimeBetweenBoards(data[0]?.timeBetweenBoards))
           : null;
         setInputText("");
       })
@@ -128,7 +128,7 @@ const MyTravelPage = () => {
                 {myTravel ? (
                   <MyTravelList
                     data={data}
-                    initData={myTravel.boards}
+                    initData={myTravel?.boards}
                     setData={setData}
                   />
                 ) : (
