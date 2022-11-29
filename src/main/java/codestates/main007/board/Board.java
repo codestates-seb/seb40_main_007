@@ -73,6 +73,9 @@ public class Board {
     private int downScore;
 
     @Column
+    private int reported;
+
+    @Column
     private int viewCount;
 
     @Column
@@ -108,6 +111,10 @@ public class Board {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public void upReported(){
+        this.reported ++;
     }
 
     // 게시글 업데이트를 위한 메서드

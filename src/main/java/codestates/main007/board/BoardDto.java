@@ -27,6 +27,7 @@ public class BoardDto {
         private String address;
         private List<Long> tags;
     }
+
     @Getter
     @Builder
     @AllArgsConstructor
@@ -86,7 +87,7 @@ public class BoardDto {
         private double longitude;
         private TagDto.Response tags;
 
-        public void setDibs(boolean newDibs){
+        public void setDibs(boolean newDibs) {
             this.dibs = newDibs;
         }
     }
@@ -120,5 +121,19 @@ public class BoardDto {
     public static class Reported {
         private long boardId;
         private String title;
+        private String writer;
+        private long writerId;
+        private int totalReport;
+        private BoardDto.ReportReasons reportCount;
+    }
+
+    @Getter
+    @Builder
+    public static class ReportReasons {
+        private int reason1;
+        private int reason2;
+        private int reason3;
+        private int reason4;
+        private int reason5;
     }
 }

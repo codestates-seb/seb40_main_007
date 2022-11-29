@@ -77,35 +77,4 @@ public class MainController {
 
         return new PageDto(responses, boardPage);
     }
-
-    @GetMapping("/admin")
-    @ResponseStatus(HttpStatus.OK)
-    public AdminDto getAdminPage(@RequestHeader(name = "Authorization") String accessToken) {
-        memberService.verifyAdmin(accessToken);
-        List<Member> totalMembers = memberService.findAllMembers();
-        List<Board> totalBoards = boardService.findAllBoards();
-        int todayBoard = 0;
-        int monthBoard = 0;
-        for (Board board : totalBoards) {
-            LocalDateTime writeDay = board.getCreatedAt().truncatedTo(ChronoUnit.DAYS);
-            LocalDateTime today = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
-
-            int compareResultDay = today.compareTo(writeDay);
-            if (compareResultDay == 0) {
-                todayBoard++;
-            }
-            LocalDateTime monthAgo = LocalDateTime.now().minusMonths(1).truncatedTo(ChronoUnit.DAYS);
-
-            int compareResultMonth = monthAgo.compareTo(writeDay);
-            if (compareResultMonth == -1) {
-                monthBoard++;
-            }
-        }
-        return AdminDto.builder()
-                .totalBoard(totalBoards.size())
-                .todayBoard(todayBoard)
-                .monthBoard(monthBoard)
-                .totalMember(totalMembers.size())
-                .build();
-    }
 }

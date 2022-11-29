@@ -115,6 +115,6 @@ public class BoardMemberService {
             boardMember.setReport(report);
             boardMemberRepository.save(boardMember);
         }
-
+        board.upReported();
     }
 }
