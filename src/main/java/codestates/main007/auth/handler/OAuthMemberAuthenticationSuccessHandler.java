@@ -70,15 +70,19 @@ public class OAuthMemberAuthenticationSuccessHandler extends SimpleUrlAuthentica
         String accessToken = delegateAccessToken(email, authorities);
         String refreshToken = delegateRefreshToken(email);
         // 이메일 등록 여부 체크
+        long memberId = 0;
         if (memberService.countByEmail(email) == 0) {
             int i = 1;
             while (memberService.countByName(name) != 0) {
                 name += i++;
             }
-            saveMember(name, email, avatar);
+            Member member = saveMember(name, email, avatar);
+            memberId = member.getMemberId();
+        } else {
+            memberId = memberService.findByEmail(email).getMemberId();
         }
-        Member member = (Member)authentication.getPrincipal();
-        memberService.saveRefreshToken(member.getMemberId(), refreshToken);
+
+        memberService.saveRefreshToken(memberId, refreshToken);
 
         redirect(request, response, email, authorities, accessToken, refreshToken);
 
