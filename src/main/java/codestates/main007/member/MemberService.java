@@ -1,6 +1,7 @@
 package codestates.main007.member;
 
 
+import codestates.main007.auth.jwt.JwtTokenizer;
 import codestates.main007.auth.util.CustomAuthorityUtils;
 import codestates.main007.board.Board;
 import codestates.main007.board.BoardRepository;
@@ -28,9 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -45,6 +44,7 @@ public class MemberService {
     private final RandomAvatarService avatarService;
     private final RandomPasswordService randomPasswordService;
     private final ImageHandler imageHandler;
+    private final JwtTokenizer jwtTokenizer;
 
     public Member save(MemberDto.Signup signupDto) {
         verifyExistEmail(signupDto.getEmail());
@@ -62,7 +62,7 @@ public class MemberService {
         return memberRepository.save(createdMember);
     }
 
-    public void saveOAuthMember(String name, String email, String avatar){
+    public void saveOAuthMember(String name, String email, String avatar) {
         Member oAuthMember = Member.builder()
                 .name(name)
                 .email(email)
@@ -78,12 +78,26 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public void updateAvatar(String accessToken,MultipartFile image) throws IOException {
+    public void updateAvatar(String accessToken, MultipartFile image) throws IOException {
         Member member = findByAccessToken(accessToken);
         String avatarUrl = imageHandler.updateAvatar(image, member);
 
         member.patchAvatar(avatarUrl);
 
+        memberRepository.save(member);
+    }
+
+
+
+    public void saveRefreshToken(long memberId, String refreshToken) {
+        Member member = find(memberId);
+        member.patchRefreshToken(refreshToken);
+        memberRepository.save(member);
+    }
+
+    public void deleteRefreshToken(String accessToken){
+        Member member = findByAccessToken(accessToken);
+        member.patchRefreshToken(null);
         memberRepository.save(member);
     }
 
@@ -105,12 +119,8 @@ public class MemberService {
     }
 
     public Member findByAccessToken(String accessToken) {
-        // todo: 정식 리턴 값
-//        long userId = jwtTokenizer.getUserId(accessToken);
-        //return find(userId);
-
-        // 임시 리턴값
-        return find(1);
+        long memberId = jwtTokenizer.getUserId(accessToken);
+        return find(memberId);
     }
 
     public String findPassword(String email) {
@@ -198,12 +208,43 @@ public class MemberService {
             Board board = boardRepository.findById(myPage.getBoardId()).get();
             boolean isDibs = false;
             Optional<BoardMember> boardMember = boardMemberRepository.findByMemberAndBoard(member, board);
-            if (boardMember.isPresent()){
+            if (boardMember.isPresent()) {
                 isDibs = boardMember.get().isDibs();
             }
             myPage.setDibs(isDibs);
         }
         return memberDtos;
+    }
+
+    public Member findVerifiedMember(String refreshToken) {
+        Optional<Member> optionalMember =
+                memberRepository.findByRefreshToken(refreshToken);
+        Member findMember =
+                optionalMember.orElseThrow(() ->
+                        new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        return findMember;
+    }
+
+    public String reissueAccessToken(String refreshToken){
+        Member member = findVerifiedMember(refreshToken);
+        String accessToken = delegateAccessToken(member);
+        return "Bearer "+ accessToken;
+    }
+
+    private String delegateAccessToken(Member member) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("email", member.getEmail());
+        claims.put("memberId", member.getMemberId());
+        claims.put("roles", member.getRoles());
+
+        String subject = member.getEmail();
+        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
+
+        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+
+        String accessToken = jwtTokenizer.generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
+
+        return accessToken;
     }
 
     //삭제예정
@@ -226,7 +267,7 @@ public class MemberService {
 //                PageRequest.of(page, size, sort));
 //    }
 
-    public void deleteMember(String accessToken, String password){
+    public void deleteMember(String accessToken, String password) {
         verifyPassword(accessToken, password);
         Member member = findByAccessToken(accessToken);
 

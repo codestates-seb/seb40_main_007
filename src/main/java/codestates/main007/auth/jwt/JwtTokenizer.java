@@ -101,7 +101,7 @@ public class JwtTokenizer {
     }
 
     public Long getUserId(String token) {
-        return parseToken(token).get("userId", Long.class);
+        return parseToken(token).get("memberId", Long.class);
     }
 }
 
