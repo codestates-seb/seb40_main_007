@@ -63,14 +63,13 @@ public class MemberService {
         return memberRepository.save(createdMember);
     }
 
-    public void saveOAuthMember(String name, String email, String avatar, String refreshToken) {
+    public Member saveOAuthMember(String name, String email, String avatar) {
         Member oAuthMember = Member.builder()
                 .name(name)
                 .email(email)
                 .avatar(avatar)
-                .refreshToken(refreshToken)
                 .build();
-        memberRepository.save(oAuthMember);
+        return memberRepository.save(oAuthMember);
     }
 
     public void update(String accessToken, MemberDto.Patch patchDto) {
