@@ -2,7 +2,6 @@ package codestates.main007.boardPlanner;
 
 import codestates.main007.board.BoardMapper;
 import codestates.main007.board.BoardService;
-import codestates.main007.exception.BusinessLogicException;
 import codestates.main007.exception.ExceptionCode;
 import codestates.main007.member.MemberService;
 import codestates.main007.planner.Planner;
@@ -33,7 +32,7 @@ public class BoardPlannerService {
         if (memberService.findByAccessToken(accessToken).equals(plannerService.find(plannerId).getMember())) {
             Planner planner = plannerService.find(plannerId);
             if (planner.getBoardPlanners().size() >= 10) {
-                throw new BusinessLogicException(ExceptionCode.PLANNER_SATURATED);
+                throw new ResponseStatusException(ExceptionCode.PLANNER_SATURATED.getStatus(), ExceptionCode.PLANNER_SATURATED.getMessage(), new IllegalArgumentException());
             } else {
                 BoardPlanner boardPlanner = BoardPlanner.builder()
                         .board(boardService.find(boardId))
@@ -44,9 +43,13 @@ public class BoardPlannerService {
                         plannerService.find(plannerId));
                 if (list.isEmpty()) {
                     boardPlannerRepository.save(boardPlanner);
-                } else throw new BusinessLogicException(ExceptionCode.BOARDPLANNER_EXISTS);
+                } else {
+                    throw new ResponseStatusException(ExceptionCode.BOARDPLANNER_EXISTS.getStatus(), ExceptionCode.BOARDPLANNER_EXISTS.getMessage(), new IllegalArgumentException());
+                }
             }
-        } else throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
+        } else {
+            throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
+        }
     }
 
 
@@ -76,7 +79,8 @@ public class BoardPlannerService {
             Planner planner = plannerService.find(plannerId);
             List<BoardPlanner> boardPlanners = boardPlannerRepository.findAllByPlanner(planner);
             return getMyPlannerResponse(plannerId, planner, boardPlanners);
-        } else throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
+        } else
+            throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
     }
 
     private PlannerDto.MyPlannerResponse getMyPlannerResponse(long plannerId, Planner planner, List<BoardPlanner> boardPlanners) throws InterruptedException {
