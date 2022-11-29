@@ -2,16 +2,19 @@ import { BsList, BsPlusLg } from "react-icons/bs";
 import { useState } from "react";
 import ListModal from "../../modals/MyTravelListModal";
 import MyTravelAddModal from "../../modals/MyTravelAddModal";
+import { wholeTimeData } from "../../../atoms/mypage/myTravelData";
+import { useRecoilValue } from "recoil";
 const MyTravelHeader = () => {
   const [onListModal, setOnListModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const wholeTime = useRecoilValue(wholeTimeData);
 
   return (
     <div className="w-full">
       <div className="w-4/5 flex flex-row items-center justify-between">
         <div className="flex flex-row">
           <h2 className="pt-1.5 text-base font-semibold text-[rgb(83,199,240)]">
-            총 소요 시간 2시간
+            총 소요 시간 : {wholeTime ? wholeTime + "시간" : null}
           </h2>
         </div>
         <div className="w-40 flex justify-end">

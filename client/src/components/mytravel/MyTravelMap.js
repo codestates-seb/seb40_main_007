@@ -25,7 +25,7 @@ const MyTravelMap = ({ data }) => {
 
   const [inputText, setInputText] = useState(false);
   const [inputValue, setInputValue] = useState(myTravelName);
-
+  const [preViewText, setPreViewText] = useState();
   const lineCoordinate = data
     ? data.map((el) => ({
         lat: el.latitude,
@@ -35,6 +35,7 @@ const MyTravelMap = ({ data }) => {
 
   const changeName = () => {
     setInputText(false);
+    setPreViewText(inputValue);
     // /planners/{planner-id}
     const URL = `${process.env.REACT_APP_URL}/planners/${myTravelId}`;
 
@@ -51,6 +52,7 @@ const MyTravelMap = ({ data }) => {
         console.log("Change My Travel Name Success :", response);
         setMyTravelList(response.data.items);
         setMyTravelName(inputValue);
+        setPreViewText("");
       })
       .catch((error) => {
         console.log("Change My Travel Name Fail :", error);
@@ -80,7 +82,11 @@ const MyTravelMap = ({ data }) => {
               onChange={(e) => setInputValue(e.target.value)}
             ></input>
             <button
-              className={`pl-2 text-[rgb(83,199,240)] border-b-2 border-[rgb(83,199,240)] z-20`}
+              className={`pl-2 text-[rgb(83,199,240)] border-b-2 border-[rgb(83,199,240)] z-20 ${
+                inputValue.length >= 1
+                  ? ""
+                  : "pointer-events-none text-gray-200"
+              }`}
               onClick={changeName}
             >
               <TiPencil className="" size={"25"} />
@@ -94,7 +100,7 @@ const MyTravelMap = ({ data }) => {
         ) : (
           <>
             <h2 className="text-lg font-semibold text-[rgb(83,199,240)]">
-              {myTravelName}
+              {preViewText ? preViewText : myTravelName}
             </h2>
             <button
               className={`ml-2 text-[rgb(83,199,240)] border-b-2 border-[rgb(83,199,240)] `}
@@ -105,7 +111,7 @@ const MyTravelMap = ({ data }) => {
           </>
         )}
       </div>
-      {data && (
+      {data ? (
         <Map // 지도를 표시할 Container
           center={traveMapCenter}
           style={{
@@ -141,6 +147,8 @@ const MyTravelMap = ({ data }) => {
               ))
             : null}
         </Map>
+      ) : (
+        <div className="w-full h-full border-2"></div>
       )}
     </div>
   );

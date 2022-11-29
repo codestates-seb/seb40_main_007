@@ -9,13 +9,18 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import {
   myTravelData,
   myTravelIdSelect,
+  timeBetweenBoardsData,
+  wholeTimeData,
 } from "../../atoms/mypage/myTravelData";
 import axios from "axios";
-// import MyTravelDot from "../mytravel/MyTravelDot";
+import Loading from "../Loading";
+import MyTravelDot from "../mytravel/MyTravelDot";
 const MyTravelList = ({ data, initData, setData }) => {
   const [TOKEN] = useRecoilState(accessToken);
   const myTravelId = useRecoilValue(myTravelIdSelect);
   const [, setMyTravel] = useRecoilState(myTravelData);
+  const [, setTimeBetweenBoards] = useRecoilState(timeBetweenBoardsData);
+  const [, setWholeTime] = useRecoilState(wholeTimeData);
 
   const [deleteIndex, setDeleteIndex] = useState();
   const [swapIndex, setSwapIndex] = useState();
@@ -123,6 +128,8 @@ const MyTravelList = ({ data, initData, setData }) => {
           .then((response) => {
             console.log("Change My Travel Success :", response);
             setMyTravel(response.data);
+            setTimeBetweenBoards(response.data.timeBetweenBoards);
+            setWholeTime(response.data.wholeTime);
           })
           .catch((error) => {
             console.log("Change My Travel Fail :", error);
@@ -168,12 +175,9 @@ const MyTravelList = ({ data, initData, setData }) => {
           </p>
         ) : null}
       </div>
-      <div className="relative">
-        {/* <div className="top-0 right-[150px]">
-          <MyTravelDot props={["5분", "6분", "7분", "8분", "99분"]} />
-        </div> */}
-        <div>
-          <div className="w-4/6 h-[480px] pt-1 pl-1 overflow-y-scroll">
+      <div className=" relative flex">
+        <div className="w-4/6">
+          <div className="h-[480px] pt-1 pl-1 overflow-y-scroll">
             {data && data.length !== 0 ? (
               data.map((item, index) => (
                 <MyTravelPost
@@ -189,13 +193,17 @@ const MyTravelList = ({ data, initData, setData }) => {
                   handelInitFrontStack={handelInitFrontStack}
                 />
               ))
-            ) : (
+            ) : data && data.length === 0 ? (
               <div className="text-xl text-[#8A8A8A] h-full flex justify-center items-center">
                 여행 목록이 비었습니다.
               </div>
+            ) : (
+              <div className="text-xl text-[#8A8A8A] h-full flex justify-center items-center">
+                <Loading></Loading>
+              </div>
             )}
           </div>
-          <div className="w-4/6 flex justify-center">
+          <div className="flex justify-center">
             <button
               onClick={() => setData(initData)}
               className="btn m-2 text-sm bg-gray-400 hover:scale-105 active:scale-100"
@@ -215,6 +223,9 @@ const MyTravelList = ({ data, initData, setData }) => {
               </div>
             </button>
           </div>
+        </div>
+        <div className="top-0 w-1/5 flex flex-col justify-center items-center">
+          <MyTravelDot props={["5분", "6분", "7분", "8분", "99분"]} />
         </div>
       </div>
     </div>

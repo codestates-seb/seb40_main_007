@@ -1,27 +1,25 @@
 // import { IoMdPin } from "react-icons/io";
 // import { AiOutlineCloseCircle } from "react-icons/ai";
-import { useState } from "react";
 import { MdTimer } from "react-icons/md";
+import { useRecoilValue } from "recoil";
+import { timeBetweenBoardsData } from "../../atoms/mypage/myTravelData";
 
-export default function MyTravelDot(props) {
-  const [showModal, setShowModal] = useState(false);
-  const myTravelList = props.props;
-  const listLength = myTravelList.length;
-  console.log(myTravelList);
+export default function MyTravelDot() {
+  const timeBetweenBoards = useRecoilValue(timeBetweenBoardsData);
+  console.log("시간 계산", timeBetweenBoards);
+
+  const myTravelList = timeBetweenBoards;
+  const listLength = timeBetweenBoards.length;
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setShowModal(true)}
-        className="text-[rgba(83,199,240)] w-10"
-      >
+      <div className="text-[rgba(83,199,240)]">
         <MdTimer size={32} />
-      </button>
-      {showModal ? (
+      </div>
+      {timeBetweenBoards && (
         <div>
           {listLength !== 0 ? (
             // 1번째 동그라미 경우
-            <div className="mt-[46px] h-[544px] flex flex-col items-center text-gray-400">
+            <div className="mt-2 h-[544px] flex flex-col items-center text-gray-400">
               <div className="w-10 h-10 bg-[rgba(83,199,240,0.5)] rounded-full mb-3 flex justify-center items-center text-white">
                 1
               </div>
@@ -46,22 +44,16 @@ export default function MyTravelDot(props) {
                           : "absolute text-sm w-20 top-[-12px] left-6 text-gray-400"
                       }
                     >
-                      {el}
+                      {el.type}
+                      {el.time}
                     </div>
                   </div>
                 );
               })}
             </div>
           ) : null}
-          <button
-            className="fixed inset-0"
-            type="button"
-            onClick={() => {
-              setShowModal(false);
-            }}
-          ></button>
         </div>
-      ) : null}
+      )}
     </>
   );
 }
