@@ -14,4 +14,5 @@ public class AdminDto {
     private int totalBoard;
     private int totalMember;
     private List<BoardDto.Reported> reportedBoards;
+    private List<Integer> stationCount;
 }

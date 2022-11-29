@@ -250,11 +250,12 @@ public class MemberService {
                 memberRepository.findByRefreshToken(refreshToken);
         Member findMember =
                 optionalMember.orElseThrow(() ->
-                        new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+                        new ResponseStatusException(ExceptionCode.MEMBER_NOT_FOUND.getStatus(), ExceptionCode.MEMBER_NOT_FOUND.getMessage(), new IllegalArgumentException()));
         return findMember;
     }
 
     public String reissueAccessToken(String refreshToken){
+        refreshToken = refreshToken.replace("Bearer ", "");
         Member member = findVerifiedMember(refreshToken);
         String accessToken = delegateAccessToken(member);
         return "Bearer "+ accessToken;

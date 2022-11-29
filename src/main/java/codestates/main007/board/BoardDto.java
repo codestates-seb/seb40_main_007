@@ -125,7 +125,6 @@ public class BoardDto {
         private long writerId;
         private int totalReport;
         private BoardDto.ReportReasons reportCount;
-        private List<Integer> stationCount;
     }
 
     @Getter

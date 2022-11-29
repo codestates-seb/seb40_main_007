@@ -97,13 +97,6 @@ public class AdminController {
                     .reason5(reason5)
                     .build();
 
-            List<Integer> stationCount = new ArrayList<>();
-
-            for (int i = 1; i <17 ; i++) {
-                stationCount.add(boardService.countByStationId(i));
-            }
-
-
             BoardDto.Reported dto = BoardDto.Reported.builder()
                     .title(board.getTitle())
                     .boardId(board.getBoardId())
@@ -111,12 +104,14 @@ public class AdminController {
                     .writerId(board.getWriter().getMemberId())
                     .totalReport(board.getReported())
                     .reportCount(reasons)
-                    .stationCount(stationCount)
                     .build();
             reportedDtos.add(dto);
         }
 
-
+        List<Integer> stationCount = new ArrayList<>();
+        for (int i = 1; i <17 ; i++) {
+            stationCount.add(boardService.countByStationId(i));
+        }
 
         return AdminDto.builder()
                 .totalBoard(totalBoards.size())
@@ -124,6 +119,7 @@ public class AdminController {
                 .monthBoard(monthBoard)
                 .totalMember(totalMembers.size())
                 .reportedBoards(reportedDtos)
+                .stationCount(stationCount)
                 .build();
     }
 }
