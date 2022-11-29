@@ -4,16 +4,16 @@ import { Link } from "react-router-dom";
 const LoginHeader = () => {
   return (
     <>
-      <header className="w-full border-b-[1px] border-b-[rgb(83,199,240)] fixed z-20 top-0 bg-white shadow-md">
-        <div className="max-w-[1400px] mx-auto flex h-[50px] justify-between items-center">
+      <header className="px-2 w-full border-b-[1px] lg:mx-0 border-b-[rgb(83,199,240)] fixed z-20 top-0 bg-white shadow-md">
+        <div className="lg:max-w-[1400px] mx-auto flex h-[50px] justify-between items-center">
           <Link to="/" className="no-underline">
             <div className="flex items-center">
               <img
                 src="/images/bluelogo.png"
                 alt="logo"
-                className="w-10 h-10"
+                className="w-10 h-10 "
               />
-              <span className="text-xl text-[rgb(83,199,240)] ml-2">
+              <span className="lg:text-xl text-md text-[rgb(83,199,240)] ml-2">
                 역이요
               </span>
             </div>

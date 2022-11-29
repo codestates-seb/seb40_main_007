@@ -2,14 +2,16 @@ const MyInfo = ({ nickName, userAvatar, totalBoard, totalComment, score }) => {
   return (
     <div className="w-full p-2 mb-4 flex flex-row items-center justify-evenly">
       {/* nickName */}
-      <div className="w-2/6 pl-8 flex flex-col align-middle ">
-        <p className="text-sm text-gray-400">반가워요 !</p>
-        <p className="-mt-1 text-lg text-[rgb(83,199,240)]">{nickName}</p>
+      <div className="lg:w-2/6 lg:pl-8 flex flex-col align-middle ">
+        <p className="lg:text-sm text-xs text-gray-400">반가워요 !</p>
+        <p className="-mt-1 lg:text-lg text-sm text-[rgb(83,199,240)]">
+          {nickName}
+        </p>
       </div>
 
       {/* 프로필 이미지 */}
       <img
-        className="w-28 h-28 rounded-full p-0 m-0 static"
+        className="lg:w-28 lg:h-28 w-20 h-20 rounded-full p-0 m-0 static"
         alt="ProfileImg"
         src={userAvatar}
       />

@@ -16,7 +16,7 @@ export default function ProfileModal() {
           className="flex items-center"
           onClick={() => setShowModal(true)}
         >
-          <img src={avatar} alt="profileImg" className="w-8 h-8" />
+          <img src={avatar} alt="profileImg" className="w-8 h-8 rounded-full" />
           <span className="text-xl text-[rgb(83,199,240)] ml-2 hidden sm:block">
             {name}
           </span>

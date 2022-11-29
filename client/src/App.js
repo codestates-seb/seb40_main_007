@@ -42,6 +42,7 @@ import { accessToken, refreshToken } from "./atoms/loginTest";
 function App() {
   const [, setAccessToken] = useRecoilState(accessToken);
   const refresh = useRecoilValue(refreshToken);
+
   useEffect(() => {
     if (refresh !== "") {
       const onSilentRefresh = () => {
