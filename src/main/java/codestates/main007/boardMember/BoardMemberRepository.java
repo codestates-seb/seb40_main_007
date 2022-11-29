@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface BoardMemberRepository extends JpaRepository<BoardMember, Long> {
     Optional<BoardMember> findByMemberAndBoard(Member member, Board board);
 
-    List<BoardMember> findByReportedGreaterThan(int a);
-    List<BoardMember> findAllByBoard(Board board);
+    List<BoardMember> findByMemberAndDibsTrue(Member member);
 
+    List<BoardMember> findAllByBoard(Board board);
 }
