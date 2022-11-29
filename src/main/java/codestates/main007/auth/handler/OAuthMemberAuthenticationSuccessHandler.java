@@ -67,26 +67,29 @@ public class OAuthMemberAuthenticationSuccessHandler extends SimpleUrlAuthentica
             authorities = authorityUtils.createRoles(email);
         }
 
+        String accessToken = delegateAccessToken(email, authorities);
+        String refreshToken = delegateRefreshToken(email);
+
         // 이메일 등록 여부 체크
         if (memberService.countByEmail(email) == 0) {
             int i = 1;
             while (memberService.countByName(name) != 0) {
                 name += i++;
             }
-            saveMember(name, email, avatar);
+            saveMember(name, email, avatar,refreshToken);
         }
 
-        redirect(request, response, email, authorities);
+
+        redirect(request, response, email, authorities,accessToken, refreshToken);
+
         log.info("# Authenticated successfully!");
     }
 
-    private void saveMember(String name, String email, String avatar) {
-        memberService.saveOAuthMember(name, email, avatar);
+    private void saveMember(String name, String email, String avatar,String refreshToken) {
+        memberService.saveOAuthMember(name, email, avatar,refreshToken);
     }
 
-    private void redirect(HttpServletRequest request, HttpServletResponse response, String username, List<String> authorities) throws IOException {
-        String accessToken = delegateAccessToken(username, authorities);
-        String refreshToken = delegateRefreshToken(username);
+    private void redirect(HttpServletRequest request, HttpServletResponse response, String username, List<String> authorities,String accessToken, String refreshToken) throws IOException {
 
         String uri = createURI(accessToken, refreshToken).toString();
         getRedirectStrategy().sendRedirect(request, response, uri);

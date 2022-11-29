@@ -63,11 +63,12 @@ public class MemberService {
         return memberRepository.save(createdMember);
     }
 
-    public void saveOAuthMember(String name, String email, String avatar) {
+    public void saveOAuthMember(String name, String email, String avatar, String refreshToken) {
         Member oAuthMember = Member.builder()
                 .name(name)
                 .email(email)
                 .avatar(avatar)
+                .refreshToken(refreshToken)
                 .build();
         memberRepository.save(oAuthMember);
     }
