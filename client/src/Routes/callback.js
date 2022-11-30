@@ -28,7 +28,7 @@ export default function Callback() {
   const [, setUserId] = useRecoilState(userId);
   const [, setUserEmail] = useRecoilState(userEmail);
   const [, setIsSocial] = useRecoilState(isSocial);
-  const [admin, setAdmin] = useRecoilState(isAdmin);
+  const [, setAdmin] = useRecoilState(isAdmin);
 
   useEffect(() => {
     const TOKEN = accessTokenInfo[0];
@@ -57,7 +57,6 @@ export default function Callback() {
         setIsSocial(true);
       })
       .then(() => {
-        console.log(admin);
         navigate("/");
         swal("Hello!", "로그인 되었습니다");
       })

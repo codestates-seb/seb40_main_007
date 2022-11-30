@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "apexcharts": "^3.36.3",
     "axios": "^1.2.0",
     "cra-template": "1.2.0",
     "heic2any": "^0.0.3",
     "http-proxy-middleware": "^2.0.6",
     "react": "^18.2.0",
+    "react-apexcharts": "^1.4.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.39.4",
     "react-icons": "^4.6.0",

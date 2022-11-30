@@ -1,6 +1,6 @@
 import { TiPencil } from "react-icons/ti";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { userId, accessToken } from "../../../atoms/loginData";
+import { userId, accessToken, isAdmin } from "../../../atoms/loginData";
 import { detailData } from "../../../atoms/detailPageData";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { useParams } from "react-router-dom";
@@ -11,7 +11,8 @@ import { useState } from "react";
 const Comment = ({ props, dateTime }) => {
   const { id } = useParams();
   const memberId = useRecoilValue(userId);
-  const TOKEN = useRecoilValue(accessToken);
+  const [TOKEN] = useRecoilState(accessToken);
+  const admin = useRecoilValue(isAdmin);
   const [, setDetailInfo] = useRecoilState(detailData);
   const [disable, setDisable] = useState(true);
   const [commentText, setCommentText] = useState("");
@@ -81,7 +82,7 @@ const Comment = ({ props, dateTime }) => {
         <div className="w-5/6 border-b border-gray-100">
           <div className="flex flex-row items-center space-x-1">
             <span className="text-sm">{commentInfo?.writer?.name}</span>
-            {memberId === commentInfo?.writer?.memberId ? (
+            {admin || memberId === commentInfo?.writer?.memberId ? (
               <>
                 <button
                   onClick={() => {
