@@ -167,7 +167,14 @@ public class AdminService {
         }
 
         Map<String, Integer> totalMap= new LinkedHashMap<>();
-
+        System.out.println("todayOfTheWeek : " + todayOfTheWeek);
+        System.out.println("0 : " + weekBoards[0]);
+        System.out.println("1 : " + weekBoards[1]);
+        System.out.println("2 : " + weekBoards[2]);
+        System.out.println("3 : " + weekBoards[3]);
+        System.out.println("4 : " + weekBoards[4]);
+        System.out.println("5 : " + weekBoards[5]);
+        System.out.println("6 : " + weekBoards[6]);
         switch (todayOfTheWeek){
             case 1 :
                 totalMap.put("TUE", weekBoards[6]);
