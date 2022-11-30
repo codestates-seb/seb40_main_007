@@ -170,6 +170,9 @@ public class AdminService {
             lowScoreDto.add(lowScoreBoard);
         }
         BoardOfWeek dto = BoardOfWeekDto.Mon.builder().build();
+
+        //todo: test
+        todayOfTheWeek = 1;
         switch (todayOfTheWeek){
             case 1 : dto = BoardOfWeekDto.Mon.builder()
                     .MON(weekBoards[0])
