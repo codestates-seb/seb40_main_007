@@ -33,9 +33,7 @@ const MyTravelPage = () => {
   console.log(myTravelList);
 
   const [inputText, setInputText] = useState("");
-  const [loading, setLoading] = useState(true);
-  console.log(loading);
-  // 원본 데이터
+
   // 가변데이터
   const [data, setData] = useState();
   console.log("myTravel2", data);
@@ -64,6 +62,8 @@ const MyTravelPage = () => {
   // 내 여행 계획 목록 클릭시 해당 리스트 데이터 세팅
   useEffect(() => {
     console.log("myTravelId", myTravelId);
+    setData();
+
     const config = {
       headers: { Authorization: TOKEN },
     };
@@ -78,7 +78,6 @@ const MyTravelPage = () => {
             setData(response.data.boards);
             setWholeTime(response.data.wholeTime);
             setTimeBetweenBoards(response.data.timeBetweenBoards);
-            setLoading(false);
           })
           .catch((error) => {
             console.log("GET TravelItem Fail :", error);

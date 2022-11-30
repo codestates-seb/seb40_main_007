@@ -37,7 +37,7 @@ const MapItemDetail = ({ thumbnail, detailData, boardId }) => {
         <div className="rounded-lg">
           <Link to={`/detail/${boardId}`}>
             <img
-              className="p-0.5 w-40 h-24 rounded-xl hover:border-[1px]"
+              className="p-0.5 w-40 h-24 rounded-xl "
               src={thumbnail}
               alt="post img"
             ></img>

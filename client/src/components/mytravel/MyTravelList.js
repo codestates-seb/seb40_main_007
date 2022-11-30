@@ -97,7 +97,9 @@ const MyTravelList = ({ data, initData, setData }) => {
 
   // 삭제 로직
   useEffect(() => {
-    data ? setData(data?.filter((_, index) => deleteIndex !== index)) : null;
+    data && data.length !== 0
+      ? setData(data?.filter((_, index) => deleteIndex !== index))
+      : null;
     setDeleteIndex();
   }, [deleteIndex]);
   const isChangeCheck = (init, change) => {
@@ -118,8 +120,8 @@ const MyTravelList = ({ data, initData, setData }) => {
   const savePlan = () => {
     setStackFront([]);
     setStackBack([]);
-    const changeDataIdList = data.map((el) => el.boardId);
-    const initDataIdList = initData.map((el) => el.boardId);
+    const changeDataIdList = data?.map((el) => el.boardId);
+    const initDataIdList = initData?.map((el) => el.boardId);
     const isChange = isChangeCheck(initDataIdList, changeDataIdList);
 
     const URL = `${process.env.REACT_APP_URL}/boardplanners/${myTravelId}`;
@@ -158,7 +160,7 @@ const MyTravelList = ({ data, initData, setData }) => {
         <div className="flex flex-row">
           <button
             className={`rounded-full hover:bg-gray-200 active:bg-gray-300 ${
-              stackBack.length === 0 ? "text-gray-400 pointer-events-none" : ""
+              stackBack?.length === 0 ? "text-gray-400 pointer-events-none" : ""
             }`}
             onClick={handleBackStack}
           >
@@ -166,7 +168,9 @@ const MyTravelList = ({ data, initData, setData }) => {
           </button>
           <button
             className={`rounded-full hover:bg-gray-200 active:bg-gray-300 ${
-              stackFront.length === 0 ? "text-gray-400 pointer-events-none" : ""
+              stackFront?.length === 0
+                ? "text-gray-400 pointer-events-none"
+                : ""
             }`}
             onClick={handleFrontStack}
           >
@@ -222,7 +226,7 @@ const MyTravelList = ({ data, initData, setData }) => {
             >
               <div className="flex flex-row w-full justify-center items-center">
                 <VscDebugRestart size={18} />
-                되돌리기
+                초기화
               </div>
             </button>
             <button

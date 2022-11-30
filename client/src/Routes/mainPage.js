@@ -111,7 +111,7 @@ const MainPage = () => {
       ? axios
           .get(URL, config)
           .then((response) => {
-            console.log("GET TravelList :", response.data.items);
+            console.log("GET TravelList :", response.data);
             setMyTravelList(response.data.items);
           })
           .catch((error) => {

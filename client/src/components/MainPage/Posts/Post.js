@@ -64,7 +64,9 @@ function Post({ data }) {
         </div>
         <div className="w-40 pt-0 p-2">
           <div className="flex flex-col align-middle truncate justify-between">
-            <h3 className="text-sm font-bold">{data?.title}</h3>
+            <Link to={`/detail/${data?.boardId}`} className={"w-fit"}>
+              <h3 className=" text-sm font-bold">{data?.title}</h3>
+            </Link>
             <p className="text-xs text-gray-700 truncate mb-1">
               {data?.review}
             </p>
@@ -76,7 +78,7 @@ function Post({ data }) {
               size={26}
               color={"rgb(83, 199, 240)"}
             />
-            <p className="w-full text-xs text-gray-500 flex justify-end items-center mr-1">
+            <p className="w-full text-xs font-semibold text-gray-500 flex justify-end items-center mr-1">
               {timeFunc(data?.timeFromStation)}
             </p>
           </div>

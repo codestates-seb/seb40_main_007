@@ -16,7 +16,7 @@ const MyTravelHeader = () => {
       <div className="w-4/5 flex flex-row items-center justify-between">
         <div className="flex flex-row">
           <h2 className="pt-1.5 text-base font-semibold text-[rgb(83,199,240)]">
-            {wholeTime ? "총 소요 시간 : " + timeFunc(wholeTime) : null}
+            총 소요 시간 : {wholeTime ? timeFunc(wholeTime) : null}
           </h2>
         </div>
         <div className="w-40 flex justify-end">
