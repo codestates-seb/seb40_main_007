@@ -4,10 +4,10 @@ import { TiPencil } from "react-icons/ti";
 import { FaRegTrashAlt } from "react-icons/fa";
 import DetailHeart from "./detailHeart";
 import Complain from "../Complain";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import { trainInfo } from "../../../atoms/trainInfo";
 import { categoryInfoList, tagsInfoList } from "../../../atoms/tagsInfo";
-import { userId, accessToken } from "../../../atoms/loginData";
+import { userId, accessToken, isAdmin } from "../../../atoms/loginData";
 import { detailData } from "../../../atoms/detailPageData";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
@@ -18,12 +18,13 @@ import { detailPageTime } from "../../../utils/timeFunc";
 const DetailHeader = () => {
   const { id } = useParams();
   const memberId = useRecoilValue(userId);
-  const TOKEN = useRecoilValue(accessToken);
+  const [TOKEN] = useRecoilState(accessToken);
   const navigate = useNavigate();
   const trainInformation = useRecoilValue(trainInfo);
   const categoryInfo = useRecoilValue(categoryInfoList);
   const tagsInfo = useRecoilValue(tagsInfoList);
   const detailInfo = useRecoilValue(detailData);
+  const [admin] = useRecoilState(isAdmin);
 
   const moodTags = [detailInfo?.tags?.moodTag?.map((el) => tagsInfo[el])];
   const allTags = [
@@ -71,7 +72,7 @@ const DetailHeader = () => {
         <span className="font-semibold lg:text-lg text-base text-[rgb(83,199,240)] border-b-2 border-b-[rgb(83,199,240)] px-3 py-2">
           {trainInformation[detailInfo?.stationId - 1]?.train}
         </span>
-        {memberId === detailInfo?.writer?.memberId ? (
+        {admin || memberId === detailInfo?.writer?.memberId ? (
           <div className="flex flex-row space-x-1 place-items-end">
             <Link to={`/edit/${id}`}>
               <div className="w-[30px] h-[30px] bg-white border-2 border-[rgb(83,199,240)] rounded-3xl p-0.5 flex justify-center items-center">

@@ -1,13 +1,14 @@
 // import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { userName, userAvatar } from "../../atoms/loginData";
-import { useRecoilValue } from "recoil";
+import { userName, userAvatar, isAdmin } from "../../atoms/loginData";
+import { useRecoilValue, useRecoilState } from "recoil";
 
 export default function ProfileModal() {
   const [showModal, setShowModal] = useState(false);
   const name = useRecoilValue(userName);
   const avatar = useRecoilValue(userAvatar);
+  const [admin] = useRecoilState(isAdmin);
 
   return (
     <div className="relative">
@@ -26,13 +27,14 @@ export default function ProfileModal() {
         <>
           <div className="absolute w-32 top-11 right-1 outline-none focus:outline-none z-20">
             <div className="rounded-2xl shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-              <div className="text-right"></div>
               <div className="mb-3">
-                <Link to="/mypage">
-                  <div className="mt-5 mb-1 text-base text-[rgb(83,199,240)] text-center">
-                    관리페이지
-                  </div>
-                </Link>
+                {admin ? (
+                  <Link to="/mypage">
+                    <div className="mt-5 mb-1 text-base text-[rgb(83,199,240)] text-center">
+                      관리페이지
+                    </div>
+                  </Link>
+                ) : null}
                 <Link to="/mypage">
                   <div className="mt-5 mb-1 text-base text-[rgb(83,199,240)] text-center">
                     마이페이지
