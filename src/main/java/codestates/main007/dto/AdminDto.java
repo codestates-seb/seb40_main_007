@@ -1,12 +1,11 @@
 package codestates.main007.dto;
 
 import codestates.main007.board.dto.BoardDto;
-import codestates.main007.board.dto.BoardOfWeek;
-import codestates.main007.board.dto.BoardOfWeekDto;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Builder
@@ -19,5 +18,5 @@ public class AdminDto {
     private List<Integer> stationCount;
     private List<BoardDto.HighLowScoreResponse> highScoreBoards;
     private List<BoardDto.HighLowScoreResponse> lowScoreBoards;
-    private BoardOfWeek BoardsOfThisWeek;
+    private Map<String, Integer> BoardsOfThisWeek;
 }

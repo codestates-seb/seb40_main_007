@@ -1,8 +1,6 @@
 package codestates.main007.admin.service;
 
 import codestates.main007.board.dto.BoardDto;
-import codestates.main007.board.dto.BoardOfWeek;
-import codestates.main007.board.dto.BoardOfWeekDto;
 import codestates.main007.board.entity.Board;
 import codestates.main007.board.service.BoardService;
 import codestates.main007.boardMember.entity.BoardMember;
@@ -16,9 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional
@@ -169,74 +165,67 @@ public class AdminService {
 
             lowScoreDto.add(lowScoreBoard);
         }
-        BoardOfWeek dto = BoardOfWeekDto.Mon.builder().build();
 
-        //todo: test
-        todayOfTheWeek = 2;
+        Map<String, Integer> totalMap= new LinkedHashMap<>();
+
         switch (todayOfTheWeek){
-            case 1 : dto = BoardOfWeekDto.Mon.builder()
-                    .MON(weekBoards[0])
-                    .TUE(weekBoards[1])
-                    .WED(weekBoards[2])
-                    .THU(weekBoards[3])
-                    .FRI(weekBoards[4])
-                    .SAT(weekBoards[5])
-                    .SUN(weekBoards[6])
-                    .build();
-            case 2 : dto = BoardOfWeekDto.TUE.builder()
-                    .MON(weekBoards[6])
-                    .TUE(weekBoards[0])
-                    .WED(weekBoards[1])
-                    .THU(weekBoards[2])
-                    .FRI(weekBoards[3])
-                    .SAT(weekBoards[4])
-                    .SUN(weekBoards[5])
-                    .build();
-            case 3 : dto = BoardOfWeekDto.WED.builder()
-                    .MON(weekBoards[5])
-                    .TUE(weekBoards[6])
-                    .WED(weekBoards[0])
-                    .THU(weekBoards[1])
-                    .FRI(weekBoards[2])
-                    .SAT(weekBoards[3])
-                    .SUN(weekBoards[4])
-                    .build();
-            case 4 : dto = BoardOfWeekDto.THU.builder()
-                    .MON(weekBoards[4])
-                    .TUE(weekBoards[5])
-                    .WED(weekBoards[6])
-                    .THU(weekBoards[0])
-                    .FRI(weekBoards[1])
-                    .SAT(weekBoards[2])
-                    .SUN(weekBoards[3])
-                    .build();
-            case 5 : dto = BoardOfWeekDto.FRI.builder()
-                    .MON(weekBoards[3])
-                    .TUE(weekBoards[4])
-                    .WED(weekBoards[5])
-                    .THU(weekBoards[6])
-                    .FRI(weekBoards[0])
-                    .SAT(weekBoards[1])
-                    .SUN(weekBoards[2])
-                    .build();
-            case 6 : dto = BoardOfWeekDto.SAT.builder()
-                    .MON(weekBoards[2])
-                    .TUE(weekBoards[3])
-                    .WED(weekBoards[4])
-                    .THU(weekBoards[5])
-                    .FRI(weekBoards[6])
-                    .SAT(weekBoards[0])
-                    .SUN(weekBoards[1])
-                    .build();
-            case 7 : dto = BoardOfWeekDto.SUN.builder()
-                    .MON(weekBoards[1])
-                    .TUE(weekBoards[2])
-                    .WED(weekBoards[3])
-                    .THU(weekBoards[4])
-                    .FRI(weekBoards[5])
-                    .SAT(weekBoards[6])
-                    .SUN(weekBoards[0])
-                    .build();
+            case 1 :
+                totalMap.put("TUE", weekBoards[6]);
+                totalMap.put("WED", weekBoards[5]);
+                totalMap.put("THU", weekBoards[4]);
+                totalMap.put("FRI", weekBoards[3]);
+                totalMap.put("SAT", weekBoards[2]);
+                totalMap.put("SUN", weekBoards[1]);
+                totalMap.put("MON", weekBoards[0]);
+            case 2 :
+                totalMap.put("WED", weekBoards[6]);
+                totalMap.put("THU", weekBoards[5]);
+                totalMap.put("FRI", weekBoards[4]);
+                totalMap.put("SAT", weekBoards[3]);
+                totalMap.put("SUN", weekBoards[2]);
+                totalMap.put("MON", weekBoards[1]);
+                totalMap.put("TUE", weekBoards[0]);
+            case 3 :
+                totalMap.put("THU", weekBoards[6]);
+                totalMap.put("FRI", weekBoards[5]);
+                totalMap.put("SAT", weekBoards[4]);
+                totalMap.put("SUN", weekBoards[3]);
+                totalMap.put("MON", weekBoards[2]);
+                totalMap.put("TUE", weekBoards[1]);
+                totalMap.put("WED", weekBoards[0]);
+            case 4 :
+                totalMap.put("FRI", weekBoards[6]);
+                totalMap.put("SAT", weekBoards[5]);
+                totalMap.put("SUN", weekBoards[4]);
+                totalMap.put("MON", weekBoards[3]);
+                totalMap.put("TUE", weekBoards[2]);
+                totalMap.put("WED", weekBoards[1]);
+                totalMap.put("THU", weekBoards[0]);
+            case 5 :
+                totalMap.put("SAT", weekBoards[6]);
+                totalMap.put("SUN", weekBoards[5]);
+                totalMap.put("MON", weekBoards[4]);
+                totalMap.put("TUE", weekBoards[3]);
+                totalMap.put("WED", weekBoards[2]);
+                totalMap.put("THU", weekBoards[1]);
+                totalMap.put("FRI", weekBoards[0]);
+            case 6 :
+                totalMap.put("SUN", weekBoards[6]);
+                totalMap.put("MON", weekBoards[5]);
+                totalMap.put("TUE", weekBoards[4]);
+                totalMap.put("WED", weekBoards[3]);
+                totalMap.put("THU", weekBoards[2]);
+                totalMap.put("FRI", weekBoards[1]);
+                totalMap.put("SAT", weekBoards[0]);
+            case 7 :
+                totalMap.put("MON", weekBoards[6]);
+                totalMap.put("TUE", weekBoards[5]);
+                totalMap.put("WED", weekBoards[4]);
+                totalMap.put("THU", weekBoards[3]);
+                totalMap.put("FRI", weekBoards[2]);
+                totalMap.put("SAT", weekBoards[1]);
+                totalMap.put("SUN", weekBoards[0]);
+
         }
         return AdminDto.builder()
                 .totalBoard(totalBoards.size())
@@ -247,7 +236,7 @@ public class AdminService {
                 .stationCount(stationCount)
                 .highScoreBoards(highScoreDto)
                 .lowScoreBoards(lowScoreDto)
-                .BoardsOfThisWeek(dto)
+                .BoardsOfThisWeek(totalMap)
                 .build();
     }
 
