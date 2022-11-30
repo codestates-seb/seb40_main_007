@@ -11,7 +11,7 @@ export const timeFunc = (time) => {
   }
 };
 
-// 디텡리 페이지 시간 조회
+// 디테일 페이지 시간 조회
 export const detailPageTime = (time) => {
   let nowTime = new Date();
   let createdTime = new Date(time);

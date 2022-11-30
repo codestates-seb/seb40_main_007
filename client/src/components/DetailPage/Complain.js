@@ -10,7 +10,7 @@ const Complain = ({ boardId }) => {
   const TOKEN = useRecoilValue(accessToken);
   const [showModal, setShowModal] = useState(false);
   const [value, setValue] = useState(1);
-  console.log(boardId);
+
   const report = () => {
     const config = {
       headers: { Authorization: TOKEN },
@@ -40,7 +40,7 @@ const Complain = ({ boardId }) => {
       </button>
       {showModal ? (
         <>
-          <div className="absolute top-10 right-0 z-50 w-[200px] border-4 bg-white rounded-lg">
+          <div className="absolute top-10 right-0 z-50 w-[250px] border-4 bg-white rounded-lg">
             <form
               className="p-5"
               value={value}

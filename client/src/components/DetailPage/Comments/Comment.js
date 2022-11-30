@@ -75,7 +75,7 @@ const Comment = ({ props, dateTime }) => {
           <img
             src={commentInfo?.writer?.avatar}
             alt="profile"
-            className="w-12 h-12"
+            className="w-12 h-12 rounded-full"
           />
         </div>
         <div className="w-5/6 border-b border-gray-100">
