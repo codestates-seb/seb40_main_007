@@ -7,6 +7,7 @@ import codestates.main007.boardMember.entity.BoardMember;
 import codestates.main007.boardMember.repository.BoardMemberRepository;
 import codestates.main007.dto.AdminDto;
 import codestates.main007.dto.WeekBoardDto;
+import codestates.main007.dto.WeekDto;
 import codestates.main007.member.entity.Member;
 import codestates.main007.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -167,47 +168,63 @@ public class AdminService {
             lowScoreDto.add(lowScoreBoard);
         }
         WeekBoardDto dto = WeekBoardDto.builder().build();
+        WeekDto weekDto = WeekDto.builder().build();
         switch (todayOfTheWeek) {
             case 1:
                 dto = WeekBoardDto.builder()
-                        .thisWeek(new ArrayList<>(Arrays.asList("TUE", "WED", "THU", "FRI", "SAT", "SUN", "MON")))
                         .boardsOfThisWeek(new ArrayList<>(Arrays.asList(weekBoards[6], weekBoards[5], weekBoards[4], weekBoards[3], weekBoards[2], weekBoards[1], weekBoards[0])))
+                        .build();
+                weekDto = WeekDto.builder()
+                        .thisWeek(new ArrayList<>(Arrays.asList("TUE", "WED", "THU", "FRI", "SAT", "SUN", "MON")))
                         .build();
                 break;
             case 2:
                 dto = WeekBoardDto.builder()
-                        .thisWeek(new ArrayList<>(Arrays.asList("WED", "THU", "FRI", "SAT", "SUN", "MON", "TUE")))
                         .boardsOfThisWeek(new ArrayList<>(Arrays.asList(weekBoards[6], weekBoards[5], weekBoards[4], weekBoards[3], weekBoards[2], weekBoards[1], weekBoards[0])))
+                        .build();
+                weekDto = WeekDto.builder()
+                        .thisWeek(new ArrayList<>(Arrays.asList("WED", "THU", "FRI", "SAT", "SUN", "MON", "TUE")))
                         .build();
                 break;
             case 3:
                 dto = WeekBoardDto.builder()
-                        .thisWeek(new ArrayList<>(Arrays.asList("THU", "FRI", "SAT", "SUN", "MON", "TUE", "WED")))
                         .boardsOfThisWeek(new ArrayList<>(Arrays.asList(weekBoards[6], weekBoards[5], weekBoards[4], weekBoards[3], weekBoards[2], weekBoards[1], weekBoards[0])))
+                        .build();
+                weekDto = WeekDto.builder()
+                        .thisWeek(new ArrayList<>(Arrays.asList("THU", "FRI", "SAT", "SUN", "MON", "TUE", "WED")))
                         .build();
                 break;
             case 4:
                 dto = WeekBoardDto.builder()
-                        .thisWeek(new ArrayList<>(Arrays.asList("FRI", "SAT", "SUN", "MON", "TUE", "WED", "THU")))
                         .boardsOfThisWeek(new ArrayList<>(Arrays.asList(weekBoards[6], weekBoards[5], weekBoards[4], weekBoards[3], weekBoards[2], weekBoards[1], weekBoards[0])))
+                        .build();
+                weekDto = WeekDto.builder()
+                        .thisWeek(new ArrayList<>(Arrays.asList("FRI", "SAT", "SUN", "MON", "TUE", "WED", "THU")))
                         .build();
                 break;
             case 5:
                 dto = WeekBoardDto.builder()
-                        .thisWeek(new ArrayList<>(Arrays.asList("SAT", "SUN", "MON", "TUE", "WED", "THU", "FRI")))
                         .boardsOfThisWeek(new ArrayList<>(Arrays.asList(weekBoards[6], weekBoards[5], weekBoards[4], weekBoards[3], weekBoards[2], weekBoards[1], weekBoards[0])))
+                        .build();
+                weekDto = WeekDto.builder()
+                        .thisWeek(new ArrayList<>(Arrays.asList("SAT", "SUN", "MON", "TUE", "WED", "THU", "FRI")))
                         .build();
                 break;
             case 6:
                 dto = WeekBoardDto.builder()
-                        .thisWeek(new ArrayList<>(Arrays.asList("SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT")))
+
                         .boardsOfThisWeek(new ArrayList<>(Arrays.asList(weekBoards[6], weekBoards[5], weekBoards[4], weekBoards[3], weekBoards[2], weekBoards[1], weekBoards[0])))
+                        .build();
+                weekDto = WeekDto.builder()
+                        .thisWeek(new ArrayList<>(Arrays.asList("SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT")))
                         .build();
                 break;
             case 7:
                 dto = WeekBoardDto.builder()
-                        .thisWeek(new ArrayList<>(Arrays.asList("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN")))
                         .boardsOfThisWeek(new ArrayList<>(Arrays.asList(weekBoards[6], weekBoards[5], weekBoards[4], weekBoards[3], weekBoards[2], weekBoards[1], weekBoards[0])))
+                        .build();
+                weekDto = WeekDto.builder()
+                        .thisWeek(new ArrayList<>(Arrays.asList("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN")))
                         .build();
                 break;
 
@@ -346,6 +363,7 @@ public class AdminService {
                 .highScoreBoards(highScoreDto)
                 .lowScoreBoards(lowScoreDto)
                 .BoardsOfThisWeek(dto)
+                .thisWeek(weekDto)
                 .build();
     }
 

@@ -7,6 +7,6 @@ import java.util.ArrayList;
 
 @Getter
 @Builder
-public class WeekBoardDto {
-    private ArrayList<Integer> boardsOfThisWeek;
+public class WeekDto {
+    private ArrayList<String> thisWeek;
 }

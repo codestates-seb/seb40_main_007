@@ -20,4 +20,5 @@ public class AdminDto {
     private List<BoardDto.HighLowScoreResponse> highScoreBoards;
     private List<BoardDto.HighLowScoreResponse> lowScoreBoards;
     private WeekBoardDto BoardsOfThisWeek;
+    private WeekDto thisWeek;
 }
