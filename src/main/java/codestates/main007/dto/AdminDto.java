@@ -19,6 +19,6 @@ public class AdminDto {
     private List<Integer> stationCount;
     private List<BoardDto.HighLowScoreResponse> highScoreBoards;
     private List<BoardDto.HighLowScoreResponse> lowScoreBoards;
-    private WeekBoardDto BoardsOfThisWeek;
-    private WeekDto thisWeek;
+    private ArrayList<Integer> BoardsOfThisWeek;
+    private ArrayList<String> thisWeek;
 }
