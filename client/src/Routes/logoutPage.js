@@ -1,5 +1,4 @@
 import LoginHeader from "../components/LoginHeader";
-import swal from "sweetalert";
 // 로그인 테스트용입니다.
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
@@ -37,7 +36,6 @@ export default function LogoutPage() {
       .catch((error) => {
         console.log(error);
       });
-    swal("Good Bye!", "로그아웃 되었습니다");
     setAccessToken("");
     setRefreshToken("");
     setUserAvatar("");

@@ -42,7 +42,7 @@ export default function adminData() {
   return (
     <div className="w-full bg-[rgba(235,235,235,0.34)]">
       <Header />
-      <div className="max-w-6xl pt-20 border m-auto gap-2">
+      <div className="max-w-6xl pt-20 m-auto gap-2">
         <div className="grid grid-cols-1 lg:grid-cols-2 pb-52">
           <StationData stationCntdata={stationCnt} />
           <WeekData boardsWeek={boardsWeek} />

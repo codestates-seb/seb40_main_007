@@ -4,6 +4,7 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import axios from "axios";
 import { useState } from "react";
 import swal from "sweetalert";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 
 const EditNickname = () => {
   const navigate = useNavigate();
@@ -48,12 +49,16 @@ const EditNickname = () => {
       </div>
       <input
         value={nickName}
+        maxLength="9"
         className="mt-1 p-1 w-full rounded-lg border-2 border-[rgb(83,199,240)]"
         placeholder={useName}
         onChange={handleChange}
       ></input>
-
-      <div className="pt-5 gap-2 flex flex-col items-center">
+      <div className="max-w-2xl m-auto text-end text-xs text-gray-500 mt-1">
+        <AiOutlineInfoCircle className="inline mr-1" />
+        닉네임은 최대 9글자 입니다.
+      </div>
+      <div className="pt-3 gap-2 flex flex-col items-center">
         <button className="btn btn-hover text-sm mt-5" onClick={hadleSubmit}>
           닉네임 변경
         </button>

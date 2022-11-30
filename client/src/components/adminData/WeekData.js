@@ -1,6 +1,9 @@
 import ReactApexChart from "react-apexcharts";
 
 export default function WeekData({ boardsWeek }) {
+  for (let key of boardsWeek) {
+    console.log(key);
+  }
   const state = {
     series: [
       {

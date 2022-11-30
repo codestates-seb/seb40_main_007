@@ -22,7 +22,7 @@ const EditProfileImg = () => {
       headers: { Authorization: TOKEN, "Content-Type": "multipart/form-data" },
     };
     axios
-      .post(`${process.env.REACT_APP_URL}/members/avatar`, imageFile, config)
+      .patch(`${process.env.REACT_APP_URL}/members/avatar`, imageFile, config)
       .then(function (response) {
         console.log(response);
       })
