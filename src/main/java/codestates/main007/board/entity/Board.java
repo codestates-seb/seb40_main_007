@@ -4,7 +4,7 @@ import codestates.main007.boardImage.entity.BoardImage;
 import codestates.main007.boardMember.entity.BoardMember;
 import codestates.main007.boardPlanner.entity.BoardPlanner;
 import codestates.main007.comment.entity.Comment;
-import codestates.main007.exception.member.entity.Member;
+import codestates.main007.member.entity.Member;
 import codestates.main007.tag.entity.Tag;
 import codestates.main007.tag.dto.TagDto;
 import lombok.AllArgsConstructor;

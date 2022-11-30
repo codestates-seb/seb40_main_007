@@ -7,7 +7,7 @@ import codestates.main007.boardPlanner.entity.BoardPlanner;
 import codestates.main007.boardPlanner.mapper.BoardPlannerMapper;
 import codestates.main007.boardPlanner.repository.BoardPlannerRepository;
 import codestates.main007.exception.ExceptionCode;
-import codestates.main007.exception.member.service.MemberService;
+import codestates.main007.member.service.MemberService;
 import codestates.main007.planner.entity.Planner;
 import codestates.main007.planner.dto.PlannerDto;
 import codestates.main007.planner.service.PlannerService;

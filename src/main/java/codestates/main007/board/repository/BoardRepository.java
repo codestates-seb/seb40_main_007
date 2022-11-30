@@ -1,9 +1,9 @@
 package codestates.main007.board.repository;
 
 import codestates.main007.board.entity.Board;
-import codestates.main007.exception.member.entity.Member;
-import codestates.main007.exception.member.query.MemberScore;
-import codestates.main007.exception.member.query.MemberStation;
+import codestates.main007.member.entity.Member;
+import codestates.main007.member.query.MemberScore;
+import codestates.main007.member.query.MemberStation;
 import codestates.main007.tag.entity.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

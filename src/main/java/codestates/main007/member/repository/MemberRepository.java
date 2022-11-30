@@ -1,6 +1,6 @@
-package codestates.main007.exception.member.repository;
+package codestates.main007.member.repository;
 
-import codestates.main007.exception.member.entity.Member;
+import codestates.main007.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

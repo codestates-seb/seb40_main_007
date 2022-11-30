@@ -2,8 +2,8 @@ package codestates.main007.auth.userDetails;
 
 import codestates.main007.auth.util.CustomAuthorityUtils;
 import codestates.main007.exception.ExceptionCode;
-import codestates.main007.exception.member.entity.Member;
-import codestates.main007.exception.member.repository.MemberRepository;
+import codestates.main007.member.entity.Member;
+import codestates.main007.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

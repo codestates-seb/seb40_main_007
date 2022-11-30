@@ -1,7 +1,7 @@
 package codestates.main007.comment.repository;
 
 import codestates.main007.comment.entity.Comment;
-import codestates.main007.exception.member.entity.Member;
+import codestates.main007.member.entity.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

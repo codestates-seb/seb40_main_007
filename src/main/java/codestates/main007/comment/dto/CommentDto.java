@@ -1,6 +1,6 @@
 package codestates.main007.comment.dto;
 
-import codestates.main007.exception.member.dto.MemberDto;
+import codestates.main007.member.dto.MemberDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

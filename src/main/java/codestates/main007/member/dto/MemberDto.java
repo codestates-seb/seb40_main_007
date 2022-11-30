@@ -1,4 +1,4 @@
-package codestates.main007.exception.member.dto;
+package codestates.main007.member.dto;
 
 import codestates.main007.tag.dto.TagDto;
 import lombok.AllArgsConstructor;

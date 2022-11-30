@@ -1,4 +1,4 @@
-package codestates.main007.exception.member.entity;
+package codestates.main007.member.entity;
 
 import codestates.main007.board.entity.Board;
 import codestates.main007.boardMember.entity.BoardMember;

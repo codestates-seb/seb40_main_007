@@ -1,7 +1,7 @@
 package codestates.main007.boardMember.entity;
 
 import codestates.main007.board.entity.Board;
-import codestates.main007.exception.member.entity.Member;
+import codestates.main007.member.entity.Member;
 import lombok.*;
 
 import javax.persistence.*;

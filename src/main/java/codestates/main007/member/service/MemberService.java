@@ -1,4 +1,4 @@
-package codestates.main007.exception.member.service;
+package codestates.main007.member.service;
 
 
 import codestates.main007.auth.jwt.JwtTokenizer;
@@ -11,11 +11,11 @@ import codestates.main007.boardMember.repository.BoardMemberRepository;
 import codestates.main007.comment.entity.Comment;
 import codestates.main007.comment.repository.CommentRepository;
 import codestates.main007.exception.ExceptionCode;
-import codestates.main007.exception.member.dto.MemberDto;
-import codestates.main007.exception.member.entity.Member;
-import codestates.main007.exception.member.query.MemberScore;
-import codestates.main007.exception.member.query.MemberStation;
-import codestates.main007.exception.member.repository.MemberRepository;
+import codestates.main007.member.dto.MemberDto;
+import codestates.main007.member.entity.Member;
+import codestates.main007.member.query.MemberScore;
+import codestates.main007.member.query.MemberStation;
+import codestates.main007.member.repository.MemberRepository;
 import codestates.main007.service.RandomAvatarService;
 import codestates.main007.service.RandomNamingService;
 import codestates.main007.service.RandomPasswordService;
@@ -231,6 +231,15 @@ public class MemberService {
         Member member = findByAccessToken(accessToken);
 
         memberRepository.delete(member);
+    }
+    public void dropMember(String accessToken, long memberId) {
+        Member member = findByAccessToken(accessToken);
+        if (member.getMemberId() != 1 && member.getMemberId() != 2 && member.getMemberId() != 3 && member.getMemberId() != 4 && member.getMemberId() != 5) {
+            throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
+        }
+        Member dropMember = find(memberId);
+
+        memberRepository.delete(dropMember);
     }
 
     public List<Member> findAllMembers() {

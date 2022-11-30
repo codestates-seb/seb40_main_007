@@ -1,14 +1,14 @@
-package codestates.main007.exception.member.controller;
+package codestates.main007.member.controller;
 
 import codestates.main007.board.entity.Board;
 import codestates.main007.board.repository.BoardRepository;
 import codestates.main007.comment.entity.Comment;
 import codestates.main007.comment.repository.CommentRepository;
 import codestates.main007.dto.PageDto;
-import codestates.main007.exception.member.entity.Member;
-import codestates.main007.exception.member.dto.MemberDto;
-import codestates.main007.exception.member.mapper.MemberMapper;
-import codestates.main007.exception.member.service.MemberService;
+import codestates.main007.member.entity.Member;
+import codestates.main007.member.dto.MemberDto;
+import codestates.main007.member.mapper.MemberMapper;
+import codestates.main007.member.service.MemberService;
 import codestates.main007.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

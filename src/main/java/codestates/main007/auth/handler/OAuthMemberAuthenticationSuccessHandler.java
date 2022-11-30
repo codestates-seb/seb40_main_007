@@ -2,8 +2,8 @@ package codestates.main007.auth.handler;
 
 import codestates.main007.auth.jwt.JwtTokenizer;
 import codestates.main007.auth.util.CustomAuthorityUtils;
-import codestates.main007.exception.member.entity.Member;
-import codestates.main007.exception.member.service.MemberService;
+import codestates.main007.member.entity.Member;
+import codestates.main007.member.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;

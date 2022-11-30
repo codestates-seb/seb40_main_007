@@ -4,7 +4,7 @@ import codestates.main007.board.entity.Board;
 import codestates.main007.board.repository.BoardRepository;
 import codestates.main007.boardImage.entity.BoardImage;
 import codestates.main007.boardImage.repository.BoardImageRepository;
-import codestates.main007.exception.member.entity.Member;
+import codestates.main007.member.entity.Member;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;

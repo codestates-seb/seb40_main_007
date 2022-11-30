@@ -5,7 +5,7 @@ import codestates.main007.board.repository.BoardRepository;
 import codestates.main007.boardMember.entity.BoardMember;
 import codestates.main007.boardMember.repository.BoardMemberRepository;
 import codestates.main007.exception.ExceptionCode;
-import codestates.main007.exception.member.entity.Member;
+import codestates.main007.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;

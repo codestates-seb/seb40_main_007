@@ -1,9 +1,9 @@
-package codestates.main007.exception.member.mapper;
+package codestates.main007.member.mapper;
 
 import codestates.main007.board.entity.Board;
 import codestates.main007.comment.entity.Comment;
-import codestates.main007.exception.member.dto.MemberDto;
-import codestates.main007.exception.member.entity.Member;
+import codestates.main007.member.dto.MemberDto;
+import codestates.main007.member.entity.Member;
 import org.mapstruct.Mapper;
 
 import java.util.ArrayList;

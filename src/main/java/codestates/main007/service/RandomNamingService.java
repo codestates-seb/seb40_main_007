@@ -1,6 +1,6 @@
 package codestates.main007.service;
 
-import codestates.main007.exception.member.repository.MemberRepository;
+import codestates.main007.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

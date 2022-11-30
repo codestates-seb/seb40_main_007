@@ -2,7 +2,7 @@ package codestates.main007.comment.mapper;
 
 import codestates.main007.comment.dto.CommentDto;
 import codestates.main007.comment.entity.Comment;
-import codestates.main007.exception.member.dto.MemberDto;
+import codestates.main007.member.dto.MemberDto;
 import org.mapstruct.Mapper;
 
 import java.time.LocalDateTime;
