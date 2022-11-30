@@ -24,6 +24,8 @@ import MyCommentPage from "./Routes/myPages/myCommentPage";
 import MyPostPage from "./Routes/myPages/myPostPage";
 import MyTravelPage from "./Routes/myPages/myTravelPage";
 import swal from "sweetalert";
+//admin
+import AdminData from "./Routes/adminData";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -101,6 +103,7 @@ function App() {
             <Route path="/mypage/mypost" element={<MyPostPage />} />
             <Route path="/mypage/mycomment" element={<MyCommentPage />} />
             <Route path="/mypage/mytravel" element={<MyTravelPage />} />
+            <Route path="/admin/data" element={<AdminData />} />
             <Route path="/callback/*" element={<Callback />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

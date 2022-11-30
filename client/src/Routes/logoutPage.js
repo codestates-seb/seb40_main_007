@@ -47,6 +47,7 @@ export default function LogoutPage() {
     setIsSocial(false);
     setAdmin(false);
     navigate("/");
+    location.reload(); //아마 저희가 한번도 새로고침이 안되어서 이전 액세스 토큰을 계속 요청하는 듯 해서 새로 넣어주었습니다
   };
 
   return (

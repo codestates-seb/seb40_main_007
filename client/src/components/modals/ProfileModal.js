@@ -29,7 +29,7 @@ export default function ProfileModal() {
             <div className="rounded-2xl shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
               <div className="mb-3">
                 {admin ? (
-                  <Link to="/mypage">
+                  <Link to="/admin/data">
                     <div className="mt-5 mb-1 text-base text-[rgb(83,199,240)] text-center">
                       관리페이지
                     </div>
