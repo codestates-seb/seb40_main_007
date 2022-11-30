@@ -38,6 +38,15 @@ public class PlannerDto {
         private long plannerId;
         private String plannerName;
     }
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MyPlannerWithBoards {
+        private long plannerId;
+        private String plannerName;
+        private List<Long> boardId;
+    }
 
     @Getter
     @Builder

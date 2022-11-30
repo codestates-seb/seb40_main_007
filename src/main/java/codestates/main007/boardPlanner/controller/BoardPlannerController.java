@@ -2,6 +2,7 @@ package codestates.main007.boardPlanner.controller;
 
 import codestates.main007.boardPlanner.dto.BoardPlannerDto;
 import codestates.main007.boardPlanner.service.BoardPlannerService;
+import codestates.main007.dto.MultiResponseDto;
 import codestates.main007.planner.dto.PlannerDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,11 +17,11 @@ public class BoardPlannerController {
     private final BoardPlannerService boardPlannerService;
     @PostMapping("/{board-id}/{planner-id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void postBoardPlanner(@RequestHeader(name = "Authorization") String accessToken,
-                                 @PathVariable("board-id") long boardId,
-                                 @PathVariable("planner-id") long plannerId) throws IOException {
+    public PlannerDto.MyPlannerWithBoards postBoardPlanner(@RequestHeader(name = "Authorization") String accessToken,
+                                                           @PathVariable("board-id") long boardId,
+                                                           @PathVariable("planner-id") long plannerId) throws IOException {
 
-        boardPlannerService.save(accessToken, boardId, plannerId);
+        return boardPlannerService.save(accessToken, boardId, plannerId);
     }
 
     @PatchMapping("/{planner-id}")

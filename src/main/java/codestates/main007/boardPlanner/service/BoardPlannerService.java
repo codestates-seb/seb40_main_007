@@ -1,5 +1,6 @@
 package codestates.main007.boardPlanner.service;
 
+import codestates.main007.board.entity.Board;
 import codestates.main007.board.mapper.BoardMapper;
 import codestates.main007.board.service.BoardService;
 import codestates.main007.boardPlanner.dto.BoardPlannerDto;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,9 +34,11 @@ public class BoardPlannerService {
     private final BoardPlannerMapper boardPlannerMapper;
     private final BoardMapper boardMapper;
 
-    public void save(String accessToken, long boardId, long plannerId) {
+    public PlannerDto.MyPlannerWithBoards save(String accessToken, long boardId, long plannerId) {
+        List<BoardPlanner> list = new ArrayList<>();
+        Board board = boardService.find(boardId);
+        Planner planner = plannerService.find(plannerId);
         if (memberService.findByAccessToken(accessToken).equals(plannerService.find(plannerId).getMember())) {
-            Planner planner = plannerService.find(plannerId);
             if (planner.getBoardPlanners().size() >= 10) {
                 throw new ResponseStatusException(ExceptionCode.PLANNER_SATURATED.getStatus(), ExceptionCode.PLANNER_SATURATED.getMessage(), new IllegalArgumentException());
             } else {
@@ -43,8 +47,7 @@ public class BoardPlannerService {
                         .planner(plannerService.find(plannerId))
                         .priority((int) boardId)
                         .build();
-                List<BoardPlanner> list = boardPlannerRepository.findAllByBoardAndPlanner(boardService.find(boardId),
-                        plannerService.find(plannerId));
+                list = boardPlannerRepository.findAllByBoardAndPlanner(board, planner);
                 if (list.isEmpty()) {
                     boardPlannerRepository.save(boardPlanner);
                 } else {
@@ -54,6 +57,17 @@ public class BoardPlannerService {
         } else {
             throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
         }
+
+        List<Long> boardIds = new ArrayList<>();
+        for (BoardPlanner boardPlanner : list){
+            boardIds.add(boardPlanner.getBoard().getBoardId());
+        }
+
+        return PlannerDto.MyPlannerWithBoards.builder()
+                .plannerId(plannerId)
+                .plannerName(planner.getPlannerName())
+                .boardId(boardIds)
+                .build();
     }
 
 
