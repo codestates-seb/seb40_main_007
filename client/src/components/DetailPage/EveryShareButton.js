@@ -12,13 +12,25 @@ export default function EveryShareButton() {
   return (
     <>
       <FacebookShareButton style={{ marginRight: "1px" }} url={currentUrl}>
-        <FacebookIcon size={33} round={true} borderRadius={24}></FacebookIcon>
+        <FacebookIcon
+          round={true}
+          borderRadius={24}
+          className="lg:w-9 lg:h-9 w-6 h-6"
+        ></FacebookIcon>
       </FacebookShareButton>
       <TwitterShareButton style={{ marginRight: "1px" }} url={currentUrl}>
-        <TwitterIcon size={33} round={true} borderRadius={24}></TwitterIcon>
+        <TwitterIcon
+          className="lg:w-9 lg:h-9 w-6 h-6"
+          round={true}
+          borderRadius={24}
+        ></TwitterIcon>
       </TwitterShareButton>
       <LineShareButton url={currentUrl}>
-        <LineIcon size={33} round={true} borderRadius={24}></LineIcon>
+        <LineIcon
+          className="lg:w-9 lg:h-9 w-6 h-6"
+          round={true}
+          borderRadius={24}
+        ></LineIcon>
       </LineShareButton>
     </>
   );

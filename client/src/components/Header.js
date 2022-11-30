@@ -13,8 +13,8 @@ const Header = () => {
       {TOKEN !== "" ? (
         <LoginHeader />
       ) : (
-        <header className="w-full border-b-[1px] border-b-[rgb(83,199,240)] fixed z-20 bg-white shadow-md">
-          <div className="max-w-[1400px] mx-auto flex h-[50px] justify-between items-center">
+        <header className="w-full px-2 border-b-[1px] border-b-[rgb(83,199,240)] fixed z-20 bg-white shadow-md">
+          <div className="lg:max-w-[1400px] mx-auto flex h-[50px] justify-between items-center">
             <Link to="/" className="no-underline">
               <div className="flex items-center">
                 <img

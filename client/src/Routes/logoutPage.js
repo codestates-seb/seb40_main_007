@@ -5,18 +5,18 @@ import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 import {
   accessToken,
-  refereshToken,
+  refreshToken,
   userAvatar,
   userId,
   userName,
   userEmail,
   isSocial,
 } from "../atoms/loginTest";
-
+import axios from "axios";
 export default function LogoutPage() {
   const navigate = useNavigate();
-  const [, setAccessToken] = useRecoilState(accessToken);
-  const [, setRefreshToken] = useRecoilState(refereshToken);
+  const [TOKEN, setAccessToken] = useRecoilState(accessToken);
+  const [, setRefreshToken] = useRecoilState(refreshToken);
   const [, setUserAvatar] = useRecoilState(userAvatar);
   const [, setUserId] = useRecoilState(userId);
   const [, setUserName] = useRecoilState(userName);
@@ -24,6 +24,17 @@ export default function LogoutPage() {
   const [, setIsSocial] = useRecoilState(isSocial);
 
   const userLogout = () => {
+    const config = {
+      headers: { Authorization: TOKEN },
+    };
+    axios
+      .post(`${process.env.REACT_APP_URL}/members/logout`, {}, config)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     swal("Good Bye!", "로그아웃 되었습니다");
     setAccessToken("");
     setRefreshToken("");

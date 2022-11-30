@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import InfoEditBtn from "../../components/myprofile/infoeditbtn/InfoEditBtn";
 import MyStation from "../../components/myprofile/mystation/MyStation";
 import MyInfo from "../../components/myprofile/myinfo/MyInfo";
@@ -36,7 +37,7 @@ const MyProfilePage = () => {
         setVisit(response.data.visitedStations);
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response.status === 401) console.log("401!!!");
       });
   }, []);
 
@@ -45,7 +46,7 @@ const MyProfilePage = () => {
       <Header />
       <div className="mypage-header-tab">
         <MyPageTab index={"내역이요"} />
-        <div className="w-full max-w-xl flex justify-center items-center flex-col">
+        <div className="lg:w-full lg:max-w-xl flex justify-center items-center flex-col">
           <div id="my__EditBtn" className="w-full flex justify-end">
             <InfoEditBtn />
           </div>

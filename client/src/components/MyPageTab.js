@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 export default function MyPageTab({ index }) {
   const unactiveStyle =
-    "rounded-t-lg sm:px-10 px-3 sm:py-2 py-1 sm:text-lg text-white bg-[rgb(83,199,240)] ";
+    "rounded-t-lg sm:px-10 px-3 sm:py-2 py-1 sm:text-lg text-sm text-white bg-[rgb(83,199,240)] ";
   const activeStyle =
-    "rounded-t-lg sm:px-10 px-3 sm:py-2 py-1 sm:text-lg hover:bg-sky-50 focus-[rgb(83,199,240)] hover:text-[rgb(83,199,240)] text-[#D9D9D9]";
+    "rounded-t-lg sm:px-10 px-3 sm:py-2 py-1 sm:text-lg text-sm hover:bg-sky-50 focus-[rgb(83,199,240)] hover:text-[rgb(83,199,240)] text-[#D9D9D9]";
 
   return (
     <nav className="w-fit border-b-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] text-lg text-center">

@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import swal from "sweetalert";
 import {
   accessToken,
-  refereshToken,
+  refreshToken,
   userName,
   userAvatar,
   userId,
@@ -18,7 +18,7 @@ import { useEffect } from "react";
 export default function LoginPage() {
   const navigate = useNavigate();
   const [TOKEN, setAccessToken] = useRecoilState(accessToken);
-  const [, setRefreshToken] = useRecoilState(refereshToken);
+  const [, setRefreshToken] = useRecoilState(refreshToken);
   const [, setUserName] = useRecoilState(userName);
   const [, setUserAvatar] = useRecoilState(userAvatar);
   const [, setUserId] = useRecoilState(userId);
@@ -53,6 +53,7 @@ export default function LoginPage() {
       })
       .catch((error) => {
         alert("로그인 실패");
+        토큰;
       });
   }
 

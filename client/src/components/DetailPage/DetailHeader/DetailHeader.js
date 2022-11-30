@@ -65,9 +65,9 @@ const DetailHeader = () => {
   };
 
   return (
-    <div className="flex flex-col mt-20">
+    <div className="flex flex-col mt-20 lg:px-0 px-2">
       <div className="mb-5 flex flex-row justify-between">
-        <span className="font-semibold text-lg text-[rgb(83,199,240)] border-b-2 border-b-[rgb(83,199,240)] px-3 py-2">
+        <span className="font-semibold lg:text-lg text-base text-[rgb(83,199,240)] border-b-2 border-b-[rgb(83,199,240)] px-3 py-2">
           {trainInformation[detailInfo?.stationId - 1]?.train}
         </span>
         {memberId === detailInfo?.writer?.memberId ? (
@@ -92,7 +92,7 @@ const DetailHeader = () => {
           <div className="flex flex-row space-x-1 place-items-end">
             {TOKEN !== "" ? (
               <>
-                <Complain />
+                <Complain boardId={detailInfo?.boardId} />
                 <DetailHeart
                   boardId={detailInfo?.boardId}
                   heartState={detailInfo?.dibs}
@@ -104,34 +104,36 @@ const DetailHeader = () => {
       </div>
       <div className="flex flex-row">
         <div className="flex space-x-2">
-          <span className="text-2xl font-bold">{detailInfo?.title}</span>
+          <span className="lg:text-2xl text-lg font-bold">
+            {detailInfo?.title}
+          </span>
           <DetailStarScore props={detailInfo.star} />
-          <span className="flex justify-center items-end text-xs text-gray-500">
+          <span className="flex justify-center items-end lg:text-xs text-[10px] text-gray-500">
             {DateTime?.toLocaleString("ko-KR")}
           </span>
         </div>
       </div>
-      <div className="flex space-x-2 mt-2">
-        {/* 배열안의 배열을 찾을때,, 갓희찬 */}
-        {allTags.map((el, idx) =>
-          Array.isArray(el) ? (
-            el.map((element, idx) => (
+      <div className="flex lg:space-x-2 space-x-1 mt-2">
+        {allTags.length !== 0 &&
+          allTags.map((el, idx) =>
+            Array.isArray(el) ? (
+              el.map((element, idx) => (
+                <span
+                  key={idx}
+                  className="lg:text-xs text-[10px] font-semibold text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)] rounded-full py-0.5 px-2"
+                >
+                  {element}
+                </span>
+              ))
+            ) : (
               <span
                 key={idx}
-                className="text-xs font-semibold text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)] rounded-full py-0.5 px-2"
+                className="lg:text-xs text-[10px] font-semibold text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)] rounded-full py-0.5 px-2"
               >
-                {element}
+                {el}
               </span>
-            ))
-          ) : (
-            <span
-              key={idx}
-              className="text-xs font-semibold text-[rgb(83,199,240)] border-2 border-[rgb(83,199,240)] rounded-full py-0.5 px-2"
-            >
-              {el}
-            </span>
-          )
-        )}
+            )
+          )}
       </div>
       <div className="flex flex-row items-center space-x-2">
         <div className="w-6 h-6 my-3">
