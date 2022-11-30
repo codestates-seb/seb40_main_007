@@ -20,7 +20,7 @@ export default function HomeIntroduce() {
           <div className="lg:w-full lg:h-screen h-[300px] bg-[rgb(83,199,240)] lg:pt-20 overflow-y: hidden; border-2 lg:text:base text-[8px]">
             <div className="lg:max-w-[1400px] h-full flex lg:justify-between justify-center font-bold m-auto items-center lg:mt-0 mt-5">
               <div className="text-white lg:ml-10 ml-2 lg:mr-0 mr-5">
-                <div className="text-[rgb(83,199,240)] lg:text-lg font-normal mb-5">
+                <div className="text-[rgb(83,199,240)] lg:text-lg font-semibold mb-5">
                   <span className="bg-white lg:px-5 lg:py-1 lg:rounded-2xl m-[2px] p-[2px] rounded-md">
                     식당
                   </span>
@@ -32,13 +32,18 @@ export default function HomeIntroduce() {
                   </span>
                 </div>
 
-                <div className="lg:text-6xl ext-[8px] font-light">
+                <div className="lg:text-6xl ext-[8px] font-light relative">
                   <div>대한민국 기차역</div>
-                  <div>주변 정보가 역이요</div>
+                  <div className="mt-4">
+                    <span className="">주변 정보가 </span>
+                    <span className="w-full text-7xl italic font-[Tenada] ml-2 mt-1 absolute ">
+                      역이요
+                    </span>
+                  </div>
                 </div>
-                <div className="lg:mt-10 mt-5 font-light lg:text-xl text-[8px]">
+                <div className="lg:mt-10 mt-5 ml-2 font-light lg:text-xl text-[8px]">
                   <div>기차역 주변의 식당부터 숙소,볼거리까지</div>
-                  <div> 당신의 즐거운 여행을 도와줄게요</div>
+                  <div>당신의 즐거운 여행을 도와줄게요</div>
                 </div>
               </div>
 
@@ -66,10 +71,10 @@ export default function HomeIntroduce() {
                 className="z-10 lg:w-80 w-20"
               />
               <div className="text-[rgb(83,199,240)] mr-2 lg:ml-0 ml-5">
-                <div className="lg:text-7xl text-lg font-semibold">
+                <div className="lg:text-7xl text-lg font-semibold italic font-[Tenada]">
                   역이요와 함께해요!
                 </div>
-                <div className="lg:mt-14 lg:ml-5 font-light lg:text-xl text-xs">
+                <div className="lg:mt-12 lg:ml-5 font-semibold lg:text-xl text-xs">
                   <div className="lg:text-2xl lg:py-2">
                     숨겨진 맛집을 찾나요?
                   </div>
@@ -95,9 +100,17 @@ export default function HomeIntroduce() {
               />
               <div className="text-white lg:text-6xl text-xl font-semibold lg:ml-10 ml-5">
                 <div className="">
-                  대한민국 <span className="text-[rgb(65,152,224)]">No.1</span>
+                  대한민국{" "}
+                  <span className="text-[rgb(65,152,224)] italic font-[Tenada]">
+                    No.1
+                  </span>
                 </div>
-                <div className="mt-1">위치기반 기차여행 커뮤니티</div>
+                <div className="mt-1">
+                  <span>기차여행 커뮤니티</span>
+                  <span className="w-full text-7xl italic font-[Tenada] ml-2 mt-1 absolute text-[rgb(65,152,224)]">
+                    역이요
+                  </span>
+                </div>
               </div>
             </div>
           </div>
