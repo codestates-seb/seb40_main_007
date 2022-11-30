@@ -166,7 +166,7 @@ public class MemberController {
         memberService.deleteRefreshToken(accessToken);
     }
 
-    @PostMapping("/avatar")
+    @PatchMapping("/avatar")
     @ResponseStatus(HttpStatus.OK)
     public void patchMyAvatar(@RequestHeader(name = "Authorization") String accessToken,
                               @RequestPart("file") MultipartFile image) throws IOException {
