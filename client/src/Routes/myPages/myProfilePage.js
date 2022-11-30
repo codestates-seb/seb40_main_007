@@ -12,7 +12,7 @@ import {
   userName,
   userAvatar,
   userEmail,
-} from "../../atoms/loginTest";
+} from "../../atoms/loginData";
 import { useRecoilValue } from "recoil";
 
 const MyProfilePage = () => {

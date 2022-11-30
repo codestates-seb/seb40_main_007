@@ -7,7 +7,7 @@ import {
   myTravelListData,
   myTravelNameSelect,
 } from "../../atoms/mypage/myTravelData";
-import { accessToken } from "../../atoms/loginTest";
+import { accessToken } from "../../atoms/loginData";
 import axios from "axios";
 import swal from "sweetalert";
 // import { Link } from "react-router-dom";

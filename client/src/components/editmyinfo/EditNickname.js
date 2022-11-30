@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { accessToken, userName } from "../../atoms/loginTest";
+import { accessToken, userName } from "../../atoms/loginData";
 import { useRecoilValue, useRecoilState } from "recoil";
 import axios from "axios";
 import { useState } from "react";

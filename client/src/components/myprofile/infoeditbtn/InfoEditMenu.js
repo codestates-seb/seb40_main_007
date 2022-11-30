@@ -3,7 +3,7 @@ import { TiPencil } from "react-icons/ti";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { isSocial } from "../../../atoms/loginTest";
+import { isSocial } from "../../../atoms/loginData";
 
 const InfoEditMenu = ({ offModal }) => {
   const isSocialLogin = useRecoilValue(isSocial);

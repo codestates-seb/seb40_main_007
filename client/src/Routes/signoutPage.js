@@ -11,7 +11,7 @@ import {
   userName,
   userEmail,
   isSocial,
-} from "../atoms/loginTest";
+} from "../atoms/loginData";
 
 export default function SignoutPage() {
   const [TOKEN, setAccessToken] = useRecoilState(accessToken);

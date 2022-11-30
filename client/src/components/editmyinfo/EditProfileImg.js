@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import { TiPencil } from "react-icons/ti";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { userAvatar, accessToken } from "../../atoms/loginTest";
+import { userAvatar, accessToken } from "../../atoms/loginData";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";

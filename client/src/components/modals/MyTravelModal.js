@@ -6,7 +6,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { myTravelListData } from "../../atoms/mypage/myTravelData";
 import { useRecoilState } from "recoil";
 import axios from "axios";
-import { accessToken } from "../../atoms/loginTest";
+import { accessToken } from "../../atoms/loginData";
 import swal from "sweetalert";
 
 const MyTravelModal = ({ boardId }) => {
@@ -97,7 +97,7 @@ const MyTravelModal = ({ boardId }) => {
                   myTravelList?.map((list, index) => (
                     <button
                       key={index}
-                      className={`w-32  text-sm text-[rgb(83,199,240)] py-1 block pl-5 text-start hover:bg-gray-200 active:bg-gray-100 hover:font-semibold 
+                      className={`w-32  text-sm text-[rgb(83,199,240)] py-1 block pl-5 text-start hover:bg-gray-200 active:bg-gray-100 hover:font-semibold
                       ${index === 0 ? "mt-5" : ""}
                       ${index === myTravelList?.length - 1 ? "mb-1" : ""}`}
                       onClick={() => {

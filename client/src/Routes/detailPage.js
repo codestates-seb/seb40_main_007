@@ -16,7 +16,7 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { detailData } from "../atoms/detailPageData"; // detailCommentData
-import { accessToken } from "../atoms/loginTest";
+import { accessToken } from "../atoms/loginData";
 import axios from "axios";
 
 const DetailPage = () => {

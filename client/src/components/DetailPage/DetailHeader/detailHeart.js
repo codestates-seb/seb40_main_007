@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
-import { accessToken } from "../../../atoms/loginTest";
+import { accessToken } from "../../../atoms/loginData";
 
 export default function DetailHeart({ boardId, heartState }) {
   const TOKEN = useRecoilValue(accessToken);

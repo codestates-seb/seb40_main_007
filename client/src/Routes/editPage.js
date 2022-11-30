@@ -14,7 +14,7 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { accessToken } from "../atoms/loginTest";
+import { accessToken } from "../atoms/loginData";
 import swal from "sweetalert";
 import {
   editTrainStationState,

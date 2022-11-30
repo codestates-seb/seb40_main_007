@@ -5,7 +5,7 @@ import MyTravelList from "../../components/mytravel/MyTravelList";
 import { useRecoilState } from "recoil";
 import MyTravelMap from "../../components/mytravel/MyTravelMap";
 import { useEffect, useState } from "react";
-import { accessToken } from "../../atoms/loginTest";
+import { accessToken } from "../../atoms/loginData";
 import axios from "axios";
 import {
   myTravelData,

@@ -4,7 +4,7 @@ import { VscDebugRestart } from "react-icons/vsc";
 import { AiOutlineSave } from "react-icons/ai";
 import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 import { useEffect, useState } from "react";
-import { accessToken } from "../../atoms/loginTest";
+import { accessToken } from "../../atoms/loginData";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   myTravelData,

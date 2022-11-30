@@ -12,7 +12,7 @@ import {
 } from "../../../atoms/mainFilter";
 
 import Loading from "../../Loading";
-import { accessToken } from "../../../atoms/loginTest";
+import { accessToken } from "../../../atoms/loginData";
 import Post from "./Post";
 import SortDropdown from "./SortDropdown";
 import { Link } from "react-router-dom";

@@ -6,7 +6,7 @@ import { mapCenterMoveEvent, mapImgClickEvent } from "../../atoms/mapImage";
 import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 
 import TrainStationModal from "../../components/modals/TrainStationModal";
-import { accessToken } from "../../atoms/loginTest";
+import { accessToken } from "../../atoms/loginData";
 import axios from "axios";
 import { myPostData } from "../../atoms/mypage/myPostData";
 import MyPostList from "../../components/mypost/MyPostList";

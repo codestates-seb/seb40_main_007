@@ -4,7 +4,7 @@ import MyCommentList from "../../components/mycomment/MyCommentList";
 import MyCommentPagination from "../../components/mycomment/MyCommentPagination";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { accessToken } from "../../atoms/loginTest";
+import { accessToken } from "../../atoms/loginData";
 import { useRecoilState } from "recoil";
 
 const MyCommentPage = () => {

@@ -1,6 +1,6 @@
 import { TiPencil } from "react-icons/ti";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { userId, accessToken } from "../../../atoms/loginTest";
+import { userId, accessToken } from "../../../atoms/loginData";
 import { detailData } from "../../../atoms/detailPageData";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { useParams } from "react-router-dom";

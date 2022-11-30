@@ -12,7 +12,7 @@ import {
   userAvatar,
   userId,
   userEmail,
-} from "../atoms/loginTest";
+} from "../atoms/loginData";
 import { useEffect } from "react";
 
 export default function LoginPage() {
