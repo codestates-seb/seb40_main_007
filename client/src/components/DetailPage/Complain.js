@@ -24,6 +24,8 @@ const Complain = ({ boardId }) => {
       .then((response) => {
         console.log(response);
         setValue(1);
+        setShowModal(false);
+        swal("Reported", "정상적으로 신고가 접수되었습니다", "success");
       })
       .catch((error) => {
         if (error.response.status) {
@@ -54,29 +56,39 @@ const Complain = ({ boardId }) => {
                 게시글 신고
               </div>
               <div className="py-1">
-                <input
-                  value={1}
-                  type="radio"
-                  name="complain"
-                  defaultChecked={value}
-                />
-                잘못된 정보
+                <label>
+                  <input
+                    id={1}
+                    type="radio"
+                    name="complain"
+                    defaultChecked={value}
+                  />
+                  잘못된 정보
+                </label>
               </div>
               <div className="py-1">
-                <input value={2} type="radio" name="complain" />
-                오해의 소지가 있는 콘텐츠
+                <label>
+                  <input id={2} type="radio" name="complain" />
+                  오해의 소지가 있는 콘텐츠
+                </label>
               </div>
               <div className="py-1">
-                <input value={3} type="radio" name="complain" />
-                악의적인 콘텐츠
+                <label>
+                  <input value={3} type="radio" name="complain" />
+                  악의적인 콘텐츠
+                </label>
               </div>
               <div className="py-1">
-                <input value={4} type="radio" name="complain" />
-                도배성 게시글
+                <label>
+                  <input value={4} type="radio" name="complain" />
+                  도배성 게시글
+                </label>
               </div>
               <div className="py-1">
-                <input value={5} type="radio" name="complain" />
-                권리침해
+                <label>
+                  <input value={5} type="radio" name="complain" />
+                  권리침해
+                </label>
               </div>
               <div className="text-center">
                 <button

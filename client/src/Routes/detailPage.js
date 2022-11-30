@@ -14,7 +14,7 @@ import EveryShareButton from "../components/DetailPage/EveryShareButton";
 import { AiOutlineShareAlt } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { detailData } from "../atoms/detailPageData"; // detailCommentData
 import { accessToken } from "../atoms/loginData";
 import axios from "axios";
@@ -22,7 +22,7 @@ import axios from "axios";
 const DetailPage = () => {
   const { id } = useParams();
   const [detailInfo, setDetailInfo] = useRecoilState(detailData);
-  const TOKEN = useRecoilValue(accessToken);
+  const [TOKEN] = useRecoilState(accessToken);
 
   useEffect(() => {
     if (TOKEN === "") {

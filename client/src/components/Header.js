@@ -1,12 +1,11 @@
 import LoginDotModal from "./modals/LoginDotModal";
 import { Link } from "react-router-dom";
-// import { useEffect } from "react";
 import { accessToken } from "../atoms/loginData";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import LoginHeader from "./LoginHeader";
-// import axios from "axios";
+
 const Header = () => {
-  const TOKEN = useRecoilValue(accessToken);
+  const [TOKEN] = useRecoilState(accessToken);
 
   return (
     <>
