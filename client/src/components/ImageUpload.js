@@ -6,6 +6,7 @@ import { postImageState } from "../atoms/postInfo";
 import { useRecoilState } from "recoil";
 import swal from "sweetalert";
 import heic2any from "heic2any";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 
 export default function ImageUpload() {
   // 대표 사진 인덱스번호
@@ -255,6 +256,10 @@ export default function ImageUpload() {
           )}
         </div>
       </form>
+      <div className="max-w-2xl m-auto text-end lg:text-sm text-xs text-gray-500">
+        <AiOutlineInfoCircle className="inline mr-1" />
+        heic/feif 파일은 다소 시간이 소요될 수 있습니다.
+      </div>
       <div className="flex justify-center items-center m-auto"></div>
     </>
   );

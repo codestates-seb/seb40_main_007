@@ -14,10 +14,10 @@ const EditProfileImg = () => {
   const [imageFile, setImageFile] = useState("");
   const [imagePreview, setImagePreview] = useState(avatar);
   const TOKEN = useRecoilValue(accessToken);
+  const FILE_SIZE_MAX_LIMIT = 8 * 1024 * 1024;
 
-  // 이미지 업로드 함수
-  console.log(imageFile);
   const upload = () => {
+    // 이미지 업로드 함수
     const config = {
       headers: { Authorization: TOKEN, "Content-Type": "multipart/form-data" },
     };
@@ -38,9 +38,15 @@ const EditProfileImg = () => {
 
   const insertImg = (e) => {
     let fileImage = e.target.files[0];
-    const formData = new FormData();
-    formData.append("file", fileImage);
-    setImageFile(formData); // 이미지 업로드
+    if (fileImage.size > FILE_SIZE_MAX_LIMIT) {
+      fileImage = "";
+      swal(
+        "Can't Upload!",
+        "8MB 이상의 사진은 업로드 할 수 없습니다",
+        "warning"
+      );
+      return;
+    }
     let checkType = fileImage.name.split(".");
     if (
       checkType[1] === "hiec" ||
@@ -56,11 +62,15 @@ const EditProfileImg = () => {
         console.log(convertedBlob);
         let url = URL.createObjectURL(convertedBlob);
         setImagePreview(url);
-        setImageFile(convertedBlob);
+        const formData = new FormData();
+        formData.append("file", convertedBlob);
+        setImageFile(formData); // 이미지 업로드
       });
       return;
     }
-
+    const formData = new FormData();
+    formData.append("file", fileImage);
+    setImageFile(formData); // 이미지 업로드
     let reader = new FileReader();
     if (fileImage) {
       reader.readAsDataURL(fileImage);

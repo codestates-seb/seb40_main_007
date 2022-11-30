@@ -24,7 +24,7 @@ export default function ProfileModal() {
       )}
       {showModal ? (
         <>
-          <div className="absolute w-32 top-11 right-[-20px] outline-none focus:outline-none z-20">
+          <div className="absolute w-32 top-11 right-1 outline-none focus:outline-none z-20">
             <div className="rounded-2xl shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
               <div className="text-right"></div>
               <div className="mb-3">

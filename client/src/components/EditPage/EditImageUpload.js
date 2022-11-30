@@ -4,6 +4,7 @@ import { BsPlusLg } from "react-icons/bs";
 import { FiTrash2 } from "react-icons/fi";
 import { editImageState } from "../../atoms/editPageData";
 import { useRecoilState } from "recoil";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 import swal from "sweetalert";
 import heic2any from "heic2any";
 
@@ -258,6 +259,10 @@ export default function EditImageUpload({ initialImage }) {
           )}
         </div>
       </form>
+      <div className="max-w-2xl m-auto text-end lg:text-sm text-xs text-gray-500">
+        <AiOutlineInfoCircle className="inline mr-1" />
+        heic/feif 파일은 다소 시간이 소요될 수 있습니다.
+      </div>
       <div className="flex justify-center items-center m-auto"></div>
     </>
   );

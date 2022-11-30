@@ -92,7 +92,7 @@ const DetailHeader = () => {
           <div className="flex flex-row space-x-1 place-items-end">
             {TOKEN !== "" ? (
               <>
-                <Complain />
+                <Complain boardId={detailInfo?.boardId} />
                 <DetailHeart
                   boardId={detailInfo?.boardId}
                   heartState={detailInfo?.dibs}
