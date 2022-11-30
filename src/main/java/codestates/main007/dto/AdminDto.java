@@ -4,6 +4,7 @@ import codestates.main007.board.dto.BoardDto;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,5 +19,5 @@ public class AdminDto {
     private List<Integer> stationCount;
     private List<BoardDto.HighLowScoreResponse> highScoreBoards;
     private List<BoardDto.HighLowScoreResponse> lowScoreBoards;
-    private List<Map<String, Integer>> BoardsOfThisWeek;
+    private WeekBoardDto BoardsOfThisWeek;
 }
