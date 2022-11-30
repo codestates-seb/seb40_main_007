@@ -1,6 +1,8 @@
 package codestates.main007.dto;
 
 import codestates.main007.board.dto.BoardDto;
+import codestates.main007.board.dto.BoardOfWeek;
+import codestates.main007.board.dto.BoardOfWeekDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -17,5 +19,5 @@ public class AdminDto {
     private List<Integer> stationCount;
     private List<BoardDto.HighLowScoreResponse> highScoreBoards;
     private List<BoardDto.HighLowScoreResponse> lowScoreBoards;
-    private List<Integer> BoardsOfThisWeek;
+    private BoardOfWeek BoardsOfThisWeek;
 }
