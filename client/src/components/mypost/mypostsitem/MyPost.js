@@ -13,7 +13,7 @@ import {
 import { timeFunc } from "../../../utils/timeFunc";
 // TravelPlus모달 추가
 import MyTravelModal from "../../modals/MyTravelModal";
-import { accessToken } from "../../../atoms/loginTest";
+import { accessToken } from "../../../atoms/loginData";
 import { TbMapSearch } from "react-icons/tb";
 
 function MyPost({ data, tabValue }) {

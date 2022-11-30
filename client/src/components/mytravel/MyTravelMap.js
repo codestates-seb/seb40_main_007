@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { TiPencil } from "react-icons/ti";
 import { Map, CustomOverlayMap, Polyline } from "react-kakao-maps-sdk";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { accessToken } from "../../atoms/loginTest";
+import { accessToken } from "../../atoms/loginData";
 import {
   myTravelIdSelect,
   myTravelListData,

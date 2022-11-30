@@ -37,7 +37,7 @@ const queryClient = new QueryClient({
 
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { accessToken, refreshToken } from "./atoms/loginTest";
+import { accessToken, refreshToken } from "./atoms/loginData";
 
 function App() {
   const [TOKEN, setAccessToken] = useRecoilState(accessToken);

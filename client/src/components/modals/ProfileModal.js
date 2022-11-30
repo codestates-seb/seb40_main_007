@@ -1,7 +1,7 @@
 // import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { userName, userAvatar } from "../../atoms/loginTest";
+import { userName, userAvatar } from "../../atoms/loginData";
 import { useRecoilValue } from "recoil";
 
 export default function ProfileModal() {

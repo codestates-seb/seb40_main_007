@@ -1,7 +1,7 @@
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { accessToken } from "../../atoms/loginTest";
+import { accessToken } from "../../atoms/loginData";
 import axios from "axios";
 import {
   myTravelIdSelect,

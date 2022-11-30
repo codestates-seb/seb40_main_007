@@ -2,7 +2,7 @@ import { useState } from "react";
 import { RiAlarmWarningLine } from "react-icons/ri";
 import axios from "axios";
 import { GrFlag } from "react-icons/gr";
-import { accessToken } from "../../atoms/loginTest";
+import { accessToken } from "../../atoms/loginData";
 import { useRecoilValue } from "recoil";
 import swal from "sweetalert";
 

@@ -12,7 +12,7 @@ import {
 
 // TravelPlus모달 추가
 import MyTravelModal from "../../modals/MyTravelModal";
-import { accessToken } from "../../../atoms/loginTest";
+import { accessToken } from "../../../atoms/loginData";
 import { timeFunc } from "../../../utils/timeFunc";
 
 function Post({ data }) {

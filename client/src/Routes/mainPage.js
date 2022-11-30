@@ -20,7 +20,7 @@ import {
   selectTagEvent,
 } from "../atoms/mainFilter";
 import { trainInfo } from "../atoms/trainInfo";
-import { accessToken } from "../atoms/loginTest";
+import { accessToken } from "../atoms/loginData";
 import { tagsInfoToNumList } from "../atoms/tagsInfo";
 import { myTravelListData } from "../atoms/mypage/myTravelData";
 

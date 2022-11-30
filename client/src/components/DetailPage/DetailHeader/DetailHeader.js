@@ -7,7 +7,7 @@ import Complain from "../Complain";
 import { useRecoilValue } from "recoil";
 import { trainInfo } from "../../../atoms/trainInfo";
 import { categoryInfoList, tagsInfoList } from "../../../atoms/tagsInfo";
-import { userId, accessToken } from "../../../atoms/loginTest";
+import { userId, accessToken } from "../../../atoms/loginData";
 import { detailData } from "../../../atoms/detailPageData";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";

@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import swal from "sweetalert";
-import { accessToken } from "../atoms/loginTest";
+import { accessToken } from "../atoms/loginData";
 import {
   postTrainStationState,
   postpostionState,

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { accessToken } from "../../atoms/loginTest";
+import { accessToken } from "../../atoms/loginData";
 import axios from "axios";
 import swal from "sweetalert";
 

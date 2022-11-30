@@ -11,7 +11,7 @@ import {
   userName,
   userEmail,
   isSocial,
-} from "../atoms/loginTest";
+} from "../atoms/loginData";
 import axios from "axios";
 export default function LogoutPage() {
   const navigate = useNavigate();

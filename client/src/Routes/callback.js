@@ -10,7 +10,7 @@ import {
   userId,
   userEmail,
   isSocial,
-} from "../atoms/loginTest";
+} from "../atoms/loginData";
 import axios from "axios";
 import Header from "../components/Header";
 export default function Callback() {

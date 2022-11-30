@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { detailData } from "../../atoms/detailPageData";
-import { accessToken, userName, userAvatar } from "../../atoms/loginTest";
+import { accessToken, userName, userAvatar } from "../../atoms/loginData";
 import { Link, useParams } from "react-router-dom";
 import swal from "sweetalert";
 import axios from "axios";
