@@ -9,6 +9,11 @@ export const boardsOfThisWeek = atom({
   default: [],
 });
 
+export const thisWeek = atom({
+  key: `thisWeek`,
+  default: [],
+});
+
 export const highScoreBoards = atom({
   key: `highScoreBoards`,
   default: [],

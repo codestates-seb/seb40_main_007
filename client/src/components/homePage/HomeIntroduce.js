@@ -34,7 +34,7 @@ export default function HomeIntroduce() {
 
                 <div className="lg:text-6xl text-[8px] font-light">
                   <div>대한민국 기차역</div>
-                  <div className="mt-4">
+                  <div className="lg:mt-4">
                     <span className="relative">
                       주변 정보가
                       <span className="w-full lg:text-7xl text-xs italic font-[Tenada] lg:ml-2 ml-[1px] lg:mt-1 mt-[1px] absolute ">
@@ -43,14 +43,14 @@ export default function HomeIntroduce() {
                     </span>
                   </div>
                 </div>
-                <div className="lg:mt-10 mt-5 ml-2 font-light lg:text-xl text-[8px]">
+                <div className="lg:mt-10 mt-5 lg:ml-2 font-light lg:text-xl text-[8px]">
                   <div>기차역 주변의 식당부터 숙소,볼거리까지</div>
                   <div>당신의 즐거운 여행을 도와줄게요</div>
                 </div>
               </div>
 
               <img
-                src="/images/역이요소개/phone.png"
+                src="/images/역이요소개/phone2.png"
                 alt="phone"
                 className="lg:mr-24 lg:w-72 mr-1 w-20"
               />
@@ -68,7 +68,7 @@ export default function HomeIntroduce() {
               />
 
               <img
-                src="/images/역이요소개/phone.png"
+                src="/images/역이요소개/phone1.png"
                 alt="phone"
                 className="z-10 lg:w-80 w-20"
               />
@@ -96,7 +96,7 @@ export default function HomeIntroduce() {
           <div className="w-full lg:h-screen h-[300px] lg:mt-0 mt-5 bg-gradient-to-br from-[rgb(83,199,240)] ">
             <div className="w-full lg:h-screen h-[300px] flex items-center justify-center font-bold m-auto">
               <img
-                src="/images/역이요소개/phone.png"
+                src="/images/역이요소개/phone3.png"
                 alt="phone"
                 className="lg:w-72 w-20"
               />

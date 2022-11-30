@@ -85,6 +85,7 @@ const DetailHeader = () => {
             >
               <FaRegTrashAlt size={"20"} color={"#fff"} />
             </button>
+            {/* {admin ? <Complain boardId={detailInfo?.boardId} /> : null}  어드민일 경우 신고가 필요한가?*/}
             <DetailHeart
               boardId={detailInfo?.boardId}
               heartState={detailInfo?.dibs}

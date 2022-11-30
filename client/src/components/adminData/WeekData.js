@@ -1,9 +1,7 @@
 import ReactApexChart from "react-apexcharts";
 
-export default function WeekData({ boardsWeek }) {
-  for (let key of boardsWeek) {
-    console.log(key);
-  }
+export default function WeekData({ boardsWeek, week }) {
+  console.log(week);
   const state = {
     series: [
       {
@@ -30,7 +28,7 @@ export default function WeekData({ boardsWeek }) {
         text: "Weekly Data",
         align: "left",
       },
-      labels: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+      labels: week,
       xaxis: {
         category: "week",
       },

@@ -10,7 +10,7 @@ export default function LowScoreData() {
       <div className="font-bold mr-2 bg-gray-100 border-l-4 border-[#26A0FC] w-fit px-4 text-[#26A0FC]">
         비인기 게시글
       </div>
-      <table className="w-full mt-4">
+      <table className="w-full mt-4 mx-2">
         <thead className="bg-blue-200 lg:text-base text-xs">
           <tr>
             <th className="border-r lg:text-base text-xs">index</th>
@@ -32,7 +32,7 @@ export default function LowScoreData() {
                 <td className="border-r lg:text-base text-xs">
                   {el?.downScore}
                 </td>
-                <td className="bg-red-100 text-center lg:text-base text-xs">
+                <td className="bg-red-100 text-center lg:text-base text-xs hover:bg-red-300">
                   <Link to={`/detail/${el?.boardId}`}>보기</Link>
                 </td>
               </tr>
@@ -44,7 +44,7 @@ export default function LowScoreData() {
             <td className="border-r lg:text-base text-xs">title1</td>
             <td className="border-r lg:text-base text-xs">2</td>
             <td className="border-r lg:text-base text-xs">2</td>
-            <td className="bg-red-100 text-center lg:text-base text-xs">
+            <td className="bg-red-100 text-center lg:text-base text-xs first:hover:bg-red-300">
               <Link to={`/`}>보기</Link>
             </td>
           </tr>{" "}
@@ -54,7 +54,7 @@ export default function LowScoreData() {
             <td className="border-r lg:text-base text-xs">title1</td>
             <td className="border-r lg:text-base text-xs">2</td>
             <td className="border-r lg:text-base text-xs">2</td>
-            <td className="bg-red-100 text-center lg:text-base text-xs">
+            <td className="bg-red-100 text-center lg:text-base text-xs hover:bg-red-300">
               <Link to={`/`}>보기</Link>
             </td>
           </tr>{" "}
@@ -64,7 +64,7 @@ export default function LowScoreData() {
             <td className="border-r lg:text-base text-xs">title1</td>
             <td className="border-r lg:text-base text-xs">2</td>
             <td className="border-r lg:text-base text-xs">2</td>
-            <td className="bg-red-100 text-center lg:text-base text-xs">
+            <td className="bg-red-100 text-center lg:text-base text-xs hover:bg-red-300">
               <Link to={`/`}>보기</Link>
             </td>
           </tr>{" "}
@@ -74,7 +74,7 @@ export default function LowScoreData() {
             <td className="border-r lg:text-base text-xs">title1</td>
             <td className="border-r lg:text-base text-xs">2</td>
             <td className="border-r lg:text-base text-xs">2</td>
-            <td className="bg-red-100 text-center lg:text-base text-xs">
+            <td className="bg-red-100 text-center lg:text-base text-xs hover:bg-red-300">
               <Link to={`/`}>보기</Link>
             </td>
           </tr>{" "}
