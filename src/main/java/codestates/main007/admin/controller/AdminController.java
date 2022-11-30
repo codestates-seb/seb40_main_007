@@ -6,8 +6,8 @@ import codestates.main007.board.service.BoardService;
 import codestates.main007.boardMember.entity.BoardMember;
 import codestates.main007.boardMember.repository.BoardMemberRepository;
 import codestates.main007.dto.AdminDto;
-import codestates.main007.exception.member.entity.Member;
-import codestates.main007.exception.member.service.MemberService;
+import codestates.main007.member.entity.Member;
+import codestates.main007.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -35,9 +35,9 @@ public class AdminController {
         int todayBoard = 0;
         int monthBoard = 0;
         Integer[] weekBoards = new Integer[7];
-        Arrays.fill(weekBoards,0);
+        Arrays.fill(weekBoards, 0);
         List<Board> reportedBoards = new ArrayList<>();
-        ArrayList<Long>[] reportReason = new ArrayList[totalBoards.size()+1];
+        ArrayList<Long>[] reportReason = new ArrayList[totalBoards.size() + 1];
 
         for (Board board : totalBoards) {
             LocalDateTime writeDay = board.getCreatedAt().truncatedTo(ChronoUnit.DAYS);
@@ -53,62 +53,62 @@ public class AdminController {
             if (compareResultMonth == -1) {
                 monthBoard++;
             }
-
+            int dayOfTheWeek = today.getDayOfWeek().getValue();
             LocalDateTime dayMinus1 = LocalDateTime.now().minusDays(1).truncatedTo(ChronoUnit.DAYS);
             LocalDateTime dayMinus2 = LocalDateTime.now().minusDays(2).truncatedTo(ChronoUnit.DAYS);
             LocalDateTime dayMinus3 = LocalDateTime.now().minusDays(3).truncatedTo(ChronoUnit.DAYS);
             LocalDateTime dayMinus4 = LocalDateTime.now().minusDays(4).truncatedTo(ChronoUnit.DAYS);
             LocalDateTime dayMinus5 = LocalDateTime.now().minusDays(5).truncatedTo(ChronoUnit.DAYS);
             LocalDateTime dayMinus6 = LocalDateTime.now().minusDays(6).truncatedTo(ChronoUnit.DAYS);
-            if (writeDay.isEqual(today)){
+            if (writeDay.isEqual(today)) {
                 weekBoards[0]++;
-            }else if (writeDay.isEqual(dayMinus1)){
+            } else if (writeDay.isEqual(dayMinus1)) {
                 weekBoards[1]++;
-            }else if (writeDay.isEqual(dayMinus2)){
+            } else if (writeDay.isEqual(dayMinus2)) {
                 weekBoards[2]++;
-            }else if (writeDay.isEqual(dayMinus3)){
+            } else if (writeDay.isEqual(dayMinus3)) {
                 weekBoards[3]++;
-            }else if (writeDay.isEqual(dayMinus4)){
+            } else if (writeDay.isEqual(dayMinus4)) {
                 weekBoards[4]++;
-            }else if (writeDay.isEqual(dayMinus5)){
+            } else if (writeDay.isEqual(dayMinus5)) {
                 weekBoards[5]++;
-            }else if (writeDay.isEqual(dayMinus6)){
+            } else if (writeDay.isEqual(dayMinus6)) {
                 weekBoards[6]++;
             }
 
 
-            if (board.getReported()>=5){
-                if (!reportedBoards.contains(board)){
+            if (board.getReported() >= 5) {
+                if (!reportedBoards.contains(board)) {
                     reportedBoards.add(board);
                 }
                 List<BoardMember> boardMembers = boardMemberRepository.findAllByBoard(board);
                 ArrayList<Long> reasons = new ArrayList<>();
-                for (BoardMember boardMember : boardMembers){
+                for (BoardMember boardMember : boardMembers) {
                     reasons.add(boardMember.getReport());
                 }
-                reportReason[(int)board.getBoardId()] = reasons;
+                reportReason[(int) board.getBoardId()] = reasons;
             }
         }
 
         List<BoardDto.Reported> reportedDtos = new ArrayList<>();
-        for (Board board : reportedBoards){
+        for (Board board : reportedBoards) {
             int reason1 = 0;
             int reason2 = 0;
             int reason3 = 0;
             int reason4 = 0;
             int reason5 = 0;
 
-            ArrayList<Long> cnt = reportReason[(int)board.getBoardId()];
-            for (long num : cnt){
-                if (num==1){
+            ArrayList<Long> cnt = reportReason[(int) board.getBoardId()];
+            for (long num : cnt) {
+                if (num == 1) {
                     reason1++;
-                }else if (num==2){
+                } else if (num == 2) {
                     reason2++;
-                }else if (num==3){
+                } else if (num == 3) {
                     reason3++;
-                }else if (num==4){
+                } else if (num == 4) {
                     reason4++;
-                } else if (num==5) {
+                } else if (num == 5) {
                     reason5++;
                 }
             }
@@ -134,7 +134,7 @@ public class AdminController {
         }
 
         List<Integer> stationCount = new ArrayList<>();
-        for (int i = 1; i <17 ; i++) {
+        for (int i = 1; i < 17; i++) {
             stationCount.add(boardService.countByStationId(i));
         }
 
@@ -142,7 +142,7 @@ public class AdminController {
         List<Board> LowScoreBoards = boardService.findLowScoreBoard(-5);
         List<BoardDto.HighLowScoreResponse> highScoreDto = new ArrayList<>();
         List<BoardDto.HighLowScoreResponse> lowScoreDto = new ArrayList<>();
-        for (Board board : highScoreBoards){
+        for (Board board : highScoreBoards) {
             BoardDto.HighLowScoreResponse highScoreBoard
                     = BoardDto.HighLowScoreResponse.builder()
                     .boardId(board.getBoardId())
@@ -155,7 +155,7 @@ public class AdminController {
 
             highScoreDto.add(highScoreBoard);
         }
-        for (Board board : LowScoreBoards){
+        for (Board board : LowScoreBoards) {
             BoardDto.HighLowScoreResponse lowScoreBoard
                     = BoardDto.HighLowScoreResponse.builder()
                     .boardId(board.getBoardId())
@@ -180,5 +180,12 @@ public class AdminController {
                 .lowScoreBoards(lowScoreDto)
                 .BoardsOfThisWeek(Arrays.asList(weekBoards))
                 .build();
+    }
+
+    @DeleteMapping("/drop-member/{member-id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void dropMember(@RequestHeader(name = "Authorization") String accessToken,
+                           @PathVariable("member-id") long memberId) {
+        memberService.dropMember(accessToken, memberId);
     }
 }
