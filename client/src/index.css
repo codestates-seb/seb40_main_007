@@ -31,6 +31,14 @@
     @apply bg-[rgb(83,199,240)] text-white pointer-events-none;
   }
 
+  @font-face {
+    font-family: "Tenada";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2")
+      format("woff2");
+    font-weight: normal;
+    font-style: normal;
+  }
+
   /* 크롬기준 스크롤바 디자인 부분 */
   *::-webkit-scrollbar {
     width: 14px;
