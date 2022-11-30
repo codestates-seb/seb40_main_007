@@ -1,56 +1,38 @@
+/*eslint-disable*/
 import EditPasswordInput from "../../components/editpassword/EditPasswordInput";
 import { useState } from "react";
 import ConfirmPasword from "../../components/editpassword/ConfirmPassword";
 import Header from "../../components/Header";
 import MyPageTab from "../../components/MyPageTab";
-import { accessToken } from "../../atoms/loginTest";
-import { useRecoilValue } from "recoil";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import swal from "sweetalert";
-
 const EditPasswordPage = () => {
   const [showModal, setShowModal] = useState(false);
-  const [samePasswrod, setSamePassword] = useState(true);
-  const TOKEN = useRecoilValue(accessToken);
+  const [samePassword, setSamePassword] = useState(true);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const navigate = useNavigate();
 
-  const checkPaswword = () => {
-    if (newPassword === confirmPassword) {
-      setShowModal(true);
-      setSamePassword(true);
+  const checkPassword = () => {
+    console.log(newPassword);
+    if (checkVerify(newPassword)) {
+      if (newPassword === confirmPassword) {
+        setShowModal(true);
+        setSamePassword(true);
+      } else {
+        setShowModal(false);
+        setSamePassword(false);
+      }
     } else {
-      setShowModal(false);
-      setSamePassword(false);
+      swal("비밀번호는 8~16자로 영문, 숫자, 특수기호를 조합해서 사용하세요.");
     }
   };
-  console.log(newPassword);
 
-  const hadleSubmit = () => {
-    const config = {
-      headers: { Authorization: TOKEN },
-    };
-    if (newPassword === confirmPassword)
-      axios
-        .patch(
-          `${process.env.REACT_APP_URL}/members`,
-          {
-            password: confirmPassword,
-          },
-          config
-        )
-        .then(function (response) {
-          console.log(response);
-          swal("비밀번호가 변경되었습니다");
-          navigate("/mypage");
-        })
-
-        .catch(function (error) {
-          console.log(error);
-        });
+  const checkVerify = (newPassword) => {
+    const isValidPassword =
+      /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,16}$/;
+    return isValidPassword.test(newPassword); //유효성검사
   };
+
+  console.log(newPassword, confirmPassword);
 
   return (
     <>
@@ -71,7 +53,7 @@ const EditPasswordPage = () => {
             <div className="flex justify-center">
               <div className="mt-2 text-xs text-red-500 font-medium absolute">
                 <p>
-                  {samePasswrod ? null : "* 비밀 번호가 일치하지 않습니다 !"}
+                  {samePassword ? null : "* 비밀 번호가 일치하지 않습니다 !"}
                 </p>
               </div>
             </div>
@@ -79,14 +61,18 @@ const EditPasswordPage = () => {
               <button
                 className="btn btn-hover"
                 onClick={() => {
-                  checkPaswword;
-                  hadleSubmit;
+                  checkPassword();
                 }}
               >
                 수정완료
               </button>
             </div>
-            {showModal ? <ConfirmPasword setShowModal={setShowModal} /> : null}
+            {showModal ? (
+              <ConfirmPasword
+                setShowModal={setShowModal}
+                confirmPassword={confirmPassword}
+              />
+            ) : null}
           </div>
         </div>
       </div>

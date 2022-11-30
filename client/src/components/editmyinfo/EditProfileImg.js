@@ -67,19 +67,20 @@ const EditProfileImg = () => {
         setImageFile(formData); // 이미지 업로드
       });
       return;
+    } else {
+      const formData = new FormData();
+      formData.append("file", fileImage);
+      setImageFile(formData); // 이미지 업로드
+      let reader = new FileReader();
+      if (fileImage) {
+        reader.readAsDataURL(fileImage);
+      }
+      reader.onloadend = () => {
+        const preveiwUrl = reader.result;
+        preveiwUrl.replace(/"/g, "");
+        setImagePreview(preveiwUrl);
+      };
     }
-    const formData = new FormData();
-    formData.append("file", fileImage);
-    setImageFile(formData); // 이미지 업로드
-    let reader = new FileReader();
-    if (fileImage) {
-      reader.readAsDataURL(fileImage);
-    }
-    reader.onloadend = () => {
-      const preveiwUrl = reader.result;
-      preveiwUrl.replace(/"/g, "");
-      setImagePreview(preveiwUrl);
-    };
   };
 
   return (

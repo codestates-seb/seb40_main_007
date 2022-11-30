@@ -9,7 +9,7 @@ const EditNickname = () => {
   const navigate = useNavigate();
   const TOKEN = useRecoilValue(accessToken);
   const [nickName, setNickName] = useState("");
-  const [, setUserName] = useRecoilState(userName);
+  const [useName, setUserName] = useRecoilState(userName);
   const handleChange = (e) => {
     setNickName(e.target.value);
   };
@@ -17,25 +17,29 @@ const EditNickname = () => {
     const config = {
       headers: { Authorization: TOKEN },
     };
-    axios
-      .patch(
-        `${process.env.REACT_APP_URL}/members`,
-        {
-          name: nickName,
-        },
-        config
-      )
-      .then(function (response) {
-        console.log(response);
-        setUserName(nickName);
-        swal("닉네임이 변경되었습니다");
-        navigate("/mypage");
-      })
+    if (nickName.length <= 1) {
+      swal("Can't Change!", "닉네임은 한글자 이상 입력해주세요", "warning");
+    } else {
+      axios
+        .patch(
+          `${process.env.REACT_APP_URL}/members`,
+          {
+            name: nickName,
+          },
+          config
+        )
+        .then(function (response) {
+          console.log(response);
+          setUserName(nickName);
+          swal("닉네임이 변경되었습니다");
+          navigate("/mypage");
+        })
 
-      .catch(function (error) {
-        console.log(error);
-        swal("Can't Change!", "중복된 닉네임 입니다", "warning");
-      });
+        .catch(function (error) {
+          console.log(error);
+          swal("Can't Change!", "중복된 닉네임 입니다", "warning");
+        });
+    }
   };
   return (
     <div className="max-w-md mt-9">
@@ -45,7 +49,7 @@ const EditNickname = () => {
       <input
         value={nickName}
         className="mt-1 p-1 w-full rounded-lg border-2 border-[rgb(83,199,240)]"
-        placeholder="Euginius1st"
+        placeholder={useName}
         onChange={handleChange}
       ></input>
 
