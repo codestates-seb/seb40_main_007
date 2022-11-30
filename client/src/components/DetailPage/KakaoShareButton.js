@@ -62,7 +62,7 @@ const KakaoShareButton = () => {
     <button
       type="button"
       id="kakao-link-btn"
-      className="w-8 h-8 rounded-full mx-[1px]"
+      className="lg:w-8 lg:h-8 w-6 h-6 rounded-full mx-[1px]"
     >
       <img src="/images/kakao.png" alt="kakao-share-icon" />
     </button>

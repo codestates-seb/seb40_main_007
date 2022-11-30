@@ -111,13 +111,13 @@ const DetailPage = () => {
             <DetailImageSlider />
             <DetailMap />
           </div>
-          <div className="flex items-center justify-end">
+          <div className="flex items-center justify-end mt-1 mr-2">
             <AiOutlineShareAlt className="mr-1" />
             <KakaoShareButton />
             <EveryShareButton />
           </div>
           {TOKEN === "" ? null : (
-            <div className="flex flex-row mt-10 justify-end">
+            <div className="flex flex-row lg:mt-10 mt-5 lg:mr-0 mr-2 justify-end">
               <button type="button" onClick={handleLikeClicked}>
                 <Like props={detailInfo?.upScore} />
               </button>

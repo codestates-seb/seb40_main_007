@@ -90,7 +90,7 @@ const EditProfileImg = () => {
           <p className="text-[rgb(83,199,240)]">프로필 이미지</p>
         </div>
         <div className="flex justify-center">
-          <div className="mt-2 w-[5rem] h-[5rem] flex items-end justify-end">
+          <div className="mt-2 flex items-end justify-end">
             <>
               <div className="absolute">
                 <form encType="multipart/form-data">
@@ -111,17 +111,21 @@ const EditProfileImg = () => {
                 </form>
               </div>
               {imagePreview !== "" ? (
-                <img
-                  className="w-20 h-20 rounded-full p-1 m-0 static border-2 border-[rgb(83,199,240)]"
-                  alt="PreImg"
-                  src={imagePreview}
-                />
+                <div className="w-24 h-24 rounded-full p-0 m-0 static border-4 border-[rgb(83,199,240)]">
+                  <img
+                    className="w-full h-full rounded-full "
+                    alt="PreImg"
+                    src={imagePreview}
+                  />
+                </div>
               ) : (
-                <img
-                  className="rounded-full p-0 m-0 static"
-                  alt="ProfileImg"
-                  src="../images/profile.png"
-                />
+                <div className="w-24 h-24 rounded-full p-0 m-0 static border-4 border-[rgb(83,199,240)]">
+                  <img
+                    className="rounded-full p-0 m-0 static"
+                    alt="ProfileImg"
+                    src="../images/profile.png"
+                  />
+                </div>
               )}
             </>
           </div>

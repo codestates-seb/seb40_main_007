@@ -1,5 +1,28 @@
+import { useEffect, useState } from "react";
+
 const DetailStarScore = ({ props }) => {
   const startScore = props;
+  const [style, setStyle] = useState(20);
+  const windowResize = () => {
+    // 맵 스타일 변경
+    if (window.innerWidth >= 1024) {
+      setStyle(20);
+    } else {
+      setStyle(17);
+    }
+  };
+  useEffect(() => {
+    if (window.innerWidth >= 1024) {
+      setStyle(20);
+    } else {
+      setStyle(17);
+    }
+    window.addEventListener("resize", windowResize);
+    return () => {
+      window.removeEventListener("resize", windowResize);
+    };
+  }, []);
+
   return (
     <>
       <div className="flex flex-row justify-center items-end">
@@ -8,8 +31,8 @@ const DetailStarScore = ({ props }) => {
             <span key={num}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
+                width={style}
+                height={style}
                 viewBox="0 0 14 14"
               >
                 <path

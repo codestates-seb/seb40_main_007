@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import { Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
