@@ -42,8 +42,8 @@ export default function LogoutPage() {
     setUserId("");
     setUserName("");
     setUserEmail("");
-    navigate("/");
     setIsSocial(false);
+    navigate("/");
   };
 
   return (

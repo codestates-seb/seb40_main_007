@@ -36,12 +36,12 @@ const queryClient = new QueryClient({
 });
 
 import axios from "axios";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { accessToken, refreshToken } from "./atoms/loginTest";
 
 function App() {
   const [TOKEN, setAccessToken] = useRecoilState(accessToken);
-  const refresh = useRecoilValue(refreshToken);
+  const [refresh] = useRecoilState(refreshToken);
 
   const onSilentRefresh = () => {
     console.log("refresh", refresh);
