@@ -68,7 +68,7 @@ const MyTravelPost = ({
               index !== 0
                 ? "text-[rgb(83,199,240)]"
                 : "text-gray-400 pointer-events-none"
-            } `}
+            }`}
           >
             <MdKeyboardArrowUp size={40} />
           </button>

@@ -16,13 +16,13 @@ const Header = () => {
         <header className="w-full px-2 border-b-[1px] border-b-[rgb(83,199,240)] fixed z-20 bg-white shadow-md">
           <div className="lg:max-w-[1400px] mx-auto flex h-[50px] justify-between items-center">
             <Link to="/" className="no-underline">
-              <div className="flex items-center">
+              <div className="flex items-center justify-center">
                 <img
                   src="/images/bluelogo.png"
                   alt="logo"
                   className="w-10 h-10"
                 />
-                <span className="text-xl text-[rgb(83,199,240)] ml-2">
+                <span className="text-3xl pt-2 italic font-[Tenada] text-[rgb(83,199,240)] ml-1">
                   역이요
                 </span>
               </div>
