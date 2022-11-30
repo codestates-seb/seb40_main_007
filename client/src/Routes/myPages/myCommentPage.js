@@ -1,7 +1,6 @@
 import Header from "../../components/Header";
 import MyPageTab from "../../components/MyPageTab";
 import MyCommentList from "../../components/mycomment/MyCommentList";
-// import TestInfinitiScroll from "../../components/TestInfinitiScroll";
 import MyCommentPagination from "../../components/mycomment/MyCommentPagination";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -54,9 +53,9 @@ const MyCommentPage = () => {
           /> */}
           {data.length !== 0 && pageInfo ? (
             <>
-              <MyCommentList data={data} page={page} />
+              <MyCommentList data={data} />
               <MyCommentPagination
-                postsCnt={pageInfo.totalPages}
+                postsCnt={pageInfo?.totalPages}
                 page={page}
                 handlePageChange={handlePageChange}
               />

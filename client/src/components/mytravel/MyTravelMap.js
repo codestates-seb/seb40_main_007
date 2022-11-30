@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TiPencil } from "react-icons/ti";
 import { Map, CustomOverlayMap, Polyline } from "react-kakao-maps-sdk";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -13,6 +13,7 @@ import {
 // import TravelMapItem from "./MapItem/TravelMapItem";
 
 const MyTravelMap = ({ data }) => {
+  const focusRef = useRef();
   const [TOKEN] = useRecoilState(accessToken);
   const [, setMyTravelName] = useRecoilState(myTravelNameSelect);
 
@@ -25,7 +26,7 @@ const MyTravelMap = ({ data }) => {
 
   const [inputText, setInputText] = useState(false);
   const [inputValue, setInputValue] = useState(myTravelName);
-
+  const [preViewText, setPreViewText] = useState();
   const lineCoordinate = data
     ? data.map((el) => ({
         lat: el.latitude,
@@ -35,6 +36,7 @@ const MyTravelMap = ({ data }) => {
 
   const changeName = () => {
     setInputText(false);
+    setPreViewText(inputValue);
     // /planners/{planner-id}
     const URL = `${process.env.REACT_APP_URL}/planners/${myTravelId}`;
 
@@ -51,6 +53,7 @@ const MyTravelMap = ({ data }) => {
         console.log("Change My Travel Name Success :", response);
         setMyTravelList(response.data.items);
         setMyTravelName(inputValue);
+        setPreViewText("");
       })
       .catch((error) => {
         console.log("Change My Travel Name Fail :", error);
@@ -75,15 +78,20 @@ const MyTravelMap = ({ data }) => {
           <>
             <input
               type="text"
-              className="h-7 pl-2 outline-none border-b-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] text-lg font-semibold z-20"
+              ref={focusRef}
+              className="min-w-xs h-8  outline-none border-b-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] text-lg font-semibold z-20"
               defaultValue={myTravelName}
               onChange={(e) => setInputValue(e.target.value)}
             ></input>
             <button
-              className={`pl-2 text-[rgb(83,199,240)] border-b-2 border-[rgb(83,199,240)] z-20`}
+              className={`pl-2 text-[rgb(83,199,240)] border-b-2 border-[rgb(83,199,240)] z-20 ${
+                inputValue.length >= 1
+                  ? ""
+                  : "pointer-events-none text-gray-200"
+              }`}
               onClick={changeName}
             >
-              <TiPencil className="" size={"25"} />
+              <TiPencil className="" size={"29"} />
             </button>
             <button
               className="fixed inset-0 z-10 cursor-default"
@@ -93,20 +101,21 @@ const MyTravelMap = ({ data }) => {
           </>
         ) : (
           <>
-            <h2 className="text-lg font-semibold text-[rgb(83,199,240)]">
-              {myTravelName}
+            <h2 className="max-w-xs truncate text-lg font-semibold text-[rgb(83,199,240)]">
+              {preViewText ? preViewText : myTravelName}
             </h2>
             <button
               className={`ml-2 text-[rgb(83,199,240)] border-b-2 border-[rgb(83,199,240)] `}
               onClick={() => setInputText(!inputText)}
             >
-              <TiPencil size={"25"} />
+              <TiPencil size={"29"} />
             </button>
           </>
         )}
       </div>
-      {data && (
+      {data ? (
         <Map // 지도를 표시할 Container
+          className="border-2 border-[#59AEEC] rounded-xl"
           center={traveMapCenter}
           style={{
             // 지도의 크기
@@ -141,6 +150,8 @@ const MyTravelMap = ({ data }) => {
               ))
             : null}
         </Map>
+      ) : (
+        <div className="w-full h-full border-2 rounded-xl"></div>
       )}
     </div>
   );
