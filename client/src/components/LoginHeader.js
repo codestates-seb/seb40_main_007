@@ -13,7 +13,7 @@ const LoginHeader = () => {
                 alt="logo"
                 className="w-10 h-10 "
               />
-              <span className="lg:text-xl text-md text-[rgb(83,199,240)] ml-2">
+              <span className="lg:text-3xl text-md pt-2 italic font-[Tenada] text-[rgb(83,199,240)] ml-1">
                 역이요
               </span>
             </div>

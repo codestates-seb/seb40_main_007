@@ -11,7 +11,7 @@ const ReportHeader = () => {
     "신고 사유 5",
   ];
   return (
-    <div className="flex flex-row justify-between items-center py-1.5 text-sm font-semibold text-white bg-[#59AEEC] mr-[14px]">
+    <div className="flex flex-row justify-between items-center py-1.5 text-sm font-semibold text-white bg-[#59AEEC]">
       {chartList.map((el, index) => (
         <p key={index} className="basis-1/12 flex justify-center">
           {el}

@@ -4,5 +4,5 @@ import { atom } from "recoil";
 // const [reportData, setReportData] = useRecoilState(reportDataState);
 export const reportDataState = atom({
   key: "reportData",
-  default: null,
+  default: [],
 });
