@@ -35,7 +35,7 @@ public class AdminService {
         Integer[] weekBoards = new Integer[7];
         Arrays.fill(weekBoards, 0);
         List<Board> reportedBoards = new ArrayList<>();
-        ArrayList<Long>[] reportReason = new ArrayList[totalBoards.size() + 1];
+        ArrayList<Long>[] reportReason = new ArrayList[100000];
         LocalDateTime today = LocalDateTime.now().truncatedTo(ChronoUnit.DAYS);
         int todayOfTheWeek = today.getDayOfWeek().getValue();
 
