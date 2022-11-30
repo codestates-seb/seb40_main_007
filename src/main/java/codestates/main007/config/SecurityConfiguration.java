@@ -6,7 +6,7 @@ import codestates.main007.auth.handler.*;
 import codestates.main007.auth.jwt.JwtTokenizer;
 import codestates.main007.auth.util.CustomAuthorityUtils;
 import codestates.main007.auth.util.YeogiyoOAuth2Provider;
-import codestates.main007.member.MemberService;
+import codestates.main007.exception.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.context.annotation.Bean;

@@ -1,7 +1,7 @@
 package codestates.main007;
 
-import codestates.main007.tag.Tag;
-import codestates.main007.tag.TagRepository;
+import codestates.main007.tag.entity.Tag;
+import codestates.main007.tag.repository.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

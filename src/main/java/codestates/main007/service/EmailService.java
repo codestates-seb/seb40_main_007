@@ -40,7 +40,6 @@ public class EmailService {
                         "<br>\n" +
                         "<p style ='font-size:10'>홈페이지로 이동 : <a href='http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080'>역이요 홈페이지로 이동</a></p>"
                 ,"utf-8","html");
-        //todo : 배포링크로 변경
         mailSender.send(message);
     }
 }

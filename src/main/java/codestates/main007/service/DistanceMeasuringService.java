@@ -1,7 +1,7 @@
 package codestates.main007.service;
 
 import codestates.main007.exception.ExceptionCode;
-import codestates.main007.planner.PlannerDto;
+import codestates.main007.planner.dto.PlannerDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;

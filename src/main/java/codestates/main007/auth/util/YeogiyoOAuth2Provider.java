@@ -44,14 +44,6 @@ public enum YeogiyoOAuth2Provider {
         return builder;
     }
 
-    /**
-     * Create a new
-     * {@link org.springframework.security.oauth2.client.registration.ClientRegistration.Builder
-     * ClientRegistration.Builder} pre-configured with provider defaults.
-     *
-     * @param registrationId the registration-id used with the new builder
-     * @return a builder instance
-     */
     public abstract ClientRegistration.Builder getBuilder(String registrationId);
     private static final String DEFAULT_LOGIN_REDIRECT_URL = "{baseUrl}/login/oauth2/code/{registrationId}";
 }

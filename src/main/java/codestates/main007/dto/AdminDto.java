@@ -1,6 +1,6 @@
 package codestates.main007.dto;
 
-import codestates.main007.board.BoardDto;
+import codestates.main007.board.dto.BoardDto;
 import lombok.Builder;
 import lombok.Getter;
 

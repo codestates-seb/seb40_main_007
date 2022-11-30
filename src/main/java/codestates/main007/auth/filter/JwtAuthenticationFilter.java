@@ -2,8 +2,8 @@ package codestates.main007.auth.filter;
 
 import codestates.main007.auth.dto.LoginDto;
 import codestates.main007.auth.jwt.JwtTokenizer;
-import codestates.main007.member.Member;
-import codestates.main007.member.MemberService;
+import codestates.main007.exception.member.entity.Member;
+import codestates.main007.exception.member.service.MemberService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;
