@@ -18,5 +18,5 @@ public class AdminDto {
     private List<Integer> stationCount;
     private List<BoardDto.HighLowScoreResponse> highScoreBoards;
     private List<BoardDto.HighLowScoreResponse> lowScoreBoards;
-    private Map<String, Integer> BoardsOfThisWeek;
+    private List<Map<String, Integer>> BoardsOfThisWeek;
 }

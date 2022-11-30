@@ -166,72 +166,129 @@ public class AdminService {
             lowScoreDto.add(lowScoreBoard);
         }
 
-        Map<String, Integer> weekMap= new LinkedHashMap<>();
+        List<Map<String, Integer>> weekMaps = new ArrayList<>();
+        Map<String, Integer> mon = new HashMap<>();
+        Map<String, Integer> tue = new HashMap<>();
+        Map<String, Integer> wed = new HashMap<>();
+        Map<String, Integer> thu = new HashMap<>();
+        Map<String, Integer> fri = new HashMap<>();
+        Map<String, Integer> sat = new HashMap<>();
+        Map<String, Integer> sun = new HashMap<>();
 
         switch (todayOfTheWeek){
             case 1 :
-                weekMap.put("TUE", weekBoards[6]);
-                weekMap.put("WED", weekBoards[5]);
-                weekMap.put("THU", weekBoards[4]);
-                weekMap.put("FRI", weekBoards[3]);
-                weekMap.put("SAT", weekBoards[2]);
-                weekMap.put("SUN", weekBoards[1]);
-                weekMap.put("MON", weekBoards[0]);
+                tue.put("TUE", weekBoards[6]);
+                wed.put("WED", weekBoards[5]);
+                thu.put("THU", weekBoards[4]);
+                fri.put("FRI", weekBoards[3]);
+                sat.put("SAT", weekBoards[2]);
+                sun.put("SUN", weekBoards[1]);
+                mon.put("MON", weekBoards[0]);
+                weekMaps.add(tue);
+                weekMaps.add(wed);
+                weekMaps.add(thu);
+                weekMaps.add(fri);
+                weekMaps.add(sat);
+                weekMaps.add(sun);
+                weekMaps.add(mon);
                 break;
             case 2 :
-                weekMap.put("WED", weekBoards[6]);
-                weekMap.put("THU", weekBoards[5]);
-                weekMap.put("FRI", weekBoards[4]);
-                weekMap.put("SAT", weekBoards[3]);
-                weekMap.put("SUN", weekBoards[2]);
-                weekMap.put("MON", weekBoards[1]);
-                weekMap.put("TUE", weekBoards[0]);
+                tue.put("TUE", weekBoards[0]);
+                wed.put("WED", weekBoards[6]);
+                thu.put("THU", weekBoards[5]);
+                fri.put("FRI", weekBoards[4]);
+                sat.put("SAT", weekBoards[3]);
+                sun.put("SUN", weekBoards[2]);
+                mon.put("MON", weekBoards[1]);
+                weekMaps.add(wed);
+                weekMaps.add(thu);
+                weekMaps.add(fri);
+                weekMaps.add(sat);
+                weekMaps.add(sun);
+                weekMaps.add(mon);
+                weekMaps.add(tue);
                 break;
             case 3 :
-                weekMap.put("THU", weekBoards[6]);
-                weekMap.put("FRI", weekBoards[5]);
-                weekMap.put("SAT", weekBoards[4]);
-                weekMap.put("SUN", weekBoards[3]);
-                weekMap.put("MON", weekBoards[2]);
-                weekMap.put("TUE", weekBoards[1]);
-                weekMap.put("WED", weekBoards[0]);
+                tue.put("TUE", weekBoards[1]);
+                wed.put("WED", weekBoards[0]);
+                thu.put("THU", weekBoards[6]);
+                fri.put("FRI", weekBoards[5]);
+                sat.put("SAT", weekBoards[4]);
+                sun.put("SUN", weekBoards[3]);
+                mon.put("MON", weekBoards[2]);
+                weekMaps.add(thu);
+                weekMaps.add(fri);
+                weekMaps.add(sat);
+                weekMaps.add(sun);
+                weekMaps.add(mon);
+                weekMaps.add(tue);
+                weekMaps.add(wed);
                 break;
             case 4 :
-                weekMap.put("FRI", weekBoards[6]);
-                weekMap.put("SAT", weekBoards[5]);
-                weekMap.put("SUN", weekBoards[4]);
-                weekMap.put("MON", weekBoards[3]);
-                weekMap.put("TUE", weekBoards[2]);
-                weekMap.put("WED", weekBoards[1]);
-                weekMap.put("THU", weekBoards[0]);
+                tue.put("TUE", weekBoards[2]);
+                wed.put("WED", weekBoards[1]);
+                thu.put("THU", weekBoards[0]);
+                fri.put("FRI", weekBoards[6]);
+                sat.put("SAT", weekBoards[5]);
+                sun.put("SUN", weekBoards[4]);
+                mon.put("MON", weekBoards[3]);
+                weekMaps.add(fri);
+                weekMaps.add(sat);
+                weekMaps.add(sun);
+                weekMaps.add(mon);
+                weekMaps.add(tue);
+                weekMaps.add(wed);
+                weekMaps.add(thu);
                 break;
             case 5 :
-                weekMap.put("SAT", weekBoards[6]);
-                weekMap.put("SUN", weekBoards[5]);
-                weekMap.put("MON", weekBoards[4]);
-                weekMap.put("TUE", weekBoards[3]);
-                weekMap.put("WED", weekBoards[2]);
-                weekMap.put("THU", weekBoards[1]);
-                weekMap.put("FRI", weekBoards[0]);
+                tue.put("TUE", weekBoards[3]);
+                wed.put("WED", weekBoards[2]);
+                thu.put("THU", weekBoards[1]);
+                fri.put("FRI", weekBoards[0]);
+                sat.put("SAT", weekBoards[6]);
+                sun.put("SUN", weekBoards[5]);
+                mon.put("MON", weekBoards[4]);
+                weekMaps.add(sat);
+                weekMaps.add(sun);
+                weekMaps.add(mon);
+                weekMaps.add(tue);
+                weekMaps.add(wed);
+                weekMaps.add(thu);
+                weekMaps.add(fri);
                 break;
             case 6 :
-                weekMap.put("SUN", weekBoards[6]);
-                weekMap.put("MON", weekBoards[5]);
-                weekMap.put("TUE", weekBoards[4]);
-                weekMap.put("WED", weekBoards[3]);
-                weekMap.put("THU", weekBoards[2]);
-                weekMap.put("FRI", weekBoards[1]);
-                weekMap.put("SAT", weekBoards[0]);
+                tue.put("TUE", weekBoards[4]);
+                wed.put("WED", weekBoards[3]);
+                thu.put("THU", weekBoards[2]);
+                fri.put("FRI", weekBoards[1]);
+                sat.put("SAT", weekBoards[0]);
+                sun.put("SUN", weekBoards[6]);
+                mon.put("MON", weekBoards[5]);
+                weekMaps.add(sun);
+                weekMaps.add(mon);
+                weekMaps.add(tue);
+                weekMaps.add(wed);
+                weekMaps.add(thu);
+                weekMaps.add(fri);
+                weekMaps.add(sat);
                 break;
             case 7 :
-                weekMap.put("MON", weekBoards[6]);
-                weekMap.put("TUE", weekBoards[5]);
-                weekMap.put("WED", weekBoards[4]);
-                weekMap.put("THU", weekBoards[3]);
-                weekMap.put("FRI", weekBoards[2]);
-                weekMap.put("SAT", weekBoards[1]);
-                weekMap.put("SUN", weekBoards[0]);
+                tue.put("TUE", weekBoards[5]);
+                wed.put("WED", weekBoards[4]);
+                thu.put("THU", weekBoards[3]);
+                fri.put("FRI", weekBoards[2]);
+                sat.put("SAT", weekBoards[1]);
+                sun.put("SUN", weekBoards[0]);
+                mon.put("MON", weekBoards[6]);
+                weekMaps.add(mon);
+                weekMaps.add(tue);
+                weekMaps.add(wed);
+                weekMaps.add(thu);
+                weekMaps.add(fri);
+                weekMaps.add(sat);
+                weekMaps.add(sun);
                 break;
+
         }
 
         return AdminDto.builder()
@@ -243,7 +300,7 @@ public class AdminService {
                 .stationCount(stationCount)
                 .highScoreBoards(highScoreDto)
                 .lowScoreBoards(lowScoreDto)
-                .BoardsOfThisWeek(weekMap)
+                .BoardsOfThisWeek(weekMaps)
                 .build();
     }
 
