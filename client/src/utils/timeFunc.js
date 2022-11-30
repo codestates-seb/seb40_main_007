@@ -4,7 +4,6 @@ export const timeFunc = (time) => {
     min: Math.ceil(time / 60),
     hour: Math.floor(time / 3600),
   };
-  console.log(totalTime.hour, totalTime.min, time);
   if (totalTime.min < 60) {
     return `약 ${totalTime.min}분`;
   } else {

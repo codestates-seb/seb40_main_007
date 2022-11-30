@@ -19,7 +19,7 @@ const MyTravelList = ({ data, initData, setData }) => {
   // window.scrollTo(0,0);
   const [TOKEN] = useRecoilState(accessToken);
   const myTravelId = useRecoilValue(myTravelIdSelect);
-  const [, setMyTravel] = useRecoilState(myTravelData);
+  const [myTravel, setMyTravel] = useRecoilState(myTravelData);
   const [, setTimeBetweenBoards] = useRecoilState(timeBetweenBoardsData);
   const [, setWholeTime] = useRecoilState(wholeTimeData);
 
@@ -145,7 +145,8 @@ const MyTravelList = ({ data, initData, setData }) => {
           })
       : console.log("데이터가 바뀌지 않았습니다.");
   };
-  return (
+
+  return myTravel ? (
     <div className="w-full h-64 sm:h-auto flex flex-col">
       <MyTravelHeader />
       <div className="w-4/6 flex justify-between items-center mb-0.5">
@@ -244,6 +245,8 @@ const MyTravelList = ({ data, initData, setData }) => {
         )}
       </div>
     </div>
+  ) : (
+    <div className="w-full h-64 sm:h-auto  border-2 rounded-xl"></div>
   );
 };
 export default MyTravelList;

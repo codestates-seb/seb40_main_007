@@ -11,7 +11,7 @@ export default function MyTravelDot() {
   console.log("시간 계산", timeBetweenBoards);
 
   const myTravelList = timeBetweenBoards;
-  const listLength = timeBetweenBoards.length;
+  const listLength = timeBetweenBoards?.length;
   return (
     <>
       <div className="text-[rgba(83,199,240)]">
@@ -44,7 +44,7 @@ export default function MyTravelDot() {
                       flex flex-row gap-1 items-center
                         ${
                           idx === listLength - 1
-                            ? "absolute text-sm w-32 top-[-12px] left-8 text-gray-400"
+                            ? "absolute text-sm w-32 top-[-12px] left-[2.2rem] text-gray-400"
                             : "absolute text-sm w-32 top-[-12px] left-6 text-gray-400"
                         }
                       `}

@@ -78,28 +78,20 @@ module.exports = {
             transform: "rotate(8deg)",
           },
         },
-        sortRight1: {
+        moveUp: {
           "0%": {
-            transform: "translateX(-70%)",
+            transform: "translateY(100%)",
           },
           "100%": {
-            transform: "translateX(0%)",
+            transform: "translateY(0%)",
           },
         },
-        sortRight2: {
+        moveDown: {
           "0%": {
-            transform: "translateX(-170%)",
+            transform: "translateY(-100%)",
           },
           "100%": {
-            transform: "translateX(0%)",
-          },
-        },
-        sortRight3: {
-          "0%": {
-            transform: "translateX(-270%)",
-          },
-          "100%": {
-            transform: "translateX(0%)",
+            transform: "translateY(0%)",
           },
         },
       },
@@ -112,9 +104,8 @@ module.exports = {
         bigBounce: "bigBounce 1s linear infinite",
         bgMove: "bgMove 5s linear infinite",
         oneBounce: "oneBounce .2s linear 3",
-        sr1: "sortRight1 300ms ease-in-out forwards",
-        sr2: "sortRight2 300ms ease-in-out forwards",
-        sr3: "sortRight3 300ms ease-in-out forwards",
+        moveUp: "moveUp .2s linear 1",
+        moveDown: "moveDown .2s linear 1",
       },
     },
   },

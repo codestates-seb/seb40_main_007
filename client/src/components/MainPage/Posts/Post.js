@@ -11,8 +11,7 @@ import {
 } from "../../../atoms/mapImage";
 
 // TravelPlus모달 추가
-// import MyTravelModal from "../../mytravel/MyTravelModal";
-import TestMyTravelModal from "../../mytravel/TestMyTravelModal";
+import MyTravelModal from "../../modals/MyTravelModal";
 import { accessToken } from "../../../atoms/loginTest";
 import { timeFunc } from "../../../utils/timeFunc";
 
@@ -50,7 +49,7 @@ function Post({ data }) {
             <div className="absolute right-0 bg-[rgba(256,256,256,0.5)] flex p-[1px] m-1 rounded-lg z-10">
               {/* 모달 형태 수정해야함. */}
               {/* <MyTravelModal />  */}
-              <TestMyTravelModal boardId={data?.boardId} />
+              <MyTravelModal boardId={data?.boardId} />
               <Heart boardId={data?.boardId} heartState={data?.dibs} />
             </div>
           ) : null}
@@ -58,7 +57,7 @@ function Post({ data }) {
             <img
               src={data?.thumbnail}
               alt="post thumbnail"
-              className={`w-40 h-40 object-fit static mb-2 rounded-lg shadow-[0px_0px_2px_1px_rgba(0,0,0,0.3)]`}
+              className={`w-40 h-36 object-fit static mb-2 rounded-lg shadow-[0px_0px_2px_1px_rgba(0,0,0,0.3)]`}
             />
           </Link>
           <PostStarScore score={data?.star} />

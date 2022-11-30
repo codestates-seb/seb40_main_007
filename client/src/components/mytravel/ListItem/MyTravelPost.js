@@ -51,7 +51,7 @@ const MyTravelPost = ({
   return (
     <>
       <div
-        className={`mb-4 flex flex-row items-center rounded-xl shadow-all
+        className={`mb-4 flex flex-row items-center rounded-xl shadow-[0px_0px_2px_1px_rgba(0,0,0,0.3)]
       ${moveIndex?.moveUp === index ? "animate-moveUp" : ""}
       ${moveIndex?.moveDown === index ? "animate-moveDown" : ""}
 

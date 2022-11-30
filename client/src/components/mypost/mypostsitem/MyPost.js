@@ -12,8 +12,7 @@ import {
 } from "../../../atoms/mapImage";
 import { timeFunc } from "../../../utils/timeFunc";
 // TravelPlus모달 추가
-// import MyTravelModal from "../../mytravel/MyTravelModal";
-import TestMyTravelModal from "../../mytravel/TestMyTravelModal";
+import MyTravelModal from "../../modals/MyTravelModal";
 import { accessToken } from "../../../atoms/loginTest";
 import { TbMapSearch } from "react-icons/tb";
 
@@ -50,7 +49,7 @@ function MyPost({ data, tabValue }) {
             <div className="absolute right-0 bg-[rgba(256,256,256,0.5)] flex p-[1px] m-1 rounded-lg z-10">
               {/* 모달 형태 수정해야함. */}
               {/* <MyTravelModal />  */}
-              <TestMyTravelModal boardId={data?.boardId} />
+              <MyTravelModal boardId={data?.boardId} />
               <Heart boardId={data?.boardId} heartState={data?.dibs} />
             </div>
           ) : null}

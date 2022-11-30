@@ -125,15 +125,11 @@ const MyTravelPage = () => {
             {myTravelList.length !== 0 ? (
               <>
                 <MyTravelMap data={data} />
-                {myTravel ? (
-                  <MyTravelList
-                    data={data}
-                    initData={myTravel?.boards}
-                    setData={setData}
-                  />
-                ) : (
-                  <></>
-                )}
+                <MyTravelList
+                  data={data}
+                  initData={myTravel?.boards}
+                  setData={setData}
+                />
               </>
             ) : (
               <div className="w-full flex justify-center">

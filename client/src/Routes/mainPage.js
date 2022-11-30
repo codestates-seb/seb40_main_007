@@ -10,7 +10,7 @@ import MainMap from "../components/MainPage/MainMap";
 import RelatedTab from "../components/MainPage/TagTab";
 import MainHeader from "../components/MainPage/MainHeader";
 import WriteModal from "../components/modals/WriteModal";
-import TestPostList from "../components/MainPage/Posts/TestPostList";
+import PostList from "../components/MainPage/Posts/PostList";
 import { mapCenterMoveEvent, mapImgClickEvent } from "../atoms/mapImage";
 import { mainPostData, mainPageInfo } from "../atoms/mainPageData";
 import {
@@ -23,10 +23,6 @@ import { trainInfo } from "../atoms/trainInfo";
 import { accessToken } from "../atoms/loginTest";
 import { tagsInfoToNumList } from "../atoms/tagsInfo";
 import { myTravelListData } from "../atoms/mypage/myTravelData";
-
-// 테스트용 입니다. 테스트 완료하면 합칠예정..!
-// import PostList from "../components/MainPage/Posts/PostList";
-// import DummyPostList from "../components/MainPage/Posts/dummyPostList";
 
 const MainPage = () => {
   // 데이터 왔는지 확인 데이터
@@ -138,7 +134,7 @@ const MainPage = () => {
           <div>
             <CategoryTabs />
             <RelatedTab />
-            <TestPostList stationId={id} isPostOk={isPostOk} />
+            <PostList stationId={id} isPostOk={isPostOk} />
           </div>
         </div>
       </div>
