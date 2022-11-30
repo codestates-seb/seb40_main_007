@@ -5,7 +5,7 @@ import axios from "axios";
 import swal from "sweetalert";
 import {
   accessToken,
-  refereshToken,
+  refreshToken,
   userAvatar,
   userId,
   userName,
@@ -15,7 +15,7 @@ import {
 
 export default function SignoutPage() {
   const [TOKEN, setAccessToken] = useRecoilState(accessToken);
-  const [, setRefreshToken] = useRecoilState(refereshToken);
+  const [, setRefreshToken] = useRecoilState(refreshToken);
   const [, setUserAvatar] = useRecoilState(userAvatar);
   const [, setUserId] = useRecoilState(userId);
   const [, setUserName] = useRecoilState(userName);

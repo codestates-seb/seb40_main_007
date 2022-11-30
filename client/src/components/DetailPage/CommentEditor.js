@@ -67,7 +67,7 @@ const CommentEditor = () => {
         </div>
       ) : (
         <>
-          <div className="mt-10 mb-20 mx-10 border-2 border-gray-300 focus-within:border-[rgb(83,199,240)] p-2 h-40 group">
+          <div className="mt-10 mb-20 lg:mx-10 mx-2 border-2 border-gray-300 focus-within:border-[rgb(83,199,240)] p-2 h-40 group">
             <div className="flex flex-row items-center space-x-2">
               <div className="w-6 h-6">
                 <img
@@ -93,7 +93,7 @@ const CommentEditor = () => {
             <div className="text-gray-300 group-focus-within:text-[rgb(83,199,240)] text-xs relative">
               {`${char} / 100`}
             </div>
-            <div className="mt-2 flex justify-end">
+            <div className="lg:mt-2 mt-5 flex justify-end">
               <button type="submit" className="btn" onClick={handleSubmit}>
                 등록
               </button>

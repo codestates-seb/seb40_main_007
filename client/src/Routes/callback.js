@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import swal from "sweetalert";
 import {
   accessToken,
-  refereshToken,
+  refreshToken,
   userName,
   userAvatar,
   userId,
@@ -21,7 +21,7 @@ export default function Callback() {
   const accessTokenInfo = tokenInfo[1].split("&");
 
   const [, setAccessToken] = useRecoilState(accessToken);
-  const [, setRefreshToken] = useRecoilState(refereshToken);
+  const [, setRefreshToken] = useRecoilState(refreshToken);
   const [, setUserName] = useRecoilState(userName);
   const [, setUserAvatar] = useRecoilState(userAvatar);
   const [, setUserId] = useRecoilState(userId);

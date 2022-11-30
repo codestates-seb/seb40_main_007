@@ -1,7 +1,3 @@
-/*
-  비밀번호 유효성 검사 필요합니다.
-*/
-
 const EditPasswordInput = ({ setNewPassword, setConfirmPassword }) => {
   return (
     <div className="mt-9">

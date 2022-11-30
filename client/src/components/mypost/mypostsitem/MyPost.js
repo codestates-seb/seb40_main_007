@@ -9,7 +9,7 @@ import {
   mapCenterMoveEvent,
   postImgHoverEvent,
 } from "../../../atoms/mapImage";
-import timeFunc from "../../../utils/timeFunc";
+import { timeFunc } from "../../../utils/timeFunc";
 // TravelPlus모달 추가
 // import MyTravelModal from "../../mytravel/MyTravelModal";
 import TestMyTravelModal from "../../mytravel/TestMyTravelModal";

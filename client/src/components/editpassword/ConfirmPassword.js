@@ -1,18 +1,64 @@
+/*eslint-disable */
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
-const ConfirmPasword = ({ setShowModal }) => {
+import { useRecoilValue } from "recoil";
+import { accessToken } from "../../atoms/loginTest";
+import axios from "axios";
+import swal from "sweetalert";
+
+const ConfirmPasword = ({ setShowModal, confirmPassword }) => {
   const [isOk, setIsOk] = useState(false);
   const [isHide, setisHide] = useState(true);
+  const [inputPassword, setInputPassword] = useState("");
+  const handleChange = (e) => {
+    setInputPassword(e.target.value);
+    console.log(inputPassword);
+  };
 
-  // 비밀번호가 검증 되고, 현재페이지가 회원탈퇴의 경우 홈페이지로 이동
   const location = useLocation();
+  const TOKEN = useRecoilValue(accessToken);
   const navigation = useNavigate();
   useEffect(() => {
     let currentLocation = location.pathname.slice(1, 5);
     if (isOk && currentLocation === "signout") navigation("/");
   });
+
+  const hadleSubmit = () => {
+    const config = {
+      headers: { Authorization: TOKEN, password: inputPassword },
+    };
+    axios
+      .get(`${process.env.REACT_APP_URL}/members/verification`, config)
+      .then(function (response) {
+        console.log("비번확인", response);
+      })
+      .then(() => {
+        axios
+          .patch(
+            `${process.env.REACT_APP_URL}/members`,
+            {
+              password: confirmPassword,
+            },
+            { headers: { Authorization: TOKEN } }
+          )
+          .then(function (response) {
+            console.log(response);
+            swal("Changed!", "비밀번호가 변경되었습니다", "success");
+            navigation("/mypage");
+          })
+          .catch(function (error) {
+            swal("비밀번호가 변경 실패되었습니다");
+            console.log(error);
+          });
+      })
+
+      .catch(function (error) {
+        setIsOk(true);
+        console.log(error);
+      });
+  };
 
   return (
     <>
@@ -41,7 +87,7 @@ const ConfirmPasword = ({ setShowModal }) => {
                 <input
                   type={`${isHide ? "password" : "text"}`}
                   className="w-full focus:outline-none"
-                  onClick={() => setIsOk(false)}
+                  onChange={handleChange}
                 ></input>
                 <button onClick={() => setisHide(!isHide)}>
                   {isHide ? (
@@ -61,7 +107,7 @@ const ConfirmPasword = ({ setShowModal }) => {
                 {isOk ? "* 비밀 번호가 틀렸습니다 !" : null}
               </p>
               <div className="py-5">
-                <button className="btn btn-hover" onClick={() => setIsOk(true)}>
+                <button className="btn btn-hover" onClick={hadleSubmit}>
                   확인
                 </button>
               </div>

@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
 import LoginPage from "./Routes/loginPage";
@@ -23,6 +23,7 @@ import EditPasswordPage from "./Routes/myPages/editPasswordPage";
 import MyCommentPage from "./Routes/myPages/myCommentPage";
 import MyPostPage from "./Routes/myPages/myPostPage";
 import MyTravelPage from "./Routes/myPages/myTravelPage";
+import swal from "sweetalert";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,7 +35,49 @@ const queryClient = new QueryClient({
   },
 });
 
+import axios from "axios";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { accessToken, refreshToken } from "./atoms/loginTest";
+
 function App() {
+  const [TOKEN, setAccessToken] = useRecoilState(accessToken);
+  const refresh = useRecoilValue(refreshToken);
+
+  const onSilentRefresh = () => {
+    console.log("refresh", refresh);
+    if (TOKEN !== "" && refresh !== "") {
+      const reConfig = {
+        headers: {
+          RefreshToken: refresh,
+        },
+      };
+      axios
+        .post(
+          `${process.env.REACT_APP_URL}/members/refresh-token`,
+          {},
+          reConfig
+        )
+        .then((response) => {
+          console.log("액세스토큰갱신");
+          setAccessToken(response.headers.authorization);
+          setTimeout(onSilentRefresh, 600000); //1200000 면 20분 이다. 6000000면 10분
+        })
+        .catch((error) => {
+          console.log(error);
+          swal(
+            "Expired!",
+            "로그인이 만료되었습니다. 재 로그인이 필요합니다",
+            "warning"
+          );
+        });
+    } else {
+      return;
+    }
+  };
+  useEffect(() => {
+    onSilentRefresh();
+  }, [refresh]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>

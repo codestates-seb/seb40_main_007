@@ -9,8 +9,8 @@ export const accessToken = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const refereshToken = atom({
-  key: `referesh`,
+export const refreshToken = atom({
+  key: `refresh`,
   default: "",
   effects_UNSTABLE: [persistAtom],
 });
@@ -44,7 +44,3 @@ export const isSocial = atom({
   default: false,
   effects_UNSTABLE: [persistAtom],
 });
-// 로그인 정보(토큰,멤버아이디,닉네임,이미지)가 들어  있습니다
-// import { useRecoilState } from "recoil";
-// import LoginHeader from "./LoginHeader";
-// const [login] = useRecoilState(userInfo);
