@@ -15,6 +15,8 @@ import HighScoreData from "../components/adminData/HighScoreData";
 import LowScoreData from "../components/adminData/LowScoreData";
 import axios from "axios";
 import { accessToken } from "../atoms/loginData";
+import AdminTab from "../components/AdminTab";
+import AdminIssue from "../components/AdminIssue";
 
 export default function adminData() {
   const [stationCnt, setStationCnt] = useRecoilState(stationCount);
@@ -45,6 +47,8 @@ export default function adminData() {
   return (
     <div className="w-full bg-[rgba(235,235,235,0.34)]">
       <Header />
+      <AdminTab />
+      <AdminIssue />
       <div className="max-w-6xl pt-20 m-auto gap-2">
         <div className="grid grid-cols-1 lg:grid-cols-2 pb-52">
           <StationData stationCntdata={stationCnt} />
