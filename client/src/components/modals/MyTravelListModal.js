@@ -9,6 +9,7 @@ import {
 } from "../../atoms/mypage/myTravelData";
 import { accessToken } from "../../atoms/loginTest";
 import axios from "axios";
+import swal from "sweetalert";
 // import { Link } from "react-router-dom";
 
 const ListModal = ({ setOnListModal }) => {
@@ -26,15 +27,27 @@ const ListModal = ({ setOnListModal }) => {
     const config = {
       headers: { Authorization: TOKEN },
     };
-    axios
-      .delete(deleteURL, config)
-      .then((response) => {
-        console.log("post 성공", response);
-        setMyTravelList(response.data.items);
-      })
-      .catch((error) => {
-        console.log("Delete TravelList Fail :", error);
-      });
+    swal({
+      text: "삭제하시겠습니까?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        axios
+          .delete(deleteURL, config)
+          .then((response) => {
+            console.log(response);
+            setMyTravelList(response.data.items);
+            swal("삭제되었습니다");
+          })
+          .catch(() => {
+            swal("게시글 삭제 실패");
+          });
+      } else {
+        swal("삭제를 취소하셨습니다");
+      }
+    });
   };
   // 데이터 불러오는 axios 필요
 

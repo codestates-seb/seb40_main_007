@@ -4,6 +4,7 @@
 /* 
   [rgb(83,199,240)] : 베이직 색상 
   #53C7F0 : 베이직 색상
+  #59AEEC : border top
 */
 
 @layer components {
@@ -46,7 +47,7 @@
     border: 2px solid white;
   }
   * {
-    font-family: "Roboto", sans-serif;
+    font-family: "Nanum Gothic", sans-serif;
   }
 
   img {

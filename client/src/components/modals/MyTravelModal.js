@@ -7,8 +7,9 @@ import { myTravelListData } from "../../atoms/mypage/myTravelData";
 import { useRecoilState } from "recoil";
 import axios from "axios";
 import { accessToken } from "../../atoms/loginTest";
+import swal from "sweetalert";
 
-const TestMyTravelModal = ({ boardId }) => {
+const MyTravelModal = ({ boardId }) => {
   // 인증 토큰
   const [TOKEN] = useRecoilState(accessToken);
 
@@ -57,7 +58,13 @@ const TestMyTravelModal = ({ boardId }) => {
         console.log("Add My Travel Post 성공");
       })
       .catch((error) => {
-        console.log("Add My Travel Post Fail :", error);
+        console.log("Add My Travel Post Fail :", error.response.status);
+        if (error.response.status === 409) {
+          swal(
+            "추가에 실패하였습니다",
+            "해당 목록이 꽉 차있거나 이미 추가한 게시글 입니다."
+          );
+        }
       });
   };
   return (
@@ -72,12 +79,12 @@ const TestMyTravelModal = ({ boardId }) => {
       {showModal ? (
         <>
           <div className="w-fit ">
-            <div className="w-36 pl-2 top-4 right-2 absolute shadow-lg shadow-black z-30 p-1 bg-white rounded-lg flex flex-row">
-              <div className="flex flex-col">
+            <div className="w-36 pl-2 top-4 right-1 absolute  shadow-[0px_0px_2px_3px_rgba(0,0,0,0.3)] z-30 p-1 bg-white rounded-lg flex flex-row">
+              <div className="h-52 flex flex-col overflow-y-scroll scrollbar-hide overflow-x-hidden">
                 <div className="w-full flex justify-end">
                   {/* 닫힘버튼 */}
                   <AiOutlineCloseCircle
-                    className="cursor-pointer mt-0.5 text-gray-500 rounded-full active:scale-90"
+                    className="fixed cursor-pointer mt-0.5 text-gray-500 rounded-full active:scale-90"
                     size={17}
                     onClick={() => {
                       setShowModal(false);
@@ -86,13 +93,13 @@ const TestMyTravelModal = ({ boardId }) => {
                   />
                 </div>
                 {/* props로 받아온 여행리스트 버튼들 */}
-                {myTravelList.length !== 0 ? (
-                  myTravelList.map((list, index) => (
+                {myTravelList?.length !== 0 ? (
+                  myTravelList?.map((list, index) => (
                     <button
                       key={index}
-                      className={`w-32 text-sm text-[rgb(83,199,240)] py-1 block pl-5 text-start hover:bg-gray-200 active:bg-gray-100 hover:font-semibold ${
-                        index === myTravelList.length - 1 ? "mb-1" : ""
-                      }`}
+                      className={`w-32  text-sm text-[rgb(83,199,240)] py-1 block pl-5 text-start hover:bg-gray-200 active:bg-gray-100 hover:font-semibold 
+                      ${index === 0 ? "mt-5" : ""}
+                      ${index === myTravelList?.length - 1 ? "mb-1" : ""}`}
                       onClick={() => {
                         addMyTravelPost(list.plannerId);
                       }}
@@ -149,4 +156,4 @@ const TestMyTravelModal = ({ boardId }) => {
   );
 };
 
-export default TestMyTravelModal;
+export default MyTravelModal;

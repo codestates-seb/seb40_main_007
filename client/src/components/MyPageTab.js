@@ -2,7 +2,6 @@
 import { Link } from "react-router-dom";
 
 export default function MyPageTab({ index }) {
-  // const [index, setIndex] = useState(0);
   const unactiveStyle =
     "rounded-t-lg sm:px-10 px-3 sm:py-2 py-1 sm:text-lg text-sm text-white bg-[rgb(83,199,240)] ";
   const activeStyle =
@@ -52,12 +51,6 @@ export default function MyPageTab({ index }) {
           </Link>
         </li>
       </ul>
-      {/* <Routes>
-        <Route path="/" element={<tabPAge1 />} />
-        <Route path="/users" element={<tabPAge2 />} />
-        <Route path="/articles" element={<tabPAge3 />} />
-        <Route path="/articles" element={<tabPAge4 />} />
-      </Routes> */}
     </nav>
   );
 }

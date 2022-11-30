@@ -9,18 +9,24 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import {
   myTravelData,
   myTravelIdSelect,
+  timeBetweenBoardsData,
+  wholeTimeData,
 } from "../../atoms/mypage/myTravelData";
 import axios from "axios";
-// import MyTravelDot from "../mytravel/MyTravelDot";
+import Loading from "../Loading";
+import MyTravelDot from "../mytravel/MyTravelDot";
 const MyTravelList = ({ data, initData, setData }) => {
+  // window.scrollTo(0,0);
   const [TOKEN] = useRecoilState(accessToken);
   const myTravelId = useRecoilValue(myTravelIdSelect);
-  const [, setMyTravel] = useRecoilState(myTravelData);
+  const [myTravel, setMyTravel] = useRecoilState(myTravelData);
+  const [, setTimeBetweenBoards] = useRecoilState(timeBetweenBoardsData);
+  const [, setWholeTime] = useRecoilState(wholeTimeData);
 
   const [deleteIndex, setDeleteIndex] = useState();
   const [swapIndex, setSwapIndex] = useState();
 
-  // 뒤로가기,앞으로가기 로직
+  // 뒤로가기,앞으로가기 - 스택관련 로직
   const [stackBack, setStackBack] = useState([]);
   const [stackFront, setStackFront] = useState([]);
   const [stackCnt, setStackCnt] = useState(0);
@@ -47,17 +53,25 @@ const MyTravelList = ({ data, initData, setData }) => {
   };
 
   // 스택 완전 초기화
-  const handelStackInit = () => {
-    setStackFront([]);
-    setStackBack([]);
-    setData(initData);
-  };
+  // const handelStackInit = () => {
+  //   setStackFront([]);
+  //   setStackBack([]);
+  //   setData(initData);
+  // };
   const handelInitFrontStack = () => {
     setStackFront([]);
   };
   const handleStackCnt = () => {
     setStackCnt(stackCnt + 1);
   };
+
+  // 리스트 swap 애니메이션
+  const [moveIndex, setMoveIndex] = useState();
+  useEffect(() => {
+    setTimeout(() => {
+      setMoveIndex();
+    }, 200);
+  }, [data]);
 
   // 리스트 아래위로 swap 로직
   const handleSwap = (listBtnState) => {
@@ -83,7 +97,7 @@ const MyTravelList = ({ data, initData, setData }) => {
 
   // 삭제 로직
   useEffect(() => {
-    data ? setData(data.filter((_, index) => deleteIndex !== index)) : null;
+    data ? setData(data?.filter((_, index) => deleteIndex !== index)) : null;
     setDeleteIndex();
   }, [deleteIndex]);
   const isChangeCheck = (init, change) => {
@@ -116,20 +130,23 @@ const MyTravelList = ({ data, initData, setData }) => {
     const changeData = {
       priorities: changeDataIdList,
     };
-    console.log("changeData", changeData);
+
     isChange
       ? axios
           .patch(URL, changeData, config)
           .then((response) => {
             console.log("Change My Travel Success :", response);
             setMyTravel(response.data);
+            setTimeBetweenBoards(response.data.timeBetweenBoards);
+            setWholeTime(response.data.wholeTime);
           })
           .catch((error) => {
             console.log("Change My Travel Fail :", error);
           })
       : console.log("데이터가 바뀌지 않았습니다.");
   };
-  return (
+
+  return myTravel ? (
     <div className="w-full h-64 sm:h-auto flex flex-col">
       <MyTravelHeader />
       <div className="w-4/6 flex justify-between items-center mb-0.5">
@@ -137,7 +154,7 @@ const MyTravelList = ({ data, initData, setData }) => {
           방문을 원하는 순서대로 옮겨보세요!
         </p>
       </div>
-      <div className="w-4/6 h-6 pl-2 mt-2  text-[rgb(83,199,240)] flex flex-row justify-between items-center">
+      <div className="w-4/6 h-6 pl-1 mt-2  text-[rgb(83,199,240)] flex flex-row justify-between items-center">
         <div className="flex flex-row">
           <button
             className={`rounded-full hover:bg-gray-200 active:bg-gray-300 ${
@@ -155,47 +172,50 @@ const MyTravelList = ({ data, initData, setData }) => {
           >
             <BsArrowRightShort size={24} />
           </button>
-          <button
+          {/* <button
             className="ml-1 rounded-full w-6 hover:bg-gray-200 active:bg-gray-300 flex justify-center items-center"
             onClick={handelStackInit}
           >
             <VscDebugRestart size={16} />
-          </button>
+          </button> */}
         </div>
         {data ? (
-          <p className="mr-2 text-sm text-[rgb(83,199,240)]">
-            {data.length} /10
+          <p className=" text-base font-semibold text-[rgb(83,199,240)]">
+            {data?.length} /10
           </p>
         ) : null}
       </div>
-      <div className="relative">
-        {/* <div className="top-0 right-[150px]">
-          <MyTravelDot props={["5분", "6분", "7분", "8분", "99분"]} />
-        </div> */}
-        <div>
-          <div className="w-4/6 h-[480px] pt-1 pl-1 overflow-y-scroll">
-            {data && data.length !== 0 ? (
-              data.map((item, index) => (
+      <div className="relative flex">
+        <div className="w-9/12 ">
+          <div className="h-[480px] pt-2 pl-2 pr-3 overflow-y-scroll rounded-md border-t-2 border-[#59AEEC]">
+            {data && data?.length !== 0 ? (
+              data?.map((item, index) => (
                 <MyTravelPost
                   key={index}
                   data={item}
                   index={index}
-                  lastIndex={data.length - 1}
+                  lastIndex={data?.length - 1}
                   // 테스트 데이터 이동
                   setDeleteIndex={setDeleteIndex}
                   setSwapIndex={setSwapIndex}
                   setData={setData}
                   handleStackCnt={handleStackCnt}
                   handelInitFrontStack={handelInitFrontStack}
+                  moveIndex={moveIndex}
+                  setMoveIndex={setMoveIndex}
                 />
               ))
-            ) : (
+            ) : data && data?.length === 0 ? (
               <div className="text-xl text-[#8A8A8A] h-full flex justify-center items-center">
                 여행 목록이 비었습니다.
               </div>
+            ) : (
+              <div className="text-xl text-[#8A8A8A] h-full flex justify-center items-center">
+                <Loading></Loading>
+              </div>
             )}
           </div>
-          <div className="w-4/6 flex justify-center">
+          <div className="flex justify-center">
             <button
               onClick={() => setData(initData)}
               className="btn m-2 text-sm bg-gray-400 hover:scale-105 active:scale-100"
@@ -216,8 +236,17 @@ const MyTravelList = ({ data, initData, setData }) => {
             </button>
           </div>
         </div>
+        {data && data?.length > 1 ? (
+          <div className="top-0 w-1/5 flex flex-col justify-center items-center">
+            <MyTravelDot />
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
+  ) : (
+    <div className="w-full h-64 sm:h-auto  border-2 rounded-xl"></div>
   );
 };
 export default MyTravelList;

@@ -17,6 +17,7 @@ const MyTravelAddModal = ({ setShowModal }) => {
 
   const [TOKEN] = useRecoilState(accessToken);
 
+  // 목록 추가
   const addPlan = () => {
     const URL = `${process.env.REACT_APP_URL}/planners`;
     const data = {
@@ -36,6 +37,7 @@ const MyTravelAddModal = ({ setShowModal }) => {
           ? (setMyTravelId(data[0].plannerId),
             setMyTravelName(data[0].plannerName))
           : null;
+        setInputText("");
       })
       .catch((error) => {
         console.log("Add TravelList Fail :", error);

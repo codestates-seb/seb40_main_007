@@ -28,6 +28,20 @@ export const myTravelData = atom({
   default: null,
 });
 
+// 현재 내 여행 계획 총 시간
+// const [ wholeTime, setWholeTime] = useRecoilState(wholeTimeData);
+export const wholeTimeData = atom({
+  key: "wholeTime",
+  default: null,
+});
+
+// 현재 내 여행 계획 각 게시글 거리 시간
+// const [ timeBetweenBoards, setTimeBetweenBoards] = useRecoilState(timeBetweenBoardsData);
+export const timeBetweenBoardsData = atom({
+  key: "timeBetweenBoards",
+  default: null,
+});
+
 // 내 여행 계획에서 원하는 게시물로 중앙 이동
 // const [ traveMapCenter, setTraveMapCenter] = useRecoilState(traveMapCenterEvent);
 export const traveMapCenterEvent = atom({
