@@ -11,6 +11,7 @@ import {
   userName,
   userEmail,
   isSocial,
+  isAdmin,
 } from "../atoms/loginData";
 import axios from "axios";
 export default function LogoutPage() {
@@ -22,6 +23,7 @@ export default function LogoutPage() {
   const [, setUserName] = useRecoilState(userName);
   const [, setUserEmail] = useRecoilState(userEmail);
   const [, setIsSocial] = useRecoilState(isSocial);
+  const [, setAdmin] = useRecoilState(isAdmin);
 
   const userLogout = () => {
     const config = {
@@ -43,6 +45,7 @@ export default function LogoutPage() {
     setUserName("");
     setUserEmail("");
     setIsSocial(false);
+    setAdmin(false);
     navigate("/");
   };
 

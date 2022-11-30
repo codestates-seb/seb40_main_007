@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
+import { detailPageTime } from "../../../utils/timeFunc";
 
 const DetailHeader = () => {
   const { id } = useParams();
@@ -32,7 +33,7 @@ const DetailHeader = () => {
     tagsInfo[detailInfo?.tags?.priceTag],
   ];
 
-  const DateTime = new Date(detailInfo.createdAt);
+  const detailDate = detailPageTime(detailInfo.createdAt);
 
   const handleDelete = () => {
     swal({
@@ -109,7 +110,7 @@ const DetailHeader = () => {
           </span>
           <DetailStarScore props={detailInfo.star} />
           <span className="flex justify-center items-end lg:text-xs text-[10px] text-gray-500">
-            {DateTime?.toLocaleString("ko-KR")}
+            {detailDate}
           </span>
         </div>
       </div>

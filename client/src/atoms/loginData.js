@@ -44,3 +44,9 @@ export const isSocial = atom({
   default: false,
   effects_UNSTABLE: [persistAtom],
 });
+
+export const isAdmin = atom({
+  key: "admin",
+  default: false,
+  effects_UNSTABLE: [persistAtom],
+});

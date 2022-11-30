@@ -10,6 +10,7 @@ import {
   userId,
   userEmail,
   isSocial,
+  isAdmin,
 } from "../atoms/loginData";
 import axios from "axios";
 import Header from "../components/Header";
@@ -27,6 +28,7 @@ export default function Callback() {
   const [, setUserId] = useRecoilState(userId);
   const [, setUserEmail] = useRecoilState(userEmail);
   const [, setIsSocial] = useRecoilState(isSocial);
+  const [admin, setAdmin] = useRecoilState(isAdmin);
 
   useEffect(() => {
     const TOKEN = accessTokenInfo[0];
@@ -46,10 +48,16 @@ export default function Callback() {
         setUserName(response.data.name);
         setUserAvatar(response.data.avatar);
         setUserId(response.data.memberId);
+        if (response.data.memberId <= 5) {
+          setAdmin(true);
+        } else {
+          setAdmin(false);
+        }
         setUserEmail(response.data.email);
         setIsSocial(true);
       })
       .then(() => {
+        console.log(admin);
         navigate("/");
         swal("Hello!", "로그인 되었습니다");
       })

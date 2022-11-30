@@ -30,6 +30,11 @@ export default function ProfileModal() {
               <div className="mb-3">
                 <Link to="/mypage">
                   <div className="mt-5 mb-1 text-base text-[rgb(83,199,240)] text-center">
+                    관리페이지
+                  </div>
+                </Link>
+                <Link to="/mypage">
+                  <div className="mt-5 mb-1 text-base text-[rgb(83,199,240)] text-center">
                     마이페이지
                   </div>
                 </Link>

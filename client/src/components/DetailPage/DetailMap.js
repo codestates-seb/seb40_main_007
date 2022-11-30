@@ -11,14 +11,14 @@ const DetailMap = () => {
     if (window.innerWidth >= 1024) {
       setStyle({ width: "500px", height: "400px" });
     } else {
-      setStyle({ width: "90%", height: "250px" });
+      setStyle({ width: "95%", height: "250px" });
     }
   };
   useEffect(() => {
     if (window.innerWidth >= 1024) {
       setStyle({ width: "500px", height: "400px" });
     } else {
-      setStyle({ width: "90%", height: "250px" });
+      setStyle({ width: "95%", height: "250px" });
     }
     window.addEventListener("resize", windowResize);
     return () => {

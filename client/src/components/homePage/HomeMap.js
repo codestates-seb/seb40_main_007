@@ -49,11 +49,11 @@ export default function HomeMap() {
             <img
               src={`/images/기차역도장/${isMarker.train}.png`}
               alt="stamp"
-              className="lg:w-80 lg:h-80 m-auto mt-16 w-32 h-32"
+              className="lg:w-80 lg:h-80 m-auto lg:mt-16 mt-5 w-32 h-32"
             />
 
             <Link to={`/main/${isMarker.id}`}>
-              <button className="bg-gray-400 lg:mt-10 mt-5 lg:p-3 p-2 font-bold text-white rounded-xl hover:bg-[rgb(83,199,240)]">
+              <button className="lg:text-base text-sm bg-gray-400 lg:mt-10 mt-5 lg:p-3 lg:mb-0 mb-5 p-2 font-bold text-white rounded-xl hover:bg-[rgb(83,199,240)]">
                 이동하기
               </button>
             </Link>

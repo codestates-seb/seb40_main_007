@@ -10,7 +10,7 @@ const DetailImageSlider = () => {
   const detailInfo = useRecoilValue(detailData);
 
   return (
-    <div className="flex justify-center items-center w-full border">
+    <div className="max-w-full">
       <Swiper
         modules={[Navigation, Pagination]}
         navigation={true}
@@ -20,9 +20,9 @@ const DetailImageSlider = () => {
         {detailInfo?.imageUrls?.map((el) => {
           return (
             <SwiperSlide key={el}>
-              <div className="flex justify-center items-center w-full lg:mb-0 mb-1 ">
+              <div className="flex justify-center items-center max-w-full lg:mb-0 mb-1 lg:mx-0 mx-2">
                 <img
-                  className="object-cover lg:w-[500px] lg:h-[400px] w-full h-[250px] block border-2 border-[#59AEEC] rounded-2xl lg:mx-0 mx-2"
+                  className="object-cover lg:w-[500px] lg:h-[400px] lg:mx-0 mx-2 w-full h-[250px] block border-2 border-[#59AEEC] rounded-2xl"
                   src={el}
                   alt={el}
                 />
