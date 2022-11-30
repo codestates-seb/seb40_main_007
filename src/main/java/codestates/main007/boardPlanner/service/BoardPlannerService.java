@@ -59,7 +59,7 @@ public class BoardPlannerService {
 
         List<Long> boardIds = new ArrayList<>();
 
-        List<BoardPlanner> boardPlanners = boardPlannerRepository.findAllByBoardAndPlanner(board, planner);
+        List<BoardPlanner> boardPlanners = boardPlannerRepository.findAllByPlanner(planner);
 
         for (BoardPlanner boardPlanner : boardPlanners){
             boardIds.add(boardPlanner.getBoard().getBoardId());
