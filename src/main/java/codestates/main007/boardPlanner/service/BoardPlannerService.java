@@ -35,7 +35,6 @@ public class BoardPlannerService {
     private final BoardMapper boardMapper;
 
     public PlannerDto.MyPlannerWithBoards save(String accessToken, long boardId, long plannerId) {
-        List<BoardPlanner> list = new ArrayList<>();
         Board board = boardService.find(boardId);
         Planner planner = plannerService.find(plannerId);
         if (memberService.findByAccessToken(accessToken).equals(plannerService.find(plannerId).getMember())) {
@@ -47,7 +46,7 @@ public class BoardPlannerService {
                         .planner(plannerService.find(plannerId))
                         .priority((int) boardId)
                         .build();
-                list = boardPlannerRepository.findAllByBoardAndPlanner(board, planner);
+                List<BoardPlanner> list = boardPlannerRepository.findAllByBoardAndPlanner(board, planner);
                 if (list.isEmpty()) {
                     boardPlannerRepository.save(boardPlanner);
                 } else {
@@ -59,7 +58,10 @@ public class BoardPlannerService {
         }
 
         List<Long> boardIds = new ArrayList<>();
-        for (BoardPlanner boardPlanner : list){
+
+        List<BoardPlanner> boardPlanners = boardPlannerRepository.findAllByBoardAndPlanner(board, planner);
+
+        for (BoardPlanner boardPlanner : boardPlanners){
             boardIds.add(boardPlanner.getBoard().getBoardId());
         }
 
