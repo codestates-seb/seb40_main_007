@@ -12,6 +12,7 @@ import {
   userAvatar,
   userId,
   userEmail,
+  isAdmin,
 } from "../atoms/loginData";
 import { useEffect } from "react";
 
@@ -23,6 +24,7 @@ export default function LoginPage() {
   const [, setUserAvatar] = useRecoilState(userAvatar);
   const [, setUserId] = useRecoilState(userId);
   const [, setUserEmail] = useRecoilState(userEmail);
+  const [admin, setAdmin] = useRecoilState(isAdmin);
 
   const {
     register,
@@ -69,8 +71,16 @@ export default function LoginPage() {
           setUserName(response.data.name);
           setUserAvatar(response.data.avatar);
           setUserId(response.data.memberId);
+          if (response.data.memberId <= 5) {
+            setAdmin(true);
+          } else {
+            setAdmin(false);
+          }
           setUserEmail(response.data.email);
           navigate("/");
+        })
+        .then(() => {
+          console.log(admin);
         })
         .catch((error) => {
           console.log(error);
