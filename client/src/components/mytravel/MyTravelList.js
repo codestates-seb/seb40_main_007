@@ -27,6 +27,15 @@ const MyTravelList = ({ data, initData, setData }) => {
   const [deleteIndex, setDeleteIndex] = useState();
   const [swapIndex, setSwapIndex] = useState();
 
+  // 안내문구 테스트
+  const [guideText, setGuideText] = useState(true);
+  useEffect(() => {
+    setGuideText(true);
+    setTimeout(() => {
+      setGuideText(false);
+    }, 7000);
+  }, [myTravelId]);
+
   // 뒤로가기,앞으로가기 - 스택관련 로직
   const [stackBack, setStackBack] = useState([]);
   const [stackFront, setStackFront] = useState([]);
@@ -243,7 +252,12 @@ const MyTravelList = ({ data, initData, setData }) => {
           <div className="top-0 w-1/5 hidden xl:flex lg:flex-col lg:justify-start lg:items-center">
             <div className="text-[rgba(83,199,240)] flex flex-col items-center text-center">
               <MdTimer size={32} />
-              <p className="text-sm pt-2">추가하신 여행지가 너무 적습니다.</p>
+              {/* 안내문구 테스트 */}
+              {guideText ? (
+                <p className="text-sm pt-2">여행 시간 계산 중 ...</p>
+              ) : (
+                <p className="text-sm pt-2">추가하신 여행지가 너무 적습니다.</p>
+              )}
             </div>
           </div>
         )}
