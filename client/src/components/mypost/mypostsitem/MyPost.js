@@ -78,7 +78,7 @@ function MyPost({ data, tabValue }) {
                 color={"rgb(83, 199, 240)"}
               />
             ) : null}
-            <p className="w-full text-xs text-gray-500 flex justify-end items-center mr-1">
+            <p className="w-full text-xs font-semibold text-gray-500 flex justify-end items-center mr-1">
               {timeFunc(data?.timeFromStation)}
             </p>
           </div>

@@ -4,11 +4,10 @@ import { useRecoilState } from "recoil";
 import swal from "sweetalert";
 import { accessToken } from "../../atoms/loginData";
 
-const ReportPost = ({ index, data }) => {
+const ReportPost = ({ index, data, setDeleteIndex, setDeleteUserId }) => {
   const [TOKEN] = useRecoilState(accessToken);
-
   const postData = [
-    index,
+    index + 1,
     data.writer,
     data.title,
     data.totalReport,
@@ -27,13 +26,13 @@ const ReportPost = ({ index, data }) => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
+        setDeleteIndex(index);
         const config = {
           headers: { Authorization: TOKEN },
         };
         axios
           .delete(`${process.env.REACT_APP_URL}/boards/${data.boardId}`, config)
-          .then((response) => {
-            console.log(response);
+          .then(() => {
             swal("삭제되었습니다");
           })
           .catch(() => {
@@ -53,6 +52,7 @@ const ReportPost = ({ index, data }) => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
+        setDeleteUserId(data.writerId);
         const config = {
           headers: { Authorization: TOKEN },
         };
@@ -88,18 +88,21 @@ const ReportPost = ({ index, data }) => {
           ))
         : null}
       <div className="basis-2/12 flex justify-around text-white">
+        {/* 해당 게시글 페이지 */}
         <Link
           to={`/detail/${data.boardId}`}
           className="w-2/5 rounded-sm bg-[rgb(83,199,240)] text-center"
         >
           게시글 방문
         </Link>
+        {/* 삭제 */}
         <button
           className="w-1/5 rounded-sm bg-red-400"
-          onClick={handlePostDelete}
+          onClick={() => handlePostDelete(index)}
         >
           삭제
         </button>
+        {/* 회원 강제 탈퇴 */}
         <button
           className="w-1/5 rounded-sm bg-gray-500"
           onClick={handleDropMember}

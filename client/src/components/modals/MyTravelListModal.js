@@ -16,10 +16,10 @@ const ListModal = ({ setOnListModal }) => {
   const [TOKEN] = useRecoilState(accessToken);
 
   const [myTravelList, setMyTravelList] = useRecoilState(myTravelListData);
-  const [, setMyTravelId] = useRecoilState(myTravelIdSelect);
+  const [myTravelId, setMyTravelId] = useRecoilState(myTravelIdSelect);
   const [, setMyTravelName] = useRecoilState(myTravelNameSelect);
+  console.log(myTravelList);
 
-  console.log("내여행계획 리스트", myTravelList);
   const deleteMyTravel = (plannerId) => {
     const deleteURL = `${process.env.REACT_APP_URL}/planners/${plannerId}`;
     // const getURL = `${process.env.REACT_APP_URL}/planners`;
@@ -40,6 +40,10 @@ const ListModal = ({ setOnListModal }) => {
             console.log(response);
             setMyTravelList(response.data.items);
             swal("삭제되었습니다");
+            plannerId === myTravelId
+              ? (setMyTravelId(myTravelList[0].plannerId),
+                setMyTravelName(myTravelList[0].plannerName))
+              : null;
           })
           .catch(() => {
             swal("게시글 삭제 실패");
