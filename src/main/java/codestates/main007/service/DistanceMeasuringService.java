@@ -52,7 +52,17 @@ public class DistanceMeasuringService {
         }
 
         int startIdx = response.getBody().indexOf("totalTime");
+        String result = "";
+        for (int i = 0; i < 10; i++) {
+            if (str.charAt(startIdx + i)==','){
+                break;
+            }
+            result += str.charAt(startIdx + i);
+        }
+        System.out.println(result);
+
         String subStr = str.substring(startIdx+11,startIdx+16);
+        System.out.println(subStr);
         subStr = subStr.replace(",","").replace(" ","");
         int time = Integer.parseInt(subStr);
 
