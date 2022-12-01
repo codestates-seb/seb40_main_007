@@ -21,7 +21,6 @@ const Comment = ({ props, createdAt }) => {
   const dateTime = detailTime?.toLocaleString("ko-KR");
 
   const commentInfo = props;
-  console.log("commentInfo", commentInfo);
   const handleTextChange = (e) => {
     setCommentText(e.target.value);
     setChar(e.target.value.length);
