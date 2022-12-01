@@ -38,7 +38,7 @@ public class EmailService {
                         "<p><strong>"+password+"</strong></p>\n" +
                         "<p>반드시 비밀번호를 변경해주세요!</p>\n" +
                         "<br>\n" +
-                        "<p style ='font-size:10'>홈페이지로 이동 : <a href='http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080'>역이요 홈페이지로 이동</a></p>"
+                        "<p style ='font-size:10'>홈페이지로 이동 : <a href='http://yeogiyo.site'>역이요 홈페이지로 이동</a></p>"
                 ,"utf-8","html");
         mailSender.send(message);
     }

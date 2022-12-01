@@ -6,8 +6,6 @@ import codestates.main007.board.service.BoardService;
 import codestates.main007.boardMember.entity.BoardMember;
 import codestates.main007.boardMember.repository.BoardMemberRepository;
 import codestates.main007.dto.AdminDto;
-import codestates.main007.dto.WeekBoardDto;
-import codestates.main007.dto.WeekDto;
 import codestates.main007.member.entity.Member;
 import codestates.main007.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
@@ -46,10 +45,11 @@ public class AdminService {
             if (compareResultDay == 0) {
                 todayBoard++;
             }
-            LocalDateTime monthAgo = LocalDateTime.now().minusMonths(1).truncatedTo(ChronoUnit.DAYS);
 
-            int compareResultMonth = monthAgo.compareTo(writeDay);
-            if (compareResultMonth == -1) {
+            LocalDateTime writeMon = board.getCreatedAt();
+            LocalDateTime monthAgo = LocalDateTime.now().minusMonths(1);
+
+            if (writeMon.isAfter(monthAgo)) {
                 monthBoard++;
             }
 
