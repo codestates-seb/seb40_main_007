@@ -113,7 +113,7 @@ export default function ImageUpload() {
                 multiple
                 type="file"
                 id="file"
-                accept="image/* image/heic image/heif"
+                accept="image/png image/jpg image/jpeg image/heic image/heif"
                 onChange={(e) => handleFiles(e)}
                 className="hidden"
               />
@@ -157,7 +157,7 @@ export default function ImageUpload() {
                 multiple
                 type="file"
                 id="file"
-                accept="image/* image/heic image/heif"
+                accept="image/png image/jpg image/jpeg image/heic image/heif"
                 onChange={(e) => handleFiles(e)}
                 className="hidden"
               />
@@ -198,7 +198,7 @@ export default function ImageUpload() {
                 multiple
                 type="file"
                 id="file"
-                accept="image/* image/heic image/heif"
+                accept="image/png image/jpg image/jpeg image/heic image/heif"
                 onChange={(e) => handleFiles(e)}
                 className="hidden"
               />
@@ -239,7 +239,7 @@ export default function ImageUpload() {
                 multiple
                 type="file"
                 id="file"
-                accept="image/* image/heic image/heif"
+                accept="image/png image/jpg image/jpeg image/heic image/heif"
                 onChange={(e) => handleFiles(e)}
                 className="hidden"
               />
