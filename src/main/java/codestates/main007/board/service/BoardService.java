@@ -233,14 +233,10 @@ public class BoardService {
 
     public List<Board> findByAddress(String address, long stationId, long boardId, long categoryId) {
         List<Board> boards = boardRepository.findByAddressAndStationIdAndCategoryId(address, stationId, categoryId);
-        for (int i = 0; i < boards.size(); i++) {
-            Board board = boards.get(i);
 
-            if (board.getBoardId() == boardId) {
-                boards.remove(i);
-                break;
-            }
-        }
+        Board board = find(boardId);
+        boards.remove(board);
+
         return boards;
     }
 
@@ -252,7 +248,7 @@ public class BoardService {
             Board board = boards.get(i);
             if (board.getLongitude() < thisBoard.getLongitude() - 0.0005 || board.getLongitude() > thisBoard.getLongitude() + 0.0005) {
                 boards.remove(i);
-            } else if (board.getLongitude() < thisBoard.getLatitude() - 0.0005 || board.getLongitude() > thisBoard.getLatitude() + 0.0005) {
+            } else if (board.getLatitude() < thisBoard.getLatitude() - 0.0005 || board.getLatitude() > thisBoard.getLatitude() + 0.0005) {
                 boards.remove(i);
             }
         }
