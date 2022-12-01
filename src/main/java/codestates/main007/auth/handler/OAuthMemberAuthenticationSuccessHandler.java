@@ -67,8 +67,6 @@ public class OAuthMemberAuthenticationSuccessHandler extends SimpleUrlAuthentica
             avatar = String.valueOf(map.get("profile_image"));
             authorities = authorityUtils.createRoles(email);
         }
-        String accessToken = delegateAccessToken(email, authorities);
-        String refreshToken = delegateRefreshToken(email);
         // 이메일 등록 여부 체크
         long memberId = 0;
         if (memberService.countByEmail(email) == 0) {
@@ -81,6 +79,8 @@ public class OAuthMemberAuthenticationSuccessHandler extends SimpleUrlAuthentica
         } else {
             memberId = memberService.findByEmail(email).getMemberId();
         }
+        String accessToken = delegateAccessToken(email, authorities);
+        String refreshToken = delegateRefreshToken(email);
 
         memberService.saveRefreshToken(memberId, refreshToken);
 
