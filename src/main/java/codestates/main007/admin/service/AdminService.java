@@ -6,8 +6,6 @@ import codestates.main007.board.service.BoardService;
 import codestates.main007.boardMember.entity.BoardMember;
 import codestates.main007.boardMember.repository.BoardMemberRepository;
 import codestates.main007.dto.AdminDto;
-import codestates.main007.dto.WeekBoardDto;
-import codestates.main007.dto.WeekDto;
 import codestates.main007.member.entity.Member;
 import codestates.main007.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
