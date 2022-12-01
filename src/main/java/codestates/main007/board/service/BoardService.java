@@ -252,6 +252,7 @@ public class BoardService {
                 boards.remove(i);
             }
         }
+        boards.remove(thisBoard);
 
         return boards;
     }
