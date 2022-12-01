@@ -57,7 +57,7 @@ public class DistanceMeasuringService {
             if (str.charAt(startIdx + i) == ',') {
                 break;
             }
-            result += str.charAt(startIdx + i);
+            result += str.charAt(startIdx + 11 + i);
         }
         System.out.println("차르앳으로 자른 것: " + result);
 
