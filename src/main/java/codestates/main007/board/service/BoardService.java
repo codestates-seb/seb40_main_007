@@ -247,9 +247,9 @@ public class BoardService {
         for (int i = 0; i < boards.size(); i++) {
             Board board = boards.get(i);
             if (board.getLongitude() < thisBoard.getLongitude() - 0.000005 || board.getLongitude() > thisBoard.getLongitude() + 0.000005) {
-                boards.remove(i);
+                boards.remove(board);
             } else if (board.getLatitude() < thisBoard.getLatitude() - 0.000005 || board.getLatitude() > thisBoard.getLatitude() + 0.000005) {
-                boards.remove(i);
+                boards.remove(board);
             }
         }
         boards.remove(thisBoard);
