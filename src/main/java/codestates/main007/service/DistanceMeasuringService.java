@@ -18,7 +18,7 @@ public class DistanceMeasuringService {
     @Value("${TMAP_APPKEY}")
     private String apiKey; //티맵 API 앱키 설정
 
-    public int getTime(double startLat, double startLong, double endLat, double endLong){
+    public int getTime(double startLat, double startLong, double endLat, double endLong) {
         URI uri = UriComponentsBuilder
                 .fromUriString("https://apis.openapi.sk.com/")
                 .path("tmap/routes/pedestrian")
@@ -47,23 +47,23 @@ public class DistanceMeasuringService {
         ResponseEntity<String> response = restTemplate.exchange(req, String.class);
         String str = response.getBody();
 
-        if (str.equals("")||str==null){
+        if (str.equals("") || str == null) {
             throw new ResponseStatusException(ExceptionCode.CAN_NOT_MEASUERMENT.getStatus(), ExceptionCode.CAN_NOT_MEASUERMENT.getMessage(), new IllegalArgumentException());
         }
 
         int startIdx = response.getBody().indexOf("totalTime");
         String result = "";
         for (int i = 0; i < 10; i++) {
-            if (str.charAt(startIdx + i)==','){
+            if (str.charAt(startIdx + i) == ',') {
                 break;
             }
             result += str.charAt(startIdx + i);
         }
-        System.out.println(result);
+        System.out.println("차르앳으로 자른 것: " + result);
 
-        String subStr = str.substring(startIdx+11,startIdx+16);
-        System.out.println(subStr);
-        subStr = subStr.replace(",","").replace(" ","");
+        String subStr = str.substring(startIdx + 11, startIdx + 16);
+        System.out.println("서브스트링으로 자른거: " + subStr);
+        subStr = subStr.replace(",", "").replace(" ", "");
         int time = Integer.parseInt(subStr);
 
         return time;
@@ -98,17 +98,17 @@ public class DistanceMeasuringService {
         ResponseEntity<String> response = restTemplate.exchange(req, String.class);
         String str = response.getBody();
 
-        if (str.equals("")||str==null){
+        if (str.equals("") || str == null) {
             throw new ResponseStatusException(ExceptionCode.CAN_NOT_MEASUERMENT.getStatus(), ExceptionCode.CAN_NOT_MEASUERMENT.getMessage(), new IllegalArgumentException());
         }
 
         int startIdx = response.getBody().indexOf("totalTime");
-        String subStr = str.substring(startIdx+11,startIdx+16);
-        subStr = subStr.replace(",","").replace(" ","");
+        String subStr = str.substring(startIdx + 11, startIdx + 16);
+        subStr = subStr.replace(",", "").replace(" ", "");
         int time = Integer.parseInt(subStr);
 
         // 30분 초과시
-        if (time>1800){
+        if (time > 1800) {
             Thread.sleep(200);
             uri = UriComponentsBuilder
                     .fromUriString("https://apis.openapi.sk.com/")
@@ -138,13 +138,13 @@ public class DistanceMeasuringService {
             response = restTemplate.exchange(req, String.class);
             str = response.getBody();
 
-            if (str.equals("")||str==null){
+            if (str.equals("") || str == null) {
                 throw new ResponseStatusException(ExceptionCode.CAN_NOT_MEASUERMENT.getStatus(), ExceptionCode.CAN_NOT_MEASUERMENT.getMessage(), new IllegalArgumentException());
             }
 
             startIdx = response.getBody().indexOf("totalTime");
-            subStr = str.substring(startIdx+11,startIdx+16);
-            subStr = subStr.replace(",","").replace(" ","");
+            subStr = str.substring(startIdx + 11, startIdx + 16);
+            subStr = subStr.replace(",", "").replace(" ", "");
             time = Integer.parseInt(subStr);
 
             return PlannerDto.Time.builder()
