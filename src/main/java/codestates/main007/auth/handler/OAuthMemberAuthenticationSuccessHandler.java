@@ -133,7 +133,7 @@ public class OAuthMemberAuthenticationSuccessHandler extends SimpleUrlAuthentica
         return UriComponentsBuilder
                 .newInstance()
                 .scheme("http")
-                .host("pre-032-bucket.s3-website.ap-northeast-2.amazonaws.com")
+                .host("yeogiyo.site")
                 .path("callback/receive-token.html")
                 .queryParams(queryParams)
                 .build()
