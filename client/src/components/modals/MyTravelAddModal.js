@@ -17,6 +17,12 @@ const MyTravelAddModal = ({ setShowModal }) => {
 
   const [TOKEN] = useRecoilState(accessToken);
 
+  const enterAddPlan = (e) => {
+    if (e.key === "Enter") {
+      addPlan();
+    }
+  };
+
   // 목록 추가
   const addPlan = () => {
     const URL = `${process.env.REACT_APP_URL}/planners`;
@@ -54,7 +60,7 @@ const MyTravelAddModal = ({ setShowModal }) => {
                 type="button"
                 onClick={() => setShowModal(false)}
               >
-                <AiOutlineCloseCircle size={18} />
+                <AiOutlineCloseCircle size={20} />
               </button>
             </div>
             <div className="text-center mx-5 flex flex-col items-center">
@@ -67,8 +73,10 @@ const MyTravelAddModal = ({ setShowModal }) => {
               >
                 <input
                   type={"text"}
+                  maxLength={"10"}
                   className="w-full focus:outline-none"
                   onChange={(text) => setInputText(text.target.value)}
+                  onKeyDown={enterAddPlan}
                 ></input>
               </div>
               {/* 추가필요 : 텍스트에 따른 유효성 검사 필요합니다. */}

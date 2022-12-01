@@ -4,6 +4,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { traveMapCenterEvent } from "../../../atoms/mypage/myTravelData";
 import { tagsInfoList } from "../../../atoms/tagsInfo";
 import PostStarScore from "../../MainPage/Posts/PostStarScore";
+import OneStarScore from "../../OneStarScore";
 import ViewTag from "../../tag/viewTags/ViewTag";
 const MyTravelPost = ({
   data,
@@ -110,10 +111,11 @@ const MyTravelPost = ({
                   >
                     {index + 1}
                   </button>
-                  <h2 className="w-28 text-sm mr-2 font-medium truncate">
+                  <h2 className="lg:w-[5rem]  w-24 text-sm mr-2 font-medium truncate">
                     {data?.title}
                   </h2>
                   <PostStarScore score={data?.star} size={15} />
+                  <OneStarScore score={data?.star} size={15} />
                 </div>
                 <div className="text-end">
                   {/* 삭제버튼 */}
@@ -126,7 +128,7 @@ const MyTravelPost = ({
                 </div>
               </div>
               {/* 태그 */}
-              <div className="w-11/12 h-9">
+              <div className="lg:w-11/12 w-full h-9">
                 <ViewTag tagList={tagList} color={"blue"}></ViewTag>
               </div>
             </div>

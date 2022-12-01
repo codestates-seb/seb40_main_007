@@ -1,7 +1,7 @@
 const PostStarScore = ({ score, size }) => {
   return (
     <>
-      <div className="flex flex-row">
+      <div className="xl:flex flex-row hidden">
         {[1, 2, 3, 4, 5].map((num) => {
           return (
             <span key={num}>

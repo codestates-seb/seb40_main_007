@@ -15,6 +15,7 @@ import {
 import axios from "axios";
 import Loading from "../Loading";
 import MyTravelDot from "../mytravel/MyTravelDot";
+import { MdTimer } from "react-icons/md";
 const MyTravelList = ({ data, initData, setData }) => {
   // window.scrollTo(0,0);
   const [TOKEN] = useRecoilState(accessToken);
@@ -149,14 +150,14 @@ const MyTravelList = ({ data, initData, setData }) => {
   };
 
   return myTravel ? (
-    <div className="w-full h-64 sm:h-auto flex flex-col">
+    <div className="w-full h-64 sm:h-auto flex flex-col p-2 lg:p-0 lg:pr-14 ">
       <MyTravelHeader />
-      <div className="w-4/6 flex justify-between items-center mb-0.5">
+      <div className="lg:w-4/6 w-full flex justify-between items-center mb-0.5">
         <p className="text-xs text-[#8A8A8A]">
           방문을 원하는 순서대로 옮겨보세요!
         </p>
       </div>
-      <div className="w-4/6 h-6 pl-1 mt-2  text-[rgb(83,199,240)] flex flex-row justify-between items-center">
+      <div className="lg:w-4/6 w-full h-6 pl-1 mt-2  text-[rgb(83,199,240)] flex flex-row justify-between items-center">
         <div className="flex flex-row">
           <button
             className={`rounded-full hover:bg-gray-200 active:bg-gray-300 ${
@@ -176,22 +177,16 @@ const MyTravelList = ({ data, initData, setData }) => {
           >
             <BsArrowRightShort size={24} />
           </button>
-          {/* <button
-            className="ml-1 rounded-full w-6 hover:bg-gray-200 active:bg-gray-300 flex justify-center items-center"
-            onClick={handelStackInit}
-          >
-            <VscDebugRestart size={16} />
-          </button> */}
         </div>
         {data ? (
-          <p className=" text-base font-semibold text-[rgb(83,199,240)]">
+          <p className="lg:-mr-6 mr-1 text-base font-semibold text-[rgb(83,199,240)]">
             {data?.length} /10
           </p>
         ) : null}
       </div>
       <div className="relative flex">
-        <div className="w-9/12 ">
-          <div className="h-[480px] pt-2 pl-2 pr-3 overflow-y-scroll rounded-md border-t-2 border-[#59AEEC]">
+        <div className="lg:w-9/12 w-full">
+          <div className="sm:h-[480px] h-[340px] pt-2 pl-4 pr-1 overflow-y-scroll rounded-md border-t-2 border-[#59AEEC]">
             {data && data?.length !== 0 ? (
               data?.map((item, index) => (
                 <MyTravelPost
@@ -241,11 +236,16 @@ const MyTravelList = ({ data, initData, setData }) => {
           </div>
         </div>
         {data && data?.length > 1 ? (
-          <div className="top-0 w-1/5 flex flex-col justify-center items-center">
+          <div className="top-0 w-1/5 hidden xl:flex lg:flex-col lg:justify-center lg:items-center">
             <MyTravelDot />
           </div>
         ) : (
-          <></>
+          <div className="top-0 w-1/5 hidden xl:flex lg:flex-col lg:justify-start lg:items-center">
+            <div className="text-[rgba(83,199,240)] flex flex-col items-center text-center">
+              <MdTimer size={32} />
+              <p className="text-sm pt-2">추가하신 여행지가 너무 적습니다.</p>
+            </div>
+          </div>
         )}
       </div>
     </div>
