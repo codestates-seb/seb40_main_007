@@ -53,16 +53,16 @@ public class DistanceMeasuringService {
 
         int startIdx = response.getBody().indexOf("totalTime");
         String result = "";
-        System.out.println("#" + str);
-        for (int i = 0; i < 10; i++) {
-            if (str.charAt(startIdx + i) == ',') {
+
+        for (int i = 0; i < 15; i++) {
+            if (str.charAt(startIdx + 12 + i) == ',') {
                 break;
             }
-            result += str.charAt(startIdx + 10 + i);
+            result += str.charAt(startIdx + 12 + i);
         }
         System.out.println("차르앳으로 자른 것: " + result);
 
-        String subStr = str.substring(startIdx + 11, startIdx + 16);
+        String subStr = str.substring(startIdx + 12, startIdx + 16);
         System.out.println("서브스트링으로 자른거: " + subStr);
         subStr = subStr.replace(",", "").replace(" ", "");
         int time = Integer.parseInt(subStr);
