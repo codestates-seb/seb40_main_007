@@ -59,6 +59,7 @@ export default function ImageUpload() {
     }
 
     setImage([...image, currentImage]); //현재 이미지 배열에 저장
+    c;
     let reader = new FileReader(); //현재 이미지 읽기 모드
     if (currentImage) {
       reader.readAsDataURL(currentImage);

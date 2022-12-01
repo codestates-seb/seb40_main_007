@@ -402,7 +402,9 @@ export default function PostMap() {
                   className="border-2 p-2 border-[rgb(83,199,240)] w-full rounded-md mb-1"
                   onClick={() => {
                     setMarkers([marker]);
+                    oneMarkerSelect(marker);
                     setPositionState(marker.position); //위도경도
+                    setCenter(marker.position);
                     setAdressState(marker.adress); // 주소값
                     setTitleState(marker.place_name);
                   }}
