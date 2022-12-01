@@ -34,7 +34,7 @@ const MyPostMap = ({ station }) => {
     return -1;
   };
   return mapCenter.length !== 0 ? (
-    <div className="w-full h-60 sm:h-[600px] flex justify-center">
+    <div className="w-full h-60 sm:h-[600px] sm:px-0 px-2 flex justify-center ">
       <Map // 지도를 표시할 Container
         className="w-full border-2 border-[#59AEEC] rounded-tl-none rounded-xl"
         center={{ lat: mapCenter[0]?.lat, lng: mapCenter[0]?.lng }}
@@ -50,7 +50,7 @@ const MyPostMap = ({ station }) => {
           ])
         }
       >
-        <div className="absolute w-1/2  z-10">
+        <div className="absolute sm:w-1/2 w-11/12 max-sm:right-[1.7rem] sm:ml-0 ml-2 z-10">
           {/* trainStation 정보 id 가 1부터 시작하므로 -1 */}
           <span className="text-[rgb(83,199,240)] font-bold absolute w-fit left-1 top-0.5 z-10 bg-[rgba(256,256,256,0.7)] px-5 py-1 border-l-2 border-[rgb(83,199,240)]">
             {station === 0

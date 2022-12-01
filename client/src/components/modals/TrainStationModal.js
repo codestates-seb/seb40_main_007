@@ -23,7 +23,7 @@ export default function TrainStationModal({ setStation }) {
       </button>
       {showModal ? (
         <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+          <div className="px-2 sm:px-0 justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto max-w-sm">
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 <div className="text-right">
@@ -37,7 +37,7 @@ export default function TrainStationModal({ setStation }) {
                 </div>
                 <div className="px-3 pb-3 relative grid grid-cols-5 gap-4">
                   <button
-                    className={`${buttonHover} ${buttonActive} text-sm`}
+                    className={`${buttonHover} ${buttonActive} text-xs sm:text-sm`}
                     onClick={() => {
                       setStation(0);
                       setShowModal(false);

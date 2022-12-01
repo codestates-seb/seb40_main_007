@@ -91,7 +91,7 @@ function PostList({ stationId, isPostOk }) {
               postList?.length <= 6 ? "sm:mr-[14px]" : ""
             }`} // scrollbar-hide => 스크롤 숨김옵션
             // dataLength : 현재데이터의 길이
-            dataLength={postList.length}
+            dataLength={postList?.length}
             next={fetchMoreData}
             // 저장된 데이터의 총 길이를 알면 그걸로 false 조건 줄 수 있음.
             hasMore={
@@ -105,7 +105,7 @@ function PostList({ stationId, isPostOk }) {
             }
           >
             <div className="pt-3 grid grid-cols-2 place-items-center xl:grid-cols-3 sm:gap-x-4 gap-x-2 p-2 ">
-              {postList.map((post) => (
+              {postList?.map((post) => (
                 <Post key={post.boardId} data={post} />
               ))}
             </div>

@@ -69,11 +69,12 @@ const MyPostPage = () => {
         <div className="w-full max-w-2xl flex justify-center relative">
           <MyPostTab setTabValue={setTabValue} tabValue={tabValue} />
           <div
-            className={
-              tabValue === "작성한게시글"
-                ? "absolute top-1 right-[-175px]"
-                : "absolute right-0 top-[-3px]"
-            }
+            // className={
+            //   tabValue === "작성한게시글"
+            //     ? "absolute sm:top-[-3px] sm:right-[-175px] right-0.5 top-0"
+            //     : "absolute right-0 top-[-3px] "
+            // }
+            className="absolute right-0 top-[-3px] "
           >
             <TrainStationModal setStation={setStation} />
           </div>
