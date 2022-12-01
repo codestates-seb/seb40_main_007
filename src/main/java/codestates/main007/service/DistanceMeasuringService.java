@@ -60,12 +60,11 @@ public class DistanceMeasuringService {
             }
             result += str.charAt(startIdx + 12 + i);
         }
-        System.out.println("차르앳으로 자른 것: " + result);
 
-        String subStr = str.substring(startIdx + 12, startIdx + 16);
-        System.out.println("서브스트링으로 자른거: " + subStr);
-        subStr = subStr.replace(",", "").replace(" ", "");
-        int time = Integer.parseInt(subStr);
+//        String subStr = str.substring(startIdx + 12, startIdx + 16);
+//        subStr = subStr.replace(",", "").replace(" ", "");
+//        int time = Integer.parseInt(subStr);
+        int time = Integer.parseInt(result);
 
         return time;
     }
