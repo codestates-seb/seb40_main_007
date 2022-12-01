@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
@@ -48,8 +49,7 @@ public class AdminService {
             LocalDateTime writeMon = board.getCreatedAt();
             LocalDateTime monthAgo = LocalDateTime.now().minusMonths(1);
 
-            int compareResultMonth = monthAgo.compareTo(writeMon);
-            if (compareResultMonth == -1) {
+            if (writeMon.isAfter(monthAgo)) {
                 monthBoard++;
             }
 
