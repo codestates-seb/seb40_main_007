@@ -246,9 +246,9 @@ public class BoardService {
         List<Board> boards = boardRepository.findByStationIdAndCategoryId(stationId, categoryId);
         for (int i = 0; i < boards.size(); i++) {
             Board board = boards.get(i);
-            if (board.getLongitude() < thisBoard.getLongitude() - 0.0005 || board.getLongitude() > thisBoard.getLongitude() + 0.0005) {
+            if (board.getLongitude() < thisBoard.getLongitude() - 0.000005 || board.getLongitude() > thisBoard.getLongitude() + 0.000005) {
                 boards.remove(i);
-            } else if (board.getLatitude() < thisBoard.getLatitude() - 0.0005 || board.getLatitude() > thisBoard.getLatitude() + 0.0005) {
+            } else if (board.getLatitude() < thisBoard.getLatitude() - 0.000005 || board.getLatitude() > thisBoard.getLatitude() + 0.000005) {
                 boards.remove(i);
             }
         }
