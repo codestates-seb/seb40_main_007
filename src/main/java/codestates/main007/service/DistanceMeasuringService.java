@@ -47,7 +47,7 @@ public class DistanceMeasuringService {
         ResponseEntity<String> response = restTemplate.exchange(req, String.class);
         String str = response.getBody();
 
-        if (str.equals("") || str == null) {
+        if (str == null) {
             throw new ResponseStatusException(ExceptionCode.CAN_NOT_MEASUERMENT.getStatus(), ExceptionCode.CAN_NOT_MEASUERMENT.getMessage(), new IllegalArgumentException());
         }
 
@@ -95,7 +95,7 @@ public class DistanceMeasuringService {
         ResponseEntity<String> response = restTemplate.exchange(req, String.class);
         String str = response.getBody();
 
-        if (str.equals("") || str == null) {
+        if (str == null) {
             throw new ResponseStatusException(ExceptionCode.CAN_NOT_MEASUERMENT.getStatus(), ExceptionCode.CAN_NOT_MEASUERMENT.getMessage(), new IllegalArgumentException());
         }
 
@@ -143,7 +143,7 @@ public class DistanceMeasuringService {
             response = restTemplate.exchange(req, String.class);
             str = response.getBody();
 
-            if (str.equals("") || str == null) {
+            if (str == null) {
                 throw new ResponseStatusException(ExceptionCode.CAN_NOT_MEASUERMENT.getStatus(), ExceptionCode.CAN_NOT_MEASUERMENT.getMessage(), new IllegalArgumentException());
             }
 
