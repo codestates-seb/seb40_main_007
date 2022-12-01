@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { TiPencil } from "react-icons/ti";
 import { Map, CustomOverlayMap, Polyline } from "react-kakao-maps-sdk";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -13,7 +13,6 @@ import {
 // import TravelMapItem from "./MapItem/TravelMapItem";
 
 const MyTravelMap = ({ data }) => {
-  const focusRef = useRef();
   const [TOKEN] = useRecoilState(accessToken);
   const [, setMyTravelName] = useRecoilState(myTravelNameSelect);
 
@@ -78,9 +77,9 @@ const MyTravelMap = ({ data }) => {
           <>
             <input
               type="text"
-              ref={focusRef}
               className="min-w-xs h-8  outline-none border-b-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] text-lg font-semibold z-20"
               defaultValue={myTravelName}
+              maxLength="10"
               onChange={(e) => setInputValue(e.target.value)}
             ></input>
             <button

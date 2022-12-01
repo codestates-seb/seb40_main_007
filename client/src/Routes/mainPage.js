@@ -125,9 +125,9 @@ const MainPage = () => {
       <Header />
       <div className="flex flex-col justify-center items-center lg:w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2">
-          <div>
+          <div className="lg:px-0 px-2">
             <MainHeader />
-            <div className="mt-14">
+            <div className="lg:mt-14 mt-2">
               <MainMap stationId={id} />
             </div>
           </div>
