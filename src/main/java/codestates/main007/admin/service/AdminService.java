@@ -46,9 +46,11 @@ public class AdminService {
             if (compareResultDay == 0) {
                 todayBoard++;
             }
-            LocalDateTime monthAgo = LocalDateTime.now().minusMonths(1).truncatedTo(ChronoUnit.DAYS);
 
-            int compareResultMonth = monthAgo.compareTo(writeDay);
+            LocalDateTime writeMon = board.getCreatedAt();
+            LocalDateTime monthAgo = LocalDateTime.now().minusMonths(1);
+
+            int compareResultMonth = monthAgo.compareTo(writeMon);
             if (compareResultMonth == -1) {
                 monthBoard++;
             }
