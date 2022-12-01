@@ -53,11 +53,12 @@ public class DistanceMeasuringService {
 
         int startIdx = response.getBody().indexOf("totalTime");
         String result = "";
+        System.out.println("#" + str);
         for (int i = 0; i < 10; i++) {
             if (str.charAt(startIdx + i) == ',') {
                 break;
             }
-            result += str.charAt(startIdx + 11 + i);
+            result += str.charAt(startIdx + 10 + i);
         }
         System.out.println("차르앳으로 자른 것: " + result);
 
