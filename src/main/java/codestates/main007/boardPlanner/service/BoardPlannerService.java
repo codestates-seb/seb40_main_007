@@ -68,7 +68,7 @@ public class BoardPlannerService {
         return PlannerDto.MyPlannerWithBoards.builder()
                 .plannerId(plannerId)
                 .plannerName(planner.getPlannerName())
-                .boardId(boardIds)
+                .boardIds(boardIds)
                 .build();
     }
 
