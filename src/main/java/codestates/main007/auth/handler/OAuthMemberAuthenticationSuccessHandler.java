@@ -133,9 +133,9 @@ public class OAuthMemberAuthenticationSuccessHandler extends SimpleUrlAuthentica
         return UriComponentsBuilder
                 .newInstance()
                 .scheme("http")
-                .host("localhost")
+                .host("http://pre-032-bucket.s3-website.ap-northeast-2.amazonaws.com")
                 //todo : 테스트시 3000 배포시 ec2주소
-                .port(3000)
+//                .port(3000)
                 .path("callback/receive-token.html")
                 .queryParams(queryParams)
                 .build()
