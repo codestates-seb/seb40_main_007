@@ -138,7 +138,7 @@ const MainPage = () => {
           </div>
         </div>
       </div>
-      <WriteModal />
+      {TOKEN === "" ? null : <WriteModal />}
     </>
   );
 };

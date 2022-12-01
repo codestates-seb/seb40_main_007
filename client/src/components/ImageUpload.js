@@ -28,6 +28,7 @@ export default function ImageUpload() {
     }
     // heic to jpg
     let checkType = currentImage.name.split(".");
+    console.log(checkType);
     if (
       checkType[1] === "hiec" ||
       checkType[1] === "hief" ||
@@ -45,9 +46,20 @@ export default function ImageUpload() {
         setPreviewImage([...previewImage, url]);
       });
       return;
+    } else if (
+      checkType[1] !== "png" &&
+      checkType[1] !== "PNG" &&
+      checkType[1] !== "jpg" &&
+      checkType[1] !== "JPG" &&
+      checkType[1] !== "jpeg" &&
+      checkType[1] !== "JPEG"
+    ) {
+      swal("Can't Upload!", "지원하지 않는 파일 형식입니다", "warning");
+      return;
     }
 
     setImage([...image, currentImage]); //현재 이미지 배열에 저장
+    c;
     let reader = new FileReader(); //현재 이미지 읽기 모드
     if (currentImage) {
       reader.readAsDataURL(currentImage);
@@ -102,7 +114,7 @@ export default function ImageUpload() {
                 multiple
                 type="file"
                 id="file"
-                accept="image/* image/heic image/heif"
+                accept="image/png image/jpg image/jpeg image/heic image/heif"
                 onChange={(e) => handleFiles(e)}
                 className="hidden"
               />
@@ -146,7 +158,7 @@ export default function ImageUpload() {
                 multiple
                 type="file"
                 id="file"
-                accept="image/* image/heic image/heif"
+                accept="image/png image/jpg image/jpeg image/heic image/heif"
                 onChange={(e) => handleFiles(e)}
                 className="hidden"
               />
@@ -187,7 +199,7 @@ export default function ImageUpload() {
                 multiple
                 type="file"
                 id="file"
-                accept="image/* image/heic image/heif"
+                accept="image/png image/jpg image/jpeg image/heic image/heif"
                 onChange={(e) => handleFiles(e)}
                 className="hidden"
               />
@@ -228,7 +240,7 @@ export default function ImageUpload() {
                 multiple
                 type="file"
                 id="file"
-                accept="image/* image/heic image/heif"
+                accept="image/png image/jpg image/jpeg image/heic image/heif"
                 onChange={(e) => handleFiles(e)}
                 className="hidden"
               />

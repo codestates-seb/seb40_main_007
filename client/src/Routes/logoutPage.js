@@ -13,6 +13,7 @@ import {
   isAdmin,
 } from "../atoms/loginData";
 import axios from "axios";
+
 export default function LogoutPage() {
   const navigate = useNavigate();
   const [TOKEN, setAccessToken] = useRecoilState(accessToken);

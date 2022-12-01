@@ -27,7 +27,6 @@ export default function adminData() {
   const [TOKEN] = useRecoilState(accessToken);
 
   useEffect(() => {
-    console.log("받아왕야지..?", week, boardsWeek);
     const config = {
       headers: { Authorization: TOKEN },
     };

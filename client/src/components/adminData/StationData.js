@@ -23,7 +23,7 @@ export default function StationData({ stationCntdata }) {
       dataLabels: {
         enabled: true,
         formatter: function (val) {
-          return val + "%";
+          return val;
         },
         offsetY: -20,
         style: {
@@ -85,7 +85,7 @@ export default function StationData({ stationCntdata }) {
         labels: {
           show: false,
           formatter: function (val) {
-            return val + "%";
+            return val;
           },
         },
       },

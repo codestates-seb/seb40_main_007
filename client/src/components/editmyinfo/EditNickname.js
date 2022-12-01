@@ -49,7 +49,7 @@ const EditNickname = () => {
       </div>
       <input
         value={nickName}
-        maxLength="9"
+        maxLength="10"
         className="mt-1 p-1 w-full rounded-lg border-2 border-[rgb(83,199,240)]"
         placeholder={useName}
         onChange={handleChange}

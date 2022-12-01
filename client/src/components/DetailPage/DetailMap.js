@@ -25,7 +25,7 @@ const DetailMap = () => {
       window.removeEventListener("resize", windowResize);
     };
   }, []);
-
+  console.log("address", detailInfo?.address);
   return (
     <>
       {detailInfo.latitude !== undefined &&
@@ -44,7 +44,7 @@ const DetailMap = () => {
                 size: { width: 60, height: 70 },
               }}
             />
-            {detailInfo?.address === "" ? null : (
+            {detailInfo?.address === null ? null : (
               <div className="absolute w-fit top-0.5 lg:left-1.5 left-3 z-10 bg-[rgba(256,256,256,0.7)] lg:px-5 px-2 lg:text-base text-xs py-1 border-l-4 border-[rgb(83,199,240)]">
                 <span className="text-[rgb(83,199,240)] font-bold">
                   {detailInfo?.address}

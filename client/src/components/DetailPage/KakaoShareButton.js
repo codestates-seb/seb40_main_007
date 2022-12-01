@@ -28,7 +28,7 @@ const KakaoShareButton = () => {
           description: `#${
             trainStationInfo[detailInfo?.stationId - 1]?.train
           } #${categoryInfo[detailInfo?.categoryId]} #${detailInfo?.title}`,
-          imageUrl: "IMAGE_URL", // i.e. process.env.FETCH_URL + '/logo.png'
+          imageUrl: detailInfo?.thumbnail, // i.e. process.env.FETCH_URL + '/logo.png'
           link: {
             mobileWebUrl: window.location.href,
             webUrl: window.location.href,
