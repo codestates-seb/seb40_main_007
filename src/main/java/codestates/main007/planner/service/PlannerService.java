@@ -92,6 +92,22 @@ public class PlannerService {
         return responseDto;
     }
 
+    public List<PlannerDto.MyPlannerWithBoards> getMyPlannerWithBoards(String accessToken) {
+        Member member = memberService.findByAccessToken(accessToken);
+        List<Planner> planners = plannerRepository.findAllByMember(member);
+        List<PlannerDto.MyPlannerWithBoards> responses = new ArrayList<>();
+        for (int i = 0; i < planners.size(); i++) {
+            PlannerDto.MyPlannerWithBoards response = PlannerDto.MyPlannerWithBoards.builder()
+                    .plannerId(planners.get(i).getPlannerId())
+                    .plannerName(planners.get(i).getPlannerName())
+                    .boardIds(planners.get(i).getBoardPlanners().stream()
+                            .map(boardPlanner -> boardPlanner.getBoard().getBoardId())
+                            .collect(Collectors.toList()))
+                    .build();
+            responses.add(response);
+        }
+        return responses;
+    }
     public List<PlannerDto.MyPlannersResponse> getMyPlanners(String accessToken) {
         Member member = memberService.findByAccessToken(accessToken);
         List<Planner> planners = plannerRepository.findAllByMember(member);

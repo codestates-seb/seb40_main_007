@@ -45,7 +45,7 @@ public class PlannerDto {
     public static class MyPlannerWithBoards {
         private long plannerId;
         private String plannerName;
-        private List<Long> boardId;
+        private List<Long> boardIds;
     }
 
     @Getter

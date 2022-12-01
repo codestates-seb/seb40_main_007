@@ -44,10 +44,10 @@ public class PlannerController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public MultiResponseDto<PlannerDto.MyPlannersResponse>
+    public MultiResponseDto<PlannerDto.MyPlannerWithBoards>
     getMyPlanners(@RequestHeader(name = "Authorization") String accessToken) {
 
-        return MultiResponseDto.of(plannerService.getMyPlanners(accessToken));
+        return MultiResponseDto.of(plannerService.getMyPlannerWithBoards(accessToken));
     }
 
     @DeleteMapping("/{planner-id}")
