@@ -40,11 +40,26 @@ const queryClient = new QueryClient({
 
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { accessToken, refreshToken } from "./atoms/loginData";
+import {
+  accessToken,
+  refreshToken,
+  userAvatar,
+  userId,
+  userName,
+  userEmail,
+  isSocial,
+  isAdmin,
+} from "./atoms/loginData";
 
 function App() {
   const [TOKEN, setAccessToken] = useRecoilState(accessToken);
-  const [refresh] = useRecoilState(refreshToken);
+  const [refresh, setRefreshToken] = useRecoilState(refreshToken);
+  const [, setUserAvatar] = useRecoilState(userAvatar);
+  const [, setUserId] = useRecoilState(userId);
+  const [, setUserName] = useRecoilState(userName);
+  const [, setUserEmail] = useRecoilState(userEmail);
+  const [, setIsSocial] = useRecoilState(isSocial);
+  const [, setAdmin] = useRecoilState(isAdmin);
 
   const onSilentRefresh = () => {
     console.log("refresh", refresh);
@@ -71,7 +86,30 @@ function App() {
             "Expired!",
             "로그인이 만료되었습니다. 재 로그인이 필요합니다",
             "warning"
-          );
+          ).then(() => {
+            axios
+              .post(
+                `${process.env.REACT_APP_URL}/members/logout`,
+                {},
+                {
+                  headers: { Authorization: TOKEN },
+                }
+              )
+              .then(() => {
+                setAccessToken("");
+                setRefreshToken("");
+                setUserAvatar("");
+                setUserId("");
+                setUserName("");
+                setUserEmail("");
+                setIsSocial(false);
+                setAdmin(false);
+                location.reload();
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          });
         });
     } else {
       return;

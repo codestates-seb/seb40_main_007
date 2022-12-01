@@ -28,6 +28,7 @@ export default function ImageUpload() {
     }
     // heic to jpg
     let checkType = currentImage.name.split(".");
+    console.log(checkType);
     if (
       checkType[1] === "hiec" ||
       checkType[1] === "hief" ||
@@ -44,6 +45,16 @@ export default function ImageUpload() {
         setImage([...image, convertedBlob]);
         setPreviewImage([...previewImage, url]);
       });
+      return;
+    } else if (
+      checkType[1] !== "png" &&
+      checkType[1] !== "PNG" &&
+      checkType[1] !== "jpg" &&
+      checkType[1] !== "JPG" &&
+      checkType[1] !== "jpeg" &&
+      checkType[1] !== "JPEG"
+    ) {
+      swal("Can't Upload!", "지원하지 않는 파일 형식입니다", "warning");
       return;
     }
 

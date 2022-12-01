@@ -111,6 +111,7 @@ export default function HomeMap() {
             position={trainMarker.position}
             onClick={() => {
               setIsCenter(trainMarker.position);
+              setIsVisible(true);
             }}
             onMouseOver={() => {
               setIsVisible(true);

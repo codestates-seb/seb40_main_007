@@ -28,7 +28,8 @@ const Complain = ({ boardId }) => {
         swal("Reported", "정상적으로 신고가 접수되었습니다", "success");
       })
       .catch((error) => {
-        if (error.response.status) {
+        console.log("신고신고~", value, `${boardId}/report/${value}`);
+        if (error.response.status === 409) {
           setShowModal(false);
           swal("Can't Report", "이미 신고한 게시글 입니다", "warning");
         }
@@ -58,7 +59,7 @@ const Complain = ({ boardId }) => {
               <div className="py-1">
                 <label>
                   <input
-                    id={1}
+                    value={1}
                     type="radio"
                     name="complain"
                     defaultChecked={value}
@@ -68,7 +69,7 @@ const Complain = ({ boardId }) => {
               </div>
               <div className="py-1">
                 <label>
-                  <input id={2} type="radio" name="complain" />
+                  <input value={2} type="radio" name="complain" />
                   오해의 소지가 있는 콘텐츠
                 </label>
               </div>
