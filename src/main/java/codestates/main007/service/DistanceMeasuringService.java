@@ -61,9 +61,6 @@ public class DistanceMeasuringService {
             result += str.charAt(startIdx + 12 + i);
         }
 
-//        String subStr = str.substring(startIdx + 12, startIdx + 16);
-//        subStr = subStr.replace(",", "").replace(" ", "");
-//        int time = Integer.parseInt(subStr);
         int time = Integer.parseInt(result);
 
         return time;
@@ -103,9 +100,17 @@ public class DistanceMeasuringService {
         }
 
         int startIdx = response.getBody().indexOf("totalTime");
-        String subStr = str.substring(startIdx + 11, startIdx + 16);
-        subStr = subStr.replace(",", "").replace(" ", "");
-        int time = Integer.parseInt(subStr);
+
+        String result = "";
+
+        for (int i = 0; i < 15; i++) {
+            if (str.charAt(startIdx + 12 + i) == ',') {
+                break;
+            }
+            result += str.charAt(startIdx + 12 + i);
+        }
+
+        int time = Integer.parseInt(result);
 
         // 30분 초과시
         if (time > 1800) {
@@ -143,9 +148,16 @@ public class DistanceMeasuringService {
             }
 
             startIdx = response.getBody().indexOf("totalTime");
-            subStr = str.substring(startIdx + 11, startIdx + 16);
-            subStr = subStr.replace(",", "").replace(" ", "");
-            time = Integer.parseInt(subStr);
+            result = "";
+
+            for (int i = 0; i < 15; i++) {
+                if (str.charAt(startIdx + 12 + i) == ',') {
+                    break;
+                }
+                result += str.charAt(startIdx + 12 + i);
+            }
+
+            time = Integer.parseInt(result);
 
             return PlannerDto.Time.builder()
                     .type("car")
