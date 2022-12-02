@@ -4,6 +4,8 @@ import codestates.main007.boardPlanner.dto.BoardPlannerDto;
 import codestates.main007.boardPlanner.service.BoardPlannerService;
 import codestates.main007.dto.MultiResponseDto;
 import codestates.main007.planner.dto.PlannerDto;
+import codestates.main007.planner.repository.PlannerRepository;
+import codestates.main007.planner.service.PlannerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +17,14 @@ import java.io.IOException;
 @RequestMapping("/boardplanners")
 public class BoardPlannerController {
     private final BoardPlannerService boardPlannerService;
+    private final PlannerService plannerService;
     @PostMapping("/{board-id}/{planner-id}")
     @ResponseStatus(HttpStatus.CREATED)
     public MultiResponseDto<PlannerDto.MyPlannerWithBoards> postBoardPlanner(@RequestHeader(name = "Authorization") String accessToken,
                                                                              @PathVariable("board-id") long boardId,
                                                                              @PathVariable("planner-id") long plannerId) throws IOException {
-
-        return MultiResponseDto.of(boardPlannerService.save(accessToken, boardId, plannerId));
+        boardPlannerService.save(accessToken, boardId, plannerId);
+        return MultiResponseDto.of(plannerService.getMyPlannerWithBoards(accessToken));
     }
 
     @PatchMapping("/{planner-id}")

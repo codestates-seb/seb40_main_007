@@ -189,4 +189,8 @@ public class Board {
 
         return response;
     }
+
+    public void setBoardPlanners(List<BoardPlanner> boardPlanners){
+        this.boardPlanners = boardPlanners;
+    }
 }
