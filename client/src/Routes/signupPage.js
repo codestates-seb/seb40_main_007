@@ -31,11 +31,14 @@ export default function SignupPage() {
         }
       );
       swal("HELLO!", "회원가입 완료", "success");
-      console.log(response);
       navigate("/login");
     } catch (error) {
-      swal("SORRY!", "회원가입 실패", "warning");
-      console.log(error);
+      if (error.response.status === 409) {
+        swal("DUPLICATION!", "중복된 아이디 입니다", "warning");
+      } else {
+        swal("SORRY!", "회원가입 실패", "warning");
+      }
+
       navigate("/signup");
     }
   }
