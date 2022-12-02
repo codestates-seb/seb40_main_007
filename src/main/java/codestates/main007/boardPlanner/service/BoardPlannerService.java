@@ -50,7 +50,6 @@ public class BoardPlannerService {
                 List<BoardPlanner> list = boardPlannerRepository.findAllByBoardAndPlanner(board, planner);
                 if (list.isEmpty()) {
                     boardPlannerRepository.save(boardPlanner);
-                    boardService.save(board);
                 } else {
                     throw new ResponseStatusException(ExceptionCode.BOARDPLANNER_EXISTS.getStatus(), ExceptionCode.BOARDPLANNER_EXISTS.getMessage(), new IllegalArgumentException());
                 }

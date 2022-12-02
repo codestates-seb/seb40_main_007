@@ -89,13 +89,13 @@ public class Board {
     private Member writer;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
-    private final List<Comment> comments = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
-    private final List<BoardMember> boardMembers = new ArrayList<>();
+    private List<BoardMember> boardMembers = new ArrayList<>();
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
-    private final List<BoardPlanner> boardPlanners = new ArrayList<>();
+    private List<BoardPlanner> boardPlanners = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "board_tag")
