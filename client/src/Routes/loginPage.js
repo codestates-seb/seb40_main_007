@@ -107,7 +107,7 @@ export default function LoginPage() {
             <input
               id="email"
               type="email"
-              placeholder="test@test.com"
+              placeholder="email"
               {...register("email", {
                 required: true,
                 pattern: {
@@ -128,7 +128,7 @@ export default function LoginPage() {
             <input
               id="password"
               type="password"
-              placeholder="abcd@1234"
+              placeholder="password"
               {...register("password", {
                 required: true,
                 pattern: {

@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
 import {
   stationCount,
   highScoreBoards,
@@ -14,7 +15,7 @@ import WeekData from "../components/adminData/WeekData";
 import HighScoreData from "../components/adminData/HighScoreData";
 import LowScoreData from "../components/adminData/LowScoreData";
 import axios from "axios";
-import { accessToken } from "../atoms/loginData";
+import { accessToken, isAdmin } from "../atoms/loginData";
 import AdminTab from "../components/AdminTab";
 import AdminIssue from "../components/AdminIssue";
 
@@ -25,22 +26,27 @@ export default function adminData() {
   const [, setHighBoards] = useRecoilState(highScoreBoards);
   const [, setLowBoards] = useRecoilState(lowScoreBoards);
   const [TOKEN] = useRecoilState(accessToken);
-
+  const [admin] = useRecoilState(isAdmin);
+  const navigtion = useNavigate();
   useEffect(() => {
-    const config = {
-      headers: { Authorization: TOKEN },
-    };
-    axios
-      .get(`${process.env.REACT_APP_URL}/adminPage`, config)
-      .then((reponse) => {
-        console.log(reponse);
-        setStationCnt(reponse.data.stationCount);
-        setBoardsWeek(reponse.data.boardsOfThisWeek);
-        setThisWeek(reponse.data.thisWeek);
-        setHighBoards(reponse.data.highScoreBoards);
-        setLowBoards(reponse.data.lowScoreBoards);
-      })
-      .catch((error) => console.log(error));
+    if (!admin) {
+      navigtion("/");
+    } else {
+      const config = {
+        headers: { Authorization: TOKEN },
+      };
+      axios
+        .get(`${process.env.REACT_APP_URL}/adminPage`, config)
+        .then((reponse) => {
+          console.log(reponse);
+          setStationCnt(reponse.data.stationCount);
+          setBoardsWeek(reponse.data.boardsOfThisWeek);
+          setThisWeek(reponse.data.thisWeek);
+          setHighBoards(reponse.data.highScoreBoards);
+          setLowBoards(reponse.data.lowScoreBoards);
+        })
+        .catch((error) => console.log(error));
+    }
   }, []);
 
   return (

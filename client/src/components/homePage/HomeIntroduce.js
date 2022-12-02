@@ -94,18 +94,18 @@ export default function HomeIntroduce() {
         {/* 세번째 소개 페이지 */}
         <SwiperSlide>
           <div className="w-full lg:h-screen h-[300px] lg:mt-0 mt-5 bg-gradient-to-br from-[rgb(83,199,240)] ">
-            <div className="w-full lg:h-screen h-[300px] flex items-center justify-center font-bold m-auto relative">
+            <div className="w-fit lg:h-screen h-[300px] flex items-center justify-center font-bold m-auto -500">
               <img
                 src="/images/역이요소개/phone3.png"
                 alt="phone"
-                className="lg:w-72 w-20 absolute lg:left-52 left-4"
+                className="lg:w-[270px] w-[75px]"
               />
               <img
-                src="/images/역이요소개/phone2.png"
+                src="/images/역이요소개/phone6.png"
                 alt="phone"
-                className="lg:w-72 w-20"
+                className="lg:w-72 w-20 absoulte lg:-ml-24 -ml-5"
               />
-              <div className="text-white lg:text-6xl text-lg font-semibold lg:ml-10 ml-5">
+              <div className="text-white lg:text-6xl text-lg font-semibold lg:ml-16 ml-5">
                 <div className="">
                   대한민국
                   <span className="text-[rgb(65,152,224)] italic font-[Tenada]">
@@ -114,7 +114,7 @@ export default function HomeIntroduce() {
                 </div>
                 <div className="mt-1">
                   <span>기차여행 커뮤니티</span>
-                  <span className="w-full lg:text-7xl text-lg italic font-[Tenada] lg:ml-2 ml-1 lg:mt-1 mt-[1.5px] absolute text-[rgb(65,152,224)]">
+                  <span className="w-full lg:text-7xl text-lg italic font-[Tenada] lg:ml-2 ml-1 lg:mt-1 mt-[1.5px] text-[rgb(65,152,224)]">
                     역이요
                   </span>
                 </div>

@@ -25,7 +25,7 @@ export default function LowScoreData() {
           {lowBoards.length > 0 &&
             lowBoards?.map((el, idx) => (
               <tr key={idx}>
-                <td className="border-r lg:text-base text-xs">{idx}</td>
+                <td className="border-r lg:text-base text-xs">{idx + 1}</td>
                 <td className="border-r lg:text-base text-xs">{el?.writer}</td>
                 <td className="border-r lg:text-base text-xs">{el?.title}</td>
                 <td className="border-r lg:text-base text-xs">{el?.upScore}</td>
@@ -39,19 +39,49 @@ export default function LowScoreData() {
             ))}
           {/* 이 아래는 지워야 합니다 */}
           <tr>
-            <td className="border-r lg:text-base text-xs">index1</td>
-            <td className="border-r lg:text-base text-xs">wriddddter1</td>
-            <td className="border-r lg:text-base text-xs">title1</td>
             <td className="border-r lg:text-base text-xs">2</td>
-            <td className="border-r lg:text-base text-xs">2</td>
-            <td className="bg-red-100 text-center lg:text-base text-xs first:hover:bg-red-300">
+            <td className="border-r lg:text-base text-xs">행신 마스터</td>
+            <td className="border-r lg:text-base text-xs">우동 맛집</td>
+            <td className="border-r lg:text-base text-xs">1</td>
+            <td className="border-r lg:text-base text-xs">3</td>
+            <td className="bg-red-100 text-center lg:text-base text-xs hover:bg-red-300">
               <Link to={`/`}>보기</Link>
             </td>
           </tr>{" "}
           <tr>
-            <td className="border-r lg:text-base text-xs">index1</td>
-            <td className="border-r lg:text-base text-xs">wriddddter1</td>
-            <td className="border-r lg:text-base text-xs">title1</td>
+            <td className="border-r lg:text-base text-xs">3</td>
+            <td className="border-r lg:text-base text-xs">경주역 지킴이</td>
+            <td className="border-r lg:text-base text-xs">첨성대 보러감</td>
+            <td className="border-r lg:text-base text-xs">2</td>
+            <td className="border-r lg:text-base text-xs">3</td>
+            <td className="bg-red-100 text-center lg:text-base text-xs hover:bg-red-300">
+              <Link to={`/`}>보기</Link>
+            </td>
+          </tr>{" "}
+          <tr>
+            <td className="border-r lg:text-base text-xs">4</td>
+            <td className="border-r lg:text-base text-xs">동대구역 아들</td>
+            <td className="border-r lg:text-base text-xs">동대구역 잘알</td>
+            <td className="border-r lg:text-base text-xs">0</td>
+            <td className="border-r lg:text-base text-xs">2</td>
+            <td className="bg-red-100 text-center lg:text-base text-xs hover:bg-red-300">
+              <Link to={`/`}>보기</Link>
+            </td>
+          </tr>{" "}
+          <tr>
+            <td className="border-r lg:text-base text-xs">5</td>
+            <td className="border-r lg:text-base text-xs">후후후</td>
+            <td className="border-r lg:text-base text-xs">라멘은 여깁니다</td>
+            <td className="border-r lg:text-base text-xs">1</td>
+            <td className="border-r lg:text-base text-xs">2</td>
+            <td className="bg-red-100 text-center lg:text-base text-xs hover:bg-red-300">
+              <Link to={`/`}>보기</Link>
+            </td>
+          </tr>{" "}
+          <tr>
+            <td className="border-r lg:text-base text-xs">6</td>
+            <td className="border-r lg:text-base text-xs">식탐쟁이</td>
+            <td className="border-r lg:text-base text-xs">테크노마트맛집</td>
             <td className="border-r lg:text-base text-xs">2</td>
             <td className="border-r lg:text-base text-xs">2</td>
             <td className="bg-red-100 text-center lg:text-base text-xs hover:bg-red-300">
@@ -59,72 +89,32 @@ export default function LowScoreData() {
             </td>
           </tr>{" "}
           <tr>
-            <td className="border-r lg:text-base text-xs">index1</td>
-            <td className="border-r lg:text-base text-xs">wriddddter1</td>
-            <td className="border-r lg:text-base text-xs">title1</td>
+            <td className="border-r lg:text-base text-xs">7</td>
+            <td className="border-r lg:text-base text-xs">사슴</td>
+            <td className="border-r lg:text-base text-xs">포항역 뒤 꽃밭</td>
             <td className="border-r lg:text-base text-xs">2</td>
-            <td className="border-r lg:text-base text-xs">2</td>
+            <td className="border-r lg:text-base text-xs">1</td>
             <td className="bg-red-100 text-center lg:text-base text-xs hover:bg-red-300">
               <Link to={`/`}>보기</Link>
             </td>
           </tr>{" "}
           <tr>
-            <td className="border-r lg:text-base text-xs">index1</td>
-            <td className="border-r lg:text-base text-xs">wriddddter1</td>
-            <td className="border-r lg:text-base text-xs">title1</td>
-            <td className="border-r lg:text-base text-xs">2</td>
-            <td className="border-r lg:text-base text-xs">2</td>
+            <td className="border-r lg:text-base text-xs">8</td>
+            <td className="border-r lg:text-base text-xs">여행쟁이</td>
+            <td className="border-r lg:text-base text-xs">내일로 필수 장소</td>
+            <td className="border-r lg:text-base text-xs">1</td>
+            <td className="border-r lg:text-base text-xs">1</td>
             <td className="bg-red-100 text-center lg:text-base text-xs hover:bg-red-300">
               <Link to={`/`}>보기</Link>
             </td>
           </tr>{" "}
           <tr>
-            <td className="border-r lg:text-base text-xs">index1</td>
-            <td className="border-r lg:text-base text-xs">wriddddter1</td>
-            <td className="border-r lg:text-base text-xs">title1</td>
-            <td className="border-r lg:text-base text-xs">2</td>
-            <td className="border-r lg:text-base text-xs">2</td>
-            <td className="bg-red-100 text-center lg:text-base text-xs">
-              <Link to={`/`}>보기</Link>
-            </td>
-          </tr>{" "}
-          <tr>
-            <td className="border-r lg:text-base text-xs">index1</td>
-            <td className="border-r lg:text-base text-xs">wriddddter1</td>
-            <td className="border-r lg:text-base text-xs">title1</td>
-            <td className="border-r lg:text-base text-xs">2</td>
-            <td className="border-r lg:text-base text-xs">2</td>
-            <td className="bg-red-100 text-center lg:text-base text-xs">
-              <Link to={`/`}>보기</Link>
-            </td>
-          </tr>{" "}
-          <tr>
-            <td className="border-r lg:text-base text-xs">index1</td>
-            <td className="border-r lg:text-base text-xs">wriddddter1</td>
-            <td className="border-r lg:text-base text-xs">title1</td>
-            <td className="border-r lg:text-base text-xs">2</td>
-            <td className="border-r lg:text-base text-xs">2</td>
-            <td className="bg-red-100 text-center lg:text-base text-xs">
-              <Link to={`/`}>보기</Link>
-            </td>
-          </tr>{" "}
-          <tr>
-            <td className="border-r lg:text-base text-xs">index1</td>
-            <td className="border-r lg:text-base text-xs">wriddddter1</td>
-            <td className="border-r lg:text-base text-xs">title1</td>
-            <td className="border-r lg:text-base text-xs">2</td>
-            <td className="border-r lg:text-base text-xs">2</td>
-            <td className="bg-red-100 text-center lg:text-base text-xs">
-              <Link to={`/`}>보기</Link>
-            </td>
-          </tr>{" "}
-          <tr>
-            <td className="border-r lg:text-base text-xs">index1</td>
-            <td className="border-r lg:text-base text-xs">wriddddter1</td>
-            <td className="border-r lg:text-base text-xs">title1</td>
-            <td className="border-r lg:text-base text-xs">2</td>
-            <td className="border-r lg:text-base text-xs">2</td>
-            <td className="bg-red-100 text-center lg:text-base text-xs">
+            <td className="border-r lg:text-base text-xs">9</td>
+            <td className="border-r lg:text-base text-xs">역마살</td>
+            <td className="border-r lg:text-base text-xs">대전역 성심당</td>
+            <td className="border-r lg:text-base text-xs">1</td>
+            <td className="border-r lg:text-base text-xs">1</td>
+            <td className="bg-red-100 text-center lg:text-base text-xs hover:bg-red-300">
               <Link to={`/`}>보기</Link>
             </td>
           </tr>{" "}

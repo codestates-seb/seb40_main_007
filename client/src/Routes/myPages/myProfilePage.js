@@ -15,6 +15,7 @@ import {
 } from "../../atoms/loginData";
 import { useRecoilValue } from "recoil";
 import { RiKakaoTalkFill, RiKakaoTalkLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const MyProfilePage = () => {
   const name = useRecoilValue(userName);
@@ -25,21 +26,25 @@ const MyProfilePage = () => {
   const [score, setScore] = useState("");
   const [visit, setVisit] = useState([]);
   const TOKEN = useRecoilValue(accessToken);
+  const navigtion = useNavigate();
   useEffect(() => {
-    const config = {
-      headers: { Authorization: TOKEN },
-    };
-    axios
-      .get(`${process.env.REACT_APP_URL}/members/info`, config)
-      .then((response) => {
-        setTotalBoard(response.data.totalBoard);
-        setTotalComment(response.data.totalComment);
-        setScore(response.data.score);
-        setVisit(response.data.visitedStations);
-      })
-      .catch((error) => {
-        if (error.response.status === 401) console.log("401!!!");
-      });
+    if (TOKEN === "") navigtion("/");
+    else {
+      const config = {
+        headers: { Authorization: TOKEN },
+      };
+      axios
+        .get(`${process.env.REACT_APP_URL}/members/info`, config)
+        .then((response) => {
+          setTotalBoard(response.data.totalBoard);
+          setTotalComment(response.data.totalComment);
+          setScore(response.data.score);
+          setVisit(response.data.visitedStations);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) console.log("401!!!");
+        });
+    }
   }, []);
 
   return (
@@ -66,13 +71,11 @@ const MyProfilePage = () => {
             </p>
             <div className="mb-3 lg:text-base text-xs text-gray-400">
               <RiKakaoTalkFill className="inline mr-1 lg:w-6 lg:h-6 w-4 h-4 ml-2 text-[rgb(83,199,240)]" />
-              <a href=" https://github.com/codestates-seb/seb40_main_007">
-                yeogiyo kakao Channel
-              </a>
+              <a href="https://pf.kakao.com/_gxkxmfxj">yeogiyo kakao Channel</a>
             </div>
             <div className="lg:text-base text-xs text-gray-400">
               <RiKakaoTalkLine className="inline mr-1 lg:w-6 lg:h-6 w-4 h-4 ml-2 text-[rgb(83,199,240)]" />
-              <a href="https://topaz-land-b32.notion.site/3ff18439ae114b828c2c5ff482f18506">
+              <a href="http://pf.kakao.com/_gxkxmfxj/chat">
                 yeogiyo 오류/및 문의사항
               </a>
             </div>

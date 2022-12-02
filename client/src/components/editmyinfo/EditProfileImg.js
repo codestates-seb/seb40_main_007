@@ -17,23 +17,30 @@ const EditProfileImg = () => {
   const FILE_SIZE_MAX_LIMIT = 8 * 1024 * 1024;
 
   const upload = () => {
-    // 이미지 업로드 함수
-    const config = {
-      headers: { Authorization: TOKEN, "Content-Type": "multipart/form-data" },
-    };
-    axios
-      .patch(`${process.env.REACT_APP_URL}/members/avatar`, imageFile, config)
-      .then(function (response) {
-        console.log(response);
-      })
-      .then(() => {
-        setAvatar(imagePreview);
-        swal("프로필 이미지가 변경되었습니다");
-        navigate("/mypage");
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    if (imageFile === "") {
+      swal("Select Image!", "수정을 원하는 사진을 선택해주세요");
+      return;
+    } else {
+      const config = {
+        headers: {
+          Authorization: TOKEN,
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      axios
+        .patch(`${process.env.REACT_APP_URL}/members/avatar`, imageFile, config)
+        .then(function (response) {
+          console.log(response);
+        })
+        .then(() => {
+          setAvatar(imagePreview);
+          swal("프로필 이미지가 변경되었습니다");
+          navigate("/mypage");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   };
 
   const insertImg = (e) => {
@@ -106,8 +113,8 @@ const EditProfileImg = () => {
                 <form encType="multipart/form-data">
                   <label htmlFor="file" className="z-10">
                     <TiPencil
-                      className="border-[rgb(83,199,240)] rounded-full border-[2px] p-[1px] m-[3px] bg-white text-[rgb(83,199,240)]"
-                      size={22}
+                      className="cursor-pointer border-[rgb(83,199,240)] rounded-full border-[2px] p-[1px] m-[3px] bg-white text-[rgb(83,199,240)]"
+                      size={28}
                     />
                   </label>
                   <input

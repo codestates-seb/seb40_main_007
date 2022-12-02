@@ -1,14 +1,14 @@
-const PostStarScore = ({ score, size }) => {
+const PostStarScore = ({ score, style }) => {
   return (
     <>
-      <div className="xl:flex flex-row hidden">
+      <div className="w-full flex flex-row">
         {[1, 2, 3, 4, 5].map((num) => {
           return (
             <span key={num}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width={size ? `${size}` : "20"}
-                height={size ? `${size}` : "20"}
+                width={style}
+                height={style}
                 viewBox="0 0 14 14"
               >
                 <path

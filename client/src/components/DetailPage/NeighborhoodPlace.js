@@ -4,7 +4,7 @@ import { Pagination, Navigation } from "swiper";
 import PostStarScore from "../MainPage/Posts/PostStarScore";
 import { useRecoilValue } from "recoil";
 import { detailData } from "../../atoms/detailPageData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 /* eslint-disable */
 import "swiper/css";
 import "swiper/css/pagination";
@@ -14,7 +14,26 @@ const NeighborhoodPlace = () => {
   const detailInfo = useRecoilValue(detailData);
   const places = detailInfo.around;
   // console.log("places", places.boardId);
-  const [viewStyle, setViewStyle] = useState(3);
+  const [style, setStyle] = useState("20");
+  const windowResize = () => {
+    // 맵 스타일 변경
+    if (window.innerWidth >= 1024) {
+      setStyle("20");
+    } else {
+      setStyle("14");
+    }
+  };
+  useEffect(() => {
+    if (window.innerWidth >= 1024) {
+      setStyle("20");
+    } else {
+      setStyle("14");
+    }
+    window.addEventListener("resize", windowResize);
+    return () => {
+      window.removeEventListener("resize", windowResize);
+    };
+  }, []);
 
   return (
     <>
@@ -35,27 +54,29 @@ const NeighborhoodPlace = () => {
             }}
             navigation={true}
             modules={[Pagination, Navigation]}
-            className="w-[1024px]"
+            className="lg:w-[1024px] w-500px"
           >
             {places?.length !== 0 &&
               places?.map((place) => (
                 <SwiperSlide key={place.boardId}>
                   <div className="group border-2 lg:h-[300px] h-[180px] w-fit rounded-lg">
                     <a href={`/detail/${place.boardId}`}>
-                      <div className="rounded-md group-hover:opacity-60 relative w-fit">
+                      <div className="rounded-md group-hover:opacity-60 w-fit">
                         <img
                           src={place.thumbnail}
                           alt="alt"
                           className="object-fit static lg:h-[200px] lg:w-[280px] h-[100px] w-[180px] rounded-t-md"
                         />
-                        <div className=" bottom-0 right-0 w-fit">
-                          <PostStarScore score={place.star} />
+                        <div className=" pl-1 pt-1">
+                          <PostStarScore score={place?.star} style={style} />
                         </div>
                       </div>
-                      <div className="font-bold lg:text-xl text-sm">
+                      <div className="font-bold lg:text-xl text-xs pl-1">
                         {place.title}
                       </div>
-                      <div className="lg:text-base text-xs">{place.review}</div>
+                      <div className="lg:text-base text-[10px] pl-1">
+                        {place.review}
+                      </div>
                     </a>
                   </div>
                 </SwiperSlide>

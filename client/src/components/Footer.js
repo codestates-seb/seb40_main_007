@@ -18,7 +18,7 @@ export default function footer() {
               <div>
                 <div className="mb-3 lg:text-base text-xs">
                   <RiKakaoTalkFill className="inline mr-1 lg:w-6 lg:h-6 w-4 h-4" />
-                  <a href=" https://pf.kakao.com/_gxkxmfxj">역이요 톡채널</a>
+                  <a href="https://pf.kakao.com/_gxkxmfxj">역이요 톡채널</a>
                 </div>
                 <div className="lg:text-base text-xs">
                   <RiKakaoTalkLine className="inline mr-1 lg:w-6 lg:h-6 w-4 h-4 ml-1" />
