@@ -42,7 +42,7 @@ export default function HighScoreData() {
             <td className="border-r lg:text-base text-xs">2</td>
             <td className="border-r lg:text-base text-xs">고독한 안유진</td>
             <td className="border-r lg:text-base text-xs">title1</td>
-            <td className="border-r lg:text-base text-xs">2</td>
+            <td className="border-r lg:text-base text-xs">3</td>
             <td className="border-r lg:text-base text-xs">1</td>
             <td className="bg-green-100 text-center lg:text-base text-xs hover:bg-green-300">
               <Link to={`/`}>보기</Link>
@@ -52,7 +52,7 @@ export default function HighScoreData() {
             <td className="border-r lg:text-base text-xs">3</td>
             <td className="border-r lg:text-base text-xs">마스터 정희찬</td>
             <td className="border-r lg:text-base text-xs">사슴보러오세여</td>
-            <td className="border-r lg:text-base text-xs">2</td>
+            <td className="border-r lg:text-base text-xs">3</td>
             <td className="border-r lg:text-base text-xs">2</td>
             <td className="bg-green-100 text-center lg:text-base text-xs hover:bg-green-300">
               <Link to={`/`}>보기</Link>
@@ -62,7 +62,7 @@ export default function HighScoreData() {
             <td className="border-r lg:text-base text-xs">4</td>
             <td className="border-r lg:text-base text-xs">발랄한 조성웅</td>
             <td className="border-r lg:text-base text-xs">동대구역의 아들</td>
-            <td className="border-r lg:text-base text-xs">1</td>
+            <td className="border-r lg:text-base text-xs">2</td>
             <td className="border-r lg:text-base text-xs">0</td>
             <td className="bg-green-100 text-center lg:text-base text-xs hover:bg-green-300">
               <Link to={`/`}>보기</Link>
@@ -72,7 +72,7 @@ export default function HighScoreData() {
             <td className="border-r lg:text-base text-xs">5</td>
             <td className="border-r lg:text-base text-xs">멋진 강병재</td>
             <td className="border-r lg:text-base text-xs">테크노마트 접수</td>
-            <td className="border-r lg:text-base text-xs">1</td>
+            <td className="border-r lg:text-base text-xs">2</td>
             <td className="border-r lg:text-base text-xs">1</td>
             <td className="bg-green-100 text-center lg:text-base text-xs hover:bg-green-300">
               <Link to={`/`}>보기</Link>
@@ -82,7 +82,7 @@ export default function HighScoreData() {
             <td className="border-r lg:text-base text-xs">6</td>
             <td className="border-r lg:text-base text-xs">긍정적인 안유진</td>
             <td className="border-r lg:text-base text-xs">title1</td>
-            <td className="border-r lg:text-base text-xs">2</td>
+            <td className="border-r lg:text-base text-xs">1</td>
             <td className="border-r lg:text-base text-xs">1</td>
             <td className="bg-green-100 text-center lg:text-base text-xs hover:bg-green-300">
               <Link to={`/`}>보기</Link>
@@ -92,7 +92,7 @@ export default function HighScoreData() {
             <td className="border-r lg:text-base text-xs">7</td>
             <td className="border-r lg:text-base text-xs">즐거운 정희찬</td>
             <td className="border-r lg:text-base text-xs">사슴보러오세여</td>
-            <td className="border-r lg:text-base text-xs">2</td>
+            <td className="border-r lg:text-base text-xs">1</td>
             <td className="border-r lg:text-base text-xs">2</td>
             <td className="bg-green-100 text-center lg:text-base text-xs hover:bg-green-300">
               <Link to={`/`}>보기</Link>
