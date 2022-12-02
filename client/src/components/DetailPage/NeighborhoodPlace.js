@@ -35,7 +35,7 @@ const NeighborhoodPlace = () => {
             }}
             navigation={true}
             modules={[Pagination, Navigation]}
-            className="w-[1024px]"
+            className="lg:w-[1024px] w-500px"
           >
             {places?.length !== 0 &&
               places?.map((place) => (

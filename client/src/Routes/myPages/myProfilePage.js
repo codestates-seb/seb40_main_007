@@ -15,6 +15,7 @@ import {
 } from "../../atoms/loginData";
 import { useRecoilValue } from "recoil";
 import { RiKakaoTalkFill, RiKakaoTalkLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const MyProfilePage = () => {
   const name = useRecoilValue(userName);
@@ -25,21 +26,25 @@ const MyProfilePage = () => {
   const [score, setScore] = useState("");
   const [visit, setVisit] = useState([]);
   const TOKEN = useRecoilValue(accessToken);
+  const navigtion = useNavigate();
   useEffect(() => {
-    const config = {
-      headers: { Authorization: TOKEN },
-    };
-    axios
-      .get(`${process.env.REACT_APP_URL}/members/info`, config)
-      .then((response) => {
-        setTotalBoard(response.data.totalBoard);
-        setTotalComment(response.data.totalComment);
-        setScore(response.data.score);
-        setVisit(response.data.visitedStations);
-      })
-      .catch((error) => {
-        if (error.response.status === 401) console.log("401!!!");
-      });
+    if (TOKEN === "") navigtion("/");
+    else {
+      const config = {
+        headers: { Authorization: TOKEN },
+      };
+      axios
+        .get(`${process.env.REACT_APP_URL}/members/info`, config)
+        .then((response) => {
+          setTotalBoard(response.data.totalBoard);
+          setTotalComment(response.data.totalComment);
+          setScore(response.data.score);
+          setVisit(response.data.visitedStations);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) console.log("401!!!");
+        });
+    }
   }, []);
 
   return (
