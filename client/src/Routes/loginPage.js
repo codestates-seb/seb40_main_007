@@ -24,7 +24,7 @@ export default function LoginPage() {
   const [, setUserAvatar] = useRecoilState(userAvatar);
   const [, setUserId] = useRecoilState(userId);
   const [, setUserEmail] = useRecoilState(userEmail);
-  const [admin, setAdmin] = useRecoilState(isAdmin);
+  const [, setAdmin] = useRecoilState(isAdmin);
 
   const {
     register,
@@ -55,7 +55,6 @@ export default function LoginPage() {
       })
       .catch((error) => {
         alert("로그인 실패");
-        토큰;
       });
   }
 
@@ -78,9 +77,6 @@ export default function LoginPage() {
           }
           setUserEmail(response.data.email);
           navigate("/");
-        })
-        .then(() => {
-          console.log(admin);
         })
         .catch((error) => {
           console.log(error);

@@ -4,8 +4,8 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   editTrainStationState,
-  editTitleState,
-  editAdressState,
+  // editTitleState,
+  // editAdressState,
 } from "../../atoms/editPageData";
 import { trainInfo } from "../../atoms/trainInfo";
 
@@ -34,8 +34,8 @@ export default function EditTrainStationSelect() {
   const trainStationInfo = useRecoilValue(trainInfo);
   const [trainStation, setTrainStation] = useRecoilState(editTrainStationState);
   const [showModal, setShowModal] = useState(false);
-  const [, setTitleState] = useRecoilState(editTitleState);
-  const [, setAdressState] = useRecoilState(editAdressState);
+  // const [, setTitleState] = useRecoilState(editTitleState);
+  // const [, setAdressState] = useRecoilState(editAdressState);
   return (
     <>
       <div className="pt-20 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit lg:px-5 px-3 pb-2 mb-5 lg:text-base text-sm text-[rgb(83,199,240)]">
@@ -76,8 +76,8 @@ export default function EditTrainStationSelect() {
                         onClick={() => {
                           setTrainStation(el.id);
                           setShowModal(false);
-                          setTitleState(trainId[el.id]);
-                          setAdressState(trainStationInfo[el.id - 1].adress);
+                          // setTitleState(trainId[el.id]);
+                          // setAdressState(trainStationInfo[el.id - 1].adress);
                         }}
                       >
                         <img

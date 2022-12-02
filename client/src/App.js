@@ -78,10 +78,10 @@ function App() {
         .then((response) => {
           console.log("액세스토큰갱신");
           setAccessToken(response.headers.authorization);
-          setTimeout(onSilentRefresh, 600000); //1200000 면 20분 이다. 6000000면 10분
+          setTimeout(onSilentRefresh, 1200000); //1200000 면 20분 이다. 6000000면 10분
         })
         .catch((error) => {
-          console.log(error);
+          console.log("error", error.code);
           swal(
             "Expired!",
             "로그인이 만료되었습니다. 재 로그인이 필요합니다",
@@ -108,6 +108,15 @@ function App() {
               })
               .catch((error) => {
                 console.log(error);
+                setAccessToken("");
+                setRefreshToken("");
+                setUserAvatar("");
+                setUserId("");
+                setUserName("");
+                setUserEmail("");
+                setIsSocial(false);
+                setAdmin(false);
+                location.reload();
               });
           });
         });
