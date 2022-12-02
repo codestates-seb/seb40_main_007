@@ -17,7 +17,8 @@ public enum ExceptionCode {
     BOARDPLANNER_NOT_FOUND(404,"Boardplanner not found"),
     CAN_NOT_MEASUERMENT(501,"can not measure distance"),
     EXPIRED_TOKEN(401,"Expired Token"),
-    ALREADY_REPORTED(409,"Already Reported")
+    ALREADY_REPORTED(409,"Already Reported"),
+    ADMIN_ACCOUNT(412,"cannot delete admin")
     ;
     private final int status;
     private final String message;
