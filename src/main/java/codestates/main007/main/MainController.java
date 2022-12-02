@@ -1,4 +1,4 @@
-package codestates.main007.main.controller;
+package codestates.main007.main;
 
 import codestates.main007.board.dto.BoardDto;
 import codestates.main007.board.entity.Board;
