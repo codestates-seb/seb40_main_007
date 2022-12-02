@@ -26,22 +26,14 @@ module.exports = {
         // translateX : 좌우
         // translateY : 상하
         moveTrain: {
-          "0%": { transform: "translateX(0%)" },
-          "5%": { transform: "translateX(-5%)" },
-          "10%": { transform: "translateX(-7.5%)" },
-          "15%": { transform: "translateX(-10%)" },
-          "20%": { transform: "translateX(-7.5%)" },
-          "25%": { transform: "translateX(-5%)" },
-          "30%": { transform: "translateX(-2.5%)" },
-          "35%": { transform: "translateX(0%)" },
-          "40%": { transform: "translateX(2.5%)" },
-          "45%": { transform: "translateX(5%)" },
-          "50%": { transform: "translateX(7.5%)" },
-          "60%": { transform: "translateX(10%)" },
-          "70%": { transform: "translateX(12.5%)" },
-          "80%": { transform: "translateX(10%)" },
-          "90%": { transform: "translateX(7.5%)" },
-          "100%": { transform: "translateX(4%)" },
+          "0%": { transform: "translateX(-15%)  translateY(0.2%)" },
+          "15%": { transform: "translateX(-10%) " },
+          "30%": { transform: "translateX(-7.5%) translateY(0.5%)" },
+          "45%": { transform: "translateX(-5%) " },
+          "60%": { transform: "translateX(-7.5%) translateY(0.7%)" },
+          "75%": { transform: "translateX(-10%) " },
+          "90%": { transform: "translateX(-12.5%) translateY(0.4%)" },
+          "100%": { transform: "translateX(-15.5%) " },
         },
         smallBounce: {
           "0%": { transform: "translateY(3%)" },
@@ -56,6 +48,10 @@ module.exports = {
         goTrain: {
           "0%": { transform: "translateX(0%)" },
           "100%": { transform: "translateX(100%)" },
+        },
+        wind1: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(-100%)" },
         },
         bgMove: {
           "0%": { transform: "translateX(0%)" },
@@ -99,6 +95,7 @@ module.exports = {
       animation: {
         waving: "wave 0.05s linear 3",
         moving: "moveTrain 1s linear infinite",
+        wind1: "wind1 3s linear infinite",
         goTrain: "goTrain 10s linear infinite",
         smallBounce: "smallBounce 1s linear infinite",
         bigBounce: "bigBounce 1s linear infinite",

@@ -97,11 +97,11 @@ const MyTravelModal = ({ boardId }) => {
           <div className="w-fit relative">
             <div className="w-36 pl-2 top-4 -left-[7.3rem] absolute  shadow-[0px_0px_2px_3px_rgba(0,0,0,0.3)] z-30 p-1 bg-white rounded-lg flex flex-row">
               <div className="h-44 flex flex-col overflow-y-scroll scrollbar-hide overflow-x-hidden">
-                <div className="w-full flex justify-end ">
+                <div className="w-full flex justify-end mb-5">
                   {/* 닫힘버튼 */}
                   <AiOutlineCloseCircle
-                    className="cursor-pointer absolute mt-0.5 text-gray-500 rounded-full active:scale-90"
-                    size={17}
+                    className="bg-white cursor-pointer absolute mt-0.5 text-gray-500 rounded-full active:scale-90"
+                    size={20}
                     onClick={() => {
                       setShowModal(false);
                       setShowInput(false);
