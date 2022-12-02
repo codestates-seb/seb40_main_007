@@ -9,15 +9,14 @@ import codestates.main007.boardPlanner.mapper.BoardPlannerMapper;
 import codestates.main007.boardPlanner.repository.BoardPlannerRepository;
 import codestates.main007.exception.ExceptionCode;
 import codestates.main007.member.service.MemberService;
-import codestates.main007.planner.entity.Planner;
 import codestates.main007.planner.dto.PlannerDto;
+import codestates.main007.planner.entity.Planner;
 import codestates.main007.planner.service.PlannerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,7 +33,7 @@ public class BoardPlannerService {
     private final BoardPlannerMapper boardPlannerMapper;
     private final BoardMapper boardMapper;
 
-    public PlannerDto.MyPlannerWithBoards save(String accessToken, long boardId, long plannerId) {
+    public List<PlannerDto.MyPlannerWithBoards> save(String accessToken, long boardId, long plannerId) {
         Board board = boardService.find(boardId);
         Planner planner = plannerService.find(plannerId);
         if (memberService.findByAccessToken(accessToken).equals(plannerService.find(plannerId).getMember())) {
@@ -57,19 +56,7 @@ public class BoardPlannerService {
             throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
         }
 
-        List<Long> boardIds = new ArrayList<>();
-
-        List<BoardPlanner> boardPlanners = boardPlannerRepository.findAllByPlanner(planner);
-
-        for (BoardPlanner boardPlanner : boardPlanners){
-            boardIds.add(boardPlanner.getBoard().getBoardId());
-        }
-
-        return PlannerDto.MyPlannerWithBoards.builder()
-                .plannerId(plannerId)
-                .plannerName(planner.getPlannerName())
-                .boardIds(boardIds)
-                .build();
+        return plannerService.getMyPlannerWithBoards(accessToken);
     }
 
 
