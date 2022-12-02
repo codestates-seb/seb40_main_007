@@ -11,6 +11,7 @@ import codestates.main007.exception.ExceptionCode;
 import codestates.main007.member.service.MemberService;
 import codestates.main007.planner.dto.PlannerDto;
 import codestates.main007.planner.entity.Planner;
+import codestates.main007.planner.repository.PlannerRepository;
 import codestates.main007.planner.service.PlannerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,7 @@ public class BoardPlannerService {
     private final PlannerService plannerService;
     private final MemberService memberService;
     private final BoardPlannerRepository boardPlannerRepository;
+    private final PlannerRepository plannerRepository;
     private final BoardPlannerMapper boardPlannerMapper;
     private final BoardMapper boardMapper;
 
@@ -48,6 +50,7 @@ public class BoardPlannerService {
                 List<BoardPlanner> list = boardPlannerRepository.findAllByBoardAndPlanner(board, planner);
                 if (list.isEmpty()) {
                     boardPlannerRepository.save(boardPlanner);
+                    plannerRepository.flush();
                 } else {
                     throw new ResponseStatusException(ExceptionCode.BOARDPLANNER_EXISTS.getStatus(), ExceptionCode.BOARDPLANNER_EXISTS.getMessage(), new IllegalArgumentException());
                 }

@@ -47,6 +47,11 @@ public class PlannerService {
 
     }
 
+    public void save(Planner planner) {
+        plannerRepository.save(planner);
+    }
+
+
     public List<PlannerDto.MyPlannersResponse> update(String accessToken, long plannerId, PlannerDto.Input patchDto) {
         if (memberService.findByAccessToken(accessToken).equals(find(plannerId).getMember())) {
             Planner updatedPlanner = find(plannerId);
