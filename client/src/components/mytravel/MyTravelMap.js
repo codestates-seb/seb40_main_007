@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { TiPencil } from "react-icons/ti";
 import { Map, CustomOverlayMap, Polyline } from "react-kakao-maps-sdk";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -13,7 +13,6 @@ import {
 // import TravelMapItem from "./MapItem/TravelMapItem";
 
 const MyTravelMap = ({ data }) => {
-  const focusRef = useRef();
   const [TOKEN] = useRecoilState(accessToken);
   const [, setMyTravelName] = useRecoilState(myTravelNameSelect);
 
@@ -34,9 +33,16 @@ const MyTravelMap = ({ data }) => {
       }))
     : [];
 
+  const enterChangeName = (e) => {
+    if (e.key === "Enter") {
+      changeName();
+    }
+  };
+
   const changeName = () => {
     setInputText(false);
     setPreViewText(inputValue);
+
     // /planners/{planner-id}
     const URL = `${process.env.REACT_APP_URL}/planners/${myTravelId}`;
 
@@ -70,7 +76,7 @@ const MyTravelMap = ({ data }) => {
   }, [data]);
 
   return (
-    <div className="w-full h-60 sm:h-[600px] flex flex-col justify-center">
+    <div className="w-full h-60 lg:pl-14 sm:h-[600px] flex flex-col justify-center lg:px-0 px-2">
       <div className="flex flex-row items-center mb-4">
         <img className="w-10 h-10 mr-2" alt="logo" src="/images/logo.png"></img>
         {/* 내 여행 계획 목록 제목 */}
@@ -78,11 +84,13 @@ const MyTravelMap = ({ data }) => {
           <>
             <input
               type="text"
-              ref={focusRef}
               className="min-w-xs h-8  outline-none border-b-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] text-lg font-semibold z-20"
               defaultValue={myTravelName}
+              maxLength="10"
               onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={enterChangeName}
             ></input>
+
             <button
               className={`pl-2 text-[rgb(83,199,240)] border-b-2 border-[rgb(83,199,240)] z-20 ${
                 inputValue.length >= 1
@@ -93,11 +101,16 @@ const MyTravelMap = ({ data }) => {
             >
               <TiPencil className="" size={"29"} />
             </button>
-            <button
-              className="fixed inset-0 z-10 cursor-default"
-              type="button"
-              onClick={() => (setInputText(false), setInputValue(myTravelName))}
-            ></button>
+
+            {data ? (
+              <button
+                className="fixed inset-0 z-10 cursor-default"
+                type="button"
+                onClick={() => (
+                  setInputText(false), setInputValue(myTravelName)
+                )}
+              ></button>
+            ) : null}
           </>
         ) : (
           <>

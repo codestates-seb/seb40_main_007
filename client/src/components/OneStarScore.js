@@ -1,7 +1,7 @@
 const OneStarScore = ({ score, size }) => {
   return (
     <>
-      <div className="flex flex-row items-center justify-center">
+      <div className="xl:hidden  flex flex-row items-center justify-center ">
         <span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +16,7 @@ const OneStarScore = ({ score, size }) => {
             />
           </svg>
         </span>
-        <p className="text-base pl-0.5 font-semibold">{score}</p>
+        <p className="text-sm pl-0.5 font-semibold">{score}</p>
       </div>
     </>
   );

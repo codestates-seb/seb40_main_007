@@ -81,17 +81,17 @@ function PostList({ stationId, isPostOk }) {
   };
   return (
     <>
-      <div className="flex justify-end mr-4">
+      <div className="flex justify-end sm:mr-4 mr-0">
         <SortDropdown />
       </div>
       {postList?.length !== 0 ? (
-        <div className="mx-auto px-4 ">
+        <div className="mx-auto sm:px-4 px-2">
           <InfiniteScroll
-            className={`border-t-2 mt-2 border-[rgb(83,199,240)] ${
-              postList?.length <= 6 ? "mr-[14px]" : ""
+            className={`border-t-2 mt-2 border-[rgb(83,199,240)] sm:scrollbar-default scrollbar-hide ${
+              postList?.length <= 6 ? "sm:mr-[14px]" : ""
             }`} // scrollbar-hide => 스크롤 숨김옵션
             // dataLength : 현재데이터의 길이
-            dataLength={postList.length}
+            dataLength={postList?.length}
             next={fetchMoreData}
             // 저장된 데이터의 총 길이를 알면 그걸로 false 조건 줄 수 있음.
             hasMore={
@@ -104,15 +104,15 @@ function PostList({ stationId, isPostOk }) {
               </div>
             }
           >
-            <div className="p-2 pt-3 grid grid-cols-2 sm:grid-cols-3 gap-x-4">
-              {postList.map((post) => (
+            <div className="pt-3 grid grid-cols-2 place-items-center xl:grid-cols-3 sm:gap-x-4 gap-x-2 p-2 ">
+              {postList?.map((post) => (
                 <Post key={post.boardId} data={post} />
               ))}
             </div>
           </InfiniteScroll>
         </div>
       ) : (
-        <div className="w-full sm:w-[560px] mb-12 mt-10 sm:mt-20 text-gray-400 text-lg flex flex-col justify-center items-center mr-[14px]">
+        <div className="w-full sm:w-[560px] mb-12 mt-10 sm:mt-20 text-gray-400 text-lg flex flex-col justify-center items-center sm:mr-[14px]">
           {isPostOk ? (
             <div className="p-5 rounded-2xl font-medium flex flex-col justify-center items-center border-2 ">
               <h1>게시글이 비었습니다.</h1>

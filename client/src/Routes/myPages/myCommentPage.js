@@ -13,7 +13,6 @@ const MyCommentPage = () => {
   const [data, setData] = useState([]);
 
   const [TOKEN] = useRecoilState(accessToken);
-  console.log(pageInfo, data);
 
   //나중에 사용할 URL 형식
   useEffect(() => {
@@ -42,18 +41,11 @@ const MyCommentPage = () => {
       <div className="mypage-header-tab">
         <MyPageTab index={"내댓글"} />
         <div className="w-full max-w-2xl">
-          {/* <MyCommentList
-            data={dummy.slice((page - 1) * 10, page * 10)}
-            page={page}
-          />
-          <MyCommentPagination
-            postsCnt={dummy.length}
-            page={page}
-            handlePageChange={handlePageChange}
-          /> */}
           {data.length !== 0 && pageInfo ? (
             <>
-              <MyCommentList data={data} />
+              <div className="sm:h-full sm:mt-0 h-[460px] overflow-scroll scrollbar-hide -mt-3">
+                <MyCommentList data={data} />
+              </div>
               <MyCommentPagination
                 postsCnt={pageInfo?.totalPages}
                 page={page}

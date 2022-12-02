@@ -14,7 +14,7 @@ const Item = ({ thumbnail, title, comment, linkPostId }) => {
       />
       <div className="w-4/6 pl-3 flex flex-col justify-center">
         <div className="w-full font-medium flex justify-between items-center">
-          {title}
+          <p className="w-7/12 truncate">{title}</p>
           <Link to={`/detail/${linkPostId}`}>
             <p className="text-xs  text-gray-400 flex flex-row">
               게시글 이동

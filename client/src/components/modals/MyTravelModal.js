@@ -43,10 +43,16 @@ const MyTravelModal = ({ boardId }) => {
       });
   };
 
+  // 엔터로 여행 목록 추가
+  const enterAddPlan = (e) => {
+    if (e.key === "Enter") {
+      addPlan();
+    }
+  };
   // 내 여행 목록에 게시글 추가
-  const addMyTravelPost = (plannerId) => {
+  const addMyTravelPost = (plannerId, boardIds) => {
     setShowModal(false);
-    console.log(boardId, plannerId);
+    console.log(boardId, plannerId, boardIds, boardIds.includes(boardId));
     const URL = `${process.env.REACT_APP_URL}/boardplanners/${boardId}/${plannerId}`;
     // const data = {};
     const config = {
@@ -54,8 +60,18 @@ const MyTravelModal = ({ boardId }) => {
     };
     axios
       .post(URL, {}, config)
-      .then(() => {
-        console.log("Add My Travel Post 성공");
+      .then((response) => {
+        console.log("Add My Travel Post 성공", response);
+        const URLPLAN = `${process.env.REACT_APP_URL}/planners`;
+        axios
+          .get(URLPLAN, config)
+          .then((response) => {
+            console.log("GET TravelList :", response.data);
+            setMyTravelList(response.data.items);
+          })
+          .catch((error) => {
+            console.log("GET TravelList Fail :", error);
+          });
       })
       .catch((error) => {
         console.log("Add My Travel Post Fail :", error.response.status);
@@ -78,13 +94,13 @@ const MyTravelModal = ({ boardId }) => {
       </button>
       {showModal ? (
         <>
-          <div className="w-fit ">
-            <div className="w-36 pl-2 top-4 right-1 absolute  shadow-[0px_0px_2px_3px_rgba(0,0,0,0.3)] z-30 p-1 bg-white rounded-lg flex flex-row">
-              <div className="h-52 flex flex-col overflow-y-scroll scrollbar-hide overflow-x-hidden">
-                <div className="w-full flex justify-end">
+          <div className="w-fit relative">
+            <div className="w-36 pl-2 top-4 -left-[7.3rem] absolute  shadow-[0px_0px_2px_3px_rgba(0,0,0,0.3)] z-30 p-1 bg-white rounded-lg flex flex-row">
+              <div className="h-44 flex flex-col overflow-y-scroll scrollbar-hide overflow-x-hidden">
+                <div className="w-full flex justify-end ">
                   {/* 닫힘버튼 */}
                   <AiOutlineCloseCircle
-                    className="fixed cursor-pointer mt-0.5 text-gray-500 rounded-full active:scale-90"
+                    className="cursor-pointer absolute mt-0.5 text-gray-500 rounded-full active:scale-90"
                     size={17}
                     onClick={() => {
                       setShowModal(false);
@@ -98,13 +114,20 @@ const MyTravelModal = ({ boardId }) => {
                     <button
                       key={index}
                       className={`w-32  text-sm text-[rgb(83,199,240)] py-1 block pl-5 text-start hover:bg-gray-200 active:bg-gray-100 hover:font-semibold
-                      ${index === 0 ? "mt-5" : ""}
+                      ${
+                        list?.boardIds &&
+                        list?.boardIds.length !== 0 &&
+                        list?.boardIds.length < 10 &&
+                        list?.boardIds.includes(boardId)
+                          ? "pointer-events-none text-gray-300"
+                          : ""
+                      }
                       ${index === myTravelList?.length - 1 ? "mb-1" : ""}`}
                       onClick={() => {
-                        addMyTravelPost(list.plannerId);
+                        addMyTravelPost(list.plannerId, list.boardIds);
                       }}
                     >
-                      <p className="w-full truncate">{list.plannerName}</p>
+                      <p className="w-full truncate ">{list.plannerName}</p>
                     </button>
                   ))
                 ) : (
@@ -119,9 +142,11 @@ const MyTravelModal = ({ boardId }) => {
                 {showInput ? (
                   <div className="mt-2 mx-2 mb-2 border-2 border-[rgb(83,199,240)] flex flex-row justify-center items-center ">
                     <input
+                      maxLength={"10"}
                       className="pl-2 w-20 h-6 text-xs outline-none "
                       type="text"
                       onChange={(e) => setInputText(e.target.value)}
+                      onKeyDown={enterAddPlan}
                     ></input>
                     <button
                       className={`h-full flex flex-row justify-center items-center hover:scale-125 active:scale-90

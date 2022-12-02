@@ -32,7 +32,7 @@ const MainMap = () => {
     return -1;
   };
   return mapCenter?.length !== 0 ? (
-    <div className="w-full h-60 sm:h-[600px] flex justify-center">
+    <div className="w-full h-60 lg:h-[600px] flex justify-center">
       <Map // 지도를 표시할 Container
         className="border-2 border-[#59AEEC] rounded-xl"
         center={{ lat: mapCenter[0]?.lat, lng: mapCenter[0]?.lng }}

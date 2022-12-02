@@ -6,7 +6,7 @@ import { MdOutlineTrain, MdTimer } from "react-icons/md";
 import { useRecoilValue } from "recoil";
 import { timeBetweenBoardsData } from "../../atoms/mypage/myTravelData";
 import { timeFunc } from "../../utils/timeFunc";
-export default function MyTravelDot() {
+export default function MyTravelDot({ isModal }) {
   const timeBetweenBoards = useRecoilValue(timeBetweenBoardsData);
   console.log("시간 계산", timeBetweenBoards);
 
@@ -14,14 +14,20 @@ export default function MyTravelDot() {
   const listLength = timeBetweenBoards?.length;
   return (
     <>
-      <div className="text-[rgba(83,199,240)]">
-        <MdTimer size={32} />
-      </div>
+      {isModal ? null : (
+        <div className="text-[rgba(83,199,240)]">
+          <MdTimer size={32} />
+        </div>
+      )}
       {timeBetweenBoards && (
         <div>
           {listLength !== 0 ? (
             // 1번째 동그라미 경우
-            <div className="mt-2 h-[544px] flex flex-col items-center text-gray-400">
+            <div
+              className={`mt-2 ${
+                isModal ? "mr-20" : "h-[544px]"
+              } flex flex-col items-center text-gray-400`}
+            >
               <div className="w-10 h-10 bg-[rgba(83,199,240,0.5)] rounded-full mb-3 flex justify-center items-center text-white">
                 1
               </div>
