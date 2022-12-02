@@ -30,7 +30,7 @@ export default function adminData() {
   const navigtion = useNavigate();
   useEffect(() => {
     if (!admin) {
-      navigtion("/admin/data");
+      navigtion("/");
     } else {
       const config = {
         headers: { Authorization: TOKEN },
