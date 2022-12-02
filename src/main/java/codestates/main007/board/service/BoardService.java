@@ -82,6 +82,9 @@ public class BoardService {
         board.setImages(boardImages);
 
     }
+    public void save(Board board){
+        boardRepository.save(board);
+    }
 
     public void update(String accessToken, long boardId, BoardDto.Patch patch, List<MultipartFile> images) throws IOException {
         Member member = memberService.findByAccessToken(accessToken);
