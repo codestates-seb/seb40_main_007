@@ -105,7 +105,7 @@ const DetailPage = () => {
     <>
       <Header />
       <div className="flex flex-col items-center">
-        <div className="lg:w-[1024px]">
+        <div className="lg:w-[1024px] w-full">
           <DetailHeader />
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <DetailImageSlider />

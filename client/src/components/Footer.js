@@ -1,6 +1,8 @@
 import { AiFillGithub } from "react-icons/ai";
 import { SiNotion } from "react-icons/si";
-import { SlInfo, SlCheck } from "react-icons/sl";
+import { TfiHelpAlt } from "react-icons/tfi";
+import { SlInfo } from "react-icons/sl";
+import { RiKakaoTalkFill, RiKakaoTalkLine } from "react-icons/ri";
 
 export default function footer() {
   return (
@@ -9,31 +11,31 @@ export default function footer() {
         <div className="grid grid-cols-4 text-sm ">
           <ul className="text-center">
             <li className="lg:text-base text-xs font-bold mb-3">
-              <SlCheck className="inline lg:mr-2 mr-1 lg:w-7 lg:h-7 w-4 h-4" />
-              INTRO
+              <TfiHelpAlt className="inline lg:mr-2 mr-1 lg:w-7 lg:h-7 w-4 h-4" />
+              HELP-DESK
             </li>
-            <a href="http://yeogiyo.site/">
-              <li>
-                <img
-                  src="/images/notfound_icon_w.png"
-                  alt="footerlogo"
-                  className="lg:w-8 w-8 inline text-center mt-2"
-                />
-              </li>
-              <li className="lg:text-xs text-[10px] mt-2">
-                http://yeogiyo.site/
-              </li>
-            </a>
+            <li>
+              <div>
+                <div className="mb-3 lg:text-base text-xs">
+                  <RiKakaoTalkFill className="inline mr-1 lg:w-6 lg:h-6 w-4 h-4" />
+                  <a href=" https://pf.kakao.com/_gxkxmfxj">역이요 톡채널</a>
+                </div>
+                <div className="lg:text-base text-xs">
+                  <RiKakaoTalkLine className="inline mr-1 lg:w-6 lg:h-6 w-4 h-4 ml-1" />
+                  <a href="http://pf.kakao.com/_gxkxmfxj/chat">오류/문의사항</a>
+                </div>
+              </div>
+            </li>
           </ul>
           <ul className="text-center">
             <li className="lg:text-base text-xs font-bold mb-3">
               <AiFillGithub className="inline lg:mr-2 mr-1 lg:w-8 lg:h-8 w-5 h-5" />
               FRONT-END
             </li>
-            <li className="my-2 ml-2 lg:text-xl text-sm">
+            <li className="my-2 ml-2 lg:text-base text-xs">
               <a href="https://github.com/raon9401">정희찬</a>
             </li>
-            <li className="my-2 ml-2 lg:text-xl text-sm">
+            <li className="my-2 ml-2 lg:text-base text-xs">
               <a href="https://github.com/Eugenius1st">안유진</a>
             </li>
           </ul>
@@ -42,10 +44,10 @@ export default function footer() {
               <AiFillGithub className="inline lg:mr-2 mr-1 lg:w-8 lg:h-8 w-5 h-5" />
               BACK-END
             </li>
-            <li className="my-2 ml-2 lg:text-xl text-sm">
+            <li className="my-2 ml-2 lg:text-base text-xs">
               <a href="https://github.com/woong-sung">조성웅</a>
             </li>
-            <li className="my-2 ml-2 lg:text-xl text-sm">
+            <li className="my-2 ml-2 lg:text-base text-xs">
               <a href="https://github.com/casava840">강병재</a>
             </li>
           </ul>
