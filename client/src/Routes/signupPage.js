@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import swal from "sweetalert";
 export default function SignupPage() {
   const navigate = useNavigate();
   const {
@@ -30,11 +30,11 @@ export default function SignupPage() {
           password: password,
         }
       );
-      alert("회원가입 완료");
+      swal("HELLO!", "회원가입 완료", "success");
       console.log(response);
       navigate("/login");
     } catch (error) {
-      alert("회원가입 실패");
+      swal("SORRY!", "회원가입 실패", "warning");
       console.log(error);
       navigate("/signup");
     }
