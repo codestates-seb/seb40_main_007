@@ -32,18 +32,18 @@ export default function HomeIntroduce() {
                   </span>
                 </div>
 
-                <div className="lg:text-6xl text-[8px] font-light">
+                <div className="lg:text-6xl text-xs font-light">
                   <div>대한민국 기차역</div>
                   <div className="lg:mt-4">
                     <span className="relative">
                       주변 정보가
-                      <span className="w-full lg:text-7xl text-xs italic font-[Tenada] lg:ml-2 ml-[1px] lg:mt-1 mt-[1px] absolute ">
+                      <span className="w-full lg:text-7xl text-xs italic font-[Tenada] lg:ml-2 ml-[1px] lg:mt-1 mt-[2px] absolute ">
                         역이요
                       </span>
                     </span>
                   </div>
                 </div>
-                <div className="lg:mt-10 mt-5 lg:ml-2 font-light lg:text-xl text-[8px]">
+                <div className="lg:mt-10 mt-5 lg:ml-2 font-light lg:text-xl text-xs">
                   <div>기차역 주변의 식당부터 숙소,볼거리까지</div>
                   <div>당신의 즐거운 여행을 도와줄게요</div>
                 </div>

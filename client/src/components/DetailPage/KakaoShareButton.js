@@ -1,16 +1,16 @@
 import { useEffect } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import { detailData } from "../../atoms/detailPageData";
 import { trainInfo } from "../../atoms/trainInfo";
 import { categoryInfoList } from "../../atoms/tagsInfo";
 const KakaoShareButton = () => {
-  const detailInfo = useRecoilValue(detailData);
+  const [detailInfo] = useRecoilState(detailData);
   const trainStationInfo = useRecoilValue(trainInfo);
   const categoryInfo = useRecoilValue(categoryInfoList);
-
+  // console.log("upScore", detailInfo.comments.length);
   useEffect(() => {
     createKakaoButton();
-  }, []);
+  }, [detailInfo]);
   const createKakaoButton = () => {
     if (window.Kakao) {
       const kakao = window.Kakao;
@@ -27,17 +27,12 @@ const KakaoShareButton = () => {
           title: "역이요",
           description: `#${
             trainStationInfo[detailInfo?.stationId - 1]?.train
-          } #${categoryInfo[detailInfo?.categoryId]} #${detailInfo?.title}`,
-          imageUrl: detailInfo?.thumbnail, // i.e. process.env.FETCH_URL + '/logo.png'
+          } #${detailInfo?.title} #${categoryInfo[detailInfo?.categoryId]}`,
+          imageUrl: `${detailInfo.thumbnail}`,
           link: {
             mobileWebUrl: window.location.href,
             webUrl: window.location.href,
           },
-        },
-        social: {
-          likeCount: 77,
-          commentCount: 55,
-          sharedCount: 333,
         },
         buttons: [
           {

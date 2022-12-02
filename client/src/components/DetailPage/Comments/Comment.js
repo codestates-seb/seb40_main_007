@@ -21,7 +21,6 @@ const Comment = ({ props, createdAt }) => {
   const dateTime = detailTime?.toLocaleString("ko-KR");
 
   const commentInfo = props;
-  console.log("commentInfo", commentInfo);
   const handleTextChange = (e) => {
     setCommentText(e.target.value);
     setChar(e.target.value.length);
@@ -107,7 +106,7 @@ const Comment = ({ props, createdAt }) => {
               <div className="text-sm text-gray-500 py-2 lg:pb-2 pb-4">
                 {commentInfo?.comment}
               </div>
-              <span className="absolute right-0 lg:bottom-1 bottom-1 text-end lg:-mt-2 text-[5px] w-fit text-gray-400">
+              <span className="absolute right-0 lg:bottom-1 bottom-2 text-end lg:-mt-2 text-[8px] w-fit text-gray-400">
                 {dateTime}
               </span>
             </div>

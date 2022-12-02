@@ -182,6 +182,10 @@ export default function PostPage() {
         })
         .catch(function (error) {
           console.log(error);
+          if (error.code === "ERR_BAD_RESPONSE") {
+            swal("Please Check!", "지원하지 않는 마커 위치입니다!", "error");
+            setDisable(false);
+          }
         });
     }
   }, [uploadFormData]);

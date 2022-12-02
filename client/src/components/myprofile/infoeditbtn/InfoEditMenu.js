@@ -8,7 +8,7 @@ import { isSocial } from "../../../atoms/loginData";
 const InfoEditMenu = ({ offModal }) => {
   const isSocialLogin = useRecoilValue(isSocial);
   return (
-    <div className="p-1 w-40 h-fit pb-4 mt-9 bg-white text-[rgb(83,199,240)] text-sm rounded-2xl border-2 flex flex-col align-middle absolute">
+    <div className="p-1 w-40 h-fit pb-4 mt-9 bg-white text-[rgb(83,199,240)] text-sm rounded-2xl border-2 flex flex-col align-middle absolute z-40">
       <div className="flex justify-end rounded-full">
         <AiOutlineCloseCircle
           onClick={offModal}
