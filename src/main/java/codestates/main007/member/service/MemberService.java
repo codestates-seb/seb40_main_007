@@ -233,6 +233,9 @@ public class MemberService {
         memberRepository.delete(member);
     }
     public void dropMember(String accessToken, long memberId) {
+        if (memberId<=5 && memberId>0){
+            throw new ResponseStatusException(ExceptionCode.ADMIN_ACCOUNT.getStatus(), ExceptionCode.ADMIN_ACCOUNT.getMessage(), new IllegalArgumentException());
+        }
         Member member = findByAccessToken(accessToken);
         if (member.getMemberId() != 1 && member.getMemberId() != 2 && member.getMemberId() != 3 && member.getMemberId() != 4 && member.getMemberId() != 5) {
             throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
