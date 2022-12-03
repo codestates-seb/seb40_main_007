@@ -38,18 +38,19 @@ public class BoardPlannerService {
     public List<PlannerDto.MyPlannerWithBoards> save(String accessToken, long boardId, long plannerId) {
         Board board = boardService.find(boardId);
         Planner planner = plannerService.find(plannerId);
+        BoardPlanner createdBoardPlanner = BoardPlanner.builder()
+                .board(boardService.find(boardId))
+                .planner(plannerService.find(plannerId))
+                .priority((int) boardId)
+                .build();
         if (memberService.findByAccessToken(accessToken).equals(plannerService.find(plannerId).getMember())) {
             if (planner.getBoardPlanners().size() >= 10) {
                 throw new ResponseStatusException(ExceptionCode.PLANNER_SATURATED.getStatus(), ExceptionCode.PLANNER_SATURATED.getMessage(), new IllegalArgumentException());
             } else {
-                BoardPlanner boardPlanner = BoardPlanner.builder()
-                        .board(boardService.find(boardId))
-                        .planner(plannerService.find(plannerId))
-                        .priority((int) boardId)
-                        .build();
+
                 List<BoardPlanner> list = boardPlannerRepository.findAllByBoardAndPlanner(board, planner);
                 if (list.isEmpty()) {
-                    boardPlannerRepository.save(boardPlanner);
+                    boardPlannerRepository.save(createdBoardPlanner);
                     boardPlannerRepository.flush();
                 } else {
                     throw new ResponseStatusException(ExceptionCode.BOARDPLANNER_EXISTS.getStatus(), ExceptionCode.BOARDPLANNER_EXISTS.getMessage(), new IllegalArgumentException());
@@ -58,13 +59,15 @@ public class BoardPlannerService {
         } else {
             throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
         }
+        List<Long> boardIds = planner.getBoardPlanners().stream()
+                .map(boardPlanner -> boardPlanner.getBoard().getBoardId())
+                .collect(Collectors.toList());
+        boardIds.add(createdBoardPlanner.getBoardPlannerId());
         List<PlannerDto.MyPlannerWithBoards> responses = plannerService.getMyPlannerWithBoards(accessToken);
         PlannerDto.MyPlannerWithBoards response = PlannerDto.MyPlannerWithBoards.builder()
                 .plannerId(plannerId)
                 .plannerName(planner.getPlannerName())
-                .boardIds(planner.getBoardPlanners().stream()
-                        .map(boardPlanner -> boardPlanner.getBoard().getBoardId())
-                        .collect(Collectors.toList()))
+                .boardIds(boardIds)
                 .build();
         for (int i = 0; i < responses.size(); i++) {
             if(responses.get(i).getPlannerId()==plannerId){
