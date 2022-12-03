@@ -31,5 +31,5 @@ public class BoardNotice {
     private String notice;
 
     @Column
-    private long memberId;
+    private long boardMemberId;
 }

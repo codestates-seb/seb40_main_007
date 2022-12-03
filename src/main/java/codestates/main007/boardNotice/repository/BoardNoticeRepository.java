@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface BoardNoticeRepository extends JpaRepository<BoardNotice, Long> {
-    List<BoardNotice> findByMemberId(long memberId);
+    List<BoardNotice> findByBoardMemberId(long boardMemberId);
 
     void deleteBySenderAndBoardAndNotice(Member sender, Board board, String notice);
 }

@@ -5,7 +5,6 @@ import codestates.main007.board.service.BoardService;
 import codestates.main007.boardNotice.entity.BoardNotice;
 import codestates.main007.boardNotice.repository.BoardNoticeRepository;
 import codestates.main007.member.entity.Member;
-import codestates.main007.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +23,7 @@ public class BoardNoticeService {
                 .board(board)
                 .sender(sender)
                 .notice(notice)
-                .memberId(board.getWriter().getMemberId())
+                .boardMemberId(board.getWriter().getMemberId())
                 .build();
 
         boardNoticeRepository.save(boardNotice);

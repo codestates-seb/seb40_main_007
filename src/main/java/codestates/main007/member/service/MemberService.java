@@ -219,7 +219,7 @@ public class MemberService {
 
     public List<MemberDto.Notice> findMyNotice(String accessToken){
         Member member = findByAccessToken(accessToken);
-        List<BoardNotice> boardNotices = boardNoticeRepository.findByMemberId(member.getMemberId());
+        List<BoardNotice> boardNotices = boardNoticeRepository.findByBoardMemberId(member.getMemberId());
         List<MemberDto.Notice> notices = new ArrayList<>();
         for (BoardNotice boardNotice : boardNotices){
             MemberDto.Notice notice = MemberDto.Notice.builder()
