@@ -224,6 +224,7 @@ public class MemberService {
         for (BoardNotice boardNotice : boardNotices){
             MemberDto.Notice notice = MemberDto.Notice.builder()
                     .senderName(boardNotice.getSender().getName())
+                    .senderId(boardNotice.getSender().getMemberId())
                     .boardId(boardNotice.getBoard().getBoardId())
                     .notice(boardNotice.getNotice())
                     .build();

@@ -111,6 +111,7 @@ public class MemberDto {
     @AllArgsConstructor
     public static class Notice {
         private long boardId;
+        private long senderId;
         private String senderName;
         private String notice;
     }
