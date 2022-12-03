@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 public class CommentController {
     private final CommentService commentService;
 
-    private final CommentMapper commentMapper;
-
     @PostMapping("/boards/{board-id}/comments")
     @ResponseStatus(HttpStatus.CREATED)
     public void postComment(@RequestHeader(name = "Authorization") String accessToken,
