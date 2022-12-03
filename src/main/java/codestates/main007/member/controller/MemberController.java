@@ -155,14 +155,12 @@ public class MemberController {
 
     @GetMapping("/notice/{board-id}/{sender-id}")
     @ResponseStatus(HttpStatus.OK)
-    public BoardDto.DetailResponse getMyNoticePage(@RequestHeader(name = "Authorization") String accessToken,
+    public void getMyNoticePage(@RequestHeader(name = "Authorization") String accessToken,
                                                    @PathVariable("board-id") long boardId,
                                                    @PathVariable("sender-id") long senderId,
                                                    @RequestHeader(name = "Notice") String notice) {
         Member sender = memberService.find(senderId);
         boardNoticeService.delete(boardId,sender,notice);
-        BoardDto.DetailResponse detailResponse = boardService.getDetailPage(boardId, accessToken);
-        return detailResponse;
     }
 
     @PatchMapping
