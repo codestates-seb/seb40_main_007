@@ -62,7 +62,7 @@ public class BoardPlannerService {
         List<Long> boardIds = planner.getBoardPlanners().stream()
                 .map(boardPlanner -> boardPlanner.getBoard().getBoardId())
                 .collect(Collectors.toList());
-        boardIds.add(createdBoardPlanner.getBoardPlannerId());
+        boardIds.add(createdBoardPlanner.getBoard().getBoardId());
         List<PlannerDto.MyPlannerWithBoards> responses = plannerService.getMyPlannerWithBoards(accessToken);
         PlannerDto.MyPlannerWithBoards response = PlannerDto.MyPlannerWithBoards.builder()
                 .plannerId(plannerId)
