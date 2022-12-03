@@ -2,6 +2,7 @@ package codestates.main007.comment.service;
 
 import codestates.main007.board.entity.Board;
 import codestates.main007.board.service.BoardService;
+import codestates.main007.boardNotice.service.BoardNoticeService;
 import codestates.main007.comment.dto.CommentDto;
 import codestates.main007.comment.entity.Comment;
 import codestates.main007.comment.repository.CommentRepository;
@@ -23,6 +24,8 @@ public class CommentService {
 
     private final BoardService boardService;
 
+    private final BoardNoticeService boardNoticeService;
+
     public void save(String accessToken, long boardId, CommentDto.Input commentDto) {
         Member writer = memberService.findByAccessToken(accessToken);
         Board board = boardService.find(boardId);
@@ -33,7 +36,7 @@ public class CommentService {
                 .createdAt(LocalDateTime.now())
                 .modifiedAt(LocalDateTime.now())
                 .build();
-
+        boardNoticeService.save(boardId, writer, "Comment");
         commentRepository.save(comment);
     }
 

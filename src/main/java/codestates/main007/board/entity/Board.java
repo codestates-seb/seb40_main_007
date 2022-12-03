@@ -96,7 +96,7 @@ public class Board {
     private List<BoardMember> boardMembers = new ArrayList<>();
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
-    private List<BoardNotice> boardNotice = new ArrayList<>();
+    private List<BoardNotice> boardNotices = new ArrayList<>();
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<BoardPlanner> boardPlanners = new ArrayList<>();

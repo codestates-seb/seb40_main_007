@@ -29,4 +29,7 @@ public class BoardNotice {
 
     @Column
     private String notice;
+
+    @Column
+    private long memberId;
 }

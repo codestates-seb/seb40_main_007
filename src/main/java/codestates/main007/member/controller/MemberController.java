@@ -1,9 +1,14 @@
 package codestates.main007.member.controller;
 
+import codestates.main007.board.dto.BoardDto;
 import codestates.main007.board.entity.Board;
 import codestates.main007.board.repository.BoardRepository;
+import codestates.main007.board.service.BoardService;
+import codestates.main007.boardNotice.entity.BoardNotice;
+import codestates.main007.boardNotice.service.BoardNoticeService;
 import codestates.main007.comment.entity.Comment;
 import codestates.main007.comment.repository.CommentRepository;
+import codestates.main007.dto.MultiResponseDto;
 import codestates.main007.dto.PageDto;
 import codestates.main007.member.entity.Member;
 import codestates.main007.member.dto.MemberDto;
@@ -35,6 +40,8 @@ public class MemberController {
     private final CommentRepository commentRepository;
     private final MemberMapper memberMapper;
     private final EmailService emailService;
+    private final BoardService boardService;
+    private final BoardNoticeService boardNoticeService;
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
@@ -137,6 +144,25 @@ public class MemberController {
                 .build();
 
         return myInfo;
+    }
+
+    @GetMapping("/notice")
+    @ResponseStatus(HttpStatus.OK)
+    public MultiResponseDto<MemberDto.Notice> getMyNotice(@RequestHeader(name = "Authorization") String accessToken) {
+
+        return MultiResponseDto.of(memberService.findMyNotice(accessToken));
+    }
+
+    @GetMapping("/notice/{board-id}/{sender-id}")
+    @ResponseStatus(HttpStatus.OK)
+    public BoardDto.DetailResponse getMyNoticePage(@RequestHeader(name = "Authorization") String accessToken,
+                                                   @PathVariable("board-id") long boardId,
+                                                   @PathVariable("sender-id") long senderId,
+                                                   @RequestHeader(name = "Notice") String notice) {
+        Member sender = memberService.find(senderId);
+        boardNoticeService.delete(boardId,sender,notice);
+        BoardDto.DetailResponse detailResponse = boardService.getDetailPage(boardId, accessToken);
+        return detailResponse;
     }
 
     @PatchMapping

@@ -2,6 +2,7 @@ package codestates.main007.member.entity;
 
 import codestates.main007.board.entity.Board;
 import codestates.main007.boardMember.entity.BoardMember;
+import codestates.main007.boardNotice.entity.BoardNotice;
 import codestates.main007.comment.entity.Comment;
 import codestates.main007.planner.entity.Planner;
 import lombok.AllArgsConstructor;
@@ -53,6 +54,9 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private final List<Planner> planners = new ArrayList<>();
+
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.REMOVE)
+    private final List<BoardNotice> Notices = new ArrayList<>();
 
     public void patchMember(String name, String password, PasswordEncoder passwordEncoder) {
         if (name != null) {

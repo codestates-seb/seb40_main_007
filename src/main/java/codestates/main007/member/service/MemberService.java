@@ -3,11 +3,14 @@ package codestates.main007.member.service;
 
 import codestates.main007.auth.jwt.JwtTokenizer;
 import codestates.main007.auth.util.CustomAuthorityUtils;
+import codestates.main007.board.dto.BoardDto;
 import codestates.main007.board.entity.Board;
 import codestates.main007.board.repository.BoardRepository;
 import codestates.main007.boardImage.service.ImageHandler;
 import codestates.main007.boardMember.entity.BoardMember;
 import codestates.main007.boardMember.repository.BoardMemberRepository;
+import codestates.main007.boardNotice.entity.BoardNotice;
+import codestates.main007.boardNotice.repository.BoardNoticeRepository;
 import codestates.main007.comment.entity.Comment;
 import codestates.main007.comment.repository.CommentRepository;
 import codestates.main007.exception.ExceptionCode;
@@ -42,6 +45,7 @@ public class MemberService {
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
     private final BoardMemberRepository boardMemberRepository;
+    private final BoardNoticeRepository boardNoticeRepository;
     private final CustomAuthorityUtils authorityUtils;
     private final RandomNamingService namingService;
     private final RandomAvatarService avatarService;
@@ -211,6 +215,22 @@ public class MemberService {
         }
 
         return boardRepository.findAllByBoardIdIn(boardIds);
+    }
+
+    public List<MemberDto.Notice> findMyNotice(String accessToken){
+        Member member = findByAccessToken(accessToken);
+        List<BoardNotice> boardNotices = boardNoticeRepository.findByMemberId(member.getMemberId());
+        List<MemberDto.Notice> notices = new ArrayList<>();
+        for (BoardNotice boardNotice : boardNotices){
+            MemberDto.Notice notice = MemberDto.Notice.builder()
+                    .senderName(boardNotice.getSender().getName())
+                    .boardId(boardNotice.getBoard().getBoardId())
+                    .notice(boardNotice.getNotice())
+                    .build();
+
+            notices.add(notice);
+        }
+        return notices;
     }
 
     public List<MemberDto.MyPage> setIsDibsToMyPage(String accessToken, List<MemberDto.MyPage> memberDtos) {

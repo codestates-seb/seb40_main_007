@@ -107,6 +107,16 @@ public class MemberDto {
 
     @Getter
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Notice {
+        private long boardId;
+        private String senderName;
+        private String notice;
+    }
+
+    @Getter
+    @Builder
     public static class Writer {
         private long memberId;
         private String name;

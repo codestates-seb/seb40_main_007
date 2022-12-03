@@ -2,12 +2,16 @@ package codestates.main007.board.service;
 
 import codestates.main007.board.dto.BoardDto;
 import codestates.main007.board.entity.Board;
+import codestates.main007.board.mapper.BoardMapper;
 import codestates.main007.board.repository.BoardRepository;
 import codestates.main007.boardImage.entity.BoardImage;
 import codestates.main007.boardImage.repository.BoardImageRepository;
 import codestates.main007.boardImage.service.ImageHandler;
 import codestates.main007.boardMember.entity.BoardMember;
 import codestates.main007.boardMember.service.BoardMemberService;
+import codestates.main007.boardNotice.service.BoardNoticeService;
+import codestates.main007.comment.dto.CommentDto;
+import codestates.main007.comment.mapper.CommentMapper;
 import codestates.main007.exception.ExceptionCode;
 import codestates.main007.member.entity.Member;
 import codestates.main007.member.service.MemberService;
@@ -36,8 +40,11 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final BoardImageRepository boardImageRepository;
     private final MemberService memberService;
+    private final CommentMapper commentMapper;
+    private final BoardMapper boardMapper;
     private final DistanceMeasuringService distanceService;
     private final BoardMemberService boardMemberService;
+    private final BoardNoticeService boardNoticeService;
 
     private final TagService tagService;
     private final ImageHandler imageHandler;
@@ -141,21 +148,79 @@ public class BoardService {
             }
         }
 
-        // s3에 이미지 삭제
-
-        List<BoardImage> boardImages = boardImageRepository.findAllByBoard(board);
-        // 섬네일 삭제
-//        imageHandler.deleteThumbnail(board.getThumbnail().substring("https://pre-032-bucket.s3.ap-northeast-2.amazonaws.com/board_thumbnail/".length()));
-        // 이미지 삭제
-        for (BoardImage boardImage : boardImages) {
-            imageHandler.deleteImage(boardImage.getOriginalFileName());
-        }
         boardRepository.deleteById(boardId);
     }
 
     public Board find(long boardId) {
         return boardRepository.findById(boardId)
                 .orElseThrow(() -> new ResponseStatusException(ExceptionCode.BOARD_NOT_FOUND.getStatus(), ExceptionCode.BOARD_NOT_FOUND.getMessage(), new IllegalArgumentException()));
+    }
+
+    public BoardDto.DetailResponse getDetailPage(long boardId, String accessToken){
+        Board board = find(boardId);
+        BoardDto.DetailResponse detailResponse = BoardDto.DetailResponse.builder().build();
+
+        // 식당,숙소의 경우 주소가 동일한 경우만 추출
+        if (board.getCategoryId() == 1 || board.getCategoryId() == 3) {
+            List<CommentDto.Response> comments = commentMapper.commentsToResponses(board.getComments());
+            // 해당글 이미지 리스트
+            List<String> imageUrls = findImageUrls(board);
+            // 주변 가게 게시글 리스트
+            List<Board> around = findByAddress(board.getAddress(), board.getStationId(), boardId, board.getCategoryId());// 근처 보드 정보
+
+            boolean isDibs = false;
+            int status = 0;
+            List<Boolean> booleans = new ArrayList<>();
+            for (int i = 0; i < around.size(); i++) {
+                booleans.add(false);
+            }
+            // 로그인 시에만 바뀌는 정보
+            if (accessToken != null) {
+                // 해당글 찜 여부
+                isDibs = checkDibs(accessToken, boardId);
+                // 해당글 추천 여부
+                Member member = memberService.findByAccessToken(accessToken);
+                status = checkScoreStatus(member, board);
+                // 주변 가게 찜 정보 리스트
+                booleans = findAroundDibs(accessToken, around);
+            }
+
+            // 주변가게 DTO로 변경
+            List<BoardDto.aroundResponse> aroundResponses = boardMapper.boardsToAround(around, booleans);
+
+            detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs, board.getWriter(), comments, imageUrls, status, aroundResponses);
+
+            // 볼거리의 경우 근처애들 추출
+        } else if (board.getCategoryId() == 2) {
+            List<CommentDto.Response> comments = commentMapper.commentsToResponses(board.getComments());
+            // 해당글 이미지 리스트
+            List<String> imageUrls = findImageUrls(board);
+            // 주변 가게 게시글 리스트
+            List<Board> around = findByAddressViewCategory(board.getStationId(), board.getCategoryId(), boardId);// 근처 보드 정보
+
+            boolean isDibs = false;
+            int status = 0;
+            List<Boolean> booleans = new ArrayList<>();
+            for (int i = 0; i < around.size(); i++) {
+                booleans.add(false);
+            }
+
+            // 로그인 시에만 바뀌는 정보
+            if (accessToken != null) {
+                // 해당글 찜 여부
+                isDibs = checkDibs(accessToken, boardId);
+                Member member = memberService.findByAccessToken(accessToken);
+                // 해당글 추천 여부
+                status = checkScoreStatus(member, board);
+                // 주변 가게 찜 정보 리스트
+                booleans = findAroundDibs(accessToken, around);
+            }
+            // 주변가게 DTO로 변경
+            List<BoardDto.aroundResponse> aroundResponses = boardMapper.boardsToAround(around, booleans);
+
+            detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs, board.getWriter(), comments, imageUrls, status, aroundResponses);
+        }
+        return detailResponse;
     }
 
     public Page<Board> findBoardPage(long stationId, long categoryId, int page, int size, Sort sort) {
@@ -213,6 +278,7 @@ public class BoardService {
     public Integer upVote(String accessToken, long boardId) {
         Board board = find(boardId);
         Member member = memberService.findByAccessToken(accessToken);
+        boardNoticeService.save(boardId, member, "UpVote");
 
         return boardMemberService.upVote(member, board);
     }
@@ -220,6 +286,7 @@ public class BoardService {
     public Integer downVote(String accessToken, long boardId) {
         Board board = find(boardId);
         Member member = memberService.findByAccessToken(accessToken);
+        boardNoticeService.save(boardId, member, "DownVote");
 
         return boardMemberService.downVote(member, board);
     }

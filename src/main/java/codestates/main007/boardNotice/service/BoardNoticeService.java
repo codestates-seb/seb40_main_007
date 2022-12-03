@@ -16,18 +16,21 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 public class BoardNoticeService {
     private final BoardService boardService;
-    private final MemberService memberService;
     private final BoardNoticeRepository boardNoticeRepository;
-    public void save(long boardId, String accessToken, String notice){
+    public void save(long boardId, Member sender, String notice){
         Board board = boardService.find(boardId);
-        Member sender = memberService.findByAccessToken(accessToken);
 
         BoardNotice boardNotice = BoardNotice.builder()
                 .board(board)
                 .sender(sender)
                 .notice(notice)
+                .memberId(board.getWriter().getMemberId())
                 .build();
 
         boardNoticeRepository.save(boardNotice);
+    }
+    public void delete(long boardId, Member sender, String notice){
+        Board board = boardService.find(boardId);
+        boardNoticeRepository.deleteBySenderAndBoardAndNotice(sender,board,notice);
     }
 }
