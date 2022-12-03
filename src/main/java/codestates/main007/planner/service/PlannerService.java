@@ -34,10 +34,11 @@ public class PlannerService {
 
     public List<PlannerDto.MyPlannersResponse> save(String accessToken, PlannerDto.Input inputDto) throws IOException {
         String plannerName = plannerMapper.inputDtoToentity(inputDto).getPlannerName();
-        if (plannerRepository.findByPlannerName(plannerName).isEmpty()) {
+        Member member = memberService.findByAccessToken(accessToken);
+        if (plannerRepository.findByMemberAndPlannerName(member, plannerName).isEmpty()) {
             Planner createdPlanner = Planner.builder()
                     .plannerName(plannerName)
-                    .member(memberService.findByAccessToken(accessToken))
+                    .member(member)
                     .build();
             plannerRepository.save(createdPlanner);
 
