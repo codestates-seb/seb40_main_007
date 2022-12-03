@@ -153,8 +153,8 @@ public class MemberController {
         return MultiResponseDto.of(memberService.findMyNotice(accessToken));
     }
 
-    @GetMapping("/notice/{board-id}/{sender-id}")
-    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/notice/{board-id}/{sender-id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void getMyNoticePage(@RequestHeader(name = "Authorization") String accessToken,
                                                    @PathVariable("board-id") long boardId,
                                                    @PathVariable("sender-id") long senderId,
