@@ -21,7 +21,6 @@ public class CommentController {
     public void postComment(@RequestHeader(name = "Authorization") String accessToken,
                             @PathVariable("board-id") long boardId,
                             @RequestBody CommentDto.Input postDto) {
-        Comment comment = commentMapper.commentDtoToComment(postDto);
 
         commentService.save(accessToken, boardId, postDto);
     }

@@ -11,14 +11,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
-    default Comment commentDtoToComment(CommentDto.Input commentDto) {
-        return Comment.builder()
-                .comment(commentDto.getComment())
-                .createdAt(LocalDateTime.now())
-                .modifiedAt(LocalDateTime.now())
-                .build();
-    }
-
     default List<CommentDto.Response> commentsToResponses(List<Comment> comments){
         List<CommentDto.Response> responses = new ArrayList<>();
         for (Comment comment : comments){
