@@ -23,7 +23,7 @@ public class CommentController {
                             @RequestBody CommentDto.Input postDto) {
         Comment comment = commentMapper.commentDtoToComment(postDto);
 
-        commentService.save(accessToken, boardId, comment);
+        commentService.save(accessToken, boardId, postDto);
     }
 
     @PatchMapping("/comments/{comment-id}")

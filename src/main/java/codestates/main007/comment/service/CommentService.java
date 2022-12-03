@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class CommentService {
@@ -21,11 +23,16 @@ public class CommentService {
 
     private final BoardService boardService;
 
-    public void save(String accessToken, long boardId, Comment comment) {
+    public void save(String accessToken, long boardId, CommentDto.Input commentDto) {
         Member writer = memberService.findByAccessToken(accessToken);
         Board board = boardService.find(boardId);
-
-        comment.setWriterAndBoard(writer, board);
+        Comment comment = Comment.builder()
+                .comment(commentDto.getComment())
+                .board(board)
+                .writer(writer)
+                .createdAt(LocalDateTime.now())
+                .modifiedAt(LocalDateTime.now())
+                .build();
 
         commentRepository.save(comment);
     }

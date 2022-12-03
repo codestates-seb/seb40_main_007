@@ -43,9 +43,4 @@ public class Comment {
             this.comment = comment;
         }
     }
-
-    public void setWriterAndBoard(Member writer, Board board) {
-        this.writer = writer;
-        this.board = board;
-    }
 }
