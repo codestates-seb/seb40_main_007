@@ -2,6 +2,7 @@ package codestates.main007.board.entity;
 
 import codestates.main007.boardImage.entity.BoardImage;
 import codestates.main007.boardMember.entity.BoardMember;
+import codestates.main007.boardNotice.entity.BoardNotice;
 import codestates.main007.boardPlanner.entity.BoardPlanner;
 import codestates.main007.comment.entity.Comment;
 import codestates.main007.member.entity.Member;
@@ -93,6 +94,9 @@ public class Board {
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<BoardMember> boardMembers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+    private List<BoardNotice> boardNotice = new ArrayList<>();
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<BoardPlanner> boardPlanners = new ArrayList<>();
