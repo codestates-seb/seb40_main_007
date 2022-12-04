@@ -23,8 +23,8 @@ const MyTravelMap = ({ data }) => {
   const [traveMapCenter, setTraveMapCenter] =
     useRecoilState(traveMapCenterEvent);
 
-  const [inputText, setInputText] = useState(false);
-  const [inputValue, setInputValue] = useState(myTravelName);
+  const [inputTextArea, setInputTextArea] = useState(false);
+  const [inputText, setInputText] = useState(myTravelName);
   const [preViewText, setPreViewText] = useState();
   const lineCoordinate = data
     ? data.map((el) => ({
@@ -34,14 +34,14 @@ const MyTravelMap = ({ data }) => {
     : [];
 
   const enterChangeName = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && inputText.length !== 0) {
       changeName();
     }
   };
 
   const changeName = () => {
-    setInputText(false);
-    setPreViewText(inputValue);
+    setInputTextArea(false);
+    setPreViewText(inputText);
 
     // /planners/{planner-id}
     const URL = `${process.env.REACT_APP_URL}/planners/${myTravelId}`;
@@ -50,7 +50,7 @@ const MyTravelMap = ({ data }) => {
       headers: { Authorization: TOKEN },
     };
     const data = {
-      plannerName: inputValue,
+      plannerName: inputText,
     };
 
     axios
@@ -58,7 +58,7 @@ const MyTravelMap = ({ data }) => {
       .then((response) => {
         console.log("Change My Travel Name Success :", response);
         setMyTravelList(response.data.items);
-        setMyTravelName(inputValue);
+        setMyTravelName(inputText);
         setPreViewText("");
       })
       .catch((error) => {
@@ -80,22 +80,20 @@ const MyTravelMap = ({ data }) => {
       <div className="flex flex-row items-center mb-4">
         <img className="w-10 h-10 mr-2" alt="logo" src="/images/logo.png"></img>
         {/* 내 여행 계획 목록 제목 */}
-        {inputText ? (
+        {inputTextArea ? (
           <>
             <input
               type="text"
               className="min-w-xs h-8  outline-none border-b-2 border-[rgb(83,199,240)] text-[rgb(83,199,240)] text-lg font-semibold z-20"
               defaultValue={myTravelName}
               maxLength="10"
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={(e) => setInputText(e.target.value)}
               onKeyDown={enterChangeName}
             ></input>
 
             <button
               className={`pl-2 text-[rgb(83,199,240)] border-b-2 border-[rgb(83,199,240)] z-20 ${
-                inputValue.length >= 1
-                  ? ""
-                  : "pointer-events-none text-gray-200"
+                inputText.length >= 1 ? "" : "pointer-events-none text-gray-200"
               }`}
               onClick={changeName}
             >
@@ -107,7 +105,7 @@ const MyTravelMap = ({ data }) => {
                 className="fixed inset-0 z-10 cursor-default"
                 type="button"
                 onClick={() => (
-                  setInputText(false), setInputValue(myTravelName)
+                  setInputTextArea(false), setInputText(myTravelName)
                 )}
               ></button>
             ) : null}
@@ -119,7 +117,7 @@ const MyTravelMap = ({ data }) => {
             </h2>
             <button
               className={`ml-2 text-[rgb(83,199,240)] border-b-2 border-[rgb(83,199,240)] `}
-              onClick={() => setInputText(!inputText)}
+              onClick={() => setInputTextArea(!inputTextArea)}
             >
               <TiPencil size={"29"} />
             </button>

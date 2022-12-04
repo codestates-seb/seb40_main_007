@@ -45,14 +45,14 @@ const MyTravelModal = ({ boardId }) => {
 
   // 엔터로 여행 목록 추가
   const enterAddPlan = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && inputText.length !== 0) {
       addPlan();
     }
   };
   // 내 여행 목록에 게시글 추가
   const addMyTravelPost = (plannerId, boardIds) => {
     setShowModal(false);
-    console.log(boardId, plannerId, boardIds, boardIds.includes(boardId));
+    console.log(boardId, plannerId, boardIds);
     const URL = `${process.env.REACT_APP_URL}/boardplanners/${boardId}/${plannerId}`;
     // const data = {};
     const config = {
@@ -62,16 +62,7 @@ const MyTravelModal = ({ boardId }) => {
       .post(URL, {}, config)
       .then((response) => {
         console.log("Add My Travel Post 성공", response);
-        const URLPLAN = `${process.env.REACT_APP_URL}/planners`;
-        axios
-          .get(URLPLAN, config)
-          .then((response) => {
-            console.log("GET TravelList :", response.data);
-            setMyTravelList(response.data.items);
-          })
-          .catch((error) => {
-            console.log("GET TravelList Fail :", error);
-          });
+        setMyTravelList(response.data.items);
       })
       .catch((error) => {
         console.log("Add My Travel Post Fail :", error.response.status);
@@ -116,9 +107,8 @@ const MyTravelModal = ({ boardId }) => {
                       className={`w-32  text-sm text-[rgb(83,199,240)] py-1 block pl-5 text-start hover:bg-gray-200 active:bg-gray-100 hover:font-semibold
                       ${
                         list?.boardIds &&
-                        list?.boardIds.length !== 0 &&
-                        list?.boardIds.length < 10 &&
-                        list?.boardIds.includes(boardId)
+                        (list?.boardIds.length >= 10 ||
+                          list?.boardIds.includes(boardId))
                           ? "pointer-events-none text-gray-300"
                           : ""
                       }
