@@ -2,10 +2,25 @@ function Loading() {
   return (
     <>
       {/* 1 */}
-      <div className="w-20 h-20  rounded-full border-2 overflow-hidden flex justify-center align-middle">
+      <div className="w-20 h-20 overflow-hidden rounded-full  border-[rgb(83,199,240)] flex flex-col justify-center items-center">
+        <div>
+          <div className="flex flex-row">
+            <img
+              className="w-20 h-10 animate-wind1 z-10"
+              src="/images/loading/wind.png"
+              alt="loading"
+            />
+          </div>
+          <img
+            className="w-20 h-10 animate-moving z-10"
+            src="/images/loading/train3.png"
+            alt="loading"
+          />
+        </div>
+        <div className="border-2 w-20 z-20 -mt-5 mb-3 border-gray-500"></div>
         <img
-          className="animate-moving"
-          src="/images/loading/train.png"
+          className="w-20 h-20 -z-10 -mt-[4.5rem]"
+          src="/images/loading/grassland.png"
           alt="loading"
         />
       </div>
