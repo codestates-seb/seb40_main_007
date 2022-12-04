@@ -18,13 +18,14 @@ const MyTravelAddModal = ({ setShowModal }) => {
   const [TOKEN] = useRecoilState(accessToken);
 
   const enterAddPlan = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && inputText.length !== 0) {
       addPlan();
     }
   };
 
   // 목록 추가
   const addPlan = () => {
+    console.log(inputText);
     const URL = `${process.env.REACT_APP_URL}/planners`;
     const data = {
       plannerName: inputText,
@@ -43,7 +44,6 @@ const MyTravelAddModal = ({ setShowModal }) => {
           ? (setMyTravelId(data[0].plannerId),
             setMyTravelName(data[0].plannerName))
           : null;
-        setInputText("");
       })
       .catch((error) => {
         console.log("Add TravelList Fail :", error);
