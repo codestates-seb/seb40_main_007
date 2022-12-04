@@ -66,18 +66,20 @@ export default function Alarm() {
         // alarmInfo.map((el)=>(
         <>
           <div className="absolute top-10 -right-2 z-20 shadow-lg border rounded-xl">
-            <div className="flex flex-col justify-center items-center w-[160px] bg-white rounded-lg">
+            <div className="flex flex-col justify-center items-center w-[160px] lg:w-[240px] bg-white rounded-lg">
               {alarmInfo.length > 0 ? (
                 alarmInfo.map((el, idx) => (
                   <button
                     key={idx}
-                    className="text-xs text-[rgb(83,199,240)] py-2 flex"
+                    className="text-xs lg:text-base text-[rgb(83,199,240)] py-2 flex"
                     onClick={() => {
                       setShowModal(false);
                       handleCheck(el.boardId, el.senderId);
                     }}
                   >
-                    <p className="w-[60px] truncate ...">{el.senderName}</p>
+                    <p className="font-bold lg:w-[100px] w-[60px] truncate ...">
+                      {el.senderName}
+                    </p>
                     <p>님의 댓글입니다</p>
                   </button>
                 ))
