@@ -39,10 +39,7 @@ export default function Callback() {
       headers: { Authorization: `${TOKEN}` },
     };
     axios
-      .get(
-        "http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/members/header",
-        config
-      )
+      .get(`${process.env.REACT_APP_URL}/members/header`, config)
       .then((response) => {
         // console.log(response.data);
         setUserName(response.data.name);

@@ -24,13 +24,13 @@ export default function SignupPage() {
   async function userSignup(email, password) {
     try {
       const response = await axios.post(
-        "http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/members/signup",
+        `${process.env.REACT_APP_URL}/members/signup`,
         {
           email: email,
           password: password,
         }
       );
-      swal("HELLO!", "회원가입 완료", "success");
+      swal("회원가입 완료!", "로그인 후 이용하세요", "success");
       navigate("/login");
     } catch (error) {
       if (error.response.status === 409) {
@@ -38,7 +38,6 @@ export default function SignupPage() {
       } else {
         swal("SORRY!", "회원가입 실패", "warning");
       }
-
       navigate("/signup");
     }
   }
