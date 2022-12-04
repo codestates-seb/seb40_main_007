@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* 
+  [rgb(83,199,240)] : 베이직 색상 
+  #53C7F0 : 베이직 색상
+  #59AEEC : border top
+*/
+
+@layer components {
+  .btn {
+    @apply w-24 h-8 text-white font-semibold rounded-md bg-[rgb(83,199,240)];
+  }
+  .btn-white {
+    @apply w-24 h-8 text-[rgb(83,199,240)] font-semibold rounded-md bg-white;
+  }
+  .btn-hover {
+    @apply hover:bg-[#8A8A8A];
+  }
+
+  /* mypage */
+  .mypage-header-tab {
+    @apply pt-24 flex flex-col items-center justify-center gap-7;
+  }
+  .hover-img {
+    @apply hover:absolute hover:duration-300 hover:scale-150;
+  }
+
+  /* 페이지네이션 관련 */
+  button[aria-current="page"] {
+    @apply bg-[rgb(83,199,240)] text-white pointer-events-none;
+  }
+
+  @font-face {
+    font-family: "Tenada";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2")
+      format("woff2");
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  /* 크롬기준 스크롤바 디자인 부분 */
+  *::-webkit-scrollbar {
+    width: 14px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: white;
+    border-radius: 5px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: rgba(83, 199, 240, 0.7);
+    border-radius: 14px;
+    border: 2px solid white;
+  }
+  * {
+    font-family: "Nanum Gothic", sans-serif;
+  }
+
+  img {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+}
