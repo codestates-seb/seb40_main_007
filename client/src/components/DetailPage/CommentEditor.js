@@ -90,7 +90,7 @@ const CommentEditor = () => {
               className="text-sm first-letter:text-xs w-full outline-none mt-1 break-normal resize-none"
               onChange={handleTextChange}
             />
-            <div className="text-gray-300 group-focus-within:text-[rgb(83,199,240)] text-xs relative">
+            <div className="text-gray-300 group-focus-within:text-[rgb(83,199,240)] text-xs relative bottom-1">
               {`${char} / 100`}
             </div>
             <div className="lg:mt-2 mt-5 flex justify-end">

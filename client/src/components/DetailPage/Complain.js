@@ -21,14 +21,13 @@ const Complain = ({ boardId }) => {
         {},
         config
       )
-      .then((response) => {
-        console.log(response);
+      .then(() => {
+        // console.log(response);
         setValue(1);
         setShowModal(false);
         swal("Reported", "정상적으로 신고가 접수되었습니다", "success");
       })
       .catch((error) => {
-        console.log("신고신고~", value, `${boardId}/report/${value}`);
         if (error.response.status === 409) {
           setShowModal(false);
           swal("Can't Report", "이미 신고한 게시글 입니다", "warning");

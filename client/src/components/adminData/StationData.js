@@ -1,15 +1,15 @@
 import ReactApexChart from "react-apexcharts";
 export default function StationData({ stationCntdata }) {
-  const getRandom = (min, max) => Math.floor(Math.random() * (max - min) + min);
-  const editStationCntdata = stationCntdata.map(
-    (el) => el + 100 + getRandom(1, 100)
-  );
+  // const getRandom = (min, max) => Math.floor(Math.random() * (max - min) + min);
+  // const editStationCntdata = stationCntdata.map(
+  //   (el) => el + 100 + getRandom(1, 100)
+  // );
 
   const state = {
     series: [
       {
         name: "Inflation",
-        data: editStationCntdata,
+        data: stationCntdata,
       },
     ],
     options: {
