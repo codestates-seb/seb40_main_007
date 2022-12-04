@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import swal from "sweetalert";
 export default function SignupPage() {
   const navigate = useNavigate();
   const {
@@ -24,18 +24,20 @@ export default function SignupPage() {
   async function userSignup(email, password) {
     try {
       const response = await axios.post(
-        "http://ec2-43-201-80-20.ap-northeast-2.compute.amazonaws.com:8080/members/signup",
+        `${process.env.REACT_APP_URL}/members/signup`,
         {
           email: email,
           password: password,
         }
       );
-      alert("회원가입 완료");
-      console.log(response);
+      swal("회원가입 완료!", "로그인 후 이용하세요", "success");
       navigate("/login");
     } catch (error) {
-      alert("회원가입 실패");
-      console.log(error);
+      if (error.response.status === 409) {
+        swal("DUPLICATION!", "중복된 아이디 입니다", "warning");
+      } else {
+        swal("SORRY!", "회원가입 실패", "warning");
+      }
       navigate("/signup");
     }
   }

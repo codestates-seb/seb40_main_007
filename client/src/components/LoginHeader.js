@@ -1,5 +1,6 @@
 import ProfileModal from "./modals/ProfileModal";
 import { Link } from "react-router-dom";
+import Alarm from "./Alarm";
 
 const LoginHeader = () => {
   return (
@@ -18,7 +19,10 @@ const LoginHeader = () => {
               </span>
             </div>
           </Link>
-          <ProfileModal />
+          <div className="flex items-center">
+            <Alarm />
+            <ProfileModal />
+          </div>
         </div>
       </header>
     </>

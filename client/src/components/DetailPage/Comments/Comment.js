@@ -9,7 +9,7 @@ import axios from "axios";
 import { useState } from "react";
 
 const Comment = ({ props, createdAt }) => {
-  const { id } = useParams();
+  const { detailId } = useParams();
   const memberId = useRecoilValue(userId);
   const [TOKEN] = useRecoilState(accessToken);
   const admin = useRecoilValue(isAdmin);
@@ -41,7 +41,7 @@ const Comment = ({ props, createdAt }) => {
       .then(function (response) {
         console.log(response);
         axios
-          .get(`${process.env.REACT_APP_URL}/boards/${id}`)
+          .get(`${process.env.REACT_APP_URL}/boards/${detailId}`)
           .then((response) => {
             setDisable(true);
             setDetailInfo(response.data);
@@ -62,7 +62,7 @@ const Comment = ({ props, createdAt }) => {
       .then(function (response) {
         console.log(response);
         axios
-          .get(`${process.env.REACT_APP_URL}/boards/${id}`)
+          .get(`${process.env.REACT_APP_URL}/boards/${detailId}`)
           .then((response) => {
             setDetailInfo(response.data);
             swal("삭제 되었습니다");

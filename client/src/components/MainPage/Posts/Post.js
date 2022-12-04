@@ -60,7 +60,7 @@ function Post({ data }) {
               className={`w-40 h-36 object-fit static mb-2 rounded-lg shadow-[0px_0px_2px_1px_rgba(0,0,0,0.3)]`}
             />
           </Link>
-          <PostStarScore score={data?.star} style={16} />
+          <PostStarScore score={data?.star} style="20" />
         </div>
         <div className="w-40 pt-0 p-2">
           <div className="flex flex-col align-middle truncate justify-between">

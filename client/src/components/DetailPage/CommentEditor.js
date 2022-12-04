@@ -7,7 +7,7 @@ import swal from "sweetalert";
 import axios from "axios";
 
 const CommentEditor = () => {
-  const { id } = useParams();
+  const { detailId } = useParams();
   const [commentText, setCommentText] = useState("");
   const [char, setChar] = useState(0);
   const [detailInfo, setDetailInfo] = useRecoilState(detailData);
@@ -38,7 +38,7 @@ const CommentEditor = () => {
         )
         .then(function () {
           axios
-            .get(`${process.env.REACT_APP_URL}/boards/${id}`)
+            .get(`${process.env.REACT_APP_URL}/boards/${detailId}`)
             .then((response) => {
               setDetailInfo(response.data);
               setCommentText("");

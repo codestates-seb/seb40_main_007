@@ -20,14 +20,14 @@ import { accessToken } from "../atoms/loginData";
 import axios from "axios";
 
 const DetailPage = () => {
-  const { id } = useParams();
+  const { detailId } = useParams();
   const [detailInfo, setDetailInfo] = useRecoilState(detailData);
   const [TOKEN] = useRecoilState(accessToken);
 
   useEffect(() => {
     if (TOKEN === "") {
       axios
-        .get(`${process.env.REACT_APP_URL}/boards/${id}`)
+        .get(`${process.env.REACT_APP_URL}/boards/${detailId}`)
         .then((response) => {
           setDetailInfo(response.data);
           console.log(response.data);
@@ -40,7 +40,7 @@ const DetailPage = () => {
         headers: { Authorization: TOKEN },
       };
       axios
-        .get(`${process.env.REACT_APP_URL}/boards/${id}`, config)
+        .get(`${process.env.REACT_APP_URL}/boards/${detailId}`, config)
         .then((response) => {
           setDetailInfo(response.data);
         })
@@ -48,7 +48,7 @@ const DetailPage = () => {
           console.log(error);
         });
     }
-  }, []);
+  }, [detailId]);
 
   const handleLikeClicked = () => {
     const config = {
@@ -65,7 +65,7 @@ const DetailPage = () => {
           headers: { Authorization: TOKEN },
         };
         axios
-          .get(`${process.env.REACT_APP_URL}/boards/${id}`, config)
+          .get(`${process.env.REACT_APP_URL}/boards/${detailId}`, config)
           .then((response) => {
             setDetailInfo(response.data);
           })
@@ -90,7 +90,7 @@ const DetailPage = () => {
           headers: { Authorization: TOKEN },
         };
         axios
-          .get(`${process.env.REACT_APP_URL}/boards/${id}`, config)
+          .get(`${process.env.REACT_APP_URL}/boards/${detailId}`, config)
           .then((response) => {
             setDetailInfo(response.data);
           })

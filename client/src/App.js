@@ -141,7 +141,7 @@ function App() {
             <Route path="/initial" element={<InitialPage />} />
             <Route path="/forgotPassword" element={<ForgotPassword />} />
             <Route path="/main/:id" element={<MainPage />} />
-            <Route path="/detail/:id" element={<DetailPage />} />
+            <Route path="/detail/:detailId" element={<DetailPage />} />
             <Route path="/post/:id" element={<PostPage />} />
             <Route path="/edit/:id" element={<EditPage />} />
             <Route path="/image" element={<ImageUpload />} />

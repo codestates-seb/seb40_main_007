@@ -16,7 +16,7 @@ import { useParams, Link } from "react-router-dom";
 import { detailPageTime } from "../../../utils/timeFunc";
 
 const DetailHeader = () => {
-  const { id } = useParams();
+  const { detailId } = useParams();
   const memberId = useRecoilValue(userId);
   const [TOKEN] = useRecoilState(accessToken);
   const navigate = useNavigate();
@@ -74,7 +74,7 @@ const DetailHeader = () => {
         </span>
         {admin || memberId === detailInfo?.writer?.memberId ? (
           <div className="flex flex-row space-x-1 place-items-end">
-            <Link to={`/edit/${id}`}>
+            <Link to={`/edit/${detailId}`}>
               <div className="w-[30px] h-[30px] bg-white border-2 border-[rgb(83,199,240)] rounded-3xl p-0.5 flex justify-center items-center">
                 <TiPencil size={"30"} color={"#52C7F1"} />
               </div>
