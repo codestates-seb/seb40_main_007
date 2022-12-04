@@ -28,12 +28,13 @@ export default function ImageUpload() {
     }
     // heic to jpg
     let checkType = currentImage.name.split(".");
-    console.log(checkType);
+    let checkLength = checkType.length - 1;
+    console.log("check", checkType, checkLength);
     if (
-      checkType[1] === "hiec" ||
-      checkType[1] === "hief" ||
-      checkType[1] === "HEIC" ||
-      checkType[1] === "HEIF"
+      checkType[checkLength] === "hiec" ||
+      checkType[checkLength] === "hief" ||
+      checkType[checkLength] === "HEIC" ||
+      checkType[checkLength] === "HEIF"
     ) {
       //여기 로딩 보여줄 수 있으면 좋겠다..
       heic2any({
@@ -47,12 +48,12 @@ export default function ImageUpload() {
       });
       return;
     } else if (
-      checkType[1] !== "png" &&
-      checkType[1] !== "PNG" &&
-      checkType[1] !== "jpg" &&
-      checkType[1] !== "JPG" &&
-      checkType[1] !== "jpeg" &&
-      checkType[1] !== "JPEG"
+      checkType[checkLength] !== "png" &&
+      checkType[checkLength] !== "PNG" &&
+      checkType[checkLength] !== "jpg" &&
+      checkType[checkLength] !== "JPG" &&
+      checkType[checkLength] !== "jpeg" &&
+      checkType[checkLength] !== "JPEG"
     ) {
       swal("Can't Upload!", "지원하지 않는 파일 형식입니다", "warning");
       return;

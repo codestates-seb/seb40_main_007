@@ -1,14 +1,14 @@
 import ReactApexChart from "react-apexcharts";
 
 export default function WeekData({ boardsWeek, week }) {
-  const getRandom = (min, max) => Math.floor(Math.random() * (max - min) + min);
-  const editBoardsWeek = boardsWeek.map((el) => el + 100 + getRandom(1, 100));
+  // const getRandom = (min, max) => Math.floor(Math.random() * (max - min) + min);
+  // const editBoardsWeek = boardsWeek.map((el) => el + 100 + getRandom(1, 100));
 
   const state = {
     series: [
       {
         name: "WeekData",
-        data: editBoardsWeek,
+        data: boardsWeek,
       },
     ],
     options: {
