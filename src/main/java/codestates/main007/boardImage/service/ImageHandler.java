@@ -75,19 +75,19 @@ public class ImageHandler {
         file = new File(absolutePath + path + "/" + newFileName);
         image.transferTo(file);
 
-        File avatarFile = new File(absolutePath + path + "/" + newFileName);
-        BufferedImage thumbnailImage = Thumbnails.of(file).size(300, 300).asBufferedImage();
+        BufferedImage thumbnailImage = Thumbnails.of(file).size(100, 100).asBufferedImage();
         ImageIO.write(thumbnailImage, "png", file);
 
-        FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(avatarFile.toPath()), false, avatarFile.getName(), (int) avatarFile.length(), avatarFile.getParentFile());
+        FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(file.toPath()), false, file.getName(), (int) file.length(), file.getParentFile());
 
         try {
-            InputStream input = new FileInputStream(avatarFile);
+            InputStream input = new FileInputStream(file);
             OutputStream os = fileItem.getOutputStream();
             IOUtils.copy(input, os);
             // Or faster..
             // IOUtils.copy(new FileInputStream(file), fileItem.getOutputStream());
         } catch (IOException ex) {
+
             // do something.
         }
 
@@ -113,7 +113,6 @@ public class ImageHandler {
 
         // s3에 업로드 후 ec2 파일은 제거
         file.delete();
-        avatarFile.delete();
 
         return "https://pre-032-bucket.s3.ap-northeast-2.amazonaws.com/" + avatarName;
     }
@@ -381,21 +380,5 @@ public class ImageHandler {
         }
 
         return boardImages;
-    }
-
-    public void deleteImage(String fileName) {
-        try {
-            amazonS3.deleteObject(bucket, "/" + fileName);
-        } catch (AmazonServiceException e) {
-            System.err.println(e.getErrorMessage());
-        }
-    }
-
-    public void deleteThumbnail(String thumbNailName) {
-        try {
-            amazonS3.deleteObject(bucket, "/" + thumbNailName);
-        } catch (AmazonServiceException e) {
-            System.err.println(e.getErrorMessage());
-        }
     }
 }
