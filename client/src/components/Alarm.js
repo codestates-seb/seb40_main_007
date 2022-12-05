@@ -85,7 +85,7 @@ export default function Alarm() {
                 ))
               ) : (
                 <button
-                  className="text-sm text-[rgb(83,199,240)] py-2"
+                  className="text-sm text-gray-400 py-2"
                   onClick={() => {
                     setShowModal(false);
                   }}
