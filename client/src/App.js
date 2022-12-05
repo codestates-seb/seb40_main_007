@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
@@ -73,6 +72,7 @@ function App() {
           RefreshToken: refresh,
         },
       };
+
       axios
         .post(
           `${process.env.REACT_APP_URL}/members/refresh-token`,
@@ -80,6 +80,7 @@ function App() {
           reConfig
         )
         .then((response) => {
+          console.log("Refresh");
           setAccessToken(response.headers.authorization);
           setTimeout(onSilentRefresh, 1200000); //1200000 면 20분 이다. 6000000면 10분
         })

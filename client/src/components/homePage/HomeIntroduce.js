@@ -64,10 +64,10 @@ export default function HomeIntroduce() {
               />
               <div
                 onClick={scrollHandler}
-                className="fixed w-22 lg:bottom-10 bottom-6 left-1/2 lg:-ml-[18px] -ml-[14px] text-[rgba(256,256,256,0.5)] hover:scale-125 hover:text-[rgba(256,256,256,0.7)]"
+                className="fixed w-22 lg:bottom-10 bottom-6 left-1/2 lg:-ml-[18px] -ml-[14px] text-[rgba(256,256,256,0.7)] hover:scale-125 hover:text-[rgba(256,256,256,0.7)]"
               >
-                <HiOutlineChevronDoubleDown className="m-auto lg:w-10 lg:h-10 w-3 h-3" />
-                <div className="lg:text-sm text-[5px]">Start!</div>
+                <HiOutlineChevronDoubleDown className="lg:animate-bounce m-auto lg:w-10 lg:h-10 w-3 h-3" />
+                <div className="lg:text-sm text-[5px]">Scroll!</div>
               </div>
             </div>
           </div>
@@ -106,10 +106,10 @@ export default function HomeIntroduce() {
             </div>
             <div
               onClick={scrollHandler}
-              className="fixed w-22 lg:bottom-10 bottom-6 left-1/2 lg:-ml-[18px] -ml-[14px] text-[rgba(83,199,240,0.6)] hover:scale-125 hover:text-[rgba(83,199,240,0.8)]"
+              className="fixed w-22 lg:bottom-10 bottom-6 left-1/2 lg:-ml-[18px] -ml-[14px] text-[rgba(83,199,240,0.7)] hover:scale-125 hover:text-[rgba(83,199,240,0.8)]"
             >
-              <HiOutlineChevronDoubleDown className="m-auto lg:w-10 lg:h-10 w-3 h-3" />
-              <div className="lg:text-sm text-[5px]">Start!</div>
+              <HiOutlineChevronDoubleDown className="lg:animate-bounce m-auto lg:w-10 lg:h-10 w-3 h-3" />
+              <div className="lg:text-sm text-[5px]">Scroll!</div>
             </div>
           </div>
         </SwiperSlide>
@@ -144,10 +144,10 @@ export default function HomeIntroduce() {
             </div>
             <div
               onClick={scrollHandler}
-              className="fixed w-22 lg:bottom-10 bottom-6 left-1/2 lg:-ml-[18px] -ml-[14px] text-[rgba(65,152,224,0.5)] hover:scale-125 hover:text-[rgba(65,152,224,0.8)]"
+              className="fixed w-22 lg:bottom-10 bottom-6 left-1/2 lg:-ml-[18px] -ml-[14px] text-[rgba(65,152,224,0.7 )] hover:scale-125 hover:text-[rgba(65,152,224,0.8)]"
             >
-              <HiOutlineChevronDoubleDown className="m-auto lg:w-10 lg:h-10 w-3 h-3" />
-              <div className="lg:text-sm text-[5px]">Start!</div>
+              <HiOutlineChevronDoubleDown className="lg:animate-bounce m-auto lg:w-10 lg:h-10 w-3 h-3" />
+              <div className="lg:text-sm text-[5px]">Scroll!</div>
             </div>
           </div>
         </SwiperSlide>

@@ -3,9 +3,9 @@ import { useRecoilState } from "recoil";
 import { postStarState } from "../atoms/postInfo";
 
 const StarRating = () => {
-  const [startState, setStarState] = useRecoilState(postStarState);
+  const [, setStarState] = useRecoilState(postStarState);
   const [hovered, setHovered] = useState(null);
-  const [clicked, setClicked] = useState(startState);
+  const [clicked, setClicked] = useState(0);
   const [style, setStyle] = useState(80);
   const windowResize = () => {
     // 맵 스타일 변경
