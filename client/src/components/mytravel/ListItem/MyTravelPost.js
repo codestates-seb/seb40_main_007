@@ -88,11 +88,21 @@ const MyTravelPost = ({
         {/* 썸네일 */}
         <div className="w-full flex flex-row justify-between items-center py-1">
           <div className="h-full">
-            <img
-              className="w-20 h-20 border-2 border-[#59AEEC] rounded-xl"
-              alt="post img"
-              src={data?.thumbnail}
-            />
+            <button
+              className="flex flex-row justify-between items-center"
+              onClick={() =>
+                setTraveMapCenter({
+                  lat: data?.latitude,
+                  lng: data?.longitude,
+                })
+              }
+            >
+              <img
+                className="w-20 h-20 border-2 border-[#59AEEC] hover:scale-105 active:scale-100  rounded-xl"
+                alt="post img"
+                src={data?.thumbnail}
+              />
+            </button>
           </div>
           <div className="w-9/12">
             <div className="px-2">
