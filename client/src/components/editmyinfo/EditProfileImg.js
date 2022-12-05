@@ -59,6 +59,7 @@ const EditProfileImg = () => {
     }
     let checkType = fileImage.name.split(".");
     let checkLength = checkType.length - 1;
+    console.log("fileImage", fileImage, checkType, checkLength);
     setLoading(true);
     if (
       checkType[checkLength] === "hiec" ||
@@ -72,8 +73,9 @@ const EditProfileImg = () => {
         toType: "image/jpeg",
       })
         .then((convertedBlob) => {
-          console.log(convertedBlob);
+          console.log("convertedBlob", convertedBlob);
           let url = URL.createObjectURL(convertedBlob);
+          console.log("url", url);
           setImagePreview(url);
           const formData = new FormData();
           formData.append("file", convertedBlob);
@@ -83,6 +85,7 @@ const EditProfileImg = () => {
         .catch((error) => {
           console.log("이미지에러", error);
           swal("Can't Upload!", "잘못된 이미지 입니다", "warning");
+          setLoading(false);
         });
       return;
     } else if (

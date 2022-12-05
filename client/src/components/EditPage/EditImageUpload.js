@@ -55,6 +55,11 @@ export default function EditImageUpload({ initialImage }) {
         })
         .then(() => {
           setLoading(false);
+        })
+        .catch((error) => {
+          console.log("이미지에러", error);
+          swal("Can't Upload!", "잘못된 이미지 입니다", "warning");
+          setLoading(false);
         });
       return;
     } else if (

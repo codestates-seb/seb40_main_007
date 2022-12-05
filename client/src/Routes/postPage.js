@@ -169,7 +169,14 @@ export default function PostPage() {
   };
 
   useEffect(() => {
-    if (uploadFormData !== "") {
+    if (uploadFormData === "") {
+      setPostRelated("");
+      setPostRelatedAtmas([]);
+      setPostRelatedPrice("");
+      setPostStar(0);
+      setPostComment("");
+      setPostImageList([]);
+    } else {
       const config = {
         headers: {
           Authorization: TOKEN,
@@ -187,7 +194,7 @@ export default function PostPage() {
           setPostRelated("");
           setPostRelatedAtmas([]);
           setPostRelatedPrice("");
-          setPostStar("");
+          setPostStar(0);
           setPostComment("");
           setPostImageList([]);
           navigatge(`/main/${postTrainStation}`);
