@@ -76,7 +76,8 @@ public class ImageHandler {
         image.transferTo(file);
 
         File avatarFile = new File(absolutePath + path + "/" + newFileName);
-        Thumbnails.of(file).size(100, 100).outputFormat("png").toFile(avatarFile);
+        BufferedImage thumbnailImage = Thumbnails.of(file).size(300, 300).asBufferedImage();
+        ImageIO.write(thumbnailImage, "png", file);
 
         FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(avatarFile.toPath()), false, avatarFile.getName(), (int) avatarFile.length(), avatarFile.getParentFile());
 
@@ -205,7 +206,6 @@ public class ImageHandler {
     public void makeThumbnail(File file, Board board, String contentType, String thumbnailName) throws IOException {
         BufferedImage thumbnailImage = Thumbnails.of(file).size(300, 300).asBufferedImage();
         ImageIO.write(thumbnailImage, "png", file);
-//        Thumbnails.of(file).size(300, 300).outputFormat("png").toFile(thumbnail);
 
         FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(file.toPath()), false, file.getName(), (int) file.length(), file.getParentFile());
 
