@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import heic2any from "heic2any";
 import swal from "sweetalert";
+import TrainLoading from "../../components/TrainLoading";
 
 const EditProfileImg = () => {
   const navigate = useNavigate();
@@ -15,6 +16,8 @@ const EditProfileImg = () => {
   const [imagePreview, setImagePreview] = useState(avatar);
   const TOKEN = useRecoilValue(accessToken);
   const FILE_SIZE_MAX_LIMIT = 8 * 1024 * 1024;
+  //로딩창
+  const [loading, setLoading] = useState(false);
 
   const upload = () => {
     if (imageFile === "") {
@@ -56,24 +59,31 @@ const EditProfileImg = () => {
     }
     let checkType = fileImage.name.split(".");
     let checkLength = checkType.length - 1;
+    setLoading(true);
     if (
       checkType[checkLength] === "hiec" ||
       checkType[checkLength] === "hief" ||
       checkType[checkLength] === "HEIC" ||
       checkType[checkLength] === "HEIF"
     ) {
-      //여기 로딩 보여줄 수 있으면 좋겠다..
+      console.log("여기로 넘어와쓰");
       heic2any({
         blob: fileImage,
         toType: "image/jpeg",
-      }).then((convertedBlob) => {
-        console.log(convertedBlob);
-        let url = URL.createObjectURL(convertedBlob);
-        setImagePreview(url);
-        const formData = new FormData();
-        formData.append("file", convertedBlob);
-        setImageFile(formData); // 이미지 업로드
-      });
+      })
+        .then((convertedBlob) => {
+          console.log(convertedBlob);
+          let url = URL.createObjectURL(convertedBlob);
+          setImagePreview(url);
+          const formData = new FormData();
+          formData.append("file", convertedBlob);
+          setImageFile(formData); // 이미지 업로드
+        })
+        .then(() => setLoading(false))
+        .catch((error) => {
+          console.log("이미지에러", error);
+          swal("Can't Upload!", "잘못된 이미지 입니다", "warning");
+        });
       return;
     } else if (
       checkType[checkLength] !== "png" &&
@@ -84,6 +94,7 @@ const EditProfileImg = () => {
       checkType[checkLength] !== "JPEG"
     ) {
       swal("Can't Upload!", "지원하지 않는 파일 형식입니다", "warning");
+      setLoading(true);
       return;
     } else {
       const formData = new FormData();
@@ -97,6 +108,7 @@ const EditProfileImg = () => {
         const preveiwUrl = reader.result;
         preveiwUrl.replace(/"/g, "");
         setImagePreview(preveiwUrl);
+        setLoading(false);
       };
     }
   };
@@ -152,6 +164,7 @@ const EditProfileImg = () => {
       <button className="btn btn-hover text-sm mt-5" onClick={upload}>
         이미지 변경
       </button>
+      {loading ? <TrainLoading props={"업로드 중입니다..."} /> : null}
     </>
   );
 };
