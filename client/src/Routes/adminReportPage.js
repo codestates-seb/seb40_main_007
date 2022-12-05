@@ -40,7 +40,7 @@ const AdminReportPage = () => {
   return (
     <div className="h-screen bg-[rgba(235,235,235,0.34)]">
       <Header />
-      <AdminTab />
+      <AdminTab tabData={"게시글관리"} />
       <AdminIssue />
       <div className="">
         <ReportTable />

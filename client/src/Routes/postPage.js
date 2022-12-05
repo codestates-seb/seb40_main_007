@@ -29,8 +29,12 @@ import {
   postCommentState,
   postImageState,
 } from "../atoms/postInfo";
+import TrainLoading from "../components/TrainLoading";
 
 export default function PostPage() {
+  //로딩창
+  const [loading, setLoading] = useState(false);
+
   const navigatge = useNavigate();
   const tagList = {
     한식: 1,
@@ -93,6 +97,7 @@ export default function PostPage() {
 
   const onSubmit = () => {
     setDisable(true);
+    setLoading(true);
     let finalUpLoadJson = {
       title: postTitle,
       review: postComment,
@@ -120,34 +125,42 @@ export default function PostPage() {
     if (postTrainStation === "") {
       swal("Please Check!", "기차역을 선택해 주세요", "info");
       setDisable(false);
+      setLoading(false);
       return;
     } else if (postAdress === "") {
       swal("Please Check!", "주소를 선택해 주세요", "info");
       setDisable(false);
+      setLoading(false);
       return;
     } else if (postTitle === "") {
       swal("Please Check!", "제목 입력해 주세요", "info");
       setDisable(false);
+      setLoading(false);
       return;
     } else if (postStar === 0) {
       swal("Please Check!", "별점을 입력해 주세요", "info");
       setDisable(false);
+      setLoading(false);
       return;
     } else if (postImageList.length === 0) {
       swal("Please Check!", "사진을 업로드해 주세요", "info");
       setDisable(false);
+      setLoading(false);
       return;
     } else if (postCategory === "") {
       swal("Please Check!", "카테고리를 입력해 주세요", "info");
       setDisable(false);
+      setLoading(false);
       return;
     } else if (postRelated === "") {
       swal("Please Check!", "관련태그를 입력해 주세요", "info");
       setDisable(false);
+      setLoading(false);
       return;
     } else if (postComment === "") {
       swal("Please Check!", "한줄평을 입력해 주세요", "info");
       setDisable(false);
+      setLoading(false);
       return;
     } else {
       setUpLoadFormData(formData);
@@ -156,7 +169,14 @@ export default function PostPage() {
   };
 
   useEffect(() => {
-    if (uploadFormData !== "") {
+    if (uploadFormData === "") {
+      setPostRelated("");
+      setPostRelatedAtmas([]);
+      setPostRelatedPrice("");
+      setPostStar(0);
+      setPostComment("");
+      setPostImageList([]);
+    } else {
       const config = {
         headers: {
           Authorization: TOKEN,
@@ -174,17 +194,19 @@ export default function PostPage() {
           setPostRelated("");
           setPostRelatedAtmas([]);
           setPostRelatedPrice("");
-          setPostStar("");
+          setPostStar(0);
           setPostComment("");
           setPostImageList([]);
           navigatge(`/main/${postTrainStation}`);
           setDisable(false);
+          setLoading(false);
         })
         .catch(function (error) {
           console.log(error);
           if (error.code === "ERR_BAD_RESPONSE") {
             swal("Please Check!", "지원하지 않는 마커 위치입니다!", "error");
             setDisable(false);
+            setLoading(false);
           }
         });
     }
@@ -226,6 +248,7 @@ export default function PostPage() {
         </button>
       </div>
       <Footer />
+      {loading ? <TrainLoading props={"업로드 중입니다..."} /> : null}
     </>
   );
 }

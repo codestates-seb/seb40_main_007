@@ -66,7 +66,7 @@ export default function footer() {
                 </div>
                 <div className="lg:text-base text-xs">
                   <SiNotion className="inline mr-1 lg:w-5 lg:h-5 w-4 h-4 ml-1" />
-                  <a href="https://topaz-land-b32.notion.site/3ff18439ae114b828c2c5ff482f18506">
+                  <a href="https://codestates.notion.site/40-Team007-f5f31466aa20417597fde76d78641813">
                     yeogiyo
                   </a>
                 </div>

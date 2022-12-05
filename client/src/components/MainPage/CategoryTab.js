@@ -3,15 +3,17 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { selectCategoryEvent } from "../../atoms/mainFilter";
 import { categoryInfoToNumList } from "../../atoms/tagsInfo";
 
-const CategoryTabs = () => {
+const CategoryTabs = ({ stationId }) => {
   const [category, setCategory] = useState("전체");
   const [, setSelectCategory] = useRecoilState(selectCategoryEvent);
   const categoryInfoToNum = useRecoilValue(categoryInfoToNumList);
-
+  console.log("category", category);
   useEffect(() => {
     setSelectCategory(categoryInfoToNum[category]);
   }, [category]);
-
+  useEffect(() => {
+    setCategory("전체");
+  }, [stationId]);
   return (
     <>
       <div className="flex flex-row justify-center mt-5 lg:mt-20">

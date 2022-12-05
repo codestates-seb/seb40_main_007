@@ -281,7 +281,7 @@ export default function PostMap() {
             place_name: data[i].place_name,
             id: data[i].id,
             phone: data[i].phone,
-            adress: data[i].road_address_name,
+            adress: data[i].address_name,
           });
           // @ts-ignore
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));

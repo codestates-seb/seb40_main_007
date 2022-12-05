@@ -7,8 +7,11 @@ import { useRecoilState } from "recoil";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import swal from "sweetalert";
 import heic2any from "heic2any";
+import TrainLoading from "../../components/TrainLoading";
 
 export default function EditImageUpload({ initialImage }) {
+  //로딩창
+  const [loading, setLoading] = useState(false);
   // 대표 사진 인덱스번호
   const [image, setImage] = useRecoilState(editImageState); // 이미지 배열
   const [previewImage, setPreviewImage] = useState([]); // 이미지 주소 배열
@@ -19,6 +22,7 @@ export default function EditImageUpload({ initialImage }) {
   }, [initialImage]);
 
   const handleFiles = (e) => {
+    setLoading(true);
     let currentImage = e.target.files[0];
     if (currentImage.size > FILE_SIZE_MAX_LIMIT) {
       currentImage = "";
@@ -27,6 +31,7 @@ export default function EditImageUpload({ initialImage }) {
         "8MB 이상의 사진은 업로드 할 수 없습니다",
         "warning"
       );
+      setLoading(false);
       return;
     }
     // heic to jpg
@@ -41,12 +46,21 @@ export default function EditImageUpload({ initialImage }) {
       heic2any({
         blob: currentImage,
         toType: "image/jpeg",
-      }).then((convertedBlob) => {
-        console.log(convertedBlob);
-        let url = URL.createObjectURL(convertedBlob);
-        setImage([...image, convertedBlob]);
-        setPreviewImage([...previewImage, url]);
-      });
+      })
+        .then((convertedBlob) => {
+          console.log(convertedBlob);
+          let url = URL.createObjectURL(convertedBlob);
+          setImage([...image, convertedBlob]);
+          setPreviewImage([...previewImage, url]);
+        })
+        .then(() => {
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log("이미지에러", error);
+          swal("Can't Upload!", "잘못된 이미지 입니다", "warning");
+          setLoading(false);
+        });
       return;
     } else if (
       checkType[checkLength] !== "png" &&
@@ -57,6 +71,7 @@ export default function EditImageUpload({ initialImage }) {
       checkType[checkLength] !== "JPEG"
     ) {
       swal("Can't Upload!", "지원하지 않는 파일 형식입니다", "warning");
+      setLoading(false);
       return;
     }
 
@@ -69,6 +84,7 @@ export default function EditImageUpload({ initialImage }) {
       let preveiwUrl = reader.result;
       setPreviewImage([...previewImage, preveiwUrl]);
     };
+    setLoading(false);
   };
 
   // 파일 삭제
@@ -274,7 +290,7 @@ export default function EditImageUpload({ initialImage }) {
         <AiOutlineInfoCircle className="inline mr-1" />
         heic/feif 파일은 다소 시간이 소요될 수 있습니다.
       </div>
-      <div className="flex justify-center items-center m-auto"></div>
+      {loading ? <TrainLoading props={"업로드 중입니다..."} /> : null}
     </>
   );
 }

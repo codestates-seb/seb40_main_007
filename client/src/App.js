@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { Suspense, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
@@ -53,6 +52,10 @@ import {
 } from "./atoms/loginData";
 
 function App() {
+  if (process.env.NODE_ENV === "production") {
+    console.log = function no_console() {};
+    console.warn = function no_console() {};
+  }
   const [TOKEN, setAccessToken] = useRecoilState(accessToken);
   const [refresh, setRefreshToken] = useRecoilState(refreshToken);
   const [, setUserAvatar] = useRecoilState(userAvatar);
@@ -69,6 +72,7 @@ function App() {
           RefreshToken: refresh,
         },
       };
+
       axios
         .post(
           `${process.env.REACT_APP_URL}/members/refresh-token`,
@@ -76,11 +80,12 @@ function App() {
           reConfig
         )
         .then((response) => {
+          console.log("Refresh");
           setAccessToken(response.headers.authorization);
           setTimeout(onSilentRefresh, 1200000); //1200000 면 20분 이다. 6000000면 10분
         })
         .catch((error) => {
-          // console.log("error", error.code);
+          console.log("error", error.code);
           swal(
             "Expired!",
             "로그인이 만료되었습니다. 재 로그인이 필요합니다",
@@ -106,7 +111,7 @@ function App() {
                 location.reload();
               })
               .catch((error) => {
-                // console.log(error);
+                console.log(error);
                 setAccessToken("");
                 setRefreshToken("");
                 setUserAvatar("");

@@ -83,12 +83,12 @@ const MyPostPage = () => {
           <>
             <div className="w-full max-w-5xl flex flex-col sm:flex-row justify-end gap-2 relative ">
               <MyPostMap station={station} />
-              <MyPostList tabValue={tabValue} />
+              <MyPostList tabValue={tabValue} station={station} />
             </div>
           </>
         ) : (
           <div className="w-full max-w-2xl h-full flex flex-col justify-center">
-            <MyPostList tabValue={tabValue} />
+            <MyPostList tabValue={tabValue} station={station} />
           </div>
         )}
       </div>

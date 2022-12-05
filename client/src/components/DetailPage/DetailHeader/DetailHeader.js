@@ -14,6 +14,7 @@ import swal from "sweetalert";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
 import { detailPageTime } from "../../../utils/timeFunc";
+import DetailTravelModal from "../../modals/DetailTravelModal";
 
 const DetailHeader = () => {
   const { detailId } = useParams();
@@ -86,6 +87,7 @@ const DetailHeader = () => {
               <FaRegTrashAlt size={"20"} color={"#fff"} />
             </button>
             {/* {admin ? <Complain boardId={detailInfo?.boardId} /> : null}  어드민일 경우 신고가 필요한가?*/}
+            <DetailTravelModal boardId={detailInfo?.boardId} />
             <DetailHeart
               boardId={detailInfo?.boardId}
               heartState={detailInfo?.dibs}
@@ -96,6 +98,7 @@ const DetailHeader = () => {
             {TOKEN !== "" ? (
               <>
                 <Complain boardId={detailInfo?.boardId} />
+                <DetailTravelModal boardId={detailInfo?.boardId} />
                 <DetailHeart
                   boardId={detailInfo?.boardId}
                   heartState={detailInfo?.dibs}

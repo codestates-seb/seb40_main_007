@@ -48,7 +48,7 @@ export default function ForgotPassword() {
             />
           </div>
           <div className="font-semibold text-[rgb(83,199,240)] text-center my-5 lg:mx-0 mx-14">
-            아이디를 입력하세요
+            이메일을 입력하세요
           </div>
           <div className="m-auto text-center">
             <div className="w-full border rounded-lg">

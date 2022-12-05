@@ -52,7 +52,7 @@ const MapItemDetail = ({ thumbnail, detailData, boardId }) => {
               </Link>
             </div>
 
-            <OneStarScore size={13} score={detailData.star} />
+            <OneStarScore style={13} score={detailData.star} />
           </div>
           <div className="gap-1 pt-1 flex flex-wrap">
             {tagList.map((tagName, index) => (

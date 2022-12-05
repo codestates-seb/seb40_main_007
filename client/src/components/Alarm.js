@@ -51,13 +51,12 @@ export default function Alarm() {
     <div className="w-fit flex relative">
       {alarmInfo.length > 0 ? (
         <button className="mr-1 relative" onClick={() => setShowModal(true)}>
-          {/* flex justify-center items-center w-[50px] h-[50px] bg-[rgb(83,199,240)] rounded-3xl fixed bottom-5 right-5 */}
           <FaRegBell size={"28"} className="text-[rgb(83,199,240)] pt-0.5" />
-          <span className="mr-1 w-[10px] h-[10px] bg-red-500 rounded-full absolute top-0 -right-0.5"></span>
+          {/* <span className="animate-ping mr-1 w-[10px] h-[10px] bg-red-300 rounded-full absolute top-0 -right-0.5"></span> */}
+          <span className=" mr-1 w-[10px] h-[10px] bg-red-400 rounded-full absolute top-0 -right-0.5"></span>
         </button>
       ) : (
         <button className="mr-1" onClick={() => setShowModal(true)}>
-          {/* flex justify-center items-center w-[50px] h-[50px] bg-[rgb(83,199,240)] rounded-3xl fixed bottom-5 right-5 */}
           <FaRegBell size={"28"} className="text-[rgb(83,199,240)] pt-0.5" />
         </button>
       )}
@@ -85,7 +84,7 @@ export default function Alarm() {
                 ))
               ) : (
                 <button
-                  className="text-sm text-[rgb(83,199,240)] py-2"
+                  className="text-sm text-gray-400 py-2"
                   onClick={() => {
                     setShowModal(false);
                   }}

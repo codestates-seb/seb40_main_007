@@ -42,6 +42,7 @@ const CommentEditor = () => {
             .then((response) => {
               setDetailInfo(response.data);
               setCommentText("");
+              setChar(0);
             });
         })
         .catch((error) => console.log(error));
