@@ -97,7 +97,7 @@ const EditProfileImg = () => {
       checkType[checkLength] !== "JPEG"
     ) {
       swal("Can't Upload!", "지원하지 않는 파일 형식입니다", "warning");
-      setLoading(true);
+      setLoading(false);
       return;
     } else {
       const formData = new FormData();
