@@ -37,6 +37,8 @@ const MainPage = () => {
   const mainSort = useRecoilValue(mainSortEvent);
   const mainSortToEng = useRecoilValue(mainSortToEngData);
   const resetSort = useResetRecoilState(mainSortEvent);
+  const resetCategory = useResetRecoilState(selectCategoryEvent);
+
   // Main Map Event 관련 정보
   const resetMapImgClickid = useResetRecoilState(mapImgClickEvent);
   const trainStationInfo = useRecoilValue(trainInfo);
@@ -94,6 +96,11 @@ const MainPage = () => {
     }
   }, [id, selectCategory, selectTag, mainSort]);
 
+  // 역 이동시 카테고리 초기화
+  useEffect(() => {
+    resetCategory();
+  }, [id]);
+
   // 필터(최신,거리,추천) 초기화
   useEffect(() => {
     resetSort();
@@ -132,7 +139,7 @@ const MainPage = () => {
             </div>
           </div>
           <div>
-            <CategoryTabs />
+            <CategoryTabs stationId={id} />
             <RelatedTab />
             <PostList stationId={id} isPostOk={isPostOk} />
           </div>

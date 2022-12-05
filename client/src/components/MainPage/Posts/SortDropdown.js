@@ -10,7 +10,7 @@ const SortDropdown = () => {
   return (
     <>
       <div className={`w-full pl-7 relative flex font-medium `}>
-        <div className="z-20  flex flex-row justify-center items-center space-x-1 border-2 border-[rgb(83,199,240)] p-0.5 mb-1 bg-[rgb(83,199,240)] text-white  mr-1 rounded-tl-lg rounded-bl-lg">
+        <div className="flex flex-row justify-center items-center space-x-1 border-2 border-[rgb(83,199,240)] p-0.5 mb-1 bg-[rgb(83,199,240)] text-white  mr-1 rounded-tl-lg rounded-bl-lg">
           <MdSort size={20} />
           <span className="text-sm">필터</span>
         </div>
