@@ -54,7 +54,7 @@ export default function LoginPage() {
         setRefreshToken(response.headers.refresh);
       })
       .catch((error) => {
-        alert("로그인 실패");
+        swal("Sorry!", "로그인에 실패했습니다.", "warning");
       });
   }
 

@@ -29,8 +29,12 @@ import {
   editStarState,
   editCommentState,
 } from "../atoms/editPageData";
+import TrainLoading from "../components/TrainLoading";
 
 export default function EditPage() {
+  //로딩창
+  const [loading, setLoading] = useState(false);
+
   const navigatge = useNavigate();
   const { id } = useParams();
   const tagList = {
@@ -131,6 +135,7 @@ export default function EditPage() {
 
   const onSubmit = () => {
     setDisable(true);
+    setLoading(true);
     const editUrl = []; // s3 url
     const editPriority = []; // priority
     const formData = new FormData();
@@ -170,38 +175,46 @@ export default function EditPage() {
     if (editTrainStation === "") {
       swal("Please Check!", "기차역을 선택해 주세요", "info");
       setDisable(false);
+      setLoading(true);
       return;
     } else if (editAdress === "") {
       swal("Please Check!", "주소를 선택해 주세요", "info");
       setDisable(false);
+      setLoading(true);
       return;
     } else if (editTitle === "") {
       swal("Please Check!", "제목 입력해 주세요", "info");
       setDisable(false);
+      setLoading(true);
       return;
     } else if (editStar === 0) {
       swal("Please Check!", "별점을 입력해 주세요", "info");
       setDisable(false);
+      setLoading(true);
       return;
     } else if (editImageList.length === 0) {
       swal("Please Check!", "사진을 업로드해 주세요", "info");
       setDisable(false);
+      setLoading(true);
       return;
     } else if (editCategory === "") {
       swal("Please Check!", "카테고리를 입력해 주세요", "info");
       setDisable(false);
+      setLoading(true);
       return;
     } else if (editRelated === "") {
       swal("Please Check!", "관련태그를 입력해 주세요", "info");
       setDisable(false);
+      setLoading(true);
       return;
     } else if (editComment === "") {
       swal("Please Check!", "한줄평을 입력해 주세요", "info");
       setDisable(false);
+      setLoading(true);
       return;
     } else {
       setUpLoadFormData(formData); // 폼데이터 useState로 저장
-      console.log("finalUpLoad!!!!!!!!!!!!", finalUpLoadJson);
+      console.log("finalUpLoad", finalUpLoadJson);
     }
   };
 
@@ -232,8 +245,9 @@ export default function EditPage() {
           setEditStar("");
           setEditComment("");
           setEditImageList([]);
-          setDisable(false);
           navigatge(`/main/${editTrainStation}`);
+          setDisable(false);
+          setLoading(true);
         })
         .catch(function (error) {
           console.log(error);
@@ -286,6 +300,7 @@ export default function EditPage() {
         </button>
       </div>
       <Footer />
+      {loading ? <TrainLoading props={"업로드 중입니다..."} /> : null}
     </>
   );
 }
