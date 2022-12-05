@@ -192,10 +192,9 @@ public class ImageHandler {
 
                         String newFileName = System.nanoTime() + originalFileExtension;
                         file = new File(absolutePath + path + "/" + newFileName);
-                        File thumbnail = new File(absolutePath + path + "/" + thumbnailName);
                         image.transferTo(file);
 
-                        makeThumbnail(file, board, contentType, thumbnail, thumbnailName);
+                        makeThumbnail(file, board, contentType, thumbnailName);
                     }
                 }
             }
@@ -203,15 +202,15 @@ public class ImageHandler {
         return images;
     }
 
-    public void makeThumbnail(File file, Board board, String contentType, File thumbnail,String thumbnailName) throws IOException {
+    public void makeThumbnail(File file, Board board, String contentType, String thumbnailName) throws IOException {
         BufferedImage thumbnailImage = Thumbnails.of(file).size(300, 300).asBufferedImage();
-        ImageIO.write(thumbnailImage, "png", thumbnail);
+        ImageIO.write(thumbnailImage, "png", file);
 //        Thumbnails.of(file).size(300, 300).outputFormat("png").toFile(thumbnail);
 
-        FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(thumbnail.toPath()), false, thumbnail.getName(), (int) thumbnail.length(), thumbnail.getParentFile());
+        FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(file.toPath()), false, file.getName(), (int) file.length(), file.getParentFile());
 
         try {
-            InputStream input = new FileInputStream(thumbnail);
+            InputStream input = new FileInputStream(file);
             OutputStream os = fileItem.getOutputStream();
             IOUtils.copy(input, os);
             // Or faster..
@@ -242,7 +241,6 @@ public class ImageHandler {
         boardRepository.save(board);
         // s3에 업로드 후 ec2 파일은 제거
         file.delete();
-        thumbnail.delete();
     }
 
     public List<BoardImage> updateImages(Board board, List<String> priority, List<MultipartFile> multipartFiles, List<String> urls) throws IOException {
@@ -326,10 +324,9 @@ public class ImageHandler {
                             String newFileName = System.nanoTime() + originalFileExtension;
 
                             file = new File(absolutePath + path + "/" + newFileName);
-                            File thumbnail = new File(absolutePath + path + "/" + thumbnailName);
                             image.transferTo(file);
 
-                            makeThumbnail(file, board, contentType, thumbnail, thumbnailName);
+                            makeThumbnail(file, board, contentType, thumbnailName);
                         }
                     }
                 }
@@ -371,9 +368,8 @@ public class ImageHandler {
                     Files.write(paths, bytes);
 
                     File savedImage = new File(absolutePath + path + "/" + "temp.jpg");
-                    File thumbnail = new File(absolutePath + path + "/" + thumbnailName);
 
-                    makeThumbnail(savedImage, board, "image/jpg", thumbnail, thumbnailName);
+                    makeThumbnail(savedImage, board, "image/jpg", thumbnailName);
                 }
             }
         }
