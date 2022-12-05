@@ -144,7 +144,7 @@ export default function HomeIntroduce() {
             </div>
             <div
               onClick={scrollHandler}
-              className="fixed w-22 lg:bottom-10 bottom-6 left-1/2 lg:-ml-[18px] -ml-[14px] text-[rgba(65,152,224,0.7)] hover:scale-125 hover:text-[rgba(65,152,224,0.8)]"
+              className="fixed w-22 lg:bottom-10 bottom-6 left-1/2 lg:-ml-[18px] -ml-[14px] text-[rgba(65,152,224,0.7 )] hover:scale-125 hover:text-[rgba(65,152,224,0.8)]"
             >
               <HiOutlineChevronDoubleDown className="lg:animate-bounce m-auto lg:w-10 lg:h-10 w-3 h-3" />
               <div className="lg:text-sm text-[5px]">Scroll!</div>
