@@ -3,8 +3,8 @@ import { RiCloseFill } from "react-icons/ri";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { traveMapCenterEvent } from "../../../atoms/mypage/myTravelData";
 import { tagsInfoList } from "../../../atoms/tagsInfo";
-import OneStarScore from "../../OneStarScore";
 import ViewTag from "../../tag/viewTags/ViewTag";
+import MyTravelOneStarScore from "./MyTravelOneStarScore";
 import MyTravelStarScore from "./MyTravelStarScore";
 const MyTravelPost = ({
   data,
@@ -115,7 +115,7 @@ const MyTravelPost = ({
                     {data?.title}
                   </h2>
                   <MyTravelStarScore score={data.star} style={15} />
-                  <OneStarScore score={data?.star} style={15} />
+                  <MyTravelOneStarScore score={data?.star} style={15} />
                 </div>
                 <div className="text-end">
                   {/* 삭제버튼 */}

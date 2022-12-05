@@ -18,6 +18,8 @@ import MyTravelDot from "../mytravel/MyTravelDot";
 import { MdTimer } from "react-icons/md";
 const MyTravelList = ({ data, initData, setData }) => {
   // window.scrollTo(0,0);
+  const [nowLoading, setNowLoading] = useState(false);
+
   const [TOKEN] = useRecoilState(accessToken);
   const myTravelId = useRecoilValue(myTravelIdSelect);
   const [myTravel, setMyTravel] = useRecoilState(myTravelData);
@@ -128,6 +130,7 @@ const MyTravelList = ({ data, initData, setData }) => {
 
   // 플랜 변경 요청
   const savePlan = () => {
+    setNowLoading(true);
     setStackFront([]);
     setStackBack([]);
     const changeDataIdList = data?.map((el) => el.boardId);
@@ -151,11 +154,12 @@ const MyTravelList = ({ data, initData, setData }) => {
             setMyTravel(response.data);
             setTimeBetweenBoards(response.data.timeBetweenBoards);
             setWholeTime(response.data.wholeTime);
+            setNowLoading(false);
           })
           .catch((error) => {
             console.log("Change My Travel Fail :", error);
           })
-      : console.log("데이터가 바뀌지 않았습니다.");
+      : setNowLoading(false);
   };
 
   return myTravel ? (
@@ -245,9 +249,15 @@ const MyTravelList = ({ data, initData, setData }) => {
           </div>
         </div>
         {data && data?.length > 1 ? (
-          <div className="top-0 w-1/5 hidden xl:flex lg:flex-col lg:justify-center lg:items-center">
-            <MyTravelDot />
-          </div>
+          nowLoading ? (
+            <div className="top-0 w-1/5 hidden xl:flex lg:flex-col lg:justify-center lg:items-center">
+              <Loading></Loading>
+            </div>
+          ) : (
+            <div className="top-0 w-1/5 hidden xl:flex lg:flex-col lg:justify-center lg:items-center">
+              <MyTravelDot />
+            </div>
+          )
         ) : (
           <div className="top-0 w-1/5 hidden xl:flex lg:flex-col lg:justify-start lg:items-center">
             <div className="text-[rgba(83,199,240)] flex flex-col items-center text-center">
