@@ -75,7 +75,7 @@ public class ImageHandler {
         file = new File(absolutePath + path + "/" + newFileName);
         image.transferTo(file);
 
-        BufferedImage thumbnailImage = Thumbnails.of(file).size(100, 100).asBufferedImage();
+        BufferedImage thumbnailImage = Thumbnails.of(file).size(300, 300).asBufferedImage();
         ImageIO.write(thumbnailImage, "png", file);
 
         FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(file.toPath()), false, file.getName(), (int) file.length(), file.getParentFile());
