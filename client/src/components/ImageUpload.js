@@ -7,8 +7,12 @@ import { useRecoilState } from "recoil";
 import swal from "sweetalert";
 import heic2any from "heic2any";
 import { AiOutlineInfoCircle } from "react-icons/ai";
+import TrainLoading from "./TrainLoading";
 
 export default function ImageUpload() {
+  //로딩창
+  const [loading, setLoading] = useState(false);
+  console.log(loading);
   // 대표 사진 인덱스번호
   const [image, setImage] = useRecoilState(postImageState); // 이미지 배열
   const [previewImage, setPreviewImage] = useState([]); // 이미지 주소 배열
@@ -16,6 +20,7 @@ export default function ImageUpload() {
 
   // 사진파일, 미리보기파일 추가
   const handleFiles = (e) => {
+    setLoading(true);
     let currentImage = e.target.files[0];
     if (currentImage.size > FILE_SIZE_MAX_LIMIT) {
       currentImage = "";
@@ -24,6 +29,7 @@ export default function ImageUpload() {
         "8MB 이상의 사진은 업로드 할 수 없습니다",
         "warning"
       );
+      setLoading(false);
       return;
     }
     // heic to jpg
@@ -40,12 +46,16 @@ export default function ImageUpload() {
       heic2any({
         blob: currentImage,
         toType: "image/jpeg",
-      }).then((convertedBlob) => {
-        console.log(convertedBlob);
-        let url = URL.createObjectURL(convertedBlob);
-        setImage([...image, convertedBlob]);
-        setPreviewImage([...previewImage, url]);
-      });
+      })
+        .then((convertedBlob) => {
+          console.log(convertedBlob);
+          let url = URL.createObjectURL(convertedBlob);
+          setImage([...image, convertedBlob]);
+          setPreviewImage([...previewImage, url]);
+        })
+        .then(() => {
+          setLoading(false);
+        });
       return;
     } else if (
       checkType[checkLength] !== "png" &&
@@ -56,6 +66,7 @@ export default function ImageUpload() {
       checkType[checkLength] !== "JPEG"
     ) {
       swal("Can't Upload!", "지원하지 않는 파일 형식입니다", "warning");
+      setLoading(false);
       return;
     }
 
@@ -68,6 +79,7 @@ export default function ImageUpload() {
       let preveiwUrl = reader.result;
       setPreviewImage([...previewImage, preveiwUrl]);
     };
+    setLoading(false);
   };
 
   // 파일 삭제
@@ -90,6 +102,7 @@ export default function ImageUpload() {
     setImage([...selectImg, ...copyImg]);
     setPreviewImage([...selectUrl, ...copyUrl]);
   };
+
   return (
     <>
       <div className="lg:pt-20 pt-10 font-semibold border-b-2 border-[rgb(83,199,240)] w-fit lg:px-5 px-3 pb-2 lg:mb-16 mb-5 lg:text-base text-sm text-[rgb(83,199,240)]">
@@ -272,7 +285,7 @@ export default function ImageUpload() {
         <AiOutlineInfoCircle className="inline mr-1" />
         heic/feif 파일은 다소 시간이 소요될 수 있습니다.
       </div>
-      <div className="flex justify-center items-center m-auto"></div>
+      {loading ? <TrainLoading props={"업로드 중입니다..."} /> : null}
     </>
   );
 }

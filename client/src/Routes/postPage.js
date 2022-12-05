@@ -16,7 +16,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import swal from "sweetalert";
 import { accessToken } from "../atoms/loginData";
-import Loading from "../components/Loading";
 import {
   postTrainStationState,
   postpostionState,
@@ -226,7 +225,6 @@ export default function PostPage() {
           작성완료
         </button>
       </div>
-      <Loading />
       <Footer />
     </>
   );
