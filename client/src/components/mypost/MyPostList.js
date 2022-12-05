@@ -4,7 +4,7 @@ import { myPostData } from "../../atoms/mypage/myPostData";
 import { Link } from "react-router-dom";
 import { trainInfo } from "../../atoms/trainInfo";
 
-const MyPostList = ({ tabValue, station }) => {
+const MyPostList = ({ tabValue, station, isVoid }) => {
   const myPost = useRecoilValue(myPostData);
   const trainStationInfo = useRecoilValue(trainInfo);
 
@@ -36,7 +36,11 @@ const MyPostList = ({ tabValue, station }) => {
             ))}
           </div>
         ) : (
-          <div className="p-5 rounded-2xl font-semibold flex flex-col justify-center items-center border-2 text-[rgb(83,199,240)]">
+          <div
+            className={`${
+              isVoid ? "border-2" : ""
+            } p-5 rounded-2xl font-semibold flex flex-col justify-center items-center text-[rgb(83,199,240)]`}
+          >
             {tabValue === "작성한게시글" ? (
               <>
                 <img className="w-9" src="../images/logo.png" alt="logo" />
@@ -50,7 +54,7 @@ const MyPostList = ({ tabValue, station }) => {
                   </div>
                 </Link>
               </>
-            ) : (
+            ) : isVoid ? (
               <>
                 <img className="w-9" src="../images/logo.png" alt="logo" />
                 <h1>현재 역에서 찜한 게시글이 없습니다.</h1>
@@ -63,7 +67,7 @@ const MyPostList = ({ tabValue, station }) => {
                   </div>
                 </Link>
               </>
-            )}
+            ) : null}
           </div>
         )}
       </div>
