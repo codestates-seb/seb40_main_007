@@ -21,6 +21,8 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -202,7 +204,9 @@ public class ImageHandler {
     }
 
     public void makeThumbnail(File file, Board board, String contentType, File thumbnail,String thumbnailName) throws IOException {
-        Thumbnails.of(file).size(300, 300).outputFormat("png").toFile(thumbnail);
+        BufferedImage thumbnailImage = Thumbnails.of(file).size(300, 300).asBufferedImage();
+        ImageIO.write(thumbnailImage, "png", thumbnail);
+//        Thumbnails.of(file).size(300, 300).outputFormat("png").toFile(thumbnail);
 
         FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(thumbnail.toPath()), false, thumbnail.getName(), (int) thumbnail.length(), thumbnail.getParentFile());
 
