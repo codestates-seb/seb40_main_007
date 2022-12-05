@@ -12,6 +12,7 @@ const MyCommentPage = () => {
   const [page, setPage] = useState(1);
   const [pageInfo, setPageInfo] = useState();
   const [data, setData] = useState([]);
+  const [isVoid, setIsVoid] = useState(false);
 
   const [TOKEN] = useRecoilState(accessToken);
 
@@ -27,6 +28,7 @@ const MyCommentPage = () => {
       .then((response) => {
         setData(response.data.items);
         setPageInfo(response.data.pageInfo);
+        response.data.items.length !== 0 ? setIsVoid(false) : setIsVoid(true);
       })
       .catch((error) => {
         console.log("mycomment error:", error);
@@ -53,7 +55,7 @@ const MyCommentPage = () => {
                 handlePageChange={handlePageChange}
               />
             </>
-          ) : (
+          ) : isVoid ? (
             <div className="w-full flex justify-center">
               <div className="w-fit p-5 rounded-2xl font-semibold flex flex-col justify-center items-center border-2 text-[rgb(83,199,240)]">
                 <img className="w-10" src="../images/logo.png" alt="logo" />
@@ -68,7 +70,7 @@ const MyCommentPage = () => {
                 </Link>
               </div>
             </div>
-          )}
+          ) : null}
         </div>
       </div>
     </div>
