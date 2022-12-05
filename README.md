@@ -8,7 +8,7 @@
 <img src = "https://pre-032-bucket.s3.ap-northeast-2.amazonaws.com/text_logo_ver4.png" >
       
 ## 시연 영상, 프로젝트 상세 소개
-### <a href = "https://topaz-land-b32.notion.site/3ff18439ae114b828c2c5ff482f18506">📝노션으로 이동</a>
+### <a href = "https://codestates.notion.site/40-Team007-f5f31466aa20417597fde76d78641813">📝노션으로 이동</a>
 
 ## 팀원 소개
 |안유진 (FE / 팀장)|정희찬 (FE)|강병재 (BE)|조성웅 (BE)|
