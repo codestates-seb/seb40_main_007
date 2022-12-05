@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { accessToken } from "../../atoms/loginData";
 import { useRecoilState } from "recoil";
+import { Link } from "react-router-dom";
 
 const MyCommentPage = () => {
   const [page, setPage] = useState(1);
@@ -52,7 +53,22 @@ const MyCommentPage = () => {
                 handlePageChange={handlePageChange}
               />
             </>
-          ) : null}
+          ) : (
+            <div className="w-full flex justify-center">
+              <div className="w-fit p-5 rounded-2xl font-semibold flex flex-col justify-center items-center border-2 text-[rgb(83,199,240)]">
+                <img className="w-10" src="../images/logo.png" alt="logo" />
+                <h1>작성한 댓글이 없습니다.</h1>
+                <p className="text-sm">게시글을 보고 댓글을 작성해보세요!</p>
+                <Link to={`/main/1`}>
+                  <div className="bg-[rgb(83,199,240)] hover:bg-[rgba(83,199,240,0.8)] active:scale-90 mt-4 p-2 rounded-2xl w-[170px] flex flex-col justify-center items-center">
+                    <div className="text-center">
+                      <p className="text-white font-medium">게시글 보러가기</p>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

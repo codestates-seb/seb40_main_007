@@ -52,6 +52,10 @@ import {
 } from "./atoms/loginData";
 
 function App() {
+  if (process.env.NODE_ENV === "production") {
+    console.log = function no_console() {};
+    console.warn = function no_console() {};
+  }
   const [TOKEN, setAccessToken] = useRecoilState(accessToken);
   const [refresh, setRefreshToken] = useRecoilState(refreshToken);
   const [, setUserAvatar] = useRecoilState(userAvatar);

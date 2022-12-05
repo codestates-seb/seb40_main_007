@@ -112,13 +112,13 @@ function PostList({ stationId, isPostOk }) {
           </InfiniteScroll>
         </div>
       ) : (
-        <div className="w-full sm:w-[560px] mb-12 mt-10 sm:mt-20 text-gray-400 text-lg flex flex-col justify-center items-center sm:mr-[14px]">
+        <div className="w-full sm:w-[560px] mb-12 mt-10 sm:mt-20  text-[rgb(83,199,240)] text-lg flex flex-col justify-center items-center sm:mr-[14px]">
           {isPostOk ? (
-            <div className="p-5 rounded-2xl font-medium flex flex-col justify-center items-center border-2 ">
+            <div className="p-5 rounded-2xl font-semibold flex flex-col justify-center items-center border-2 ">
               <h1>게시글이 비었습니다.</h1>
               <p className="text-sm ">게시글을 작성해보세요!</p>
               <Link to={TOKEN === "" ? "/initial" : `/post/${stationId}`}>
-                <div className="bg-[rgb(83,199,240)] hover:bg-[rgba(83,199,240,0.8)] active:scale-90 mt-4 p-2 rounded-2xl w-[170px] border-2 flex flex-col justify-center items-center">
+                <div className="bg-[rgb(83,199,240)] hover:bg-[rgba(83,199,240,0.8)] active:scale-90 mt-4 p-2 rounded-2xl w-[170px] flex flex-col justify-center items-center">
                   {TOKEN === "" ? (
                     <div className="text-center">
                       <p className="text-xs text-red-500 font-medium">
