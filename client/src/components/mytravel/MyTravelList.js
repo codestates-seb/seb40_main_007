@@ -16,6 +16,7 @@ import axios from "axios";
 import Loading from "../Loading";
 import MyTravelDot from "../mytravel/MyTravelDot";
 import { MdTimer } from "react-icons/md";
+import TrainLoading from "../TrainLoading";
 const MyTravelList = ({ data, initData, setData }) => {
   // window.scrollTo(0,0);
   const [nowLoading, setNowLoading] = useState(false);
@@ -250,9 +251,7 @@ const MyTravelList = ({ data, initData, setData }) => {
         </div>
         {data && data?.length > 1 ? (
           nowLoading ? (
-            <div className="top-0 w-1/5 hidden xl:flex lg:flex-col lg:justify-center lg:items-center">
-              <Loading></Loading>
-            </div>
+            <TrainLoading props={"여행 시간을 계산중입니다..."}></TrainLoading>
           ) : (
             <div className="top-0 w-1/5 hidden xl:flex lg:flex-col lg:justify-center lg:items-center">
               <MyTravelDot />
