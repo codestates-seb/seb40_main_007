@@ -1,10 +1,18 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
+import { HiOutlineChevronDoubleDown } from "react-icons/hi";
 /* eslint-disable */
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 export default function HomeIntroduce() {
+  const scrollHandler = () => {
+    window.scrollTo({
+      top: 900,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
   return (
     <>
       <Swiper
@@ -17,7 +25,7 @@ export default function HomeIntroduce() {
       >
         {/* 첫번째 소개 페이지 */}
         <SwiperSlide>
-          <div className="lg:w-full lg:h-screen h-[300px] bg-[rgb(83,199,240)] lg:pt-20 overflow-y: hidden; border-2 lg:text:base text-[8px]">
+          <div className="lg:w-full lg:h-screen h-[300px] bg-[rgb(83,199,240)] lg:pt-20 overflow-y border-2 lg:text:base text-[8px]">
             <div className="lg:max-w-[1400px] h-full flex lg:justify-between justify-center font-bold m-auto items-center lg:mt-0 mt-5">
               <div className="text-white lg:ml-10 ml-2 lg:mr-0 mr-5">
                 <div className="text-[rgb(83,199,240)] lg:text-lg lg:font-semibold font-light mb-5">
@@ -54,6 +62,13 @@ export default function HomeIntroduce() {
                 alt="phone"
                 className="lg:mr-40 lg:w-72 mr-1 w-20"
               />
+              <div
+                onClick={scrollHandler}
+                className="fixed w-22 lg:bottom-10 bottom-6 left-1/2 lg:-ml-[18px] -ml-[14px] text-[rgba(256,256,256,0.5)] hover:scale-125 hover:text-[rgba(256,256,256,0.7)]"
+              >
+                <HiOutlineChevronDoubleDown className="m-auto lg:w-10 lg:h-10 w-3 h-3" />
+                <div className="lg:text-sm text-[5px]">Start!</div>
+              </div>
             </div>
           </div>
         </SwiperSlide>
@@ -89,6 +104,13 @@ export default function HomeIntroduce() {
                 </div>
               </div>
             </div>
+            <div
+              onClick={scrollHandler}
+              className="fixed w-22 lg:bottom-10 bottom-6 left-1/2 lg:-ml-[18px] -ml-[14px] text-[rgba(83,199,240,0.6)] hover:scale-125 hover:text-[rgba(83,199,240,0.8)]"
+            >
+              <HiOutlineChevronDoubleDown className="m-auto lg:w-10 lg:h-10 w-3 h-3" />
+              <div className="lg:text-sm text-[5px]">Start!</div>
+            </div>
           </div>
         </SwiperSlide>
         {/* 세번째 소개 페이지 */}
@@ -119,6 +141,13 @@ export default function HomeIntroduce() {
                   </span>
                 </div>
               </div>
+            </div>
+            <div
+              onClick={scrollHandler}
+              className="fixed w-22 lg:bottom-10 bottom-6 left-1/2 lg:-ml-[18px] -ml-[14px] text-[rgba(65,152,224,0.5)] hover:scale-125 hover:text-[rgba(65,152,224,0.8)]"
+            >
+              <HiOutlineChevronDoubleDown className="m-auto lg:w-10 lg:h-10 w-3 h-3" />
+              <div className="lg:text-sm text-[5px]">Start!</div>
             </div>
           </div>
         </SwiperSlide>
