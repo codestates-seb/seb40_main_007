@@ -2,6 +2,7 @@ package codestates.main007.service;
 
 import codestates.main007.exception.ExceptionCode;
 import codestates.main007.planner.dto.PlannerDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 @Service
+@Slf4j
 public class DistanceMeasuringService {
 
     @Value("${TMAP_APPKEY}")
@@ -48,6 +50,7 @@ public class DistanceMeasuringService {
         String str = response.getBody();
 
         if (str == null) {
+            log.info("# 거리를 측정할 수 없습니다.");
             throw new ResponseStatusException(ExceptionCode.CAN_NOT_MEASUERMENT.getStatus(), ExceptionCode.CAN_NOT_MEASUERMENT.getMessage(), new IllegalArgumentException());
         }
 
@@ -144,6 +147,7 @@ public class DistanceMeasuringService {
             str = response.getBody();
 
             if (str == null) {
+                log.info("# 거리를 측정할 수 없습니다.");
                 throw new ResponseStatusException(ExceptionCode.CAN_NOT_MEASUERMENT.getStatus(), ExceptionCode.CAN_NOT_MEASUERMENT.getMessage(), new IllegalArgumentException());
             }
 
