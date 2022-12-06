@@ -68,7 +68,8 @@ public class BoardPlannerService {
         List<Long> boardIds = planner.getBoardPlanners().stream()
                 .map(boardPlanner -> boardPlanner.getBoard().getBoardId())
                 .collect(Collectors.toList());
-        if (boardIds.size() > 1){
+        // todo
+        if (boardIds.size() >= 1){
             Long fromId = boardIds.get(boardIds.size() - 1);
             Board fromBoard = boardService.find(fromId);
             if (board.getStationId()==fromBoard.getStationId()){

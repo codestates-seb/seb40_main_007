@@ -140,6 +140,7 @@ public class PlannerService {
     public List<PlannerDto.Time> getTimeBetweenBoardsList(List<Board> boards) throws InterruptedException {
         List<PlannerDto.Time> timeList = new ArrayList<>();
         for (int i = 0; i < boards.size() - 1; i++) {
+            // todo:
             long fromId = boards.get(i).getBoardId();
             long toId = boards.get(i + 1).getBoardId();
             Time time = timeService.find(fromId, toId);
@@ -150,6 +151,9 @@ public class PlannerService {
                     .build();
 
             timeList.add(timeDto);
+
+            Thread.sleep(400);
+
         }
 
         return timeList;
