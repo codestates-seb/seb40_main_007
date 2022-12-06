@@ -131,7 +131,7 @@ public class AdminService {
                     .build();
             reportedDtos.add(dto);
         }
-        reportedDtos.sort(new Comparator<BoardDto.Reported>() {
+        Collections.sort(reportedDtos, new Comparator<BoardDto.Reported>() {
             @Override
             public int compare(BoardDto.Reported o1, BoardDto.Reported o2) {
                 return o1.getTotalReport()- o2.getTotalReport();
