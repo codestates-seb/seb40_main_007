@@ -151,9 +151,6 @@ public class PlannerService {
                     .build();
 
             timeList.add(timeDto);
-
-            Thread.sleep(400);
-
         }
 
         return timeList;
