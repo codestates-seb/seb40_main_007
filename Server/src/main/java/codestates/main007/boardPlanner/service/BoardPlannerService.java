@@ -71,14 +71,7 @@ public class BoardPlannerService {
         // todo
         if (boardIds.size() >= 1){
             Long fromId = boardIds.get(boardIds.size() - 1);
-            Board fromBoard = boardService.find(fromId);
-            if (board.getStationId()==fromBoard.getStationId()){
-                PlannerDto.Time timeType = distanceMeasuringService.getPlannerTime(fromBoard.getLatitude(),fromBoard.getLongitude(),board.getLatitude(),board.getLongitude());
-                timeService.save(fromId,boardId,timeType.getTime(),timeType.getType());
-            } else {
-                timeService.save(fromId,boardId,0 ,"train");
-            }
-
+            timeService.find(fromId, board.getBoardId());
         }
 
         boardIds.add(createdBoardPlanner.getBoard().getBoardId());
