@@ -131,12 +131,8 @@ public class AdminService {
                     .build();
             reportedDtos.add(dto);
         }
-        Collections.sort(reportedDtos, new Comparator<BoardDto.Reported>() {
-            @Override
-            public int compare(BoardDto.Reported o1, BoardDto.Reported o2) {
-                return o1.getTotalReport()- o2.getTotalReport();
-            }
-        });
+
+        Collections.sort(reportedDtos, (a, b) -> b.getTotalReport() - a.getTotalReport());
 
         List<Integer> stationCount = new ArrayList<>();
         for (int i = 1; i < 17; i++) {
