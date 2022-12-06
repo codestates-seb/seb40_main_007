@@ -42,18 +42,22 @@ const MyPostList = ({ tabValue, station, isVoid }) => {
             } p-5 rounded-2xl font-semibold flex flex-col justify-center items-center text-[rgb(83,199,240)]`}
           >
             {tabValue === "작성한게시글" ? (
-              <>
-                <img className="w-9" src="../images/logo.png" alt="logo" />
-                <h1>현재 역에서 작성한 게시글이 없습니다.</h1>
-                <p className="text-sm ">게시글을 작성해보세요!</p>
-                <Link to={station === 0 ? `/post/1` : `/post/${station}`}>
-                  <div className="bg-[rgb(83,199,240)] hover:bg-[rgba(83,199,240,0.8)] active:scale-90 mt-4 p-2 rounded-2xl w-[170px] flex flex-col justify-center items-center">
-                    <div className="text-center">
-                      <p className="text-white font-medium">게시글 작성하기</p>
+              isVoid ? (
+                <>
+                  <img className="w-9" src="../images/logo.png" alt="logo" />
+                  <h1>현재 역에서 작성한 게시글이 없습니다.</h1>
+                  <p className="text-sm ">게시글을 작성해보세요!</p>
+                  <Link to={station === 0 ? `/post/1` : `/post/${station}`}>
+                    <div className="bg-[rgb(83,199,240)] hover:bg-[rgba(83,199,240,0.8)] active:scale-90 mt-4 p-2 rounded-2xl w-[170px] flex flex-col justify-center items-center">
+                      <div className="text-center">
+                        <p className="text-white font-medium">
+                          게시글 작성하기
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              </>
+                  </Link>
+                </>
+              ) : null
             ) : isVoid ? (
               <>
                 <img className="w-9" src="../images/logo.png" alt="logo" />
