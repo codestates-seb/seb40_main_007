@@ -37,7 +37,7 @@ public class PlannerService {
     private final PlannerMapper plannerMapper;
     private final BoardMapper boardMapper;
 
-    public List<PlannerDto.MyPlannersResponse> save(String accessToken, PlannerDto.Input inputDto) throws IOException {
+    public List<PlannerDto.MyPlannerWithBoards> save(String accessToken, PlannerDto.Input inputDto) throws IOException {
         String plannerName = plannerMapper.inputDtoToentity(inputDto).getPlannerName();
         Member member = memberService.findByAccessToken(accessToken);
         if (plannerRepository.findByMemberAndPlannerName(member, plannerName).isEmpty()) {
@@ -47,11 +47,26 @@ public class PlannerService {
                     .build();
             plannerRepository.save(createdPlanner);
 
-            return getMyPlanners(accessToken);
+            return getMyPlannerWithBoards(accessToken);
         } else
             throw new ResponseStatusException(ExceptionCode.PLANNER_EXISTS.getStatus(), ExceptionCode.PLANNER_EXISTS.getMessage(), new IllegalArgumentException());
 
     }
+//    public List<PlannerDto.MyPlannersResponse> save(String accessToken, PlannerDto.Input inputDto) throws IOException {
+//        String plannerName = plannerMapper.inputDtoToentity(inputDto).getPlannerName();
+//        Member member = memberService.findByAccessToken(accessToken);
+//        if (plannerRepository.findByMemberAndPlannerName(member, plannerName).isEmpty()) {
+//            Planner createdPlanner = Planner.builder()
+//                    .plannerName(plannerName)
+//                    .member(member)
+//                    .build();
+//            plannerRepository.save(createdPlanner);
+//
+//            return getMyPlanners(accessToken);
+//        } else
+//            throw new ResponseStatusException(ExceptionCode.PLANNER_EXISTS.getStatus(), ExceptionCode.PLANNER_EXISTS.getMessage(), new IllegalArgumentException());
+//
+//    }
 
     public void save(Planner planner) {
         plannerRepository.save(planner);
