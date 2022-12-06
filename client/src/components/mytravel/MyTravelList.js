@@ -273,7 +273,9 @@ const MyTravelList = ({ data, initData, setData }) => {
       </div>
     </div>
   ) : (
-    <div className="w-full h-64 sm:h-auto  border-2 rounded-xl"></div>
+    <div className="w-full h-64 sm:h-auto  border-2 rounded-xl flex justify-center items-center">
+      <Loading></Loading>
+    </div>
   );
 };
 export default MyTravelList;

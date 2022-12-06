@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import { trainInfo } from "../../atoms/trainInfo";
 import { makeActive, makeHover } from "../../utils/tailwindFunc";
 
-export default function TrainStationModal({ setStation }) {
+export default function TrainStationModal({ setStation, setIsVoid }) {
   const [showModal, setShowModal] = useState(false);
   const trainStationInfo = useRecoilValue(trainInfo);
   const hoverStr = "scale-110 rounded-lg";
@@ -41,6 +41,7 @@ export default function TrainStationModal({ setStation }) {
                     onClick={() => {
                       setStation(0);
                       setShowModal(false);
+                      setIsVoid(false);
                     }}
                   >
                     전체 보기
@@ -53,6 +54,7 @@ export default function TrainStationModal({ setStation }) {
                         onClick={() => {
                           setStation(el.id);
                           setShowModal(false);
+                          setIsVoid(false);
                         }}
                       >
                         <img

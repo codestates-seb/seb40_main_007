@@ -1,4 +1,4 @@
-const MyPostTab = ({ setTabValue, tabValue }) => {
+const MyPostTab = ({ setTabValue, tabValue, setIsVoid }) => {
   const normalStyle =
     "w-[50%] h-full flex justify-center text-[rgb(83,199,240)] items-center border-[1px] border-[rgb(83,199,240)]";
   const activeStyle = "text-white bg-[rgb(83,199,240)]";
@@ -10,7 +10,7 @@ const MyPostTab = ({ setTabValue, tabValue }) => {
           className={`${normalStyle} rounded-tl-2xl rounded-bl-2xl ${
             tabValue === "작성한게시글" ? activeStyle : ""
           }`}
-          onClick={() => setTabValue("작성한게시글")}
+          onClick={() => (setTabValue("작성한게시글"), setIsVoid(false))}
         >
           작성한 게시글
         </button>
@@ -18,7 +18,7 @@ const MyPostTab = ({ setTabValue, tabValue }) => {
           className={`${normalStyle} rounded-tr-2xl rounded-br-2xl ${
             tabValue === "내찜목록" ? activeStyle : ""
           }`}
-          onClick={() => setTabValue("내찜목록")}
+          onClick={() => (setTabValue("내찜목록"), setIsVoid(false))}
         >
           내 찜 목록
         </button>

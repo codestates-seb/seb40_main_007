@@ -17,6 +17,7 @@ import { trainInfo } from "../../atoms/trainInfo";
 const MyPostPage = () => {
   const [tabValue, setTabValue] = useState("작성한게시글");
   const [station, setStation] = useState(0);
+  const [isVoid, setIsVoid] = useState(false);
 
   const [TOKEN] = useRecoilState(accessToken);
   const [, setMyPost] = useRecoilState(myPostData);
@@ -26,6 +27,7 @@ const MyPostPage = () => {
 
   // 더미 데이터 통신 될 경우 변경
   useEffect(() => {
+    setIsVoid(false);
     resetMyPost();
 
     // 리스트 바뀌는 모습 감추는 방향
@@ -49,6 +51,7 @@ const MyPostPage = () => {
         station === 0
           ? setMapCenter([{ lat: 36.44705047088056, lng: 127.96763837805022 }])
           : setMapCenter([trainStationInfo[station - 1].position]);
+        response.data.length !== 0 ? setIsVoid(false) : setIsVoid(true);
       })
       .catch((error) => {
         console.log("mypost error:", error);
@@ -67,7 +70,11 @@ const MyPostPage = () => {
       <div className="mypage-header-tab ">
         <MyPageTab index={"내게시글"} />
         <div className="w-full max-w-2xl flex justify-center relative">
-          <MyPostTab setTabValue={setTabValue} tabValue={tabValue} />
+          <MyPostTab
+            setTabValue={setTabValue}
+            tabValue={tabValue}
+            setIsVoid={setIsVoid}
+          />
           <div
             // className={
             //   tabValue === "작성한게시글"
@@ -76,19 +83,23 @@ const MyPostPage = () => {
             // }
             className="absolute right-0 top-[-3px] "
           >
-            <TrainStationModal setStation={setStation} />
+            <TrainStationModal setStation={setStation} setIsVoid={setIsVoid} />
           </div>
         </div>
         {tabValue === "작성한게시글" ? (
           <>
             <div className="w-full max-w-5xl flex flex-col sm:flex-row justify-end gap-2 relative ">
               <MyPostMap station={station} />
-              <MyPostList tabValue={tabValue} station={station} />
+              <MyPostList
+                tabValue={tabValue}
+                station={station}
+                isVoid={isVoid}
+              />
             </div>
           </>
         ) : (
           <div className="w-full max-w-2xl h-full flex flex-col justify-center">
-            <MyPostList tabValue={tabValue} station={station} />
+            <MyPostList tabValue={tabValue} station={station} isVoid={isVoid} />
           </div>
         )}
       </div>
