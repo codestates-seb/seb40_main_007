@@ -13,6 +13,9 @@ import codestates.main007.planner.dto.PlannerDto;
 import codestates.main007.planner.entity.Planner;
 import codestates.main007.planner.repository.PlannerRepository;
 import codestates.main007.planner.service.PlannerService;
+import codestates.main007.service.DistanceMeasuringService;
+import codestates.main007.time.entity.Time;
+import codestates.main007.time.service.TimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -30,12 +33,15 @@ public class BoardPlannerService {
     private final BoardService boardService;
     private final PlannerService plannerService;
     private final MemberService memberService;
+    private final TimeService timeService;
+    private final DistanceMeasuringService distanceMeasuringService;
     private final BoardPlannerRepository boardPlannerRepository;
+
     private final PlannerRepository plannerRepository;
     private final BoardPlannerMapper boardPlannerMapper;
     private final BoardMapper boardMapper;
 
-    public List<PlannerDto.MyPlannerWithBoards> save(String accessToken, long boardId, long plannerId) {
+    public List<PlannerDto.MyPlannerWithBoards> save(String accessToken, long boardId, long plannerId) throws InterruptedException {
         Board board = boardService.find(boardId);
         Planner planner = plannerService.find(plannerId);
         BoardPlanner createdBoardPlanner = BoardPlanner.builder()
@@ -62,6 +68,18 @@ public class BoardPlannerService {
         List<Long> boardIds = planner.getBoardPlanners().stream()
                 .map(boardPlanner -> boardPlanner.getBoard().getBoardId())
                 .collect(Collectors.toList());
+        if (boardIds.size() > 1){
+            Long fromId = boardIds.get(boardIds.size() - 1);
+            Board fromBoard = boardService.find(fromId);
+            if (board.getStationId()==fromBoard.getStationId()){
+                PlannerDto.Time timeType = distanceMeasuringService.getPlannerTime(fromBoard.getLatitude(),board.getLatitude(),fromBoard.getLongitude(),board.getLongitude());
+                timeService.save(fromId,boardId,timeType.getTime(),timeType.getType());
+            } else {
+                timeService.save(fromId,boardId,0 ,"train");
+            }
+
+        }
+
         boardIds.add(createdBoardPlanner.getBoard().getBoardId());
         List<PlannerDto.MyPlannerWithBoards> responses = plannerService.getMyPlannerWithBoards(accessToken);
         PlannerDto.MyPlannerWithBoards response = PlannerDto.MyPlannerWithBoards.builder()
@@ -70,7 +88,7 @@ public class BoardPlannerService {
                 .boardIds(boardIds)
                 .build();
         for (int i = 0; i < responses.size(); i++) {
-            if(responses.get(i).getPlannerId()==plannerId){
+            if (responses.get(i).getPlannerId() == plannerId) {
                 responses.set(i, response);
             }
         }
@@ -114,7 +132,6 @@ public class BoardPlannerService {
                         .sorted(Comparator.comparing(BoardPlanner::getPriority))
                         .map(BoardPlanner::getBoard)
                         .collect(Collectors.toList()));
-
         return plannerService.getMyPlannerResponse(plannerId, planner, timeList, boardMapper);
     }
 
