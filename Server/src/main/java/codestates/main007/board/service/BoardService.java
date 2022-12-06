@@ -19,6 +19,7 @@ import codestates.main007.service.DistanceMeasuringService;
 import codestates.main007.station.Station;
 import codestates.main007.tag.entity.Tag;
 import codestates.main007.tag.service.TagService;
+import codestates.main007.time.repository.TimeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -44,8 +45,7 @@ public class BoardService {
     private final BoardMapper boardMapper;
     private final DistanceMeasuringService distanceService;
     private final BoardMemberService boardMemberService;
-    private final BoardNoticeService boardNoticeService;
-
+    private final TimeRepository timeRepository;
     private final TagService tagService;
     private final ImageHandler imageHandler;
 
@@ -121,6 +121,7 @@ public class BoardService {
             double endLong = updatedBoard.getLongitude();
 
             updatedBoard.updateTimeFromStation(distanceService.getTime(startLat, startLong, endLat, endLong));
+            timeRepository.deleteByFromIdOrToId(boardId, boardId);
         }
 
         List<Long> tagIds = patch.getTags();

@@ -1,7 +1,6 @@
 package codestates.main007.time.service;
 
 import codestates.main007.board.entity.Board;
-import codestates.main007.board.repository.BoardRepository;
 import codestates.main007.board.service.BoardService;
 import codestates.main007.planner.dto.PlannerDto;
 import codestates.main007.service.DistanceMeasuringService;
@@ -52,6 +51,10 @@ public class TimeService {
                 return save(fromId, toId, 0, "train");
             }
         }
+    }
+
+    public void deleteByBoardId(long boardId){
+        timeRepository.deleteByFromIdOrToId(boardId, boardId);
     }
     //todo: 업데이트
 }
