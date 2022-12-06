@@ -24,8 +24,8 @@ public class TimeService {
 
     public Time save(long fromId, long toId, int time, String type) {
         Time newTime = Time.builder()
-                .fromId(toId)
-                .toId(fromId)
+                .fromId(fromId)
+                .toId(toId)
                 .time(time)
                 .type(type)
                 .build();
