@@ -70,8 +70,8 @@ public class BoardPlannerService {
                 .collect(Collectors.toList());
         // todo
         if (boardIds.size() >= 1){
-            Long fromId = boardIds.get(boardIds.size() - 1);
-            timeService.find(fromId, board.getBoardId());
+            Long toId = boardIds.get(boardIds.size() - 1);
+            timeService.find(board.getBoardId(),toId);
         }
 
         boardIds.add(createdBoardPlanner.getBoard().getBoardId());
