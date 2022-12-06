@@ -24,8 +24,8 @@ public class TimeService {
 
     public Time save(long fromId, long toId, int time, String type) {
         Time newTime = Time.builder()
-                .fromId(fromId)
-                .toId(toId)
+                .fromId(toId)
+                .toId(fromId)
                 .time(time)
                 .type(type)
                 .build();
@@ -44,7 +44,7 @@ public class TimeService {
             if (toBoard.getStationId() == fromBoard.getStationId()) {
                 log.info("# 새 경로를 추가합니다.");
                 PlannerDto.Time timeType = distanceMeasuringService.getPlannerTime(fromBoard.getLatitude(), fromBoard.getLongitude(), toBoard.getLatitude(), toBoard.getLongitude());
-                Thread.sleep(400);
+                Thread.sleep(500);
                 return save(fromId, toId, timeType.getTime(), timeType.getType());
             } else {
                 log.info("# 새 경로를 추가합니다. -기차");
