@@ -33,6 +33,12 @@ const MyTravelPage = () => {
   console.log(myTravelList);
 
   const [inputText, setInputText] = useState("");
+  // 요청시간 넘어갈시 에러 안내문구
+  const [runTimeOut, setRunTimeOut] = useState(false);
+  const reload = () => {
+    setRunTimeOut(false);
+    window.location.reload();
+  };
 
   // 가변데이터
   const [data, setData] = useState();
@@ -61,6 +67,7 @@ const MyTravelPage = () => {
 
   // 내 여행 계획 목록 클릭시 해당 리스트 데이터 세팅
   useEffect(() => {
+    setRunTimeOut(false);
     console.log("myTravelId", myTravelId);
     setData();
 
@@ -81,6 +88,7 @@ const MyTravelPage = () => {
           })
           .catch((error) => {
             console.log("GET TravelItem Fail :", error);
+            setRunTimeOut(true);
           })
       : console.log("아이템이 비어있음");
   }, [myTravelId]);
@@ -128,6 +136,9 @@ const MyTravelPage = () => {
                   data={data}
                   initData={myTravel?.boards}
                   setData={setData}
+                  runTimeOut={runTimeOut}
+                  setRunTimeOut={setRunTimeOut}
+                  reload={reload}
                 />
               </>
             ) : (
