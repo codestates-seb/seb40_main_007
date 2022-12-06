@@ -1,7 +1,7 @@
 // import { useState } from "react";
 import Loading from "./Loading";
 
-const MyTravelTrainLoading = ({ props, runTimeOut, reload }) => {
+const MyTravelTrainLoading = ({ props, runTimeOut, reload, savePlan }) => {
   // 사용하시는 곳에서   const [loading, setLoading] = useState(false); 추가하시고
   //  {loading ? <TrainLoading props={"업로드 중입니다..."} /> : null} 이런식으로 사용하시면 됩니다!
   // const [runTimeOut, setRunTimeOut] = useState(false);
@@ -26,6 +26,9 @@ const MyTravelTrainLoading = ({ props, runTimeOut, reload }) => {
           </span>
           <button onClick={reload} className="btn text-base">
             새로고침
+          </button>
+          <button onClick={savePlan} className="btn text-base mt-2">
+            재시도
           </button>
         </>
       ) : (
