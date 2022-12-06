@@ -139,6 +139,7 @@ const MyTravelList = ({
   // 플랜 변경 요청
   const savePlan = () => {
     setNowLoading(true);
+    setRunTimeOut(false);
     setStackFront([]);
     setStackBack([]);
     const changeDataIdList = data?.map((el) => el.boardId);
@@ -162,7 +163,10 @@ const MyTravelList = ({
             setMyTravel(response.data);
             setTimeBetweenBoards(response.data.timeBetweenBoards);
             setWholeTime(response.data.wholeTime);
+          })
+          .then(() => {
             setNowLoading(false);
+            setRunTimeOut(false);
           })
           .catch((error) => {
             console.log("Change My Travel Fail :", error);
@@ -276,6 +280,7 @@ const MyTravelList = ({
               props={"여행 시간을 계산중입니다..."}
               runTimeOut={runTimeOut}
               reload={reload}
+              savePlan={savePlan}
             ></MyTravelTrainLoading>
           ) : (
             <div className="top-0 w-1/5 hidden xl:flex lg:flex-col lg:justify-center lg:items-center">

@@ -35,9 +35,6 @@ const MyTravelPage = () => {
   const [inputText, setInputText] = useState("");
   // 요청시간 넘어갈시 에러 안내문구
   const [runTimeOut, setRunTimeOut] = useState(false);
-  // setTimeout(() => {
-  //   setRunTimeOut(true);
-  // }, 10000);
   const reload = () => {
     setRunTimeOut(false);
     window.location.reload();
@@ -70,6 +67,7 @@ const MyTravelPage = () => {
 
   // 내 여행 계획 목록 클릭시 해당 리스트 데이터 세팅
   useEffect(() => {
+    setRunTimeOut(false);
     console.log("myTravelId", myTravelId);
     setData();
 
