@@ -52,21 +52,6 @@ public class PlannerService {
             throw new ResponseStatusException(ExceptionCode.PLANNER_EXISTS.getStatus(), ExceptionCode.PLANNER_EXISTS.getMessage(), new IllegalArgumentException());
 
     }
-//    public List<PlannerDto.MyPlannersResponse> save(String accessToken, PlannerDto.Input inputDto) throws IOException {
-//        String plannerName = plannerMapper.inputDtoToentity(inputDto).getPlannerName();
-//        Member member = memberService.findByAccessToken(accessToken);
-//        if (plannerRepository.findByMemberAndPlannerName(member, plannerName).isEmpty()) {
-//            Planner createdPlanner = Planner.builder()
-//                    .plannerName(plannerName)
-//                    .member(member)
-//                    .build();
-//            plannerRepository.save(createdPlanner);
-//
-//            return getMyPlanners(accessToken);
-//        } else
-//            throw new ResponseStatusException(ExceptionCode.PLANNER_EXISTS.getStatus(), ExceptionCode.PLANNER_EXISTS.getMessage(), new IllegalArgumentException());
-//
-//    }
 
     public void save(Planner planner) {
         plannerRepository.save(planner);
