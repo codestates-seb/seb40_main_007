@@ -47,7 +47,7 @@ public class BoardPlannerService {
         BoardPlanner createdBoardPlanner = BoardPlanner.builder()
                 .board(boardService.find(boardId))
                 .planner(plannerService.find(plannerId))
-                .priority((int) boardId)
+                .priority((int) System.nanoTime())
                 .build();
         if (memberService.findByAccessToken(accessToken).equals(plannerService.find(plannerId).getMember())) {
             if (planner.getBoardPlanners().size() >= 10) {
