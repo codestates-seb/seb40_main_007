@@ -33,6 +33,15 @@ const MyTravelPage = () => {
   console.log(myTravelList);
 
   const [inputText, setInputText] = useState("");
+  // 요청시간 넘어갈시 에러 안내문구
+  const [runTimeOut, setRunTimeOut] = useState(false);
+  // setTimeout(() => {
+  //   setRunTimeOut(true);
+  // }, 10000);
+  const reload = () => {
+    setRunTimeOut(false);
+    window.location.reload();
+  };
 
   // 가변데이터
   const [data, setData] = useState();
@@ -81,6 +90,7 @@ const MyTravelPage = () => {
           })
           .catch((error) => {
             console.log("GET TravelItem Fail :", error);
+            setRunTimeOut(true);
           })
       : console.log("아이템이 비어있음");
   }, [myTravelId]);
@@ -128,6 +138,9 @@ const MyTravelPage = () => {
                   data={data}
                   initData={myTravel?.boards}
                   setData={setData}
+                  runTimeOut={runTimeOut}
+                  setRunTimeOut={setRunTimeOut}
+                  reload={reload}
                 />
               </>
             ) : (

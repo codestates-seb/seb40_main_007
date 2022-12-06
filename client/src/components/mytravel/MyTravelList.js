@@ -16,8 +16,15 @@ import axios from "axios";
 import Loading from "../Loading";
 import MyTravelDot from "../mytravel/MyTravelDot";
 import { MdTimer } from "react-icons/md";
-import TrainLoading from "../TrainLoading";
-const MyTravelList = ({ data, initData, setData }) => {
+import MyTravelTrainLoading from "../MyTravelTrainLoading";
+const MyTravelList = ({
+  data,
+  initData,
+  setData,
+  runTimeOut,
+  setRunTimeOut,
+  reload,
+}) => {
   // window.scrollTo(0,0);
   const [nowLoading, setNowLoading] = useState(false);
 
@@ -159,6 +166,7 @@ const MyTravelList = ({ data, initData, setData }) => {
           })
           .catch((error) => {
             console.log("Change My Travel Fail :", error);
+            setRunTimeOut(true);
           })
       : setNowLoading(false);
   };
@@ -223,8 +231,21 @@ const MyTravelList = ({ data, initData, setData }) => {
                 여행 목록이 비었습니다.
               </div>
             ) : (
-              <div className="text-xl text-[#8A8A8A] h-full flex justify-center items-center">
+              <div className="text-xl text-[#8A8A8A] h-full flex flex-col justify-center items-center">
                 <Loading></Loading>
+                {runTimeOut ? (
+                  <>
+                    <span className="font-bold text-base mt-2">
+                      현재 요청이 너무 많습니다.
+                    </span>
+                    <span className="font-bold text-base ">
+                      새로고침 버튼을 눌러주세요.
+                    </span>
+                    <button onClick={reload} className="btn text-base">
+                      새로고침
+                    </button>
+                  </>
+                ) : null}
               </div>
             )}
           </div>
@@ -251,7 +272,11 @@ const MyTravelList = ({ data, initData, setData }) => {
         </div>
         {data && data?.length > 1 ? (
           nowLoading ? (
-            <TrainLoading props={"여행 시간을 계산중입니다..."}></TrainLoading>
+            <MyTravelTrainLoading
+              props={"여행 시간을 계산중입니다..."}
+              runTimeOut={runTimeOut}
+              reload={reload}
+            ></MyTravelTrainLoading>
           ) : (
             <div className="top-0 w-1/5 hidden xl:flex lg:flex-col lg:justify-center lg:items-center">
               <MyTravelDot />
@@ -273,8 +298,21 @@ const MyTravelList = ({ data, initData, setData }) => {
       </div>
     </div>
   ) : (
-    <div className="w-full h-64 sm:h-auto  border-2 rounded-xl flex justify-center items-center">
+    <div className="w-full h-64 sm:h-auto  border-2 rounded-xl flex flex-col justify-center items-center">
       <Loading></Loading>
+      {runTimeOut ? (
+        <>
+          <span className="font-bold text-base mt-2">
+            현재 요청이 너무 많습니다.
+          </span>
+          <span className="font-bold text-base ">
+            새로고침 버튼을 눌러주세요.
+          </span>
+          <button onClick={reload} className="btn text-base">
+            새로고침
+          </button>
+        </>
+      ) : null}
     </div>
   );
 };
