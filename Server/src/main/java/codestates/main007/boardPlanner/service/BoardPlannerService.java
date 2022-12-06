@@ -44,10 +44,11 @@ public class BoardPlannerService {
     public List<PlannerDto.MyPlannerWithBoards> save(String accessToken, long boardId, long plannerId) throws InterruptedException {
         Board board = boardService.find(boardId);
         Planner planner = plannerService.find(plannerId);
+        Integer priority = (int) System.currentTimeMillis() / 10000;
         BoardPlanner createdBoardPlanner = BoardPlanner.builder()
                 .board(boardService.find(boardId))
                 .planner(plannerService.find(plannerId))
-                .priority((int) System.nanoTime())
+                .priority(priority)
                 .build();
         if (memberService.findByAccessToken(accessToken).equals(plannerService.find(plannerId).getMember())) {
             if (planner.getBoardPlanners().size() >= 10) {
@@ -69,9 +70,9 @@ public class BoardPlannerService {
                 .map(boardPlanner -> boardPlanner.getBoard().getBoardId())
                 .collect(Collectors.toList());
         // todo
-        if (boardIds.size() >= 1){
+        if (boardIds.size() >= 1) {
             Long toId = boardIds.get(boardIds.size() - 1);
-            timeService.find(board.getBoardId(),toId);
+            timeService.find(board.getBoardId(), toId);
         }
 
         boardIds.add(createdBoardPlanner.getBoard().getBoardId());
