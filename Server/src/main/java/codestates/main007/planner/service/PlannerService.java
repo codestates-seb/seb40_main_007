@@ -156,8 +156,8 @@ public class PlannerService {
         List<PlannerDto.Time> timeList = new ArrayList<>();
         for (int i = 0; i < boards.size() - 1; i++) {
             // todo:
-            long fromId = boards.get(i).getBoardId();
-            long toId = boards.get(i + 1).getBoardId();
+            long toId = boards.get(i).getBoardId();
+            long fromId = boards.get(i + 1).getBoardId();
             Time time = timeService.find(fromId, toId);
 
             PlannerDto.Time timeDto = PlannerDto.Time.builder()
