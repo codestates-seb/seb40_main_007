@@ -44,7 +44,7 @@ public class TimeService {
             Board toBoard = boardService.find(toId);
             if (toBoard.getStationId() == fromBoard.getStationId()) {
                 log.info("# 새 경로를 추가합니다.");
-                PlannerDto.Time timeType = distanceMeasuringService.getPlannerTime(fromBoard.getLatitude(), toBoard.getLatitude(), fromBoard.getLongitude(), toBoard.getLongitude());
+                PlannerDto.Time timeType = distanceMeasuringService.getPlannerTime(fromBoard.getLatitude(), fromBoard.getLongitude(), toBoard.getLatitude(), toBoard.getLongitude());
                 return save(fromId, toId, timeType.getTime(), timeType.getType());
             } else {
                 log.info("# 새 경로를 추가합니다. -기차");

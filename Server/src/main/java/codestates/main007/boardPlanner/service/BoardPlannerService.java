@@ -68,17 +68,17 @@ public class BoardPlannerService {
         List<Long> boardIds = planner.getBoardPlanners().stream()
                 .map(boardPlanner -> boardPlanner.getBoard().getBoardId())
                 .collect(Collectors.toList());
-        if (boardIds.size() > 1){
-            Long fromId = boardIds.get(boardIds.size() - 1);
-            Board fromBoard = boardService.find(fromId);
-            if (board.getStationId()==fromBoard.getStationId()){
-                PlannerDto.Time timeType = distanceMeasuringService.getPlannerTime(fromBoard.getLatitude(),board.getLatitude(),fromBoard.getLongitude(),board.getLongitude());
-                timeService.save(fromId,boardId,timeType.getTime(),timeType.getType());
-            } else {
-                timeService.save(fromId,boardId,0 ,"train");
-            }
-
-        }
+//        if (boardIds.size() > 1){
+//            Long fromId = boardIds.get(boardIds.size() - 1);
+//            Board fromBoard = boardService.find(fromId);
+//            if (board.getStationId()==fromBoard.getStationId()){
+//                PlannerDto.Time timeType = distanceMeasuringService.getPlannerTime(fromBoard.getLatitude(),board.getLatitude(),fromBoard.getLongitude(),board.getLongitude());
+//                timeService.save(fromId,boardId,timeType.getTime(),timeType.getType());
+//            } else {
+//                timeService.save(fromId,boardId,0 ,"train");
+//            }
+//
+//        }
 
         boardIds.add(createdBoardPlanner.getBoard().getBoardId());
         List<PlannerDto.MyPlannerWithBoards> responses = plannerService.getMyPlannerWithBoards(accessToken);
