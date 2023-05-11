@@ -86,7 +86,7 @@ public class Board {
     @Column
     private int timeFromStation;
 
-    @Column
+    @Column(columnDefinition = "GEOMETRY")
     private Point geography;
 
     @ManyToOne
