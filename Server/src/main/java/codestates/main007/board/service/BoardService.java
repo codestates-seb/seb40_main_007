@@ -361,6 +361,7 @@ public class BoardService {
             String pointWKT = String.format("POINT(%s %s)", board.getLongitude(), board.getLatitude());
             Point point = (Point) new WKTReader().read(pointWKT);
             board.setPoint(point);
+            save(board);
         }
     }
 }
