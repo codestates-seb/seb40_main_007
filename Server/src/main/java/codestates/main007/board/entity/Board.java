@@ -109,6 +109,10 @@ public class Board {
     @JoinTable(name = "board_tag")
     private List<Tag> tags = new ArrayList<>();
 
+    public void setPoint(Point point) {
+        this.geography = point;
+    }
+
     public void setImages(List<BoardImage> images) {
         this.images = images;
     }

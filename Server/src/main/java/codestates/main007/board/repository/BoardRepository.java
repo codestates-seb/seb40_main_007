@@ -8,7 +8,10 @@ import codestates.main007.tag.entity.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
@@ -36,4 +39,9 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     List<Board> findByScoreGreaterThan(int length);
     List<Board> findByScoreLessThan(int length);
+
+    @Modifying
+    @Transactional
+    @Query(value = "insert into board update board set view_count =:viewCount where board_id =:boardId", nativeQuery = true)
+    void changePoint(double lat, double lon);
 }

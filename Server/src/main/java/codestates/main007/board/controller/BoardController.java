@@ -9,6 +9,7 @@ import codestates.main007.comment.mapper.CommentMapper;
 import codestates.main007.member.entity.Member;
 import codestates.main007.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.locationtech.jts.io.ParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -58,6 +59,11 @@ public class BoardController {
         BoardDto.DetailResponse detailResponse = boardService.getDetailPage(boardId, accessToken);
 
         return detailResponse;
+    }
+    @GetMapping("/point")
+    @ResponseStatus(HttpStatus.OK)
+    public void changePoint() throws ParseException {
+        boardService.changePoint();
     }
 
     @PostMapping("{board-id}/up-vote")
