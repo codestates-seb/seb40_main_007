@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -84,6 +85,9 @@ public class Board {
 
     @Column
     private int timeFromStation;
+
+    @Column
+    private Point geography;
 
     @ManyToOne
     @JoinColumn(name = "member_id")

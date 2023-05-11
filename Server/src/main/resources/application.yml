@@ -12,7 +12,8 @@ spring:
       hibernate:
         format_sql: true;
     database: mysql
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.spatial.dialect.mysql.MySQL56InnoDBSpatialDialect
 
   mail:
     host: smtp.gmail.com
