@@ -359,10 +359,10 @@ public class BoardService {
     public void changePoint() throws ParseException {
         List<Board> list = boardRepository.findAll();
         for (Board board : list) {
-//            String pointWKT = String.format("POINT(%s %s)", board.getLongitude(), board.getLatitude());
-//            Point point = (Point) new WKTReader().read(pointWKT);
-            GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4326);
-            Point point = geometryFactory.createPoint(new Coordinate(board.getLatitude(), board.getLongitude()));
+            String pointWKT = String.format("POINT(%s %s)", board.getLongitude(), board.getLatitude());
+            Point point = (Point) new WKTReader().read(pointWKT);
+//            GeometryFactory geometryFactory = new GeometryFactory(new PrecisionModel(), 4326);
+//            Point point = geometryFactory.createPoint(new Coordinate(board.getLatitude(), board.getLongitude()));
             board.setPoint(point);
             save(board);
         }
