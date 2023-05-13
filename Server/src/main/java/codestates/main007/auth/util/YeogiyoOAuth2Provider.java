@@ -45,5 +45,6 @@ public enum YeogiyoOAuth2Provider {
     }
 
     public abstract ClientRegistration.Builder getBuilder(String registrationId);
+
     private static final String DEFAULT_LOGIN_REDIRECT_URL = "{baseUrl}/login/oauth2/code/{registrationId}";
 }

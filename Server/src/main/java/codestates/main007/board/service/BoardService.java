@@ -92,7 +92,8 @@ public class BoardService {
         board.setImages(boardImages);
 
     }
-    public void save(Board board){
+
+    public void save(Board board) {
         boardRepository.save(board);
     }
 
@@ -100,7 +101,7 @@ public class BoardService {
         Member member = memberService.findByAccessToken(accessToken);
         Board updatedBoard = find(boardId);
         Member writer = updatedBoard.getWriter();
-        if (member.getMemberId()>5){
+        if (member.getMemberId() > 5) {
             if (member != writer) {
                 throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
             }
@@ -147,7 +148,7 @@ public class BoardService {
         Member member = memberService.findByAccessToken(accessToken);
         Board board = find(boardId);
         Member writer = board.getWriter();
-        if (member.getMemberId()>5){
+        if (member.getMemberId() > 5) {
             if (member != writer) {
                 throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
             }
@@ -161,7 +162,7 @@ public class BoardService {
                 .orElseThrow(() -> new ResponseStatusException(ExceptionCode.BOARD_NOT_FOUND.getStatus(), ExceptionCode.BOARD_NOT_FOUND.getMessage(), new IllegalArgumentException()));
     }
 
-    public BoardDto.DetailResponse getDetailPage(long boardId, String accessToken){
+    public BoardDto.DetailResponse getDetailPage(long boardId, String accessToken) {
         Board board = find(boardId);
         BoardDto.DetailResponse detailResponse = BoardDto.DetailResponse.builder().build();
 
@@ -274,12 +275,13 @@ public class BoardService {
         return boardMemberService.changeDibs(member, board);
     }
 
-    public void report(String accessToken, long boardId, long reportId){
+    public void report(String accessToken, long boardId, long reportId) {
         Member member = memberService.findByAccessToken(accessToken);
         Board board = find(boardId);
 
         boardMemberService.report(member, board, reportId);
     }
+
     public Integer upVote(String accessToken, long boardId) {
         Board board = find(boardId);
         Member member = memberService.findByAccessToken(accessToken);
@@ -342,18 +344,19 @@ public class BoardService {
         return booleans;
     }
 
-    public List<Board> findAllBoards(){
+    public List<Board> findAllBoards() {
         return boardRepository.findAll();
     }
 
-    public Integer countByStationId(long stationId){
+    public Integer countByStationId(long stationId) {
         return boardRepository.countByStationId(stationId);
     }
 
-    public List<Board> findHighScoreBoard(int score){
+    public List<Board> findHighScoreBoard(int score) {
         return boardRepository.findByScoreGreaterThan(score);
     }
-    public List<Board> findLowScoreBoard(int score){
+
+    public List<Board> findLowScoreBoard(int score) {
         return boardRepository.findByScoreLessThan(score);
     }
 }

@@ -10,9 +10,9 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
-    default List<CommentDto.Response> commentsToResponses(List<Comment> comments){
+    default List<CommentDto.Response> commentsToResponses(List<Comment> comments) {
         List<CommentDto.Response> responses = new ArrayList<>();
-        for (Comment comment : comments){
+        for (Comment comment : comments) {
             MemberDto.Writer writer = MemberDto.Writer.builder()
                     .memberId(comment.getWriter().getMemberId())
                     .name(comment.getWriter().getName())

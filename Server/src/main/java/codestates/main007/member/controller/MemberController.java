@@ -38,7 +38,6 @@ public class MemberController {
     private final CommentRepository commentRepository;
     private final MemberMapper memberMapper;
     private final EmailService emailService;
-    private final BoardService boardService;
     private final BoardNoticeService boardNoticeService;
 
     @PostMapping("/signup")
@@ -154,11 +153,11 @@ public class MemberController {
     @DeleteMapping("/notice/{board-id}/{sender-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void getMyNoticePage(@RequestHeader(name = "Authorization") String accessToken,
-                                                   @PathVariable("board-id") long boardId,
-                                                   @PathVariable("sender-id") long senderId,
-                                                   @RequestHeader(name = "Notice") String notice) {
+                                @PathVariable("board-id") long boardId,
+                                @PathVariable("sender-id") long senderId,
+                                @RequestHeader(name = "Notice") String notice) {
         Member sender = memberService.find(senderId);
-        boardNoticeService.delete(boardId,sender,notice);
+        boardNoticeService.delete(boardId, sender, notice);
     }
 
     @PatchMapping
@@ -171,7 +170,7 @@ public class MemberController {
 
     @PostMapping("/refresh-token")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<String> validateRefreshToken(@RequestHeader(name = "RefreshToken") String refreshToken){
+    public ResponseEntity<String> validateRefreshToken(@RequestHeader(name = "RefreshToken") String refreshToken) {
 
         String reissuedToken = memberService.reissueAccessToken(refreshToken);
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -183,7 +182,7 @@ public class MemberController {
 
     @PostMapping("/logout")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void logout(@RequestHeader (name = "Authorization") String accessToken){
+    public void logout(@RequestHeader(name = "Authorization") String accessToken) {
 
         memberService.deleteRefreshToken(accessToken);
     }

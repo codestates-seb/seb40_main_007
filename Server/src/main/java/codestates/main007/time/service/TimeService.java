@@ -53,8 +53,7 @@ public class TimeService {
         }
     }
 
-    public void deleteByBoardId(long boardId){
+    public void deleteByBoardId(long boardId) {
         timeRepository.deleteByFromIdOrToId(boardId, boardId);
     }
-    //todo: 업데이트
 }

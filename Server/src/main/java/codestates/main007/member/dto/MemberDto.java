@@ -40,7 +40,7 @@ public class MemberDto {
         private LocalDateTime createdAt;
         private TagDto.Response tags;
 
-        public void setDibs(boolean isDibs){
+        public void setDibs(boolean isDibs) {
             this.dibs = isDibs;
         }
     }
@@ -94,6 +94,7 @@ public class MemberDto {
         private int score;
         private List<Long> visitedStations;
     }
+
     @Getter
     @Builder
     @NoArgsConstructor

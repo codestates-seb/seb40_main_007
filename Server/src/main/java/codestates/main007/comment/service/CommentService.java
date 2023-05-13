@@ -44,7 +44,7 @@ public class CommentService {
         Member member = memberService.findByAccessToken(accessToken);
         Comment comment = find(commentId);
         Member writer = comment.getWriter();
-        if (member.getMemberId()>5){
+        if (member.getMemberId() > 5) {
             if (member != writer) {
                 throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
             }
@@ -63,7 +63,7 @@ public class CommentService {
         Member member = memberService.findByAccessToken(accessToken);
         Comment comment = find(commentId);
         Member writer = comment.getWriter();
-        if (member.getMemberId()>5){
+        if (member.getMemberId() > 5) {
             if (member != writer) {
                 throw new ResponseStatusException(ExceptionCode.MEMBER_UNAUTHORIZED.getStatus(), ExceptionCode.MEMBER_UNAUTHORIZED.getMessage(), new IllegalArgumentException());
             }

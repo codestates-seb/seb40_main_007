@@ -44,7 +44,6 @@ public class ImageHandler {
 
     public String updateAvatar(MultipartFile image, Member member) throws IOException {
         // 절대 경로 설정
-        // todo: 나중에 s3로 변경
         String absolutePath = new File("").getAbsolutePath() + "/";
         // 저장 경로 설정
         String path = "images/avatar";
@@ -127,7 +126,7 @@ public class ImageHandler {
         for (int i = 0; i < multipartFiles.size(); i++) {
             MultipartFile image = multipartFiles.get(i);
 
-            String fileName = "board_images/" + board.getBoardId() + "board_" + System.nanoTime() ;
+            String fileName = "board_images/" + board.getBoardId() + "board_" + System.nanoTime();
             String thumbnailName = "board_thumbnail/" + System.nanoTime() + "thumbnail_of_" + board.getBoardId();
 
             //파일 형식 구하기

@@ -48,7 +48,7 @@ public class BoardMember {
         this.scoreStatus = status;
     }
 
-    public void setReport(long report){
+    public void setReport(long report) {
         this.report = report;
     }
 }

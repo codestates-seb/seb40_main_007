@@ -2,7 +2,6 @@ package codestates.main007.boardNotice.service;
 
 import codestates.main007.board.entity.Board;
 import codestates.main007.board.repository.BoardRepository;
-import codestates.main007.board.service.BoardService;
 import codestates.main007.boardNotice.entity.BoardNotice;
 import codestates.main007.boardNotice.repository.BoardNoticeRepository;
 import codestates.main007.exception.ExceptionCode;
@@ -19,7 +18,8 @@ import javax.transaction.Transactional;
 public class BoardNoticeService {
     private final BoardRepository boardRepository;
     private final BoardNoticeRepository boardNoticeRepository;
-    public void save(long boardId, Member sender, String notice){
+
+    public void save(long boardId, Member sender, String notice) {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new ResponseStatusException(ExceptionCode.BOARD_NOT_FOUND.getStatus(), ExceptionCode.BOARD_NOT_FOUND.getMessage(), new IllegalArgumentException()));
 
@@ -32,9 +32,10 @@ public class BoardNoticeService {
 
         boardNoticeRepository.save(boardNotice);
     }
-    public void delete(long boardId, Member sender, String notice){
+
+    public void delete(long boardId, Member sender, String notice) {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new ResponseStatusException(ExceptionCode.BOARD_NOT_FOUND.getStatus(), ExceptionCode.BOARD_NOT_FOUND.getMessage(), new IllegalArgumentException()));
-        boardNoticeRepository.deleteBySenderAndBoardAndNotice(sender,board,notice);
+        boardNoticeRepository.deleteBySenderAndBoardAndNotice(sender, board, notice);
     }
 }

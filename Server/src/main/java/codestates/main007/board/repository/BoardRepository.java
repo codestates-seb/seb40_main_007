@@ -18,10 +18,12 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     List<Board> findByStationIdAndCategoryId(long stationId, long categoryId);
 
-    List<Board> findByWriterAndStationId(Member member,long stationId);
+    List<Board> findByWriterAndStationId(Member member, long stationId);
 
     Integer countByWriter(Member member);
+
     List<MemberScore> findScoreByWriter(Member member);
+
     List<MemberStation> findStationIdByWriter(Member member);
 
     Page<Board> findByStationId(long stationId, Pageable pageable);
@@ -35,5 +37,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     Integer countByStationId(long stationId);
 
     List<Board> findByScoreGreaterThan(int length);
+
     List<Board> findByScoreLessThan(int length);
 }

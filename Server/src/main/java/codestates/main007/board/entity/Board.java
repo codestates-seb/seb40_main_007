@@ -125,8 +125,8 @@ public class Board {
         this.tags = tags;
     }
 
-    public void upReported(){
-        this.reported ++;
+    public void upReported() {
+        this.reported++;
     }
 
     // 게시글 업데이트를 위한 메서드
@@ -153,9 +153,11 @@ public class Board {
             this.address = address;
         }
     }
-    public void updateTimeFromStation(int timeFromStation){
+
+    public void updateTimeFromStation(int timeFromStation) {
         this.timeFromStation = timeFromStation;
     }
+
     // 해당 게시글의 추천 수 변경 메서드 (총 추천합, 추천 수, 비추천 수 )
     public void changeScore(int fromStatus, int status) {
         if (fromStatus == -1 & status == 0) {
@@ -184,7 +186,7 @@ public class Board {
                 detail = tag.getTagId();
             } else if (tag.getTagId() > 20 && tag.getTagId() <= 40) {
                 price = tag.getTagId();
-            } else if (tag.getTagId()>40){
+            } else if (tag.getTagId() > 40) {
                 moods.add(tag.getTagId());
             }
         }
@@ -198,7 +200,7 @@ public class Board {
         return response;
     }
 
-    public void setBoardPlanners(List<BoardPlanner> boardPlanners){
+    public void setBoardPlanners(List<BoardPlanner> boardPlanners) {
         this.boardPlanners = boardPlanners;
     }
 }

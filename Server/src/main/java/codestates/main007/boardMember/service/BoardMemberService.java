@@ -103,10 +103,10 @@ public class BoardMemberService {
 
         if (OptionalBoardMember.isPresent()) {
             BoardMember boardMember = OptionalBoardMember.get();
-            if (boardMember.getReport() == 0){
+            if (boardMember.getReport() == 0) {
                 boardMember.setReport(report);
                 boardMemberRepository.save(boardMember);
-            }else{
+            } else {
                 throw new ResponseStatusException(ExceptionCode.ALREADY_REPORTED.getStatus(), ExceptionCode.ALREADY_REPORTED.getMessage(), new IllegalArgumentException());
             }
         } else {

@@ -11,7 +11,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface MemberMapper {
-
     default List<MemberDto.MyComment> commentsToMyComments(List<Comment> comments) {
         List<MemberDto.MyComment> myComments = new ArrayList<>();
         for (Comment comment : comments) {

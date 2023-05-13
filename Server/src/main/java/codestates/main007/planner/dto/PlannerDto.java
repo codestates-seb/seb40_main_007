@@ -38,6 +38,7 @@ public class PlannerDto {
         private long plannerId;
         private String plannerName;
     }
+
     @Getter
     @Builder
     @NoArgsConstructor
@@ -52,7 +53,7 @@ public class PlannerDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Board{
+    public static class Board {
         private long boardId;
         private String title;
         private String review;
@@ -70,7 +71,7 @@ public class PlannerDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Time{
+    public static class Time {
         private String type;
         private int time;
     }

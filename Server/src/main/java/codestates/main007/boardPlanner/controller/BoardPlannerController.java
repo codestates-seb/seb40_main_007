@@ -15,6 +15,7 @@ import java.io.IOException;
 @RequestMapping("/boardplanners")
 public class BoardPlannerController {
     private final BoardPlannerService boardPlannerService;
+
     @PostMapping("/{board-id}/{planner-id}")
     @ResponseStatus(HttpStatus.CREATED)
     public MultiResponseDto<PlannerDto.MyPlannerWithBoards> postBoardPlanner(@RequestHeader(name = "Authorization") String accessToken,
