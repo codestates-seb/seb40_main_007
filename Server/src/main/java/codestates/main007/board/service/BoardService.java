@@ -356,14 +356,4 @@ public class BoardService {
     public List<Board> findLowScoreBoard(int score){
         return boardRepository.findByScoreLessThan(score);
     }
-
-//    public void changePoint() throws ParseException {
-//        List<Board> list = boardRepository.findAll();
-//        for (Board board : list) {
-//            String pointWKT = String.format("POINT(%s %s)", board.getLongitude(), board.getLatitude());
-//            Point point = (Point) new WKTReader().read(pointWKT);
-//            board.setPoint(point);
-//            save(board);
-//        }
-//    }
 }

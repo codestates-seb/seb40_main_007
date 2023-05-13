@@ -54,12 +54,6 @@ public class BoardController {
 
         return detailResponse;
     }
-    // 형 변환을위해 잠시 사용
-//    @GetMapping("/point")
-//    @ResponseStatus(HttpStatus.OK)
-//    public void changePoint() throws ParseException {
-//        boardService.changePoint();
-//    }
 
     @PostMapping("{board-id}/up-vote")
     @ResponseStatus(HttpStatus.OK)
