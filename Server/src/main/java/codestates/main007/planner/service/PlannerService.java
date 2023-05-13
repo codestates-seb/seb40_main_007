@@ -157,9 +157,10 @@ public class PlannerService {
     }
 
     public PlannerDto.Time getTimeBetweenBoards(Board from, Board to) throws InterruptedException {
-        return distanceMeasuringService.getPlannerTime(from.getLatitude(),
-                from.getLongitude(),
-                to.getLatitude(),
-                to.getLongitude());
+        return distanceMeasuringService.getPlannerTime(
+                from.getGeography().getY(),
+                from.getGeography().getX(),
+                to.getGeography().getY(),
+                to.getGeography().getX());
     }
 }

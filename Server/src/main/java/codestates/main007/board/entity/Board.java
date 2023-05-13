@@ -130,8 +130,7 @@ public class Board {
     }
 
     // 게시글 업데이트를 위한 메서드
-    public void patchBoard(String title, String review, Double star, Double latitude,
-                           Double longitude, Long stationId, Long categoryId, String address) {
+    public void patchBoard(String title, String review, Double star, Point geography, Long stationId, Long categoryId, String address) {
         if (title != null) {
             this.title = title;
         }
@@ -141,11 +140,8 @@ public class Board {
         if (star != null) {
             this.star = star;
         }
-        if (latitude != null) {
-            this.latitude = latitude;
-        }
-        if (longitude != null) {
-            this.longitude = longitude;
+        if (geography != null) {
+            this.geography = geography;
         }
         if (stationId != null) {
             this.stationId = stationId;

@@ -29,7 +29,7 @@ public class BoardController {
     @ResponseStatus(HttpStatus.CREATED)
     public void postBoard(@RequestHeader(name = "Authorization") String accessToken,
                           @RequestPart("data") BoardDto.Input postDto,
-                          @RequestPart("files") List<MultipartFile> images) throws IOException {
+                          @RequestPart("files") List<MultipartFile> images) throws IOException, ParseException {
 
         boardService.save(accessToken, postDto, images);
     }
@@ -39,7 +39,7 @@ public class BoardController {
     public void patchBoard(@RequestHeader(name = "Authorization") String accessToken,
                            @PathVariable("board-id") long boardId,
                            @RequestPart("files") List<MultipartFile> images,
-                           @RequestPart("data") BoardDto.Patch patchDto) throws IOException {
+                           @RequestPart("data") BoardDto.Patch patchDto) throws IOException, ParseException {
 
         boardService.update(accessToken, boardId, patchDto, images);
     }
@@ -60,11 +60,12 @@ public class BoardController {
 
         return detailResponse;
     }
-    @GetMapping("/point")
-    @ResponseStatus(HttpStatus.OK)
-    public void changePoint() throws ParseException {
-        boardService.changePoint();
-    }
+    // 형 변환을위해 잠시 사용
+//    @GetMapping("/point")
+//    @ResponseStatus(HttpStatus.OK)
+//    public void changePoint() throws ParseException {
+//        boardService.changePoint();
+//    }
 
     @PostMapping("{board-id}/up-vote")
     @ResponseStatus(HttpStatus.OK)

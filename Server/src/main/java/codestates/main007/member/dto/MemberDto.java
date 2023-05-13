@@ -123,27 +123,4 @@ public class MemberDto {
         private String name;
         private String avatar;
     }
-    // 삭제 예정
-//    @Getter
-//    @Builder
-//    @NoArgsConstructor
-//    @AllArgsConstructor
-//    public static class MyMap {
-//        private long boardId;
-//        private String thumbnail;
-//        private double latitude;
-//        private double longitude;
-//    }
-//
-//    @Getter
-//    @Builder
-//    @NoArgsConstructor
-//    @AllArgsConstructor
-//    public static class MyPage {
-//        private long boardId;
-//        private String title;
-//        private String review;
-//        private double star;
-//        private int timeFromStation;
-//    }
 }

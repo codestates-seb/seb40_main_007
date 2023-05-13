@@ -46,8 +46,8 @@ public interface MemberMapper {
                     .title(board.getTitle())
                     .review(board.getReview())
                     .star(board.getStar())
-                    .latitude(board.getLatitude())
-                    .longitude(board.getLongitude())
+                    .latitude(board.getGeography().getY())
+                    .longitude(board.getGeography().getX())
                     .thumbnail(board.getThumbnail())
                     .categoryId(board.getCategoryId())
                     .timeFromStation(board.getTimeFromStation())
@@ -61,47 +61,4 @@ public interface MemberMapper {
         }
         return myPages;
     }
-
-    //삭제 예정
-//    default List<MemberDto.MyMap> boardsToMyMaps(List<Board> boards) {
-//        List<MemberDto.MyMap> myMaps = new ArrayList<>();
-//        for (Board board : boards) {
-//            MemberDto.MyMap myMap = MemberDto.MyMap.builder()
-//                    .boardId(board.getBoardId())
-//                    .thumbnail(board.getThumbnail())
-//                    .latitude(board.getLatitude())
-//                    .longitude(board.getLongitude())
-//                    .build();
-//
-//            myMaps.add(myMap);
-//        }
-//
-//        return myMaps;
-//    }
-//    default List<MemberDto.MyMap> boardsToMyMaps(List<Board> boards) {
-//        List<MemberDto.MyMap> myMaps = new ArrayList<>();
-//        for (Board board : boards) {
-//            MemberDto.MyMap myMap = MemberDto.MyMap.builder()
-//                    .boardId(board.getBoardId())
-//                    .thumbnail(board.getThumbnail())
-//                    .latitude(board.getLatitude())
-//                    .longitude(board.getLongitude())
-//                    .tags(board.getTagDto())
-//                    .build();
-//    default List<MemberDto.MyPage> boardsToMyPages(List<Board> boards) {
-//        List<MemberDto.MyPage> myPages = new ArrayList<>();
-//        for (Board board : boards) {
-//            MemberDto.MyPage myPage = MemberDto.MyPage.builder()
-//                    .boardId(board.getBoardId())
-//                    .star(board.getStar())
-//                    .title(board.getTitle())
-//                    .review(board.getReview())
-//                    .timeFromStation(board.getTimeFromStation())
-//                    .build();
-//
-//            myPages.add(myPage);
-//        }
-//
-//        return myPages;
-//    }
 }

@@ -53,12 +53,12 @@ public class BoardService {
 
     public void save(String accessToken, BoardDto.Input boardDto, List<MultipartFile> images) throws IOException, ParseException {
         Station station = new Station(boardDto.getStationId().intValue());
-        double startLat = station.getLatitude();
-        double startLong = station.getLongitude();
-        double endLat = boardDto.getLatitude();
-        double endLong = boardDto.getLongitude();
+        double fromLat = station.getLatitude();
+        double formLong = station.getLongitude();
+        double toLat = boardDto.getLatitude();
+        double toLong = boardDto.getLongitude();
 
-        String pointWKT = String.format("POINT(%s %s)", endLong, endLat);
+        String pointWKT = String.format("POINT(%s %s)", toLong, toLat);
         Point point = (Point) new WKTReader().read(pointWKT);
         List<Tag> tags = tagService.findAll(boardDto.getTags());
 
@@ -69,17 +69,15 @@ public class BoardService {
                 .modifiedAt(LocalDateTime.now())
                 .categoryId(boardDto.getCategoryId())
                 .stationId(boardDto.getStationId())
-                .latitude(boardDto.getLatitude())
-                .longitude(boardDto.getLongitude())
+                .geography(point)
                 .star(boardDto.getStar())
                 .upScore(0)
                 .downScore(0)
                 .viewCount(0)
                 .address(boardDto.getAddress())
                 .writer(memberService.findByAccessToken(accessToken))
-                .timeFromStation(distanceService.getTime(startLat, startLong, endLat, endLong))
+                .timeFromStation(distanceService.getTime(fromLat, formLong, toLat, toLong))
                 .tags(tags)
-                .geography(point)
                 .build();
 
         // image 핸들러에서 boardId 를 사용하기위해 한 번 저장
@@ -98,7 +96,7 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    public void update(String accessToken, long boardId, BoardDto.Patch patch, List<MultipartFile> images) throws IOException {
+    public void update(String accessToken, long boardId, BoardDto.Patch patchDto, List<MultipartFile> images) throws IOException, ParseException {
         Member member = memberService.findByAccessToken(accessToken);
         Board updatedBoard = find(boardId);
         Member writer = updatedBoard.getWriter();
@@ -108,32 +106,33 @@ public class BoardService {
             }
         }
 
+        String pointWKT = String.format("POINT(%s %s)", patchDto.getLongitude(), patchDto.getLatitude());
+        Point geography = (Point) new WKTReader().read(pointWKT);
 
-        updatedBoard.patchBoard(patch.getTitle(),
-                patch.getReview(),
-                patch.getStar(),
-                patch.getLatitude(),
-                patch.getLongitude(),
-                patch.getStationId(),
-                patch.getCategoryId(),
-                patch.getAddress());
+        updatedBoard.patchBoard(patchDto.getTitle(),
+                patchDto.getReview(),
+                patchDto.getStar(),
+                geography,
+                patchDto.getStationId(),
+                patchDto.getCategoryId(),
+                patchDto.getAddress());
 
-        if (patch.getLatitude() != null || patch.getLongitude() != null || patch.getStationId() != null) {
-            Station station = new Station(patch.getStationId().intValue());
+        if (patchDto.getLatitude() != null || patchDto.getLongitude() != null || patchDto.getStationId() != null) {
+            Station station = new Station(patchDto.getStationId().intValue());
             double startLat = station.getLatitude();
             double startLong = station.getLongitude();
-            double endLat = updatedBoard.getLatitude();
-            double endLong = updatedBoard.getLongitude();
+            double endLat = updatedBoard.getGeography().getY();
+            double endLong = updatedBoard.getGeography().getX();
 
             updatedBoard.updateTimeFromStation(distanceService.getTime(startLat, startLong, endLat, endLong));
             timeRepository.deleteByFromIdOrToId(boardId, boardId);
         }
 
-        List<Long> tagIds = patch.getTags();
+        List<Long> tagIds = patchDto.getTags();
 
         updatedBoard.setTags(tagService.findAll(tagIds));
 
-        List<BoardImage> list = imageHandler.updateImages(updatedBoard, patch.getPriority(), images, patch.getUrls());
+        List<BoardImage> list = imageHandler.updateImages(updatedBoard, patchDto.getPriority(), images, patchDto.getUrls());
 
         List<BoardImage> boardImages = new ArrayList<>();
         for (BoardImage tempImage : list) {
@@ -322,9 +321,9 @@ public class BoardService {
         List<Board> boards = boardRepository.findByStationIdAndCategoryId(stationId, categoryId);
         for (int i = 0; i < boards.size(); i++) {
             Board board = boards.get(i);
-            if (board.getLongitude() < thisBoard.getLongitude() - 0.000005 || board.getLongitude() > thisBoard.getLongitude() + 0.000005) {
+            if (board.getGeography().getX() < thisBoard.getGeography().getX() - 0.000005 || board.getGeography().getX() > thisBoard.getGeography().getX() + 0.000005) {
                 boards.remove(board);
-            } else if (board.getLatitude() < thisBoard.getLatitude() - 0.000005 || board.getLatitude() > thisBoard.getLatitude() + 0.000005) {
+            } else if (board.getGeography().getY() < thisBoard.getGeography().getY() - 0.000005 || board.getGeography().getY() > thisBoard.getGeography().getY() + 0.000005) {
                 boards.remove(board);
             }
         }
@@ -356,13 +355,13 @@ public class BoardService {
         return boardRepository.findByScoreLessThan(score);
     }
 
-    public void changePoint() throws ParseException {
-        List<Board> list = boardRepository.findAll();
-        for (Board board : list) {
-            String pointWKT = String.format("POINT(%s %s)", board.getLongitude(), board.getLatitude());
-            Point point = (Point) new WKTReader().read(pointWKT);
-            board.setPoint(point);
-            save(board);
-        }
-    }
+//    public void changePoint() throws ParseException {
+//        List<Board> list = boardRepository.findAll();
+//        for (Board board : list) {
+//            String pointWKT = String.format("POINT(%s %s)", board.getLongitude(), board.getLatitude());
+//            Point point = (Point) new WKTReader().read(pointWKT);
+//            board.setPoint(point);
+//            save(board);
+//        }
+//    }
 }
