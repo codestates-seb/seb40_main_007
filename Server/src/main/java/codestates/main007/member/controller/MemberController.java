@@ -2,10 +2,8 @@ package codestates.main007.member.controller;
 
 import codestates.main007.board.entity.Board;
 import codestates.main007.board.repository.BoardRepository;
-import codestates.main007.board.service.BoardService;
 import codestates.main007.boardNotice.service.BoardNoticeService;
 import codestates.main007.comment.entity.Comment;
-import codestates.main007.comment.repository.CommentRepository;
 import codestates.main007.dto.MultiResponseDto;
 import codestates.main007.dto.PageDto;
 import codestates.main007.member.entity.Member;
@@ -35,7 +33,6 @@ public class MemberController {
 
     private final MemberService memberService;
     private final BoardRepository boardRepository;
-    private final CommentRepository commentRepository;
     private final MemberMapper memberMapper;
     private final EmailService emailService;
     private final BoardNoticeService boardNoticeService;
