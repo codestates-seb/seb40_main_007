@@ -3,7 +3,6 @@ package codestates.main007.member.service;
 
 import codestates.main007.auth.jwt.JwtTokenizer;
 import codestates.main007.auth.util.CustomAuthorityUtils;
-import codestates.main007.board.dto.BoardDto;
 import codestates.main007.board.entity.Board;
 import codestates.main007.board.repository.BoardRepository;
 import codestates.main007.boardImage.service.ImageHandler;

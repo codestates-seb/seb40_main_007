@@ -283,7 +283,8 @@ public class BoardService {
     public Integer upVote(String accessToken, long boardId) {
         Board board = find(boardId);
         Member member = memberService.findByAccessToken(accessToken);
-//        boardNoticeService.save(boardId, member, "UpVote");
+        // 미구현
+        // boardNoticeService.save(boardId, member, "UpVote");
 
         return boardMemberService.upVote(member, board);
     }
@@ -291,7 +292,8 @@ public class BoardService {
     public Integer downVote(String accessToken, long boardId) {
         Board board = find(boardId);
         Member member = memberService.findByAccessToken(accessToken);
-//        boardNoticeService.save(boardId, member, "DownVote");
+        // 미구현
+        // boardNoticeService.save(boardId, member, "DownVote");
 
         return boardMemberService.downVote(member, board);
     }

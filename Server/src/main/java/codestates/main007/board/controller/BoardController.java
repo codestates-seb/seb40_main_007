@@ -1,13 +1,8 @@
 package codestates.main007.board.controller;
 
-import codestates.main007.board.entity.Board;
 import codestates.main007.board.dto.BoardDto;
 import codestates.main007.board.mapper.BoardMapper;
 import codestates.main007.board.service.BoardService;
-import codestates.main007.comment.dto.CommentDto;
-import codestates.main007.comment.mapper.CommentMapper;
-import codestates.main007.member.entity.Member;
-import codestates.main007.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.locationtech.jts.io.ParseException;
 import org.springframework.http.HttpStatus;
@@ -15,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

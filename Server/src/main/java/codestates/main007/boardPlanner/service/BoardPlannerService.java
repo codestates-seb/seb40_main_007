@@ -14,7 +14,6 @@ import codestates.main007.planner.entity.Planner;
 import codestates.main007.planner.repository.PlannerRepository;
 import codestates.main007.planner.service.PlannerService;
 import codestates.main007.service.DistanceMeasuringService;
-import codestates.main007.time.entity.Time;
 import codestates.main007.time.service.TimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -69,7 +68,7 @@ public class BoardPlannerService {
         List<Long> boardIds = planner.getBoardPlanners().stream()
                 .map(boardPlanner -> boardPlanner.getBoard().getBoardId())
                 .collect(Collectors.toList());
-        // todo
+
         if (boardIds.size() >= 1) {
             Long toId = boardIds.get(boardIds.size() - 1);
             timeService.find(board.getBoardId(), toId);
