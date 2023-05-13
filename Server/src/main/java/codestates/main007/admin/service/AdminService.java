@@ -90,34 +90,20 @@ public class AdminService {
 
         List<BoardDto.Reported> reportedDtos = new ArrayList<>();
         for (Board board : reportedBoards) {
-            int reason1 = 0;
-            int reason2 = 0;
-            int reason3 = 0;
-            int reason4 = 0;
-            int reason5 = 0;
+            int[] reasonCnt = new int[5];
 
             ArrayList<Long> cnt = reportReason[(int) board.getBoardId()];
             for (long num : cnt) {
-                if (num == 1) {
-                    reason1++;
-                } else if (num == 2) {
-                    reason2++;
-                } else if (num == 3) {
-                    reason3++;
-                } else if (num == 4) {
-                    reason4++;
-                } else if (num == 5) {
-                    reason5++;
-                }
+                reasonCnt[(int)num-1]++;
             }
 
             BoardDto.ReportReasons reasons = BoardDto.ReportReasons
                     .builder()
-                    .reason1(reason1)
-                    .reason2(reason2)
-                    .reason3(reason3)
-                    .reason4(reason4)
-                    .reason5(reason5)
+                    .reason1(reasonCnt[0])
+                    .reason2(reasonCnt[1])
+                    .reason3(reasonCnt[2])
+                    .reason4(reasonCnt[3])
+                    .reason5(reasonCnt[4])
                     .build();
 
             BoardDto.Reported dto = BoardDto.Reported.builder()

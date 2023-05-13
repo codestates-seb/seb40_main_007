@@ -311,4 +311,20 @@ public class MemberService {
 
         return accessToken;
     }
+
+    public MemberDto.Info getMyInfo(String accessToken) {
+        Member member = findByAccessToken(accessToken);
+
+        int totalBoard = boardRepository.countByWriter(member);
+        int totalComment = commentRepository.countByWriter(member);
+        int score = findMyScore(member);
+        List<Long> myStations = findMyStations(member);
+
+        return MemberDto.Info.builder()
+                .totalBoard(totalBoard)
+                .totalComment(totalComment)
+                .score(score)
+                .visitedStations(myStations)
+                .build();
+    }
 }

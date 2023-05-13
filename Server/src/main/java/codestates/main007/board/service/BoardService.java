@@ -11,6 +11,7 @@ import codestates.main007.boardMember.entity.BoardMember;
 import codestates.main007.boardMember.service.BoardMemberService;
 import codestates.main007.comment.dto.CommentDto;
 import codestates.main007.comment.mapper.CommentMapper;
+import codestates.main007.dto.PageDto;
 import codestates.main007.exception.ExceptionCode;
 import codestates.main007.member.entity.Member;
 import codestates.main007.member.service.MemberService;
@@ -358,5 +359,45 @@ public class BoardService {
 
     public List<Board> findLowScoreBoard(int score) {
         return boardRepository.findByScoreLessThan(score);
+    }
+
+    public PageDto getByCategory(String sort, int page, int size, long stationId, long categoryId, String accessToken) {
+        Sort defaultSort = Sort.by(sort).descending();
+        if (sort.equals("default")) {
+            defaultSort = Sort.by("boardId").descending();
+        } else if (sort.equals("date")) {
+            defaultSort = Sort.by("createdAt").descending();
+        } else if (sort.equals("time")) {
+            defaultSort = Sort.by("timeFromStation").ascending();
+        }
+        Page<Board> boardPage = findBoardPage(stationId, categoryId, page - 1, size, defaultSort);
+        List<Board> boards = boardPage.getContent();
+        List<BoardDto.boardsResponse> responses = boardMapper.boardsToBoardsResponse(boards);
+
+        if (accessToken != null) {
+            responses = listCheckDibs(accessToken, responses);
+        }
+
+        return new PageDto(responses, boardPage);
+    }
+
+    public PageDto getByTag(String sort, int page, int size, long stationId, long categoryId, long tagId, String accessToken) {
+        Sort defaultSort = Sort.by(sort).descending();
+        if (sort.equals("default")) {
+            defaultSort = Sort.by("boardId").descending();
+        } else if (sort.equals("date")) {
+            defaultSort = Sort.by("createdAt").descending();
+        } else if (sort.equals("time")) {
+            defaultSort = Sort.by("timeFromStation").ascending();
+        }
+        Page<Board> boardPage = findBoardPageByTag(stationId, categoryId, page - 1, size, defaultSort, tagId);
+        List<Board> boards = boardPage.getContent();
+        List<BoardDto.boardsResponse> responses = boardMapper.boardsToBoardsResponse(boards);
+
+        if (accessToken != null) {
+            responses = listCheckDibs(accessToken, responses);
+        }
+
+        return new PageDto(responses, boardPage);
     }
 }

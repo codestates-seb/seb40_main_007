@@ -126,21 +126,8 @@ public class MemberController {
     @GetMapping("/info")
     @ResponseStatus(HttpStatus.OK)
     public MemberDto.Info getMyInfo(@RequestHeader(name = "Authorization") String accessToken) {
-        Member member = memberService.findByAccessToken(accessToken);
 
-        int totalBoard = boardRepository.countByWriter(member);
-        int totalComment = commentRepository.countByWriter(member);
-        int score = memberService.findMyScore(member);
-        List<Long> myStations = memberService.findMyStations(member);
-
-        MemberDto.Info myInfo = MemberDto.Info.builder()
-                .totalBoard(totalBoard)
-                .totalComment(totalComment)
-                .score(score)
-                .visitedStations(myStations)
-                .build();
-
-        return myInfo;
+        return memberService.getMyInfo(accessToken);
     }
 
     @GetMapping("/notice")
@@ -171,7 +158,6 @@ public class MemberController {
     @PostMapping("/refresh-token")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<String> validateRefreshToken(@RequestHeader(name = "RefreshToken") String refreshToken) {
-
         String reissuedToken = memberService.reissueAccessToken(refreshToken);
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Authorization", reissuedToken);
