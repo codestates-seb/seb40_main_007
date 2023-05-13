@@ -20,10 +20,7 @@ import codestates.main007.tag.entity.Tag;
 import codestates.main007.tag.service.TagService;
 import codestates.main007.time.repository.TimeRepository;
 import lombok.RequiredArgsConstructor;
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
-import org.locationtech.jts.geom.PrecisionModel;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
 import org.springframework.data.domain.Page;
@@ -54,13 +51,15 @@ public class BoardService {
     private final TagService tagService;
     private final ImageHandler imageHandler;
 
-    public void save(String accessToken, BoardDto.Input boardDto, List<MultipartFile> images) throws IOException {
+    public void save(String accessToken, BoardDto.Input boardDto, List<MultipartFile> images) throws IOException, ParseException {
         Station station = new Station(boardDto.getStationId().intValue());
         double startLat = station.getLatitude();
         double startLong = station.getLongitude();
         double endLat = boardDto.getLatitude();
         double endLong = boardDto.getLongitude();
 
+        String pointWKT = String.format("POINT(%s %s)", endLong, endLat);
+        Point point = (Point) new WKTReader().read(pointWKT);
         List<Tag> tags = tagService.findAll(boardDto.getTags());
 
         Board board = Board.builder()
@@ -80,6 +79,7 @@ public class BoardService {
                 .writer(memberService.findByAccessToken(accessToken))
                 .timeFromStation(distanceService.getTime(startLat, startLong, endLat, endLong))
                 .tags(tags)
+                .geography(point)
                 .build();
 
         // image 핸들러에서 boardId 를 사용하기위해 한 번 저장
