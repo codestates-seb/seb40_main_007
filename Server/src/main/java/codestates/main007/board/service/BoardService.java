@@ -21,8 +21,6 @@ import codestates.main007.tag.entity.Tag;
 import codestates.main007.tag.service.TagService;
 import codestates.main007.time.repository.TimeRepository;
 import lombok.RequiredArgsConstructor;
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
