@@ -21,6 +21,8 @@ import codestates.main007.tag.entity.Tag;
 import codestates.main007.tag.service.TagService;
 import codestates.main007.time.repository.TimeRepository;
 import lombok.RequiredArgsConstructor;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
@@ -269,7 +271,7 @@ public class BoardService {
             // 해당글 이미지 리스트
             List<String> imageUrls = findImageUrls(board);
             // 주변 가게 게시글 리스트
-            String point = String.format("POINT(%f %f)",board.getGeography().getX(), board.getGeography().getY());
+            Point point = new GeometryFactory().createPoint(new Coordinate(board.getGeography().getX(), board.getGeography().getY()));
             List<Board> around = boardRepository.findAround(point);// 근처 보드 정보
 
             boolean isDibs = false;
