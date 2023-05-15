@@ -30,7 +30,7 @@ public class Tag {
         this.tagName = tagName;
     }
 
-    public void updateBoards(Board board){
+    public void updateBoards(Board board) {
         this.boards.add(board);
     }
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public class SingleResponseDto<T> {
     private final T items;
+
     public SingleResponseDto(T items) {
         this.items = items;
     }
@@ -12,6 +13,4 @@ public class SingleResponseDto<T> {
     public static <T> SingleResponseDto<T> of(T items) {
         return new SingleResponseDto<>(items);
     }
-
-
 }

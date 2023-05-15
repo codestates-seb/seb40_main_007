@@ -5,9 +5,12 @@ import codestates.main007.member.entity.Member;
 import codestates.main007.member.query.MemberScore;
 import codestates.main007.member.query.MemberStation;
 import codestates.main007.tag.entity.Tag;
+import org.locationtech.jts.geom.Point;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -18,10 +21,12 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     List<Board> findByStationIdAndCategoryId(long stationId, long categoryId);
 
-    List<Board> findByWriterAndStationId(Member member,long stationId);
+    List<Board> findByWriterAndStationId(Member member, long stationId);
 
     Integer countByWriter(Member member);
+
     List<MemberScore> findScoreByWriter(Member member);
+
     List<MemberStation> findStationIdByWriter(Member member);
 
     Page<Board> findByStationId(long stationId, Pageable pageable);
@@ -35,5 +40,8 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     Integer countByStationId(long stationId);
 
     List<Board> findByScoreGreaterThan(int length);
+
     List<Board> findByScoreLessThan(int length);
+    @Query(value = "SELECT * from board where ST_Contains(ST_Buffer(:point, 0.005),geography)", nativeQuery = true)
+    List<Board> findAround(@Param("point")Point point);
 }

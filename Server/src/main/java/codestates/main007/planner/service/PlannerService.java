@@ -31,7 +31,6 @@ import java.util.stream.Collectors;
 public class PlannerService {
     private final PlannerRepository plannerRepository;
     private final MemberService memberService;
-    private final BoardRepository boardRepository;
     private final TimeService timeService;
     private final DistanceMeasuringService distanceMeasuringService;
     private final PlannerMapper plannerMapper;
@@ -154,12 +153,5 @@ public class PlannerService {
         }
 
         return timeList;
-    }
-
-    public PlannerDto.Time getTimeBetweenBoards(Board from, Board to) throws InterruptedException {
-        return distanceMeasuringService.getPlannerTime(from.getLatitude(),
-                from.getLongitude(),
-                to.getLatitude(),
-                to.getLongitude());
     }
 }

@@ -1,9 +1,6 @@
 package codestates.main007.comment.controller;
 
-import codestates.main007.boardNotice.service.BoardNoticeService;
-import codestates.main007.comment.entity.Comment;
 import codestates.main007.comment.dto.CommentDto;
-import codestates.main007.comment.mapper.CommentMapper;
 import codestates.main007.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CommentController {
     private final CommentService commentService;
+
     @PostMapping("/boards/{board-id}/comments")
     @ResponseStatus(HttpStatus.CREATED)
     public void postComment(@RequestHeader(name = "Authorization") String accessToken,

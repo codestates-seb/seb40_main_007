@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.locationtech.jts.geom.Point;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -85,6 +86,9 @@ public class Board {
     @Column
     private int timeFromStation;
 
+    @Column(columnDefinition = "GEOMETRY")
+    private Point geography;
+
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member writer;
@@ -105,6 +109,10 @@ public class Board {
     @JoinTable(name = "board_tag")
     private List<Tag> tags = new ArrayList<>();
 
+    public void setPoint(Point point) {
+        this.geography = point;
+    }
+
     public void setImages(List<BoardImage> images) {
         this.images = images;
     }
@@ -117,13 +125,12 @@ public class Board {
         this.tags = tags;
     }
 
-    public void upReported(){
-        this.reported ++;
+    public void upReported() {
+        this.reported++;
     }
 
     // 게시글 업데이트를 위한 메서드
-    public void patchBoard(String title, String review, Double star, Double latitude,
-                           Double longitude, Long stationId, Long categoryId, String address) {
+    public void patchBoard(String title, String review, Double star, Point geography, Long stationId, Long categoryId, String address) {
         if (title != null) {
             this.title = title;
         }
@@ -133,11 +140,8 @@ public class Board {
         if (star != null) {
             this.star = star;
         }
-        if (latitude != null) {
-            this.latitude = latitude;
-        }
-        if (longitude != null) {
-            this.longitude = longitude;
+        if (geography != null) {
+            this.geography = geography;
         }
         if (stationId != null) {
             this.stationId = stationId;
@@ -149,9 +153,11 @@ public class Board {
             this.address = address;
         }
     }
-    public void updateTimeFromStation(int timeFromStation){
+
+    public void updateTimeFromStation(int timeFromStation) {
         this.timeFromStation = timeFromStation;
     }
+
     // 해당 게시글의 추천 수 변경 메서드 (총 추천합, 추천 수, 비추천 수 )
     public void changeScore(int fromStatus, int status) {
         if (fromStatus == -1 & status == 0) {
@@ -180,7 +186,7 @@ public class Board {
                 detail = tag.getTagId();
             } else if (tag.getTagId() > 20 && tag.getTagId() <= 40) {
                 price = tag.getTagId();
-            } else if (tag.getTagId()>40){
+            } else if (tag.getTagId() > 40) {
                 moods.add(tag.getTagId());
             }
         }
@@ -194,7 +200,7 @@ public class Board {
         return response;
     }
 
-    public void setBoardPlanners(List<BoardPlanner> boardPlanners){
+    public void setBoardPlanners(List<BoardPlanner> boardPlanners) {
         this.boardPlanners = boardPlanners;
     }
 }

@@ -35,11 +35,11 @@ public class EmailService {
                         "<br><br>\n" +
                         "<br>\n" +
                         "<p>귀하의 임시 비밀번호는 아래와 같습니다.</p>\n" +
-                        "<p><strong>"+password+"</strong></p>\n" +
+                        "<p><strong>" + password + "</strong></p>\n" +
                         "<p>반드시 비밀번호를 변경해주세요!</p>\n" +
                         "<br>\n" +
                         "<p style ='font-size:10'>홈페이지로 이동 : <a href='http://yeogiyo.site'>역이요 홈페이지로 이동</a></p>"
-                ,"utf-8","html");
+                , "utf-8", "html");
         mailSender.send(message);
     }
 }

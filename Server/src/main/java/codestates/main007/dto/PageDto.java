@@ -1,6 +1,5 @@
 package codestates.main007.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.domain.Page;
 

@@ -3,7 +3,6 @@ package codestates.main007.member.service;
 
 import codestates.main007.auth.jwt.JwtTokenizer;
 import codestates.main007.auth.util.CustomAuthorityUtils;
-import codestates.main007.board.dto.BoardDto;
 import codestates.main007.board.entity.Board;
 import codestates.main007.board.repository.BoardRepository;
 import codestates.main007.boardImage.service.ImageHandler;
@@ -97,14 +96,13 @@ public class MemberService {
     }
 
 
-
     public void saveRefreshToken(long memberId, String refreshToken) {
         Member member = find(memberId);
         member.patchRefreshToken(refreshToken);
         memberRepository.save(member);
     }
 
-    public void deleteRefreshToken(String accessToken){
+    public void deleteRefreshToken(String accessToken) {
         Member member = findByAccessToken(accessToken);
         member.patchRefreshToken(null);
         memberRepository.save(member);
@@ -217,11 +215,11 @@ public class MemberService {
         return boardRepository.findAllByBoardIdIn(boardIds);
     }
 
-    public List<MemberDto.Notice> findMyNotice(String accessToken){
+    public List<MemberDto.Notice> findMyNotice(String accessToken) {
         Member member = findByAccessToken(accessToken);
         List<BoardNotice> boardNotices = boardNoticeRepository.findByBoardMemberId(member.getMemberId());
         List<MemberDto.Notice> notices = new ArrayList<>();
-        for (BoardNotice boardNotice : boardNotices){
+        for (BoardNotice boardNotice : boardNotices) {
             MemberDto.Notice notice = MemberDto.Notice.builder()
                     .senderName(boardNotice.getSender().getName())
                     .senderId(boardNotice.getSender().getMemberId())
@@ -253,8 +251,9 @@ public class MemberService {
 
         memberRepository.delete(member);
     }
+
     public void dropMember(String accessToken, long memberId) {
-        if (memberId<=5 && memberId>0){
+        if (memberId <= 5 && memberId > 0) {
             throw new ResponseStatusException(ExceptionCode.ADMIN_ACCOUNT.getStatus(), ExceptionCode.ADMIN_ACCOUNT.getMessage(), new IllegalArgumentException());
         }
         Member member = findByAccessToken(accessToken);
@@ -280,6 +279,7 @@ public class MemberService {
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
+
     public Member findVerifiedMember(String refreshToken) {
         Optional<Member> optionalMember =
                 memberRepository.findByRefreshToken(refreshToken);
@@ -289,11 +289,11 @@ public class MemberService {
         return findMember;
     }
 
-    public String reissueAccessToken(String refreshToken){
+    public String reissueAccessToken(String refreshToken) {
         refreshToken = refreshToken.replace("Bearer ", "");
         Member member = findVerifiedMember(refreshToken);
         String accessToken = delegateAccessToken(member);
-        return "Bearer "+ accessToken;
+        return "Bearer " + accessToken;
     }
 
     private String delegateAccessToken(Member member) {
@@ -310,5 +310,21 @@ public class MemberService {
         String accessToken = jwtTokenizer.generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
 
         return accessToken;
+    }
+
+    public MemberDto.Info getMyInfo(String accessToken) {
+        Member member = findByAccessToken(accessToken);
+
+        int totalBoard = boardRepository.countByWriter(member);
+        int totalComment = commentRepository.countByWriter(member);
+        int score = findMyScore(member);
+        List<Long> myStations = findMyStations(member);
+
+        return MemberDto.Info.builder()
+                .totalBoard(totalBoard)
+                .totalComment(totalComment)
+                .score(score)
+                .visitedStations(myStations)
+                .build();
     }
 }

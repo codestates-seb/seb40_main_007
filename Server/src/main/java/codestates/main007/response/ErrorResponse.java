@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Getter
 @AllArgsConstructor
-public class ErrorResponse { //v1
+public class ErrorResponse {
     private final Integer status;
     private final String message;
     private final List<FieldError> fieldErrors;
@@ -30,6 +30,7 @@ public class ErrorResponse { //v1
     public static ErrorResponse of(ExceptionCode exceptionCode) {
         return new ErrorResponse(exceptionCode.getStatus(), exceptionCode.getMessage(), null, null);
     }
+
     public static ErrorResponse of(HttpStatus httpStatus) {
         return new ErrorResponse(httpStatus.value(), httpStatus.getReasonPhrase(), null, null);
     }

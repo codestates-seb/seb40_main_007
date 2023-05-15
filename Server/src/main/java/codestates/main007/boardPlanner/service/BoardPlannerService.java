@@ -11,10 +11,7 @@ import codestates.main007.exception.ExceptionCode;
 import codestates.main007.member.service.MemberService;
 import codestates.main007.planner.dto.PlannerDto;
 import codestates.main007.planner.entity.Planner;
-import codestates.main007.planner.repository.PlannerRepository;
 import codestates.main007.planner.service.PlannerService;
-import codestates.main007.service.DistanceMeasuringService;
-import codestates.main007.time.entity.Time;
 import codestates.main007.time.service.TimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,10 +31,8 @@ public class BoardPlannerService {
     private final PlannerService plannerService;
     private final MemberService memberService;
     private final TimeService timeService;
-    private final DistanceMeasuringService distanceMeasuringService;
     private final BoardPlannerRepository boardPlannerRepository;
 
-    private final PlannerRepository plannerRepository;
     private final BoardPlannerMapper boardPlannerMapper;
     private final BoardMapper boardMapper;
 
@@ -48,7 +43,7 @@ public class BoardPlannerService {
         BoardPlanner createdBoardPlanner = BoardPlanner.builder()
                 .board(boardService.find(boardId))
                 .planner(plannerService.find(plannerId))
-                .priority((int)priority)
+                .priority((int) priority)
                 .build();
         if (memberService.findByAccessToken(accessToken).equals(plannerService.find(plannerId).getMember())) {
             if (planner.getBoardPlanners().size() >= 10) {
@@ -69,7 +64,7 @@ public class BoardPlannerService {
         List<Long> boardIds = planner.getBoardPlanners().stream()
                 .map(boardPlanner -> boardPlanner.getBoard().getBoardId())
                 .collect(Collectors.toList());
-        // todo
+
         if (boardIds.size() >= 1) {
             Long toId = boardIds.get(boardIds.size() - 1);
             timeService.find(board.getBoardId(), toId);

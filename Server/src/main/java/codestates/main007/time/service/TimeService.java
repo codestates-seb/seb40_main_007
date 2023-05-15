@@ -43,7 +43,7 @@ public class TimeService {
             Board toBoard = boardService.find(toId);
             if (toBoard.getStationId() == fromBoard.getStationId()) {
                 log.info("# 새 경로를 추가합니다.");
-                PlannerDto.Time timeType = distanceMeasuringService.getPlannerTime(fromBoard.getLatitude(), fromBoard.getLongitude(), toBoard.getLatitude(), toBoard.getLongitude());
+                PlannerDto.Time timeType = distanceMeasuringService.getPlannerTime(fromBoard.getGeography().getY(), fromBoard.getGeography().getX(), toBoard.getGeography().getY(), toBoard.getGeography().getX());
                 Thread.sleep(500);
                 return save(fromId, toId, timeType.getTime(), timeType.getType());
             } else {
@@ -53,8 +53,7 @@ public class TimeService {
         }
     }
 
-    public void deleteByBoardId(long boardId){
+    public void deleteByBoardId(long boardId) {
         timeRepository.deleteByFromIdOrToId(boardId, boardId);
     }
-    //todo: 업데이트
 }

@@ -8,5 +8,6 @@ import java.util.Optional;
 public interface TimeRepository extends JpaRepository<Time, Long> {
 
     Optional<Time> findByFromIdAndToId(long fromId, long toId);
-    void deleteByFromIdOrToId(long fromId,long toId);
+
+    void deleteByFromIdOrToId(long fromId, long toId);
 }

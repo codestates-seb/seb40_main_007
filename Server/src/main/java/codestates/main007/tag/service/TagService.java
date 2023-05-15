@@ -26,11 +26,11 @@ public class TagService {
         return tags;
     }
 
-    public Tag find(long tagId){
+    public Tag find(long tagId) {
         return tagRepository.findById(tagId).get();
     }
 
-    public List<Tag> findAll(List<Long> tagIds){
+    public List<Tag> findAll(List<Long> tagIds) {
         return tagRepository.findAllById(tagIds);
     }
 }
