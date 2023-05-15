@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -41,6 +42,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findByScoreGreaterThan(int length);
 
     List<Board> findByScoreLessThan(int length);
-    @Query(value = "select * from Board where ST_Distance_Sphere(geography, point = :geography <= 500")
-    List<Board> findAround(Point geography);
+    @Query(value = "select * from Board b where ST_Distance_Sphere(geography, b.geography = :point <= 500")
+    List<Board> findAround(@Param("point")Point geography);
 }
