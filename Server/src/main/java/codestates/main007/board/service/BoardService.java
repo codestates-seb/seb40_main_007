@@ -204,73 +204,7 @@ public class BoardService {
             List<String> imageUrls = findImageUrls(board);
             // 주변 가게 게시글 리스트
             List<Board> around = boardRepository.findAround(board.getGeography());// 근처 보드 정보
-
-            boolean isDibs = false;
-            int status = 0;
-            List<Boolean> booleans = new ArrayList<>();
-            for (int i = 0; i < around.size(); i++) {
-                booleans.add(false);
-            }
-
-            // 로그인 시에만 바뀌는 정보
-            if (accessToken != null) {
-                // 해당글 찜 여부
-                isDibs = checkDibs(accessToken, boardId);
-                Member member = memberService.findByAccessToken(accessToken);
-                // 해당글 추천 여부
-                status = checkScoreStatus(member, board);
-                // 주변 가게 찜 정보 리스트
-                booleans = findAroundDibs(accessToken, around);
-            }
-            // 주변가게 DTO로 변경
-            List<BoardDto.aroundResponse> aroundResponses = boardMapper.boardsToAround(around, booleans);
-
-            detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs, board.getWriter(), comments, imageUrls, status, aroundResponses);
-        }
-        return detailResponse;
-    }
-    public BoardDto.DetailResponse test(long boardId, String accessToken) {
-        Board board = find(boardId);
-        BoardDto.DetailResponse detailResponse = BoardDto.DetailResponse.builder().build();
-
-        // 식당,숙소의 경우 주소가 동일한 경우만 추출
-        if (board.getCategoryId() == 1 || board.getCategoryId() == 3) {
-            List<CommentDto.Response> comments = commentMapper.commentsToResponses(board.getComments());
-            // 해당글 이미지 리스트
-            List<String> imageUrls = findImageUrls(board);
-            // 주변 가게 게시글 리스트
-            List<Board> around = findByAddress(board.getAddress(), board.getStationId(), boardId, board.getCategoryId());// 근처 보드 정보
-
-            boolean isDibs = false;
-            int status = 0;
-            List<Boolean> booleans = new ArrayList<>();
-            for (int i = 0; i < around.size(); i++) {
-                booleans.add(false);
-            }
-            // 로그인 시에만 바뀌는 정보
-            if (accessToken != null) {
-                // 해당글 찜 여부
-                isDibs = checkDibs(accessToken, boardId);
-                // 해당글 추천 여부
-                Member member = memberService.findByAccessToken(accessToken);
-                status = checkScoreStatus(member, board);
-                // 주변 가게 찜 정보 리스트
-                booleans = findAroundDibs(accessToken, around);
-            }
-
-            // 주변가게 DTO로 변경
-            List<BoardDto.aroundResponse> aroundResponses = boardMapper.boardsToAround(around, booleans);
-
-            detailResponse = boardMapper.boardToDetailResponseDto(board, isDibs, board.getWriter(), comments, imageUrls, status, aroundResponses);
-
-            // 볼거리의 경우 근처애들 추출
-        } else if (board.getCategoryId() == 2) {
-            List<CommentDto.Response> comments = commentMapper.commentsToResponses(board.getComments());
-            // 해당글 이미지 리스트
-            List<String> imageUrls = findImageUrls(board);
-            // 주변 가게 게시글 리스트
-            List<Board> around = boardRepository.test(board.getGeography());// 근처 보드 정보
-
+            around.remove(board);
             boolean isDibs = false;
             int status = 0;
             List<Boolean> booleans = new ArrayList<>();
@@ -382,23 +316,6 @@ public class BoardService {
 
         Board board = find(boardId);
         boards.remove(board);
-
-        return boards;
-    }
-
-    public List<Board> findByAddressViewCategory(long stationId, long categoryId, long boardId) {
-        Board thisBoard = find(boardId);
-
-        List<Board> boards = boardRepository.findByStationIdAndCategoryId(stationId, categoryId);
-        for (int i = 0; i < boards.size(); i++) {
-            Board board = boards.get(i);
-            if (board.getGeography().getX() < thisBoard.getGeography().getX() - 0.000005 || board.getGeography().getX() > thisBoard.getGeography().getX() + 0.000005) {
-                boards.remove(board);
-            } else if (board.getGeography().getY() < thisBoard.getGeography().getY() - 0.000005 || board.getGeography().getY() > thisBoard.getGeography().getY() + 0.000005) {
-                boards.remove(board);
-            }
-        }
-        boards.remove(thisBoard);
 
         return boards;
     }
