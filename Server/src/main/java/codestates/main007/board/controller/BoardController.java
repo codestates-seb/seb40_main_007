@@ -55,15 +55,6 @@ public class BoardController {
         return detailResponse;
     }
 
-    @GetMapping("/test/{board-id}")
-    @ResponseStatus(HttpStatus.OK)
-    public BoardDto.DetailResponse testBoard(@RequestHeader(name = "Authorization", required = false) String accessToken,
-                                            @PathVariable("board-id") long boardId) {
-        BoardDto.DetailResponse detailResponse = boardService.test(boardId, accessToken);
-
-        return detailResponse;
-    }
-
     @PostMapping("{board-id}/up-vote")
     @ResponseStatus(HttpStatus.OK)
     public BoardDto.ScoreStatus upVote(@RequestHeader(name = "Authorization") String accessToken,
