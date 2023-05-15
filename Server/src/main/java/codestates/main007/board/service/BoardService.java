@@ -203,7 +203,7 @@ public class BoardService {
             // 해당글 이미지 리스트
             List<String> imageUrls = findImageUrls(board);
             // 주변 가게 게시글 리스트
-            List<Board> around = findByAddressViewCategory(board.getStationId(), board.getCategoryId(), boardId);// 근처 보드 정보
+            List<Board> around = boardRepository.findAround(board.getGeography());// 근처 보드 정보
 
             boolean isDibs = false;
             int status = 0;
