@@ -5,9 +5,11 @@ import codestates.main007.member.entity.Member;
 import codestates.main007.member.query.MemberScore;
 import codestates.main007.member.query.MemberStation;
 import codestates.main007.tag.entity.Tag;
+import org.locationtech.jts.geom.Point;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -39,4 +41,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findByScoreGreaterThan(int length);
 
     List<Board> findByScoreLessThan(int length);
+    @Query(value = "select * from Board where ST_Distance_Sphere(geography, point = :geography <= 500")
+    List<Board> findAround(Point geography);
 }
