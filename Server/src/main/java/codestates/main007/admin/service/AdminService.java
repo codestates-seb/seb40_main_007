@@ -94,7 +94,8 @@ public class AdminService {
 
             ArrayList<Long> cnt = reportReason[(int) board.getBoardId()];
             for (long num : cnt) {
-                reasonCnt[(int)num-1]++;
+                if (num == 0) continue;
+                reasonCnt[(int) num - 1]++;
             }
 
             BoardDto.ReportReasons reasons = BoardDto.ReportReasons
