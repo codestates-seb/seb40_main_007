@@ -42,6 +42,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findByScoreGreaterThan(int length);
 
     List<Board> findByScoreLessThan(int length);
-    @Query(value = "select * from Board b where ST_Distance_Sphere(geography, b.geography = :point <= 500")
-    List<Board> findAround(@Param("point")Point geography);
+    @Query(value = "select * from Board b where ST_Distance_Sphere(geography, b.geography = :point) <= 500", nativeQuery = true)
+    List<Board> findAround(@Param("point")Point point);
 }
