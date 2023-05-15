@@ -1,20 +1,15 @@
 package codestates.main007.board.controller;
 
-import codestates.main007.board.entity.Board;
 import codestates.main007.board.dto.BoardDto;
 import codestates.main007.board.mapper.BoardMapper;
 import codestates.main007.board.service.BoardService;
-import codestates.main007.comment.dto.CommentDto;
-import codestates.main007.comment.mapper.CommentMapper;
-import codestates.main007.member.entity.Member;
-import codestates.main007.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.locationtech.jts.io.ParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,7 +23,7 @@ public class BoardController {
     @ResponseStatus(HttpStatus.CREATED)
     public void postBoard(@RequestHeader(name = "Authorization") String accessToken,
                           @RequestPart("data") BoardDto.Input postDto,
-                          @RequestPart("files") List<MultipartFile> images) throws IOException {
+                          @RequestPart("files") List<MultipartFile> images) throws IOException, ParseException {
 
         boardService.save(accessToken, postDto, images);
     }
@@ -38,7 +33,7 @@ public class BoardController {
     public void patchBoard(@RequestHeader(name = "Authorization") String accessToken,
                            @PathVariable("board-id") long boardId,
                            @RequestPart("files") List<MultipartFile> images,
-                           @RequestPart("data") BoardDto.Patch patchDto) throws IOException {
+                           @RequestPart("data") BoardDto.Patch patchDto) throws IOException, ParseException {
 
         boardService.update(accessToken, boardId, patchDto, images);
     }

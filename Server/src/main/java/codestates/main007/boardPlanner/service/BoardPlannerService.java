@@ -11,8 +11,8 @@ import codestates.main007.exception.ExceptionCode;
 import codestates.main007.member.service.MemberService;
 import codestates.main007.planner.dto.PlannerDto;
 import codestates.main007.planner.entity.Planner;
-import codestates.main007.planner.repository.PlannerRepository;
 import codestates.main007.planner.service.PlannerService;
+import codestates.main007.time.service.TimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -30,18 +30,20 @@ public class BoardPlannerService {
     private final BoardService boardService;
     private final PlannerService plannerService;
     private final MemberService memberService;
+    private final TimeService timeService;
     private final BoardPlannerRepository boardPlannerRepository;
-    private final PlannerRepository plannerRepository;
+
     private final BoardPlannerMapper boardPlannerMapper;
     private final BoardMapper boardMapper;
 
-    public List<PlannerDto.MyPlannerWithBoards> save(String accessToken, long boardId, long plannerId) {
+    public List<PlannerDto.MyPlannerWithBoards> save(String accessToken, long boardId, long plannerId) throws InterruptedException {
         Board board = boardService.find(boardId);
         Planner planner = plannerService.find(plannerId);
+        long priority = System.currentTimeMillis() / 10000;
         BoardPlanner createdBoardPlanner = BoardPlanner.builder()
                 .board(boardService.find(boardId))
                 .planner(plannerService.find(plannerId))
-                .priority((int) boardId)
+                .priority((int) priority)
                 .build();
         if (memberService.findByAccessToken(accessToken).equals(plannerService.find(plannerId).getMember())) {
             if (planner.getBoardPlanners().size() >= 10) {
@@ -62,6 +64,12 @@ public class BoardPlannerService {
         List<Long> boardIds = planner.getBoardPlanners().stream()
                 .map(boardPlanner -> boardPlanner.getBoard().getBoardId())
                 .collect(Collectors.toList());
+
+        if (boardIds.size() >= 1) {
+            Long toId = boardIds.get(boardIds.size() - 1);
+            timeService.find(board.getBoardId(), toId);
+        }
+
         boardIds.add(createdBoardPlanner.getBoard().getBoardId());
         List<PlannerDto.MyPlannerWithBoards> responses = plannerService.getMyPlannerWithBoards(accessToken);
         PlannerDto.MyPlannerWithBoards response = PlannerDto.MyPlannerWithBoards.builder()
@@ -70,7 +78,7 @@ public class BoardPlannerService {
                 .boardIds(boardIds)
                 .build();
         for (int i = 0; i < responses.size(); i++) {
-            if(responses.get(i).getPlannerId()==plannerId){
+            if (responses.get(i).getPlannerId() == plannerId) {
                 responses.set(i, response);
             }
         }
@@ -114,7 +122,6 @@ public class BoardPlannerService {
                         .sorted(Comparator.comparing(BoardPlanner::getPriority))
                         .map(BoardPlanner::getBoard)
                         .collect(Collectors.toList()));
-
         return plannerService.getMyPlannerResponse(plannerId, planner, timeList, boardMapper);
     }
 

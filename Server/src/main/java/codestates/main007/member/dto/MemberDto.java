@@ -40,7 +40,7 @@ public class MemberDto {
         private LocalDateTime createdAt;
         private TagDto.Response tags;
 
-        public void setDibs(boolean isDibs){
+        public void setDibs(boolean isDibs) {
             this.dibs = isDibs;
         }
     }
@@ -94,6 +94,7 @@ public class MemberDto {
         private int score;
         private List<Long> visitedStations;
     }
+
     @Getter
     @Builder
     @NoArgsConstructor
@@ -123,27 +124,4 @@ public class MemberDto {
         private String name;
         private String avatar;
     }
-    // 삭제 예정
-//    @Getter
-//    @Builder
-//    @NoArgsConstructor
-//    @AllArgsConstructor
-//    public static class MyMap {
-//        private long boardId;
-//        private String thumbnail;
-//        private double latitude;
-//        private double longitude;
-//    }
-//
-//    @Getter
-//    @Builder
-//    @NoArgsConstructor
-//    @AllArgsConstructor
-//    public static class MyPage {
-//        private long boardId;
-//        private String title;
-//        private String review;
-//        private double star;
-//        private int timeFromStation;
-//    }
 }

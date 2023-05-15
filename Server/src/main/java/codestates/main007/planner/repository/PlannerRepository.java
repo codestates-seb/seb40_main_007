@@ -9,5 +9,6 @@ import java.util.Optional;
 
 public interface PlannerRepository extends JpaRepository<Planner, Long> {
     List<Planner> findAllByMember(Member member);
+
     Optional<Planner> findByMemberAndPlannerName(Member member, String plannerName);
 }

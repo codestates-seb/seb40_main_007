@@ -21,6 +21,8 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -42,7 +44,6 @@ public class ImageHandler {
 
     public String updateAvatar(MultipartFile image, Member member) throws IOException {
         // 절대 경로 설정
-        // todo: 나중에 s3로 변경
         String absolutePath = new File("").getAbsolutePath() + "/";
         // 저장 경로 설정
         String path = "images/avatar";
@@ -73,7 +74,8 @@ public class ImageHandler {
         file = new File(absolutePath + path + "/" + newFileName);
         image.transferTo(file);
 
-        Thumbnails.of(file).size(100, 100).outputFormat("png").toFile(file);
+        BufferedImage thumbnailImage = Thumbnails.of(file).size(300, 300).asBufferedImage();
+        ImageIO.write(thumbnailImage, "png", file);
 
         FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(file.toPath()), false, file.getName(), (int) file.length(), file.getParentFile());
 
@@ -84,6 +86,7 @@ public class ImageHandler {
             // Or faster..
             // IOUtils.copy(new FileInputStream(file), fileItem.getOutputStream());
         } catch (IOException ex) {
+
             // do something.
         }
 
@@ -123,7 +126,7 @@ public class ImageHandler {
         for (int i = 0; i < multipartFiles.size(); i++) {
             MultipartFile image = multipartFiles.get(i);
 
-            String fileName = "board_images/" + board.getBoardId() + "board_" + System.nanoTime() ;
+            String fileName = "board_images/" + board.getBoardId() + "board_" + System.nanoTime();
             String thumbnailName = "board_thumbnail/" + System.nanoTime() + "thumbnail_of_" + board.getBoardId();
 
             //파일 형식 구하기
@@ -187,7 +190,6 @@ public class ImageHandler {
                         }
 
                         String newFileName = System.nanoTime() + originalFileExtension;
-
                         file = new File(absolutePath + path + "/" + newFileName);
                         image.transferTo(file);
 
@@ -200,7 +202,8 @@ public class ImageHandler {
     }
 
     public void makeThumbnail(File file, Board board, String contentType, String thumbnailName) throws IOException {
-        Thumbnails.of(file).size(300, 300).outputFormat("png").toFile(file);
+        BufferedImage thumbnailImage = Thumbnails.of(file).size(300, 300).asBufferedImage();
+        ImageIO.write(thumbnailImage, "png", file);
 
         FileItem fileItem = new DiskFileItem("mainFile", Files.probeContentType(file.toPath()), false, file.getName(), (int) file.length(), file.getParentFile());
 
@@ -376,21 +379,5 @@ public class ImageHandler {
         }
 
         return boardImages;
-    }
-
-    public void deleteImage(String fileName) {
-        try {
-            amazonS3.deleteObject(bucket, "/" + fileName);
-        } catch (AmazonServiceException e) {
-            System.err.println(e.getErrorMessage());
-        }
-    }
-
-    public void deleteThumbnail(String thumbNailName) {
-        try {
-            amazonS3.deleteObject(bucket, "/" + thumbNailName);
-        } catch (AmazonServiceException e) {
-            System.err.println(e.getErrorMessage());
-        }
     }
 }

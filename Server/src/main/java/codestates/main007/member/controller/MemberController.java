@@ -1,13 +1,9 @@
 package codestates.main007.member.controller;
 
-import codestates.main007.board.dto.BoardDto;
 import codestates.main007.board.entity.Board;
 import codestates.main007.board.repository.BoardRepository;
-import codestates.main007.board.service.BoardService;
-import codestates.main007.boardNotice.entity.BoardNotice;
 import codestates.main007.boardNotice.service.BoardNoticeService;
 import codestates.main007.comment.entity.Comment;
-import codestates.main007.comment.repository.CommentRepository;
 import codestates.main007.dto.MultiResponseDto;
 import codestates.main007.dto.PageDto;
 import codestates.main007.member.entity.Member;
@@ -37,10 +33,8 @@ public class MemberController {
 
     private final MemberService memberService;
     private final BoardRepository boardRepository;
-    private final CommentRepository commentRepository;
     private final MemberMapper memberMapper;
     private final EmailService emailService;
-    private final BoardService boardService;
     private final BoardNoticeService boardNoticeService;
 
     @PostMapping("/signup")
@@ -129,21 +123,8 @@ public class MemberController {
     @GetMapping("/info")
     @ResponseStatus(HttpStatus.OK)
     public MemberDto.Info getMyInfo(@RequestHeader(name = "Authorization") String accessToken) {
-        Member member = memberService.findByAccessToken(accessToken);
 
-        int totalBoard = boardRepository.countByWriter(member);
-        int totalComment = commentRepository.countByWriter(member);
-        int score = memberService.findMyScore(member);
-        List<Long> myStations = memberService.findMyStations(member);
-
-        MemberDto.Info myInfo = MemberDto.Info.builder()
-                .totalBoard(totalBoard)
-                .totalComment(totalComment)
-                .score(score)
-                .visitedStations(myStations)
-                .build();
-
-        return myInfo;
+        return memberService.getMyInfo(accessToken);
     }
 
     @GetMapping("/notice")
@@ -156,11 +137,11 @@ public class MemberController {
     @DeleteMapping("/notice/{board-id}/{sender-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void getMyNoticePage(@RequestHeader(name = "Authorization") String accessToken,
-                                                   @PathVariable("board-id") long boardId,
-                                                   @PathVariable("sender-id") long senderId,
-                                                   @RequestHeader(name = "Notice") String notice) {
+                                @PathVariable("board-id") long boardId,
+                                @PathVariable("sender-id") long senderId,
+                                @RequestHeader(name = "Notice") String notice) {
         Member sender = memberService.find(senderId);
-        boardNoticeService.delete(boardId,sender,notice);
+        boardNoticeService.delete(boardId, sender, notice);
     }
 
     @PatchMapping
@@ -173,8 +154,7 @@ public class MemberController {
 
     @PostMapping("/refresh-token")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ResponseEntity<String> validateRefreshToken(@RequestHeader(name = "RefreshToken") String refreshToken){
-
+    public ResponseEntity<String> validateRefreshToken(@RequestHeader(name = "RefreshToken") String refreshToken) {
         String reissuedToken = memberService.reissueAccessToken(refreshToken);
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Authorization", reissuedToken);
@@ -185,7 +165,7 @@ public class MemberController {
 
     @PostMapping("/logout")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void logout(@RequestHeader (name = "Authorization") String accessToken){
+    public void logout(@RequestHeader(name = "Authorization") String accessToken) {
 
         memberService.deleteRefreshToken(accessToken);
     }

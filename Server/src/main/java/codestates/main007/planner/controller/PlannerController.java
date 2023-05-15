@@ -17,7 +17,7 @@ public class PlannerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MultiResponseDto<PlannerDto.MyPlannersResponse> postPlanner(
+    public MultiResponseDto<PlannerDto.MyPlannerWithBoards> postPlanner(
             @RequestHeader(name = "Authorization") String accessToken,
             @RequestBody PlannerDto.Input inputDto) throws IOException {
 

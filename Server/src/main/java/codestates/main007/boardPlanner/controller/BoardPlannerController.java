@@ -15,11 +15,12 @@ import java.io.IOException;
 @RequestMapping("/boardplanners")
 public class BoardPlannerController {
     private final BoardPlannerService boardPlannerService;
+
     @PostMapping("/{board-id}/{planner-id}")
     @ResponseStatus(HttpStatus.CREATED)
     public MultiResponseDto<PlannerDto.MyPlannerWithBoards> postBoardPlanner(@RequestHeader(name = "Authorization") String accessToken,
                                                                              @PathVariable("board-id") long boardId,
-                                                                             @PathVariable("planner-id") long plannerId) throws IOException {
+                                                                             @PathVariable("planner-id") long plannerId) throws IOException, InterruptedException {
 
         return MultiResponseDto.of(boardPlannerService.save(accessToken, boardId, plannerId));
     }

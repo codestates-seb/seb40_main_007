@@ -30,7 +30,7 @@ public class BoardPlanner {
     @JoinColumn(name = "planner_id")
     private Planner planner;
 
-    public void setPriority(int priority){
-        this.priority=priority;
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 }

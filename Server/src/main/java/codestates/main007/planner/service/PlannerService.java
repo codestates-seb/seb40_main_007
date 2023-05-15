@@ -2,6 +2,7 @@ package codestates.main007.planner.service;
 
 import codestates.main007.board.entity.Board;
 import codestates.main007.board.mapper.BoardMapper;
+import codestates.main007.board.repository.BoardRepository;
 import codestates.main007.boardPlanner.entity.BoardPlanner;
 import codestates.main007.exception.ExceptionCode;
 import codestates.main007.member.entity.Member;
@@ -11,6 +12,8 @@ import codestates.main007.planner.entity.Planner;
 import codestates.main007.planner.mapper.PlannerMapper;
 import codestates.main007.planner.repository.PlannerRepository;
 import codestates.main007.service.DistanceMeasuringService;
+import codestates.main007.time.entity.Time;
+import codestates.main007.time.service.TimeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -28,11 +31,12 @@ import java.util.stream.Collectors;
 public class PlannerService {
     private final PlannerRepository plannerRepository;
     private final MemberService memberService;
+    private final TimeService timeService;
     private final DistanceMeasuringService distanceMeasuringService;
     private final PlannerMapper plannerMapper;
     private final BoardMapper boardMapper;
 
-    public List<PlannerDto.MyPlannersResponse> save(String accessToken, PlannerDto.Input inputDto) throws IOException {
+    public List<PlannerDto.MyPlannerWithBoards> save(String accessToken, PlannerDto.Input inputDto) throws IOException {
         String plannerName = plannerMapper.inputDtoToentity(inputDto).getPlannerName();
         Member member = memberService.findByAccessToken(accessToken);
         if (plannerRepository.findByMemberAndPlannerName(member, plannerName).isEmpty()) {
@@ -42,7 +46,7 @@ public class PlannerService {
                     .build();
             plannerRepository.save(createdPlanner);
 
-            return getMyPlanners(accessToken);
+            return getMyPlannerWithBoards(accessToken);
         } else
             throw new ResponseStatusException(ExceptionCode.PLANNER_EXISTS.getStatus(), ExceptionCode.PLANNER_EXISTS.getMessage(), new IllegalArgumentException());
 
@@ -114,6 +118,7 @@ public class PlannerService {
         }
         return responses;
     }
+
     public List<PlannerDto.MyPlannersResponse> getMyPlanners(String accessToken) {
         Member member = memberService.findByAccessToken(accessToken);
         List<Planner> planners = plannerRepository.findAllByMember(member);
@@ -134,27 +139,19 @@ public class PlannerService {
     public List<PlannerDto.Time> getTimeBetweenBoardsList(List<Board> boards) throws InterruptedException {
         List<PlannerDto.Time> timeList = new ArrayList<>();
         for (int i = 0; i < boards.size() - 1; i++) {
-            if (boards.get(i).getStationId() != boards.get(i + 1).getStationId()) {
-                timeList.add(
-                        PlannerDto.Time.builder()
-                                .type("train")
-                                .build()
-                );
-            } else {
-                timeList.add(
-                        getTimeBetweenBoards(boards.get(i), boards.get(i + 1))
-                );
-            }
+            // todo:
+            long toId = boards.get(i).getBoardId();
+            long fromId = boards.get(i + 1).getBoardId();
+            Time time = timeService.find(fromId, toId);
 
-            Thread.sleep(400);
+            PlannerDto.Time timeDto = PlannerDto.Time.builder()
+                    .time(time.getTime())
+                    .type(time.getType())
+                    .build();
+
+            timeList.add(timeDto);
         }
-        return timeList;
-    }
 
-    public PlannerDto.Time getTimeBetweenBoards(Board from, Board to) throws InterruptedException {
-        return distanceMeasuringService.getPlannerTime(from.getLatitude(),
-                from.getLongitude(),
-                to.getLatitude(),
-                to.getLongitude());
+        return timeList;
     }
 }

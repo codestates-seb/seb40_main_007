@@ -37,7 +37,7 @@ public class OAuthMemberAuthenticationSuccessHandler extends SimpleUrlAuthentica
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException {
-        
+
         var oAuth2User = (OAuth2User) authentication.getPrincipal();
         String name;
         String email;

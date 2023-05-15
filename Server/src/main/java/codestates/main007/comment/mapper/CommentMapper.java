@@ -5,15 +5,14 @@ import codestates.main007.comment.entity.Comment;
 import codestates.main007.member.dto.MemberDto;
 import org.mapstruct.Mapper;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
-    default List<CommentDto.Response> commentsToResponses(List<Comment> comments){
+    default List<CommentDto.Response> commentsToResponses(List<Comment> comments) {
         List<CommentDto.Response> responses = new ArrayList<>();
-        for (Comment comment : comments){
+        for (Comment comment : comments) {
             MemberDto.Writer writer = MemberDto.Writer.builder()
                     .memberId(comment.getWriter().getMemberId())
                     .name(comment.getWriter().getName())
